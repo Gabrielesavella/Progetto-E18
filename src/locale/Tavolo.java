@@ -1,3 +1,7 @@
+package locale;
+import  vincoli.*;
+import persone.*;
+
 
 public class Tavolo {
     

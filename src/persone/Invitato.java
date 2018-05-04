@@ -1,3 +1,5 @@
+package persone;
+
 /*@author Marco Maffoni,Gabriele Savella*/
 public class Invitato {
 
