@@ -1,7 +1,3 @@
-package locale;
-
-import persone.Invitato;
-import vincoli.SpecificaTavolo;
 
 public class Tavolo {
     
@@ -11,14 +7,24 @@ public class Tavolo {
     private boolean disponibile;
     private Invitato[] arrPostiTavolo;
     private SpecificaTavolo tipoTavolo;
-    
+
+    /*mettiamo due costruttori, in cui specifichiamo che il tavolo
+    (almeno nella fase iniziale del progetto) è interno al locale.
+    Nel costruttore 1, il tavolo ha un numero fisso di posti .
+    Nel costruttore 2, il tavolo ha un numero di posti deciso da programma
+    ( in modo da rendere più flessibile il programma )
+     */
+    public Tavolo(String id_tavolo){
+        num_posti = 6;
+        interno = true;
+    }
     public Tavolo (String id_tavolo, int num_posti){
         arrPostiTavolo = new Invitato[num_posti];
+        interno = true;
         disponibile = true;
-        interno=true;
     }
     
-    public boolean getInterno() {
+    public boolean getInterno(){
         return interno;
     }
     
