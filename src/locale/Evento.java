@@ -19,6 +19,20 @@ public class Evento {
 
     /*nell'uml manca la data dell'evento ( l'aggiungo al costruttore )]*/
 
+    public Evento(String nomeEvento, GregorianCalendar dataEvento, Locale location){
+
+        /*Crea un Evento caratterizzato da un nome, una data e un Locale. Al suo interno verranno successivamente inseriti
+        una lista di Invitati e di Vincoli*/
+
+
+        this.nomeEvento = nomeEvento;
+        this.location = location;
+        this.dataEvento = dataEvento;
+        lista_vincoli = new ArrayList();
+        invitati = new ArrayList();
+        this.invitati.addAll(invitati);
+
+    }
 
     public Evento(String nomeEvento, GregorianCalendar dataEvento, Locale location,
                   ArrayList <Vincolo> lista_vincoli, ArrayList <Invitato> invitati){
