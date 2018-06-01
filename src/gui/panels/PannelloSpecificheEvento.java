@@ -84,13 +84,13 @@ public class PannelloSpecificheEvento extends JPanel {
                     String tmp=scanner.nextLine();
                     str=tmp.split("\t\t");
                     if(str.length!=5){
-                        System.out.println("life is gne gne beautyfull!!");
+                        System.out.println("Invitati inferiori al numero previsto.");
                         break;
                     }
                     evento.addInvitati(new Invitato(str[1],str[2],str[3],Integer.parseInt(str[4])));
 
                 }
-                System.out.println("life is very beautyfull!!");
+                System.out.println("Acquisizione invitati effettuata.");
 
             }
         });
