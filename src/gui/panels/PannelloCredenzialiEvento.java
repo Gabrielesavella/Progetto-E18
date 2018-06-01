@@ -1,6 +1,7 @@
 package gui.panels;
 
 import gui.finestre.FinestraSpecificheEvento;
+import locale.Evento;
 import locale.Locale;
 
 import javax.swing.*;
@@ -8,14 +9,15 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.GregorianCalendar;
 
 public class PannelloCredenzialiEvento extends JPanel{
     public PannelloCredenzialiEvento(ArrayList<locale.Locale> locali){
         JButton ok=new JButton("OK");
 
-        JLabel nome= new JLabel("Nome locale.Evento:");
-        JLabel data= new JLabel("Data locale.Evento:");
-        JLabel selLoc= new JLabel("Selezione locale.Locale:");
+        JLabel nome= new JLabel("Nome Evento:");
+        JLabel data= new JLabel("Data Evento:");
+        JLabel selLoc= new JLabel("Selezione Locale:");
         JLabel nInv= new JLabel("Numero Invitati:");
 
         JTextField tNome= new JTextField();
@@ -64,8 +66,23 @@ public class PannelloCredenzialiEvento extends JPanel{
         ok.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                FinestraSpecificheEvento fs= new FinestraSpecificheEvento(locali);
-                fs.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+                Locale localeSelezionato=null;
+
+                int invitati=Integer.parseInt(tnInv.getText());
+                int annoInt= Integer.parseInt(anno.getText());
+                int meseInt= Integer.parseInt(mese.getText());
+                int giornoInt= Integer.parseInt(giorno.getText());
+                GregorianCalendar calendar = new GregorianCalendar(annoInt,meseInt,giornoInt);
+
+                for (Locale l:locali) {
+                    if(l.id_locale.equals(dropDownLocali.getSelectedItem())) {
+                        localeSelezionato=l;
+                    }
+                }
+
+                Evento evento=new Evento(tNome.getText(),calendar,localeSelezionato,invitati);
+                FinestraSpecificheEvento fs= new FinestraSpecificheEvento(locali,evento);
+                //fs.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
                 fs.setVisible(true);
             }
         });

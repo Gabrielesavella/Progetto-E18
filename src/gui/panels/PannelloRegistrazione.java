@@ -84,9 +84,11 @@ public class PannelloRegistrazione extends JPanel {
 
             }
         });
+
     }
 
     public static ArrayList<Cliente> getClienti() {
         return clienti;
     }
+    
 }

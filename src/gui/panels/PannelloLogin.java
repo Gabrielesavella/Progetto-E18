@@ -47,7 +47,7 @@ public class PannelloLogin extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 FinestraRegistrazione fr=new FinestraRegistrazione(locali);
-                fr.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+                //fr.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
                 fr.setVisible(true);
             }
         });

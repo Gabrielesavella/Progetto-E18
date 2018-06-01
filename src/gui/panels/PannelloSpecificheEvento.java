@@ -1,14 +1,22 @@
 package gui.panels;
 
+import locale.Evento;
 import locale.Locale;
+import persone.Invitato;
+
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.geom.AffineTransform;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.*;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class PannelloSpecificheEvento extends JPanel {
-    public PannelloSpecificheEvento(ArrayList<Locale> locali){
+    public PannelloSpecificheEvento(ArrayList<Locale> locali, Evento evento){
+
+
         // etichette specifiche
         JLabel compila= new JLabel("compila lista invitati");
         JLabel carica= new JLabel("carica lista invitati");
@@ -25,10 +33,10 @@ public class PannelloSpecificheEvento extends JPanel {
         Image newImage2= img2.getScaledInstance(WIDHT,HEIGHT,1);
         ImageIcon newI2=new ImageIcon(newImage2);
         // bottoni
-        JButton bCompila= new JButton(newI);
-        bCompila.setPreferredSize(new Dimension(WIDHT,HEIGHT));
-        JButton b2Compila= new JButton(newI2);
-        bCompila.setPreferredSize(new Dimension(WIDHT,HEIGHT));
+        JButton bDownload= new JButton(newI);
+        bDownload.setPreferredSize(new Dimension(WIDHT,HEIGHT));
+        JButton bUpload= new JButton(newI2);
+        bDownload.setPreferredSize(new Dimension(WIDHT,HEIGHT));
 
         // campi testo
         JLabel tdownloadExcel= new JLabel("download");
@@ -36,8 +44,48 @@ public class PannelloSpecificheEvento extends JPanel {
 
         setLayout(new GridLayout(2,2));
         add(tdownloadExcel);
-        add(bCompila);
+        add(bDownload);
         add(tuploadExcel);
-        add(b2Compila);
+        add(bUpload);
+
+        bDownload.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                PrintWriter writer = null;
+                try {
+                    writer = new PrintWriter("the-file-name.txt", "UTF-8");
+                } catch (FileNotFoundException e1) {
+                    e1.printStackTrace();
+                } catch (UnsupportedEncodingException e1) {
+                    e1.printStackTrace();
+                }
+
+                writer.println("\t\tCod.Fiscale\tNome\tCognome\tetà");
+                for (int i = 0; i<evento.getNumInvitati(); i++)
+                    writer.println(i+1+"\t\t");
+                writer.close();
+            }
+        });
+
+        bUpload.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e)  {
+//                Scanner scanner= null;
+//                try {
+//                    scanner = new Scanner(new InputStreamReader(new FileInputStream(new FileReader(new File ("the-file-name.txt")))));
+//                } catch (FileNotFoundException e1) {
+//                    e1.printStackTrace();
+//                }
+//                while (scanner.hasNextLine()){
+//                    String[] str=new String[5];
+//                    String tmp=scanner.nextLine();
+//                    System.out.println(tmp);
+//                    str=tmp.split("\t");
+//                    System.out.println(str.length);
+//                    evento.addInvitati(new Invitato(str[1],str[2],str[3],Integer.parseInt(str[4])));
+//
+//                }
+            }
+        });
     }
 }

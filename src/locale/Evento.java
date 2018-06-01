@@ -14,12 +14,13 @@ public class Evento {
     private ArrayList <Invitato> invitati;
     private  ArrayList <Vincolo> lista_vincoli;
     private GregorianCalendar dataEvento;
+    private int numInvitati;
 
 
 
     /*nell'uml manca la data dell'evento ( l'aggiungo al costruttore )]*/
 
-    public Evento(String nomeEvento, GregorianCalendar dataEvento, Locale location){
+    public Evento(String nomeEvento, GregorianCalendar dataEvento, Locale location, int numInvitati){
 
         /*Crea un Evento caratterizzato da un nome, una data e un Locale. Al suo interno verranno successivamente inseriti
         una lista di Invitati e di Vincoli*/
@@ -29,8 +30,8 @@ public class Evento {
         this.location = location;
         this.dataEvento = dataEvento;
         lista_vincoli = new ArrayList();
-        invitati = new ArrayList();
-        this.invitati.addAll(invitati);
+        this.invitati = new ArrayList(numInvitati);
+        this.numInvitati=numInvitati;
 
     }
 
@@ -60,6 +61,8 @@ public class Evento {
         this.location = location;
     }
 
+    public void addInvitati(Invitato invitato){invitati.add(invitato);}
+
     /* invitati dove li prendo?? dove sono memorizzati?? (non sono già nel Database da prima perchè li passa il persone)
     una possibile soluzione può essere creare una factory build?
     si possono aggiungere invitati? [nel caso andrà cambiato anche il numero di posti disponibili e il numero di tavoli
@@ -72,6 +75,8 @@ public class Evento {
     /*public void setInvitati(ArrayList <persone.Invitato> invitati) {
         this.invitati = invitati;
     }*/
+
+    public int getNumInvitati(){return numInvitati;}
 
     public void setLista_vincoli(ArrayList <Vincolo> lista_vincoli) {
         this.lista_vincoli = lista_vincoli;
