@@ -1,5 +1,6 @@
 package gui.panels;
 
+import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
 import locale.Evento;
 import locale.Locale;
 import persone.Invitato;
@@ -62,7 +63,7 @@ public class PannelloSpecificheEvento extends JPanel {
 
                 writer.println("\t\tCod.Fiscale\tNome\tCognome\tetà");
                 for (int i = 0; i<evento.getNumInvitati(); i++)
-                    writer.println(i+1+"\t\t");
+                    writer.println(i+1+"\t\t\t\t\t\t\t\t");
                 writer.close();
             }
         });
@@ -70,21 +71,27 @@ public class PannelloSpecificheEvento extends JPanel {
         bUpload.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e)  {
-//                Scanner scanner= null;
-//                try {
-//                    scanner = new Scanner(new InputStreamReader(new FileInputStream(new FileReader(new File ("the-file-name.txt")))));
-//                } catch (FileNotFoundException e1) {
-//                    e1.printStackTrace();
-//                }
-//                while (scanner.hasNextLine()){
-//                    String[] str=new String[5];
-//                    String tmp=scanner.nextLine();
-//                    System.out.println(tmp);
-//                    str=tmp.split("\t");
-//                    System.out.println(str.length);
-//                    evento.addInvitati(new Invitato(str[1],str[2],str[3],Integer.parseInt(str[4])));
-//
-//                }
+                Scanner scanner= null;
+                try {
+                    File fin=new File("the-file-name.txt");
+                    scanner = new Scanner(new InputStreamReader(new FileInputStream(fin)));
+                } catch (FileNotFoundException e1) {
+                    e1.printStackTrace();
+                }
+                String bin=scanner.nextLine();
+                while (scanner.hasNextLine()){
+                    String[] str=new String[5];
+                    String tmp=scanner.nextLine();
+                    str=tmp.split("\t\t");
+                    if(str.length!=5){
+                        System.out.println("life is gne gne beautyfull!!");
+                        break;
+                    }
+                    evento.addInvitati(new Invitato(str[1],str[2],str[3],Integer.parseInt(str[4])));
+
+                }
+                System.out.println("life is very beautyfull!!");
+
             }
         });
     }
