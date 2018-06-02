@@ -2,6 +2,8 @@ package locale;
 import  vincoli.*;
 import persone.*;
 
+import java.util.ArrayList;
+
 
 public class Tavolo {
 	/*
@@ -40,7 +42,25 @@ public class Tavolo {
         disponibile = true;
         this.num_posti = num_posti;
     }
-    
+
+    public ArrayList<Invitato> addInvitato(ArrayList<Invitato> in){
+        if (num_posti>0) {
+            for (Invitato i : in) {
+
+                if(arrPostiTavolo==null) {
+
+                    arrPostiTavolo[num_posti] = i;
+                    num_posti--;
+                    in.remove(i);
+
+                }
+            }
+        }
+        return in;
+    }
+
+
+
     public boolean getInterno(){
         return interno;
     }
@@ -57,4 +77,6 @@ public class Tavolo {
     public int getNumPosti(){
         return num_posti;
     }
+
+    public Invitato[] getArrayInvitati(){ return arrPostiTavolo;}
 }

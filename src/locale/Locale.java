@@ -1,5 +1,7 @@
 package locale;
 
+import persone.Invitato;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -19,7 +21,7 @@ import java.util.GregorianCalendar;
 public class Locale {
 
     static int numLoc = 0;
-    private Evento e;
+    public ArrayList<Evento> eventi_locale;
     public String id_locale;
     private int numMaxTavoli;
     private int numMaxPosti;
@@ -40,6 +42,7 @@ public class Locale {
         this.giornodichiusura=giornoChiusura;
         this.oraApertura=oraApertura;
         this.oraChiusura=oraChiusura;
+        eventi_locale = new ArrayList<>();
     }
     /*
     AGGIUNTA: in questo costruttore ho passato anche i tavoli
@@ -57,7 +60,33 @@ public class Locale {
         oraChiusura.add(GregorianCalendar.MINUTE,0);
         //giorno di chiusura lunedì
         this.giornodichiusura.add(GregorianCalendar.DAY_OF_WEEK,2);
+        eventi_locale = new ArrayList<>();
     }
+
+
+    public void smistamentoTavoli(Evento e){
+
+        for (Evento ev : eventi_locale){
+            if (ev.equals(e)){
+
+
+
+
+                for (Tavolo t : tavoli){
+                    if (t.getDisponibile())
+                        ev.getListaInvitati().removeAll(t.addInvitato(ev.getListaInvitati()));
+
+                }
+
+
+
+            }
+        }
+
+
+
+    }
+
 
 
     public int getMinTavoli(int num_invitati){
@@ -88,6 +117,8 @@ public class Locale {
     	return capienza;
     	
     }
+
+    public ArrayList<Evento> getEventi(){ return eventi_locale; }
     /*
     creo un getter per il numero max di posti
     che li conta ogni volta tramite il metodo getMaxSeats()

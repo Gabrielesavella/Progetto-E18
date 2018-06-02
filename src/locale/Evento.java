@@ -32,8 +32,12 @@ public class Evento {
         lista_vincoli = new ArrayList();
         this.invitati = new ArrayList(numInvitati);
         this.numInvitati=numInvitati;
-
+        location.getEventi().add(this);
     }
+
+    public String getName(){return nomeEvento;}
+
+
 
     public Evento(String nomeEvento, GregorianCalendar dataEvento, Locale location,
                   ArrayList <Vincolo> lista_vincoli, ArrayList <Invitato> invitati){
@@ -48,10 +52,12 @@ public class Evento {
         this.lista_vincoli.addAll(lista_vincoli);
         invitati = new ArrayList();
         this.invitati.addAll(invitati);
+        location.getEventi().add(this);
 
     }
     /*NOTA PER ME: provare a togliere new ArrayList prima del metodo "add All" per vedere se funziona lo stesso*/
 
+    public Locale getLocation(){ return location;}
 
     public void setNomeEvento(String nomeEvento) {
         this.nomeEvento = nomeEvento;
@@ -81,6 +87,8 @@ public class Evento {
     public void setLista_vincoli(ArrayList <Vincolo> lista_vincoli) {
         this.lista_vincoli = lista_vincoli;
     }
+
+    public ArrayList<Invitato> getListaInvitati(){return invitati;}
 
     public void setDataEvento(GregorianCalendar dataEvento) {
         this.dataEvento = dataEvento;
