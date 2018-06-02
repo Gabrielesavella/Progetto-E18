@@ -28,6 +28,9 @@ public class PrenotazionePosti {
         orarioapertura.add(GregorianCalendar.HOUR,9);
         GregorianCalendar chiusura = new GregorianCalendar();
         chiusura.add(GregorianCalendar.HOUR,18);
+        GregorianCalendar orarioEvento = new GregorianCalendar();
+        orarioEvento.add(GregorianCalendar.HOUR, 12);
+        orarioEvento.add(GregorianCalendar.MINUTE, 30);
         /*
         i locali chiudono tutti il lunedì (questa è l'intenzione)
         link per vedere che il giorno di chiusura lunedì ha costante 2
@@ -36,6 +39,14 @@ public class PrenotazionePosti {
         //
         chiusura.add(GregorianCalendar.DAY_OF_WEEK,2);
         Locale daMimmo = new Locale("da Giulio",20,listaTavoli,chiusura,orarioapertura, chiusura);
+        Locale bellaNapoli = new Locale ("Bella Napoli", 30, listaTavoli, chiusura, orarioapertura, chiusura);
+
+        Evento e = new Evento("Matrimonio", orarioapertura,  bellaNapoli, 40);
+
+        Evento k = new Evento("Battesimo", orarioEvento, bellaNapoli, 50);
+
+
+        System.out.println(bellaNapoli.stampaNomeEventi());
     }
     
 }

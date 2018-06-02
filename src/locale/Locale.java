@@ -119,6 +119,14 @@ public class Locale {
     }
 
     public ArrayList<Evento> getEventi(){ return eventi_locale; }
+
+    public String stampaNomeEventi(){
+        String a="";
+        for (Evento e : eventi_locale){
+            a += e.getName() + "\n";
+        }
+        return a;
+    }
     /*
     creo un getter per il numero max di posti
     che li conta ogni volta tramite il metodo getMaxSeats()
