@@ -55,7 +55,7 @@ public class Evento {
         location.getEventi().add(this);
 
     }
-    /*NOTA PER ME: provare a togliere new ArrayList prima del metodo "add All" per vedere se funziona lo stesso*/
+
 
     public Locale getLocation(){ return location;}
 
@@ -69,15 +69,7 @@ public class Evento {
 
     public void addInvitati(Invitato invitato){invitati.add(invitato);}
 
-    /* invitati dove li prendo?? dove sono memorizzati?? (non sono già nel Database da prima perchè li passa il persone)
-    una possibile soluzione può essere creare una factory build?
-    si possono aggiungere invitati? [nel caso andrà cambiato anche il numero di posti disponibili e il numero di tavoli
-    ( in alcuni casi )]
-    PARERE PERSONALE: la lista invitati non si può modificare[almeno inizialmente,perchè in caso di modifica
-     crea una catena di eventi a cascata che influenzano il programma (va gestito), nel caso iniziale
-     direi di renderlo non modificabile (nel caso più che un set invitato ha senso mettere un aggiungi o rimuovi
-     invitato
-     */
+
     /*public void setInvitati(ArrayList <persone.Invitato> invitati) {
         this.invitati = invitati;
     }*/

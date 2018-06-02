@@ -32,14 +32,20 @@ public class Locale {
     // cambiato il tipo di dato giorno chiusura da String a Gregoria calendar , molto più facile da gestire
     // aggiunta inoltre del passaggio dei tavoli tramite parametro
 
-    public Locale(String id_locale,int numMaxTavoli,ArrayList<Tavolo> tavoli, GregorianCalendar giornoChiusura, GregorianCalendar oraApertura, GregorianCalendar oraChiusura) {
+    /*
+    aggiunta di un costruttore Locale in più in cui si passa solo il numero massimo di tavoli che vieni istanziato
+    nel locale, novità: tutti i locali hanno come giorno di chiusura il lunedì di default
+    @author Gabrielesavella
+     */
+    public Locale(String id_locale,int numMaxTavoli,ArrayList<Tavolo> tavoli, GregorianCalendar oraApertura, GregorianCalendar oraChiusura) {
         this.calendar = new GregorianCalendar();
         calendar.setWeekDate(01,01,6);
         this.id_locale=id_locale;
         this.numMaxTavoli=numMaxTavoli;
         this.tavoli = new ArrayList(numMaxTavoli);
         this.tavoli.addAll(tavoli);
-        this.giornodichiusura=giornoChiusura;
+        this.giornodichiusura = new GregorianCalendar();
+        this.giornodichiusura.add(GregorianCalendar.DAY_OF_WEEK,Calendar.MONDAY);
         this.oraApertura=oraApertura;
         this.oraChiusura=oraChiusura;
         eventi_locale = new ArrayList<>();
@@ -59,8 +65,36 @@ public class Locale {
         oraChiusura.add(GregorianCalendar.HOUR,18);
         oraChiusura.add(GregorianCalendar.MINUTE,0);
         //giorno di chiusura lunedì
-        this.giornodichiusura.add(GregorianCalendar.DAY_OF_WEEK,2);
+        this.giornodichiusura =new GregorianCalendar();
+        this.giornodichiusura.setFirstDayOfWeek(Calendar.MONDAY);
         eventi_locale = new ArrayList<>();
+    }
+
+    public Locale(int numMaxTavoli){
+        int count_id = 0;
+        this.id_locale= "Ristorante"+numLoc++;
+
+        this.numMaxTavoli=numMaxTavoli;
+        this.tavoli = new ArrayList(numMaxTavoli);
+        String radice = "Tavolo_standard: ";
+
+        for (Tavolo elemento:tavoli) {
+            ++count_id;
+            tavoli.add(new Tavolo(radice+count_id,6));
+        }
+        // il numero di posti lo calcolo in base ai tavoli che ho dato che occupano la capienza massima del locale
+        this.numMaxPosti = getMaxSeats();
+        oraApertura = new GregorianCalendar();
+        oraApertura.add(GregorianCalendar.HOUR,9);
+        oraApertura.add(GregorianCalendar.MINUTE,0);
+        oraChiusura = new GregorianCalendar();
+        oraChiusura.add(GregorianCalendar.HOUR,18);
+        oraChiusura.add(GregorianCalendar.MINUTE,0);
+        //giorno di chiusura lunedì
+        this.giornodichiusura =new GregorianCalendar();
+        this.giornodichiusura.add(GregorianCalendar.DAY_OF_WEEK,Calendar.MONDAY);
+
+
     }
 
 

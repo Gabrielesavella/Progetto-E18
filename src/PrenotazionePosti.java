@@ -38,10 +38,10 @@ public class PrenotazionePosti {
          */
         //
         chiusura.add(GregorianCalendar.DAY_OF_WEEK,2);
-        Locale daMimmo = new Locale("da Giulio",20,listaTavoli,chiusura,orarioapertura, chiusura);
-        Locale bellaNapoli = new Locale ("Bella Napoli", 30, listaTavoli, chiusura, orarioapertura, chiusura);
+        Locale daMimmo = new Locale("da Giulio",20,listaTavoli,orarioapertura, chiusura);
+        Locale bellaNapoli = new Locale ("Bella Napoli", 30, listaTavoli, orarioapertura, chiusura);
 
-        Evento e = new Evento("Matrimonio", orarioapertura,  bellaNapoli, 40);
+        Evento e = new Evento("Matrimonio", orarioEvento,  bellaNapoli, 40);
 
         Evento k = new Evento("Battesimo", orarioEvento, bellaNapoli, 50);
 
