@@ -1,6 +1,7 @@
 package gui.panels;
 
 import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
+import gui.finestre.FinestraDisposizioneTavoli;
 import locale.Evento;
 import locale.Locale;
 import persone.Invitato;
@@ -15,7 +16,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class PannelloSpecificheEvento extends JPanel {
-    public PannelloSpecificheEvento(ArrayList<Locale> locali, Evento evento){
+    public PannelloSpecificheEvento(Locale locale, Evento evento){
 
 
         // etichette specifiche
@@ -91,6 +92,8 @@ public class PannelloSpecificheEvento extends JPanel {
 
                 }
                 System.out.println("Acquisizione invitati effettuata.");
+                FinestraDisposizioneTavoli fd=new FinestraDisposizioneTavoli(locale,evento);
+                fd.setVisible(true);
 
             }
         });

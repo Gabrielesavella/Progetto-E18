@@ -48,7 +48,7 @@ public class PannelloCredenzialiEvento extends JPanel{
 
         JComboBox<String> dropDownLocali= new JComboBox<String>();
 
-        dropDownLocali.addItem("caccole");
+        dropDownLocali.addItem("da Giulio");
         dropDownLocali.addItem("respiriani");
         dropDownLocali.addItem("persone da bullizzare");
 
@@ -81,7 +81,7 @@ public class PannelloCredenzialiEvento extends JPanel{
                 }
 
                 Evento evento=new Evento(tNome.getText(),calendar,localeSelezionato,invitati);
-                FinestraSpecificheEvento fs= new FinestraSpecificheEvento(locali,evento);
+                FinestraSpecificheEvento fs= new FinestraSpecificheEvento(localeSelezionato,evento);
                 //fs.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
                 fs.setVisible(true);
             }

@@ -9,9 +9,9 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class FinestraSpecificheEvento extends JFrame{
-    public FinestraSpecificheEvento(ArrayList<Locale> locali, Evento evento){
+    public FinestraSpecificheEvento(Locale locale, Evento evento){
         setSize(200,200);
-        PannelloSpecificheEvento ps=new PannelloSpecificheEvento(locali,evento);
+        PannelloSpecificheEvento ps=new PannelloSpecificheEvento(locale,evento);
         Container c=getContentPane();
         c.add(ps);
     }
