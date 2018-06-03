@@ -78,5 +78,19 @@ public class Tavolo {
         return num_posti;
     }
 
+
+    /*Restituisce l'array di Invitati per ogni tavolo.*/
     public Invitato[] getArrayInvitati(){ return arrPostiTavolo;}
+
+
+    /*Restituisce l'arraylist di Invitati per ogni tavolo.*/
+    public ArrayList<Invitato> getArraylistInvitati(){
+
+        ArrayList<Invitato> invitatiPerTavolo = new ArrayList<>();
+
+        for (Invitato i : arrPostiTavolo){
+            invitatiPerTavolo.add(i);
+        }
+        return invitatiPerTavolo;
+    }
 }

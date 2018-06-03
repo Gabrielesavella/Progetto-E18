@@ -28,6 +28,7 @@ public class Locale {
     private GregorianCalendar oraApertura, oraChiusura, giornodichiusura;
     Calendar calendar;
     private ArrayList<Tavolo> tavoli;
+    private ArrayList<Tavolo> tavoliUtilizzati = new ArrayList<>();
     
     // cambiato il tipo di dato giorno chiusura da String a Gregoria calendar , molto più facile da gestire
     // aggiunta inoltre del passaggio dei tavoli tramite parametro
@@ -97,30 +98,42 @@ public class Locale {
 
     }
 
-
-    public void smistamentoTavoli(Evento e){
+    /*Smista tutti invitati ad un particolare evento nei tavoli. Fatto ciò, restituisce un arraylist di tutti i tavoli utilizzati*/
+    public ArrayList<Tavolo> smistamentoTavoli(Evento e){
 
         for (Evento ev : eventi_locale){
             if (ev.equals(e)){
 
-
-
-
                 for (Tavolo t : tavoli){
-                    if (t.getDisponibile())
+                    if (t.getDisponibile() && ev.getListaInvitati().size()!=0){
+
                         ev.getListaInvitati().removeAll(t.addInvitato(ev.getListaInvitati()));
+                        tavoliUtilizzati.add(t);
 
+                    }
                 }
-
-
-
             }
         }
-
-
-
+        return tavoliUtilizzati;
     }
 
+    /*Restituisce un arraylist di tutti gli invitati presenti in tutti i tavoli utilizzati*/
+    public ArrayList<Invitato> getInvitatiOgniTavolo(){
+
+        ArrayList<Invitato> invitatiTotali = new ArrayList<>();
+
+        for (Tavolo t : tavoliUtilizzati){
+            invitatiTotali.addAll(t.getArraylistInvitati());
+        }
+        return invitatiTotali;
+    }
+
+    /*Cancella il contenuto di tavoliUtilizzati, in modo da poter essere riutilizzato per un altro evento*/
+    public void clearTavoliUtilizzati(){
+        for (Tavolo t : tavoliUtilizzati){
+            tavoliUtilizzati.remove(t);
+        }
+    }
 
 
     public int getMinTavoli(int num_invitati){
