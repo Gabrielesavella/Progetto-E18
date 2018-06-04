@@ -27,6 +27,7 @@ public class Tavolo {
     @author Salvi
      */
     public Tavolo(String id_tavolo){
+        this.id_tavolo = id_tavolo;
         this.num_posti = 6;
         arrPostiTavolo = new Invitato[num_posti];
         interno = true;
@@ -37,6 +38,7 @@ public class Tavolo {
      * numeroposti @author Gabrielesavella
      */
     public Tavolo (String id_tavolo, int num_posti){
+        this.id_tavolo = id_tavolo;
         arrPostiTavolo = new Invitato[num_posti];
         interno = true;
         disponibile = true;
