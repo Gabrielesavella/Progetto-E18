@@ -3,6 +3,7 @@ import  vincoli.*;
 import persone.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 
 public class Tavolo {
@@ -82,7 +83,9 @@ public class Tavolo {
 
 
     /*Restituisce l'array di Invitati per ogni tavolo.*/
-    public Invitato[] getArrayInvitati(){ return arrPostiTavolo;}
+    public Invitato[] getArrayInvitati(){
+        return arrPostiTavolo;
+    }
 
 
     /*Restituisce l'arraylist di Invitati per ogni tavolo.*/
@@ -94,5 +97,18 @@ public class Tavolo {
             invitatiPerTavolo.add(i);
         }
         return invitatiPerTavolo;
+    }
+
+    @Override
+    public String toString() {
+        return "Tavolo{" +
+                "num_posti=" + num_posti +
+                ", assegnamenti=" + assegnamenti +
+                ", interno=" + interno +
+                ", id_tavolo='" + id_tavolo + '\'' +
+                ", disponibile=" + disponibile +
+                ", arrPostiTavolo=" + (arrPostiTavolo == null ? null : Arrays.asList(arrPostiTavolo)) +
+                ", tipoTavolo=" + tipoTavolo +
+                '}';
     }
 }

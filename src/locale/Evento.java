@@ -67,7 +67,9 @@ public class Evento {
         this.location = location;
     }
 
-    public void addInvitati(Invitato invitato){invitati.add(invitato);}
+    public void addInvitati(Invitato invitato){
+        invitati.add(invitato);
+    }
 
 
     /*public void setInvitati(ArrayList <persone.Invitato> invitati) {

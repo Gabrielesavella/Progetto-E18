@@ -100,15 +100,16 @@ public class Locale {
 
     /*Smista tutti invitati ad un particolare evento nei tavoli. Fatto ciò, restituisce un arraylist di tutti i tavoli utilizzati*/
     public ArrayList<Tavolo> smistamentoTavoli(Evento e){
+        int i=0;
 
         for (Evento ev : eventi_locale){
             if (ev.equals(e)){
 
-                for (Tavolo t : tavoli){
+               for (Tavolo t : tavoli){
+                //for(i=0;i<e.getNumInvitati();i++){
                     if (t.getDisponibile() && ev.getListaInvitati().size()!=0){
 
-                        ev.getListaInvitati().removeAll(t.addInvitato(ev.getListaInvitati()));
-                        tavoliUtilizzati.add(t);
+
 
                     }
                 }
@@ -197,5 +198,13 @@ public class Locale {
             numMaxPosti += newTable.getNumPosti();
         }
 
+    }
+
+    public ArrayList<Invitato> getInvitatiAlTavolo(){
+        ArrayList<Invitato> maffo = new ArrayList<>();
+        for(Tavolo t : tavoli){
+            maffo.addAll(t.getArraylistInvitati());
+        }
+     return maffo;
     }
 }
