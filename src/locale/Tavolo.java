@@ -12,12 +12,12 @@ public class Tavolo {
 	 * agli assegnamenti dei posti disponibili negli invitati
 	 * @author Gabrielesavella
 	 */
-    
+
     private int num_posti,assegnamenti = 0;
     private boolean interno;
     private String id_tavolo;
-    private boolean disponibile = true;
-    private Invitato[] arrPostiTavolo;
+    private boolean disponibile;
+    private ArrayList<Invitato> AssegnamentiTavolo;
     private SpecificaTavolo tipoTavolo;
 
     /*mettiamo due costruttori, in cui specifichiamo che il tavolo
@@ -28,38 +28,79 @@ public class Tavolo {
     @author Salvi
      */
     public Tavolo(String id_tavolo){
+        disponibile = true;
         this.id_tavolo = id_tavolo;
-        this.num_posti = 6;
-        arrPostiTavolo = new Invitato[num_posti];
+        num_posti = 6;
+        AssegnamentiTavolo = new ArrayList<Invitato>(num_posti);
         interno = true;
     }
-    /*CORREZIONE: nel costruttore1 va inizializzato l'array degli invitati, in modo che 
+    /*CORREZIONE: nel costruttore1 va inizializzato l'array degli invitati, in modo che
      * se si acceda al metodo assegnaposti l'array venga inizializzato,
-     *  nel costruttore2 ho aggiunto la memorizzazione del dato 
+     *  nel costruttore2 ho aggiunto la memorizzazione del dato
      * numeroposti @author Gabrielesavella
      */
     public Tavolo (String id_tavolo, int num_posti){
         this.id_tavolo = id_tavolo;
-        arrPostiTavolo = new Invitato[num_posti];
+        this.num_posti = num_posti;
         interno = true;
         disponibile = true;
-        this.num_posti = num_posti;
+        AssegnamentiTavolo = new ArrayList<Invitato>(num_posti);
     }
 
-    public ArrayList<Invitato> addInvitato(ArrayList<Invitato> in){
-        if (num_posti>0) {
-            for (Invitato i : in) {
 
-                if(arrPostiTavolo==null) {
-
-                    arrPostiTavolo[num_posti] = i;
-                    num_posti--;
-                    in.remove(i);
-
-                }
-            }
+    /*
+    questo metodo aggiunge un solo invitato ( sotto il metodo per aggiungere una lista di invitati)
+    @author: Gabrielesavella
+     */
+    public void addGuest(Invitato Guest){
+        /*
+        se il numero di posti è maggiore di zero il tavolo è disponibile , quando il numero di posti cala a zero,
+         la disponibilità del tavolo viene meno.
+         */
+        if (disponibile) {
+            AssegnamentiTavolo.add(Guest);
+            num_posti--;
         }
-        return in;
+        // controllo quanti posti sono rimasti se sono zero metto il tavolo non disponible
+        if(num_posti == 0){
+            endAssignment();
+        }
+    }
+
+    /*
+    in questo metodo passo la lista degli invitati che può stare in un determinato tavolo
+     */
+    public void addAllGuests(ArrayList<Invitato> guests){
+
+        if (disponibile && guests.size()<= num_posti) {
+            AssegnamentiTavolo.addAll(guests);
+            num_posti = num_posti - guests.size();
+        }
+        // controllo quanti posti sono rimasti se sono zero metto il tavolo non disponible
+        if(num_posti == 0){
+            endAssignment();
+        }
+    }
+
+    /*
+       questo metodo rimuove un solo invitato, quindi i posti disponibili viene incrementato e il tavolo diventa di
+        nuovo disponibile
+         */
+
+    public void removeGuest(Invitato in){
+            AssegnamentiTavolo.remove(in);
+            num_posti++;
+            openAssignment();
+    }
+
+    /*
+    questo metodo rimuove tutti gli invitati dal tavolo, successivamente rende disponibile il tavolo e aggiorna il numero
+    di posti
+     */
+    public void removeAllGuests(ArrayList <Invitato> Guests){
+        AssegnamentiTavolo.removeAll(Guests);
+        num_posti = num_posti + Guests.size();
+        openAssignment();
     }
 
 
@@ -67,36 +108,32 @@ public class Tavolo {
     public boolean getInterno(){
         return interno;
     }
-    
-    
+
+
     public String getIDTavolo(){
         return id_tavolo;
     }
-    
+
     public boolean getDisponibile(){
         return disponibile;
     }
-    
+
     public int getNumPosti(){
         return num_posti;
     }
 
 
     /*Restituisce l'array di Invitati per ogni tavolo.*/
-    public Invitato[] getArrayInvitati(){
-        return arrPostiTavolo;
+    public ArrayList<Invitato> getAssegnamentiTavolo(){
+        return AssegnamentiTavolo;
     }
 
 
     /*Restituisce l'arraylist di Invitati per ogni tavolo.*/
     public ArrayList<Invitato> getArraylistInvitati(){
 
-        ArrayList<Invitato> invitatiPerTavolo = new ArrayList<>();
 
-        for (Invitato i : arrPostiTavolo){
-            invitatiPerTavolo.add(i);
-        }
-        return invitatiPerTavolo;
+        return AssegnamentiTavolo;
     }
 
     @Override
@@ -107,8 +144,16 @@ public class Tavolo {
                 ", interno=" + interno +
                 ", id_tavolo='" + id_tavolo + '\'' +
                 ", disponibile=" + disponibile +
-                ", arrPostiTavolo=" + (arrPostiTavolo == null ? null : Arrays.asList(arrPostiTavolo)) +
+                ", arrPostiTavolo=" + ( AssegnamentiTavolo== null ? null : Arrays.asList(AssegnamentiTavolo)) +
                 ", tipoTavolo=" + tipoTavolo +
                 '}';
+    }
+
+    public void endAssignment(){
+        disponibile = false;
+    }
+
+    public void openAssignment(){
+        disponibile = true;
     }
 }
