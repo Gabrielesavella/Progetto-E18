@@ -1,4 +1,4 @@
-package gui.controller;
+package tester;
 
 import gui.finestre.FinestraUtente;
 import locale.Locale;
@@ -10,7 +10,7 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 
-public class SistemaDiPrenotazione {
+public class TesterGui {
 
     public static void main(String[] args) {
         ArrayList<Locale> locali=new ArrayList<Locale>(2);
