@@ -108,9 +108,8 @@ public class Locale {
                for (Tavolo t : tavoli){
                 //for(i=0;i<e.getNumInvitati();i++){
                     if (t.getDisponibile() && ev.getListaInvitati().size()!=0){
-
-
-
+                        ev.getListaInvitati().removeAll(t.addInvitato(ev.getListaInvitati()));
+                        tavoliUtilizzati.add(t);
                     }
                 }
             }
