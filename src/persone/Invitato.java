@@ -36,11 +36,11 @@ public class Invitato {
 
     @Override
     public String toString() {
-        return "Invitato{" +
-                "cf='" + cf + '\'' +
-                ", nome='" + nome + '\'' +
-                ", cognome='" + cognome + '\'' +
-                ", età=" + età +
-                '}';
+        return "Invitato " +
+                  cf +
+                ", nome: " + nome +
+                ", cognome: " + cognome  +
+                ", età: " + età +
+                '\n';
     }
 }

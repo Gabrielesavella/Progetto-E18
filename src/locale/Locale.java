@@ -208,11 +208,13 @@ public class Locale {
 
     }
 
-    public ArrayList<Invitato> getInvitatiAlTavolo(){
-        ArrayList<Invitato> maffo = new ArrayList<>();
-        for(Tavolo t : tavoli){
-            maffo.addAll(t.getArraylistInvitati());
-        }
-     return maffo;
+    /*
+    modifica: il metodo restituisce gli invitati di un determinato tavolo specificato da progamma
+    @author Gabrielesavella
+     */
+    public ArrayList<Invitato> getInvitatiAlTavolo(Tavolo t){
+        ArrayList<Invitato> tableGuests = new ArrayList<Invitato>();
+        tableGuests.addAll(t.getArraylistInvitati());
+        return tableGuests;
     }
 }

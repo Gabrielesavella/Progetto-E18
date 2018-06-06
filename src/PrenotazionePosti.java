@@ -123,15 +123,15 @@ public class PrenotazionePosti {
         // stampe per prova;
         System.out.println(bellaNapoli.stampaNomeEventi());
         System.out.println("gabri ");
-        System.out.println(e.getListaInvitati());
+        e.showListaInvitati();
         System.out.println("lecce gay");
-        System.out.println(k.getListaInvitati());
+        k.showListaInvitati();
 
         //
 
         bellaNapoli.smistamentoTavoli(e);
         System.out.println("maffo balordo ");
-        System.out.println(bellaNapoli.getInvitatiAlTavolo());
+        System.out.println(bellaNapoli.getInvitatiAlTavolo(tav1));
 
 
     }

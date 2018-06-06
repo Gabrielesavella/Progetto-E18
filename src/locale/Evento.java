@@ -84,6 +84,13 @@ public class Evento {
 
     public ArrayList<Invitato> getListaInvitati(){return invitati;}
 
+    public void showListaInvitati(){
+        for (Invitato singleGuest:invitati) {
+            System.out.println(singleGuest.toString());
+
+        }
+    }
+
     public void setDataEvento(GregorianCalendar dataEvento) {
         this.dataEvento = dataEvento;
     }
