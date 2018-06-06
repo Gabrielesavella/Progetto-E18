@@ -33,4 +33,14 @@ public class Invitato {
     public int getEtà() {
         return età;
     }
+
+    @Override
+    public String toString() {
+        return "Invitato " +
+                  cf +
+                ", nome: " + nome +
+                ", cognome: " + cognome  +
+                ", età: " + età +
+                '\n';
+    }
 }
