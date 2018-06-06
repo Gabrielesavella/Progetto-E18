@@ -100,17 +100,27 @@ public class Locale {
 
     /*Smista tutti invitati ad un particolare evento nei tavoli. Fatto ciò, restituisce un arraylist di tutti i tavoli utilizzati*/
     public ArrayList<Tavolo> smistamentoTavoli(Evento e){
+        int count = 0;
+        ArrayList<Invitato>listainvitati;
 
         for (Evento ev : eventi_locale){
             if (ev.equals(e)){
+                listainvitati = ev.getListaInvitati();
 
-                for (Tavolo t : tavoli){
-                    if (t.getDisponibile() && ev.getListaInvitati().size()!=0){
+               for (Tavolo t : tavoli){
+                   do {
+                       t.addGuest(listainvitati.get(count));
+                       count++;
 
-                        ev.getListaInvitati().removeAll(t.addInvitato(ev.getListaInvitati()));
-                        tavoliUtilizzati.add(t);
+                    }while(t.getDisponibile());
+                   tavoliUtilizzati.add(t);
+                   /*
+                    se conto tutti gli invitati della lista esco dal ciclo del tavolo (count è incrementato di 1 perchè
+                    parte da zero
+                     */
+                   if((count+1)==listainvitati.size())
+                       break;
 
-                    }
                 }
             }
         }
@@ -197,5 +207,13 @@ public class Locale {
             numMaxPosti += newTable.getNumPosti();
         }
 
+    }
+
+    public ArrayList<Invitato> getInvitatiAlTavolo(){
+        ArrayList<Invitato> maffo = new ArrayList<>();
+        for(Tavolo t : tavoli){
+            maffo.addAll(t.getArraylistInvitati());
+        }
+     return maffo;
     }
 }
