@@ -103,27 +103,26 @@ public class Locale {
         int count = 0;
         ArrayList<Invitato>listainvitati;
 
-        for (Evento ev : eventi_locale){
-            if (ev.equals(e)){
+        for (Evento ev : eventi_locale)
+            if (ev.equals(e)) {
                 listainvitati = ev.getListaInvitati();
 
-               for (Tavolo t : tavoli){
-                   do {
-                       t.addGuest(listainvitati.get(count));
-                       count++;
+                for (Tavolo t : tavoli) {
+                    do {
+                        t.addGuest(listainvitati.get(count));
+                        count++;
 
-                    }while(t.getDisponibile());
-                   tavoliUtilizzati.add(t);
+                    } while (t.getDisponibile() && (count+1)<listainvitati.size());
+                    tavoliUtilizzati.add(t);
                    /*
                     se conto tutti gli invitati della lista esco dal ciclo del tavolo (count è incrementato di 1 perchè
                     parte da zero
                      */
-                   if((count+1)==listainvitati.size())
-                       break;
+                    if ((count) == listainvitati.size())
+                        break;
 
                 }
             }
-        }
         return tavoliUtilizzati;
     }
 

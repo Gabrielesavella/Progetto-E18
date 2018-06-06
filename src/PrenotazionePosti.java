@@ -54,8 +54,8 @@ public class PrenotazionePosti {
 
 
         //eventi;
-        Evento e = new Evento("Matrimonio", orarioEvento,  bellaNapoli, 9);
-        Evento k = new Evento("Battesimo", orarioEvento, bellaNapoli, 9);
+        Evento e = new Evento("Matrimonio", orarioEvento,  bellaNapoli, 20);
+        Evento k = new Evento("Battesimo", orarioEvento, bellaNapoli, 20);
 
         //invitati;
         Invitato a = new Invitato("1","maffo","marco",39);
