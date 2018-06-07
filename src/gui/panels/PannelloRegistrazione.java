@@ -10,9 +10,11 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 public class PannelloRegistrazione extends JPanel {
+    static Cliente prova= new Cliente("a","a","a","a");
     static ArrayList<Cliente> clienti=new ArrayList<Cliente>(2);
 
     public PannelloRegistrazione(ArrayList<Locale> locali){
+        clienti.add(prova);
 
         JButton conferma = new JButton("Registrati");
         //etichette per descrizione campi di testo
@@ -43,12 +45,12 @@ public class PannelloRegistrazione extends JPanel {
 //        JPanel[][] panelHolder= new JPanel[i][j];
         campi.setLayout(new GridLayout(7,2));
 
-        campi.add(eMail);
-        campi.add(tEMail);
         campi.add(nome);
         campi.add(tNome);
         campi.add(cognome);
         campi.add(tCognome);
+        campi.add(eMail);
+        campi.add(tEMail);
         campi.add(username);
         campi.add(tUsername);
         campi.add(password);
@@ -90,5 +92,5 @@ public class PannelloRegistrazione extends JPanel {
     public static ArrayList<Cliente> getClienti() {
         return clienti;
     }
-    
+
 }

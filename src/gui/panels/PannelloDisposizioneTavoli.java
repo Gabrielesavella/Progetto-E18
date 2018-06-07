@@ -18,6 +18,10 @@ public class PannelloDisposizioneTavoli extends JPanel {
         stampaDisposizione.setSize(d);
         stampaDisposizione.setLineWrap(true);
 
+        this.add(labelDisposizione);
+        this.add(stampaDisposizione);
+
+
         stampaDisposizione.append("numero invitati: " + evento.getNumInvitati()+"\n");
         for (Invitato i:evento.getListaInvitati()) {
             stampaDisposizione.append(i.getCf()+"\t"+i.getNome()+"\t"+i.getCognome()+"\t"+i.getEtà()+"\n");
@@ -27,11 +31,14 @@ public class PannelloDisposizioneTavoli extends JPanel {
 //
 //        }
 //        stampaDisposizione.append();
-        evento.getLocation().smistamentoTavoli(evento);
+//        for (Tavolo tavolo:evento.getLocation().smistamentoTavoli(evento)) {
+//            ArrayList<Invitato> invitatiTavolo=tavolo.getArraylistInvitati();
+//            for (Invitato i:invitatiTavolo) {
+//                stampaDisposizione.append(i.getCf()+"\t"+i.getNome()+"\t"+i.getCognome()+"\t"+i.getEtà()+"\n");
+//            }
+//        }
 //        stampaDisposizione.append("\t"+evento.getLocation().);
 
-        this.add(labelDisposizione);
-        this.add(stampaDisposizione);
 
     }
 }

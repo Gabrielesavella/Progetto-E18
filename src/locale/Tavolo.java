@@ -156,4 +156,5 @@ public class Tavolo {
     public void openAssignment(){
         disponibile = true;
     }
+
 }
