@@ -2,6 +2,7 @@ import locale.*;
 import locale.Locale;
 import persone.Invitato;
 
+import java.io.IOException;
 import java.util.*;
 
 
@@ -122,9 +123,18 @@ public class PrenotazionePosti {
         k.addInvitati(z);
         // stampe per prova;
         System.out.println(bellaNapoli.stampaNomeEventi());
-        System.out.println("gabri ");
+        try {
+            txtFacade prova = new txtFacade("primidueinvitati.txt", 2);
+            prova.WriteGuests(a.getCf(),a.getNome(),a.getCognome(),a.getEtà());
+            prova.WriteGuests(b.getCf(),b.getNome(),b.getCognome(),b.getEtà());
+
+
+
+        }catch(IOException e1){
+            System.out.println("Eccezione: " + e1);
+        }
         e.showListaInvitati();
-        System.out.println("lecce gay");
+
         k.showListaInvitati();
 
         //
