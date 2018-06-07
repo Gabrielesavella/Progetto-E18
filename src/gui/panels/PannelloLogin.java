@@ -1,5 +1,6 @@
 package gui.panels;
 
+import facade.AbstractFacade;
 import gui.finestre.FinestraCreazioneEvento;
 import gui.finestre.FinestraRegistrazione;
 import locale.Locale;
@@ -12,7 +13,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 public class PannelloLogin extends JPanel {
-    public PannelloLogin(ArrayList<Locale> locali){
+    public PannelloLogin(ArrayList<Locale> locali, AbstractFacade facade){
         //Bottoni
         JButton signUp = new JButton("SignUp");
         JButton logIn = new JButton("LogIn");
@@ -46,7 +47,7 @@ public class PannelloLogin extends JPanel {
         signUp.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                FinestraRegistrazione fr=new FinestraRegistrazione(locali);
+                FinestraRegistrazione fr=new FinestraRegistrazione(locali,facade);
                 //fr.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
                 fr.setVisible(true);
             }

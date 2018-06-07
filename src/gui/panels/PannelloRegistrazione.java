@@ -1,5 +1,6 @@
 package gui.panels;
 
+import facade.AbstractFacade;
 import locale.Locale;
 import persone.Cliente;
 
@@ -7,13 +8,14 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class PannelloRegistrazione extends JPanel {
     static Cliente prova= new Cliente("a","a","a","a");
     static ArrayList<Cliente> clienti=new ArrayList<Cliente>(2);
 
-    public PannelloRegistrazione(ArrayList<Locale> locali){
+    public PannelloRegistrazione(ArrayList<Locale> locali, AbstractFacade facade){
         clienti.add(prova);
 
         JButton conferma = new JButton("Registrati");
@@ -77,6 +79,11 @@ public class PannelloRegistrazione extends JPanel {
                     clienti.add(new Cliente(nome.getText(), cognome.getText(), username.getText(), password.getText()));
                     clienteAdded.setText("Ho aggiunto un cliente");
                     errore.setText("");
+                    try {
+                        facade.WriteClient(tNome.getText(),tCognome.getText(),tEMail.getText(),tPassword.getText());
+                    } catch (IOException e1) {
+                        e1.printStackTrace();
+                    }
                 }
                 else{
                     errore.setText("Le password non coincidono.\nRiprovare inserimento");
