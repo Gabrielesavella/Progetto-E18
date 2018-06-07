@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.GregorianCalendar;
 
 public class txtFacade extends AbstractFacade {
+
     private String path;
     private int numberofObject,writings = 0;
     private FileWriter txtFile;
@@ -27,13 +28,17 @@ public class txtFacade extends AbstractFacade {
             buffer.write(campo+"\t");
         }
         writings++;
+        buffer.flush();
 
         if(writings == numberofObject){
             closeAll();
         }
         else{
-            buffer.write("\n");
+            buffer.newLine();
+            super.generate();
         }
+
+
 
 
 
@@ -56,9 +61,8 @@ public class txtFacade extends AbstractFacade {
 
     //faccio chiusura sia del buffer che del file
     public void closeAll() throws IOException{
-        buffer.flush();
         buffer.close();
-        txtFile.flush();
         txtFile.close();
+        super.generate();
     }
 }
