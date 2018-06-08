@@ -217,4 +217,9 @@ public class Locale {
         tableGuests.addAll(t.getArraylistInvitati());
         return tableGuests;
     }
+
+
+    public ArrayList<Tavolo> getTavoliLocale() {
+        return tavoli;
+    }
 }
