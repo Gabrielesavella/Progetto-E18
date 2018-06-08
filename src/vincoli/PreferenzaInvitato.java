@@ -83,18 +83,45 @@ public class PreferenzaInvitato implements Vincolo {
     }
 
     private void mettiVicinoAiVincolati() {
-        int k = 0;
+
+        int numMaxVincolati = lista_vincolati.size();
+        int tavoli_disponibili = evento.getLocation().getTavoliLocale().size();
+
+
         for (Tavolo t : evento.getLocation().getTavoliLocale()){
-            if (t.getArraylistInvitati().contains(lista_vincolati.get(k)) && t.getDisponibile() && (t.getAssegnamentiTavolo().size() >= lista_vincolati.size()-1)){
 
-                lista_vincolati.remove(k);
-                t.addAllGuests(lista_vincolati);
+            int size = t.getNumPosti();
+            int invitati_daSmistare = lista_vincolati.size();
+            boolean ulterioriTavoli;
 
-            } else if (!(t.getArraylistInvitati().contains(lista_vincolati.get(k)))){
-                k++;
-            } else if (k>lista_vincolati.size()){
-                break;
+            for(int k=0; (k-2)==numMaxVincolati;) {
+                if (t.getArraylistInvitati().contains(lista_vincolati.get(k)) && t.getDisponibile() && invitati_daSmistare > 0 && (size >= lista_vincolati.size())) {
+
+                    lista_vincolati.remove(k);
+                    invitati_daSmistare--;
+
+                } else if (!(t.getArraylistInvitati().contains(lista_vincolati.get(k)))) {
+                    k++;
+
+                } else if (k > numMaxVincolati) {
+                    t.addAllGuests(lista_vincolati);
+                    ulterioriTavoli=false;
+                    break;
+
+                } else if (t.getDisponibile() == false || size < lista_vincolati.size()) {
+
+                    tavoli_disponibili--;
+                    break;
+
+                }
+                if (tavoli_disponibili == 0) {
+
+                    System.out.println("Gli invitati:\n " + getNomeVincolati() + "non possono essere posizionati secondo il vincolo" + preferenza + "\n");
+                    break;
+                }
             }
+
+            if (ulterioriTavoli=false){break;}
         }
     }
 
@@ -123,7 +150,7 @@ public class PreferenzaInvitato implements Vincolo {
 
             } else if (tavoli_disponibili==0){
 
-                System.out.println("Il vincolo non può essere rispettato!");
+                System.out.println("Gli invitati:\n "+ getNomeVincolati() + "non possono essere posizionati secondo il vincolo" + preferenza +"\n");
 
             }
 
@@ -134,22 +161,37 @@ public class PreferenzaInvitato implements Vincolo {
 
         int i = 0;
 
-        if (evento.getLocation().getTavoliLocale().get(i).getDisponibile()==true && lista_vincolati.size()>0 && i<evento.getLocation().getTavoliLocale().size()) {
+        int invitati_da_smistare = lista_vincolati.size();
+
+        if (evento.getLocation().getTavoliLocale().get(i).getDisponibile()==true && invitati_da_smistare>0 && i<evento.getLocation().getTavoliLocale().size()) {
 
             evento.getLocation().getTavoliLocale().get(i).addGuest(lista_vincolati.get(i));
-            lista_vincolati.remove(lista_vincolati.get(i));
+            invitati_da_smistare--;
             i++;
 
-        } else if (evento.getLocation().getTavoliLocale().get(i).getDisponibile()==false && lista_vincolati.size()>0 && i<evento.getLocation().getTavoliLocale().size()){
+        } else if (evento.getLocation().getTavoliLocale().get(i).getDisponibile()==false && invitati_da_smistare>0 && i<evento.getLocation().getTavoliLocale().size()){
 
             i++;
 
         } else if (i>evento.getLocation().getTavoliLocale().size()){
 
-            System.out.println("Il vincolo non è rispettabile!");
+            System.out.println("Gli invitati:\n "+ getNomeVincolati() + "non possono essere posizionati secondo il vincolo" + preferenza +"\n");
 
+        } else if (invitati_da_smistare<=0){
+
+            System.out.println("Gli invitati:\n "+ getNomeVincolati() + "sono stati posizionati secondo i vincoli.\n");
+        }
+    }
+
+
+    public String getNomeVincolati() {
+        String a = "";
+
+        for (Invitato i : lista_vincolati){
+            a += i.getNome()+ i.getCognome() + "\n";
         }
 
+        return a;
     }
 
 
