@@ -29,7 +29,7 @@ public class Locale {
     Calendar calendar;
     private ArrayList<Tavolo> tavoli;
     private ArrayList<Tavolo> tavoliUtilizzati = new ArrayList<>();
-    
+
     // cambiato il tipo di dato giorno chiusura da String a Gregoria calendar , molto più facile da gestire
     // aggiunta inoltre del passaggio dei tavoli tramite parametro
 
@@ -103,27 +103,26 @@ public class Locale {
         int count = 0;
         ArrayList<Invitato>listainvitati;
 
-        for (Evento ev : eventi_locale){
-            if (ev.equals(e)){
+        for (Evento ev : eventi_locale)
+            if (ev.equals(e)) {
                 listainvitati = ev.getListaInvitati();
 
-               for (Tavolo t : tavoli){
-                   do {
-                       t.addGuest(listainvitati.get(count));
-                       count++;
+                for (Tavolo t : tavoli) {
+                    do {
+                        t.addGuest(listainvitati.get(count));
+                        count++;
 
-                    }while(t.getDisponibile());
-                   tavoliUtilizzati.add(t);
+                    } while (t.getDisponibile() && (count+1)<listainvitati.size());
+                    tavoliUtilizzati.add(t);
                    /*
                     se conto tutti gli invitati della lista esco dal ciclo del tavolo (count è incrementato di 1 perchè
                     parte da zero
                      */
-                   if((count+1)==listainvitati.size())
-                       break;
+                    if ((count) == listainvitati.size())
+                        break;
 
                 }
             }
-        }
         return tavoliUtilizzati;
     }
 
@@ -159,20 +158,20 @@ public class Locale {
         }
         return num_tavoli;
     }
-    
-    /*creo un metodo per calcolare il massimo numero di posti 
+
+    /*creo un metodo per calcolare il massimo numero di posti
      * derivato dalla capienza dei tavoli presenti nel locale
      * @author: Gabrielesavella
      */
-    
+
     public int getMaxSeats() {
-    	int capienza = 0;
-    	for(Tavolo tavolo:tavoli) {
-    		capienza += tavolo.getNumPosti();    		
-    	}
-    	numMaxPosti = capienza;
-    	return capienza;
-    	
+        int capienza = 0;
+        for(Tavolo tavolo:tavoli) {
+            capienza += tavolo.getNumPosti();
+        }
+        numMaxPosti = capienza;
+        return capienza;
+
     }
 
     public ArrayList<Evento> getEventi(){ return eventi_locale; }
@@ -209,15 +208,13 @@ public class Locale {
 
     }
 
-    public ArrayList<Invitato> getInvitatiAlTavolo(){
-        ArrayList<Invitato> maffo = new ArrayList<>();
-        for(Tavolo t : tavoli){
-            maffo.addAll(t.getArraylistInvitati());
-        }
-     return maffo;
-    }
-
-    public ArrayList<Tavolo> getTavoliLocale() {
-        return tavoli;
+    /*
+    modifica: il metodo restituisce gli invitati di un determinato tavolo specificato da progamma
+    @author Gabrielesavella
+     */
+    public ArrayList<Invitato> getInvitatiAlTavolo(Tavolo t){
+        ArrayList<Invitato> tableGuests = new ArrayList<Invitato>();
+        tableGuests.addAll(t.getArraylistInvitati());
+        return tableGuests;
     }
 }
