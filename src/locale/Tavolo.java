@@ -7,11 +7,11 @@ import java.util.Arrays;
 
 
 public class Tavolo {
-	/*
-	 * aggiunta dell'attributo assegnamenti, che verrà modificato in base
-	 * agli assegnamenti dei posti disponibili negli invitati
-	 * @author Gabrielesavella
-	 */
+    /*
+     * aggiunta dell'attributo assegnamenti, che verrà modificato in base
+     * agli assegnamenti dei posti disponibili negli invitati
+     * @author Gabrielesavella
+     */
 
     private int num_posti,assegnamenti = 0;
     private boolean interno;
@@ -88,9 +88,9 @@ public class Tavolo {
          */
 
     public void removeGuest(Invitato in){
-            AssegnamentiTavolo.remove(in);
-            num_posti++;
-            openAssignment();
+        AssegnamentiTavolo.remove(in);
+        num_posti++;
+        openAssignment();
     }
 
     /*
@@ -156,4 +156,5 @@ public class Tavolo {
     public void openAssignment(){
         disponibile = true;
     }
+
 }

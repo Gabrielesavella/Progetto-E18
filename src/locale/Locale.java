@@ -29,7 +29,7 @@ public class Locale {
     Calendar calendar;
     private ArrayList<Tavolo> tavoli;
     private ArrayList<Tavolo> tavoliUtilizzati = new ArrayList<>();
-    
+
     // cambiato il tipo di dato giorno chiusura da String a Gregoria calendar , molto più facile da gestire
     // aggiunta inoltre del passaggio dei tavoli tramite parametro
 
@@ -158,20 +158,20 @@ public class Locale {
         }
         return num_tavoli;
     }
-    
-    /*creo un metodo per calcolare il massimo numero di posti 
+
+    /*creo un metodo per calcolare il massimo numero di posti
      * derivato dalla capienza dei tavoli presenti nel locale
      * @author: Gabrielesavella
      */
-    
+
     public int getMaxSeats() {
-    	int capienza = 0;
-    	for(Tavolo tavolo:tavoli) {
-    		capienza += tavolo.getNumPosti();    		
-    	}
-    	numMaxPosti = capienza;
-    	return capienza;
-    	
+        int capienza = 0;
+        for(Tavolo tavolo:tavoli) {
+            capienza += tavolo.getNumPosti();
+        }
+        numMaxPosti = capienza;
+        return capienza;
+
     }
 
     public ArrayList<Evento> getEventi(){ return eventi_locale; }

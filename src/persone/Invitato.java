@@ -1,3 +1,4 @@
+
 package persone;
 
 /*@author Marco Maffoni,Gabriele Savella*/
@@ -37,7 +38,7 @@ public class Invitato {
     @Override
     public String toString() {
         return "Invitato " +
-                  cf +
+                cf +
                 ", nome: " + nome +
                 ", cognome: " + cognome  +
                 ", età: " + età +
