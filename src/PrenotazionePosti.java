@@ -1,7 +1,9 @@
+import facade.txtFacade;
 import locale.*;
 import locale.Locale;
 import persone.Invitato;
 
+import java.io.IOException;
 import java.util.*;
 
 
@@ -54,8 +56,8 @@ public class PrenotazionePosti {
 
 
         //eventi;
-        Evento e = new Evento("Matrimonio", orarioEvento,  bellaNapoli, 9);
-        Evento k = new Evento("Battesimo", orarioEvento, bellaNapoli, 9);
+        Evento e = new Evento("Matrimonio", orarioEvento,  bellaNapoli, 20);
+        Evento k = new Evento("Battesimo", orarioEvento, bellaNapoli, 20);
 
         //invitati;
         Invitato a = new Invitato("1","maffo","marco",39);
@@ -122,16 +124,25 @@ public class PrenotazionePosti {
         k.addInvitati(z);
         // stampe per prova;
         System.out.println(bellaNapoli.stampaNomeEventi());
-        System.out.println("gabri ");
-        System.out.println(e.getListaInvitati());
-        System.out.println("lecce gay");
-        System.out.println(k.getListaInvitati());
+        try {
+            txtFacade prova = new txtFacade("primidueinvitati.txt", 2);
+            prova.WriteGuests(a.getCf(),a.getNome(),a.getCognome(),a.getEtà());
+            prova.WriteGuests(b.getCf(),b.getNome(),b.getCognome(),b.getEtà());
+
+
+
+        }catch(IOException e1){
+            System.out.println("Eccezione: " + e1);
+        }
+        e.showListaInvitati();
+
+        k.showListaInvitati();
 
         //
 
         bellaNapoli.smistamentoTavoli(e);
         System.out.println("maffo balordo ");
-        System.out.println(bellaNapoli.getInvitatiAlTavolo());
+        System.out.println(bellaNapoli.getInvitatiAlTavolo(tav1));
 
 
     }
