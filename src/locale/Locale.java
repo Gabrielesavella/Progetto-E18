@@ -216,4 +216,8 @@ public class Locale {
         }
      return maffo;
     }
+
+    public ArrayList<Tavolo> getTavoliLocale() {
+        return tavoli;
+    }
 }
