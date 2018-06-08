@@ -126,8 +126,8 @@ public class PrenotazionePosti {
         System.out.println(bellaNapoli.stampaNomeEventi());
         try {
             txtFacade prova = new txtFacade("primidueinvitati.txt", 2);
-            prova.WriteGuests(a.getId_invitato(),a.getNome(),a.getCognome(),a.getEtà());
-            prova.WriteGuests(b.getId_invitato(),b.getNome(),b.getCognome(),b.getEtà());
+            prova.WriteGuests(a.getCf(),a.getNome(),a.getCognome(),a.getEtà());
+            prova.WriteGuests(b.getCf(),b.getNome(),b.getCognome(),b.getEtà());
 
 
 
