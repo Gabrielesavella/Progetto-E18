@@ -1,6 +1,7 @@
 package tester;
 
-import gui.finestre.FinestraUtente;
+import gui.controller.SistemaDiPrenotazioneController;
+import gui.finestre.FinestraLogin;
 import locale.Locale;
 import locale.Tavolo;
 
@@ -41,7 +42,8 @@ public class TesterGui {
         locali.add(daMimmo);
         locali.add(bellaNapoli);
 
-        FinestraUtente frame= new FinestraUtente(locali);
+        //parte grafica
+        FinestraLogin frame= new FinestraLogin(locali);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setVisible(true);
 

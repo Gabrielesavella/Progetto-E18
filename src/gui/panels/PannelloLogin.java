@@ -1,6 +1,7 @@
 package gui.panels;
 
 import facade.AbstractFacade;
+import gui.controller.SistemaDiPrenotazioneController;
 import gui.finestre.FinestraCreazioneEvento;
 import gui.finestre.FinestraRegistrazione;
 import locale.Locale;
@@ -13,7 +14,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 public class PannelloLogin extends JPanel {
-    public PannelloLogin(ArrayList<Locale> locali, AbstractFacade facade){
+    public PannelloLogin(ArrayList<Locale> locali){
         //Bottoni
         JButton signUp = new JButton("SignUp");
         JButton logIn = new JButton("LogIn");
@@ -43,11 +44,11 @@ public class PannelloLogin extends JPanel {
         panelHolder[9][1].add(logIn);
         panelHolder[0][2].add(signUp,BorderLayout.CENTER);
 
-
+        SistemaDiPrenotazioneController sisPr=new SistemaDiPrenotazioneController();
         signUp.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                FinestraRegistrazione fr=new FinestraRegistrazione(locali,facade);
+                FinestraRegistrazione fr=new FinestraRegistrazione(locali);
                 //fr.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
                 fr.setVisible(true);
             }
@@ -56,14 +57,25 @@ public class PannelloLogin extends JPanel {
         logIn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (PannelloRegistrazione.clienti!=null){
-                    for (Cliente c:PannelloRegistrazione.clienti) {
-                        if (c.getID().equals(username.getText()) && c.getPsw().equals(password.getText())){
-                            FinestraCreazioneEvento fe=new FinestraCreazioneEvento(locali);
-                            fe.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-                            fe.setVisible(true);
-                        }
-                    }
+//                if (PannelloRegistrazione.clienti!=null){
+//                    for (Cliente c:PannelloRegistrazione.clienti) {
+//                        if (c.getID().equals(username.getText()) && c.getPsw().equals(password.getText())){
+//                            FinestraCreazioneEvento fe=new FinestraCreazioneEvento(locali);
+//                            fe.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+//                            fe.setVisible(true);
+//                        }
+//                    }
+//                }
+//                ArrayList<String> recordLoggato= .fetchClient(tUsername.getText(),tPassword.getText());
+//                Cliente cliente= new Cliente(recordLoggato.get(0),recordLoggato.get(1),recordLoggato.get(2),recordLoggato.get(3));
+                Cliente cliente = sisPr.login(tUsername.getText(),tPassword.getText());
+                if (cliente!=null){
+                    FinestraCreazioneEvento fe=new FinestraCreazioneEvento(locali);
+                    fe.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+                    fe.setVisible(true);
+                }
+                else{
+                    System.out.println("errore in creazione Cliente");
                 }
             }
         });

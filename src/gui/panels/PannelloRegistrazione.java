@@ -1,6 +1,7 @@
 package gui.panels;
 
 import facade.AbstractFacade;
+import gui.controller.SistemaDiPrenotazioneController;
 import locale.Locale;
 import persone.Cliente;
 
@@ -15,7 +16,7 @@ public class PannelloRegistrazione extends JPanel {
     static Cliente prova= new Cliente("a","a","a","a");
     static ArrayList<Cliente> clienti=new ArrayList<Cliente>(2);
 
-    public PannelloRegistrazione(ArrayList<Locale> locali, AbstractFacade facade){
+    public PannelloRegistrazione(ArrayList<Locale> locali){
         clienti.add(prova);
 
         JButton conferma = new JButton("Registrati");
@@ -72,25 +73,28 @@ public class PannelloRegistrazione extends JPanel {
         this.add(campi);
         this.add(bottoni);
 
+        SistemaDiPrenotazioneController sisPr= new SistemaDiPrenotazioneController();
+
         conferma.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (tPassword.getText().equals(tConfPassword.getText())) {
-                    clienti.add(new Cliente(nome.getText(), cognome.getText(), username.getText(), password.getText()));
+//                if (tPassword.getText().equals(tConfPassword.getText())) {
+//                    clienti.add(new Cliente(nome.getText(), cognome.getText(), username.getText(), password.getText()));
+//                    clienteAdded.setText("Ho aggiunto un cliente");
+//                    errore.setText("");
+//                }
+                boolean registrazione=sisPr.signUp(tNome.getText(),tCognome.getText(),tEMail.getText(),tUsername.getText(),tPassword.getText());
+                boolean psswrdCorretta=tPassword.getText().equals(tConfPassword.getText());
+                if(registrazione & psswrdCorretta){
                     clienteAdded.setText("Ho aggiunto un cliente");
-                    errore.setText("");
-                    try {
-                        facade.WriteClient(tNome.getText(),tCognome.getText(),tEMail.getText(),tPassword.getText());
-                    } catch (IOException e1) {
-                        e1.printStackTrace();
-                    }
                 }
-                else{
-                    errore.setText("Le password non coincidono.\nRiprovare inserimento");
-                    errore.setForeground(Color.RED);
+                else {
+                    if (!psswrdCorretta) {
+                        errore.setText("Le password non coincidono.\nRiprovare inserimento");
+                        errore.setForeground(Color.RED);
+                    }
                     clienteAdded.setText("Non ho aggiunto un cliente");
                 }
-
             }
         });
 

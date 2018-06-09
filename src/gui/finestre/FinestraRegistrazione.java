@@ -1,6 +1,7 @@
 package gui.finestre;
 
 import facade.AbstractFacade;
+import gui.controller.SistemaDiPrenotazioneController;
 import gui.panels.PannelloLogin;
 import gui.panels.PannelloRegistrazione;
 import locale.Locale;
@@ -10,9 +11,9 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class FinestraRegistrazione extends JFrame {
-    public FinestraRegistrazione(ArrayList<Locale> locali, AbstractFacade facade){
+    public FinestraRegistrazione(ArrayList<Locale> locali){
         setSize(800,800);
-        PannelloRegistrazione p= new PannelloRegistrazione(locali,facade);
+        PannelloRegistrazione p= new PannelloRegistrazione(locali);
         Container c=getContentPane();
         c.add(p);
 

@@ -1,25 +1,26 @@
 package facade;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.GregorianCalendar;
 
 public class txtFacade extends AbstractFacade {
 
     private String path;
     private int numberofObject,writings = 0;
-    private FileWriter txtFile;
-    private BufferedWriter buffer;
-
+    private FileWriter txtFileW;
+    private FileReader txtFileR;
+    private BufferedWriter bufferWriter;
+    private BufferedReader buffReader;
 
     public txtFacade(String namefile, int numberofObject) throws IOException {
-        txtFile = new FileWriter(namefile);
+        super();
+        txtFileW = new FileWriter(namefile,true);
         this.numberofObject = numberofObject;
-        buffer = new BufferedWriter(txtFile);
-
+        bufferWriter = new BufferedWriter(txtFileW);
+        txtFileR = new FileReader(namefile);
+        buffReader = new BufferedReader(txtFileR);
 
     }
 
@@ -27,24 +28,60 @@ public class txtFacade extends AbstractFacade {
     public void generate() throws IOException{
         //genera un file i cui campi sono separati da un tab
         for (String campo:field) {
-            buffer.write(campo+"\t");
+            bufferWriter.write(campo+"\t");
         }
+        bufferWriter.write("\n");
         writings++;
-        buffer.flush();
+        bufferWriter.flush();
 
         if(writings == numberofObject){
             closeAll();
         }
         else{
-            buffer.newLine();
+            bufferWriter.newLine();
             super.generate();
         }
-
-
-
-
-
     }
+
+    @Override
+    public ArrayList<String> fetch(){
+
+        int countFetched=0;
+        ArrayList<String> record=null;
+
+        for (String campo: field) {
+            try {
+                String line=buffReader.readLine();
+                if (line==null){
+                    break;
+                }
+                String[] campiTxt=line.split("\t");
+                for (String s:campiTxt) {
+                    if (s.equals(campo)){
+                        countFetched++;
+                        if(field.size()==countFetched) {
+                            record=new ArrayList<>();
+                            record.addAll(Arrays.asList(line.split("\t")));
+                            break;
+                        }
+                    }
+                }
+                if (record!=null)
+                    break;
+
+            }catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        field=record;
+        try {
+            return super.fetch();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 
     @Override
     public void WriteClient(String name, String surname, String email, String password)throws IOException {
@@ -61,10 +98,12 @@ public class txtFacade extends AbstractFacade {
         super.WriteEvent(nameEvent, dateEvent, guestNumber);
     }
 
-    //faccio chiusura sia del buffer che del file
+    //faccio chiusura sia del bufferWriter che del file
     public void closeAll() throws IOException{
-        buffer.close();
-        txtFile.close();
+        bufferWriter.close();
+        buffReader.close();
+        txtFileW.close();
+        txtFileR.close();
         super.generate();
     }
 }
