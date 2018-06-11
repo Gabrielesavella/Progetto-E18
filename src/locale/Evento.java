@@ -88,7 +88,7 @@ public class Evento {
         this.location = location;
     }
 
-    public void addInvitati(Invitato invitato){
+    public void addInvitato(Invitato invitato){
         invitati.add(invitato);
     }
 

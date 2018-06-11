@@ -13,11 +13,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class PannelloRegistrazione extends JPanel {
-    static Cliente prova= new Cliente("a","a","a","a");
+    static Cliente lecciovich= new Cliente("lecciovich","Marco","Lecce","emailprova@gmail.com","prova");
     static ArrayList<Cliente> clienti=new ArrayList<Cliente>(2);
 
     public PannelloRegistrazione(ArrayList<Locale> locali){
-        clienti.add(prova);
+        clienti.add(lecciovich);
 
         JButton conferma = new JButton("Registrati");
         //etichette per descrizione campi di testo
@@ -33,8 +33,8 @@ public class PannelloRegistrazione extends JPanel {
         JTextField tNome = new JTextField("");
         JTextField tCognome = new JTextField("");
         JTextField tUsername = new JTextField("");
-        JTextField tPassword = new JTextField("");
-        JTextField tConfPassword=new JTextField("");
+        JTextField tPassword = new JPasswordField("");
+        JTextField tConfPassword=new JPasswordField("");
 
         JTextField clienteAdded= new JTextField("qui nuovi clienti");
 
@@ -73,7 +73,6 @@ public class PannelloRegistrazione extends JPanel {
         this.add(campi);
         this.add(bottoni);
 
-        SistemaDiPrenotazioneController sisPr= new SistemaDiPrenotazioneController();
 
         conferma.addActionListener(new ActionListener() {
             @Override
@@ -83,6 +82,7 @@ public class PannelloRegistrazione extends JPanel {
 //                    clienteAdded.setText("Ho aggiunto un cliente");
 //                    errore.setText("");
 //                }
+                SistemaDiPrenotazioneController sisPr= new SistemaDiPrenotazioneController();
                 boolean registrazione=sisPr.signUp(tNome.getText(),tCognome.getText(),tEMail.getText(),tUsername.getText(),tPassword.getText());
                 boolean psswrdCorretta=tPassword.getText().equals(tConfPassword.getText());
                 if(registrazione & psswrdCorretta){

@@ -2,6 +2,7 @@ package gui.controller;
 
 
 import facade.*;
+import locale.Evento;
 import persone.Cliente;
 import persone.Invitato;
 
@@ -15,21 +16,21 @@ public class SistemaDiPrenotazioneController{
 
     public SistemaDiPrenotazioneController(){
         try {
-            facade=new txtFacade("registratoreUtenti.txt",1);
-//            signUp("a","a","a","a","a");
+            facade=new txtFacade(1);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public boolean signUp(String nome,String cognome,String email,String username,String password){
+
+    public boolean signUp(String username,String password,String name,String surname,String email){
         try {
-            ArrayList<String> fetching=facade.fetchClient(username,password);
+            Cliente fetching=facade.fetchClient(username,password);
             if (fetching!=null){
                 System.out.println("aaaaaaaaaaaaaa");
                 return false;
             }
-            facade.WriteClient(nome,cognome,email,username);
+            facade.WriteClient(username,password,name,surname,email);
             return true;
         } catch (IOException e) {
             e.printStackTrace();
@@ -37,18 +38,23 @@ public class SistemaDiPrenotazioneController{
         return false;
     }
 
+
     public Cliente login(String username, String password){
-        ArrayList<String> fetching=facade.fetchClient(username,password);
-        if (fetching!=null) {
-            loggedIn = true;
-            return new Cliente(fetching.get(0),fetching.get(1),fetching.get(2),fetching.get(3));
+        Cliente fetching= null;
+        try {
+            fetching = facade.fetchClient(username,password);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        return null;
+        if (fetching!=null) { loggedIn = true; }
+        return fetching;
     }
+
 
     public void logout(){
         loggedIn=false;
     }
+
 
     public boolean creaEvento(String nomeEvento, GregorianCalendar data, int guestNum, Cliente cliente){
         try {
@@ -59,6 +65,10 @@ public class SistemaDiPrenotazioneController{
         }
         return false;
     }
+
+
+    public Evento getEvento(String nomeEvento){ return null; }
+
 
     public boolean acquisisciInvitati(ArrayList<Invitato> invitati){
         for (Invitato i:invitati) {
@@ -71,5 +81,7 @@ public class SistemaDiPrenotazioneController{
         }
         return true;
     }
+
+    public ArrayList<Invitato> getInvitati(){ return null; }
 
 }

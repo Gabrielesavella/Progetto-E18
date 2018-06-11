@@ -88,7 +88,7 @@ public class PannelloSpecificheEvento extends JPanel {
                         System.out.println("Invitati inferiori al numero previsto.");
                         break;
                     }
-                    evento.addInvitati(new Invitato(str[1],str[2],str[3],Integer.parseInt(str[4])));
+                    evento.addInvitato(new Invitato(str[1],str[2],str[3],Integer.parseInt(str[4])));
 
                 }
                 System.out.println("Acquisizione invitati effettuata.");
