@@ -12,6 +12,7 @@ public class PreferenzaInvitato implements Vincolo {
     private Evento evento;
     private ArrayList<Invitato> lista_vincolati = new ArrayList<>();
     private PreferenzaInvitatoEnum preferenza;
+    private ArrayList<Invitato> lista_vincolati_senza_duplicati = new ArrayList<>();
 
     public PreferenzaInvitato(ArrayList<Invitato> lista_vincolati, Evento evento, PreferenzaInvitatoEnum preferenza) {
 
@@ -82,46 +83,68 @@ public class PreferenzaInvitato implements Vincolo {
 
     }
 
+    /* Se devo disporre alcuni invitati vicino, devo però tenere presente anche gli altri vincoli ed essere sicuro che vengano
+       tutti rispettati. Quindi controllo prima se un vincolo contiene un invitato che è già disposto a tavola, in tal caso
+       dispongo tutti gli altri vincolati ad esso al suo stesso tavolo, altrimenti, se non è già seduto a tavola nessun vincolato,
+       li dispongo normalmente nel primo tavolo disponibile.
+     */
+
     private void mettiVicinoAiVincolati() {
 
-        int numMaxVincolati = lista_vincolati.size();
-        int tavoli_disponibili = evento.getLocation().getTavoliLocale().size();
-
+        removeDuplicati();
 
         for (Tavolo t : evento.getLocation().getTavoliLocale()){
 
-            int size = t.getNumPosti();
-            int invitati_daSmistare = lista_vincolati.size();
-            boolean ulterioriTavoli;
+            int tavoli_non_disponibili = 0;
 
-            for(int k=0; (k-2)==numMaxVincolati;) {
-                if (t.getArraylistInvitati().contains(lista_vincolati.get(k)) && t.getDisponibile() && invitati_daSmistare > 0 && (size >= lista_vincolati.size())) {
+            for (int k = 0; (k-2)<lista_vincolati.size();){
 
-                    lista_vincolati.remove(k);
-                    invitati_daSmistare--;
+                if (t.getArraylistInvitati().contains(lista_vincolati.get(k)) && t.getDisponibile() && t.getNumPosti()>=lista_vincolati_senza_duplicati.size() && (k-1)<lista_vincolati.size()) {
 
-                } else if (!(t.getArraylistInvitati().contains(lista_vincolati.get(k)))) {
+                    t.addAllGuests(lista_vincolati_senza_duplicati);
+                    break;
+
+                } else if (t.getArraylistInvitati().contains(lista_vincolati.get(k)) && (t.getDisponibile()==false || t.getNumPosti()<lista_vincolati_senza_duplicati.size()) && (k-1)<lista_vincolati.size()){
+
+                    tavoli_non_disponibili++;
+                    break;
+
+                } else if (!(t.getArraylistInvitati().contains(lista_vincolati.get(k))) && (k-1)<lista_vincolati.size()) {
+
                     k++;
 
-                } else if (k > numMaxVincolati) {
-                    t.addAllGuests(lista_vincolati);
-                    ulterioriTavoli=false;
-                    break;
+                } else if ((k-1)==lista_vincolati.size()){
 
-                } else if (t.getDisponibile() == false || size < lista_vincolati.size()) {
+                    tavoli_non_disponibili++;
 
-                    tavoli_disponibili--;
-                    break;
+                } else if (tavoli_non_disponibili==evento.getLocation().getTavoliLocale().size()){
 
-                }
-                if (tavoli_disponibili == 0) {
+                    System.out.println("Gli invitati:\n "+ getNomeVincolati() + "non possono essere posizionati secondo il vincolo" + preferenza +"\n");
 
-                    System.out.println("Gli invitati:\n " + getNomeVincolati() + "non possono essere posizionati secondo il vincolo" + preferenza + "\n");
-                    break;
                 }
             }
+        }
 
-            if (ulterioriTavoli=false){break;}
+    }
+
+    /* Ci possono essere più vincoli riguardanti lo stesso invitato, quindi prima di smistare gli invitati a tavola,
+       è necessario non considerare gli invitati già disposti a tavola (per evitare dei duplicati) e creare una lista
+       con i soli invitati che non hanno ancora vincoli in cui partecipano. Questo è ciò che fa removeDuplicati().
+     */
+
+    public void removeDuplicati(){
+
+        for (Tavolo t : evento.getLocation().getTavoliLocale()){
+
+            for (int k = 0; (k-1)<lista_vincolati.size();){
+
+                if (!(t.getArraylistInvitati().contains(lista_vincolati.get(k)))) {
+
+                    lista_vincolati_senza_duplicati.add(lista_vincolati.get(k));
+                    k++;
+
+                } else { k++;}
+            }
         }
     }
 
