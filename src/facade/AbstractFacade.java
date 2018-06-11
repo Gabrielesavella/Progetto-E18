@@ -1,6 +1,7 @@
 package facade;
 
 import com.sun.security.ntlm.Client;
+import locale.Evento;
 import persone.*;
 import java.io.*;
 import java.util.*;
@@ -75,7 +76,6 @@ public class AbstractFacade {
         if(colonna[0].equals(username) && colonna[1].equals(password)){
             registered = true;
             client = new Cliente(colonna[0],colonna[2],colonna[3],colonna[4],colonna[1]);
-            System.out.println(client);
             return client;
 
         }
@@ -84,6 +84,10 @@ public class AbstractFacade {
             return client;
         }
 
+    }
+
+    public Evento fetch(String nomeEvento, String[] colonna) throws IOException{
+        return null;
     }
 
     public ArrayList<String> getField() {
