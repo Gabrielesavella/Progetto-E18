@@ -1,6 +1,8 @@
 package facade;
 
+import locale.Evento;
 import persone.Cliente;
+import java.lang.String;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -15,6 +17,7 @@ public class txtFacade extends AbstractFacade {
     private FileReader txtFileR;
     private BufferedWriter bufferWriter;
     private BufferedReader buffReader;
+    private Evento evento = null;
 
     public txtFacade(String namefile, int numberofObject) throws IOException {
         super();
@@ -55,6 +58,43 @@ public class txtFacade extends AbstractFacade {
     public Cliente fetch(String username, String password, String[] colonna) throws IOException{
        return super.fetch(username, password, colonna);
     }
+
+    public Evento fetchEvento(String nomeEvento) throws IOException {
+
+        String line;
+        String [] colonna;
+
+
+
+        BufferedReader reader = new BufferedReader(new FileReader("Eventi.txt"));
+
+        while(reader.ready()) {
+            line=reader.readLine();
+            colonna = line.split("\t");
+            evento = fetch(nomeEvento,colonna);
+        }
+        return evento;
+    }
+    @Override
+    public Evento fetch(String nomeEvento, String[] colonna) throws IOException{
+
+        if(colonna[0].equals(nomeEvento)){
+            GregorianCalendar orarioapertura = new GregorianCalendar();
+            orarioapertura.add(GregorianCalendar.HOUR,Integer.parseInt(colonna[1]));
+            evento = new Evento(colonna[0],orarioapertura,Integer.parseInt(colonna[2]));
+            return evento;
+
+        }
+        else
+        {
+            return evento;
+        }
+
+    }
+
+
+
+
 
 
     @Override

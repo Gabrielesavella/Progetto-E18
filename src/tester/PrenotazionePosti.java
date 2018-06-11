@@ -135,9 +135,12 @@ public class PrenotazionePosti {
             prova.WriteGuests(c.getCf(),c.getNome(),c.getCognome(),c.getEtà());
             prova.WriteClient("Myusername","mypassword","luca","usb","mygmail@gmail.com");
             prova.WriteEvent(e.getName(),e.getDataEvento(),e.getNumInvitati());
-           // prova.WriteEvent(e.getName(),orarioEvento,20);
+            prova.WriteEvent(k.getName(),k.getDataEvento(),k.getNumInvitati());
             Cliente clienteregistrato = prova.fetchClient("Myusername","mypassword");
+            Evento eventoToFind = prova.fetchEvento(k.getName());
+
             System.out.println("cliente registrato: "+clienteregistrato.getUsername()+"  "+clienteregistrato.getCognome()+"  "+clienteregistrato.getNome());
+            System.out.println(eventoToFind.getName());
 
 
 
