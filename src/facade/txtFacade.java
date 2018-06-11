@@ -1,5 +1,7 @@
 package facade;
 
+import persone.Cliente;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -7,7 +9,7 @@ import java.util.GregorianCalendar;
 
 public class txtFacade extends AbstractFacade {
 
-    private String path;
+    private String pathClient ="registrazioni.txt",pathGuests="invitati.txt",pathEvents="eventi.txt";
     private int numberofObject,writings = 0;
     private FileWriter txtFileW;
     private FileReader txtFileR;
@@ -23,6 +25,12 @@ public class txtFacade extends AbstractFacade {
         buffReader = new BufferedReader(txtFileR);
 
     }
+    public txtFacade(int numberofObject) throws IOException {
+        super();
+        this.numberofObject = numberofObject;
+
+
+    }
 
     @Override
     public void generate() throws IOException{
@@ -30,12 +38,12 @@ public class txtFacade extends AbstractFacade {
         for (String campo:field) {
             bufferWriter.write(campo+"\t");
         }
-        bufferWriter.write("\n");
+        bufferWriter.newLine();
         writings++;
         bufferWriter.flush();
 
         if(writings == numberofObject){
-            closeAll();
+            closeWriting();
         }
         else{
             bufferWriter.newLine();
@@ -44,66 +52,96 @@ public class txtFacade extends AbstractFacade {
     }
 
     @Override
-    public ArrayList<String> fetch(){
-
-        int countFetched=0;
-        ArrayList<String> record=null;
-
-        for (String campo: field) {
-            try {
-                String line=buffReader.readLine();
-                if (line==null){
-                    break;
-                }
-                String[] campiTxt=line.split("\t");
-                for (String s:campiTxt) {
-                    if (s.equals(campo)){
-                        countFetched++;
-                        if(field.size()==countFetched) {
-                            record=new ArrayList<>();
-                            record.addAll(Arrays.asList(line.split("\t")));
-                            break;
-                        }
-                    }
-                }
-                if (record!=null)
-                    break;
-
-            }catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        field=record;
-        try {
-            return super.fetch();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
+    public Cliente fetch(String username, String password, String[] colonna) throws IOException{
+       return super.fetch(username, password, colonna);
     }
 
 
     @Override
-    public void WriteClient(String name, String surname, String email, String password)throws IOException {
-        super.WriteClient(name, surname, email, password);
+    public void WriteClient(String username,String password,String name, String surname, String email)throws IOException {
+        boolean exist = false;
+        exist = check(pathClient,username);
+        if(!exist) {
+            txtFileW = new FileWriter(pathClient, true);
+            bufferWriter = new BufferedWriter(txtFileW);
+            super.WriteClient(username, password, name, surname, email);
+        }
     }
 
     @Override
     public void WriteGuests(String fiscaleCode, String nameGuest, String surnameGuest, int age) throws IOException {
-        super.WriteGuests(fiscaleCode, nameGuest, surnameGuest, age);
+        boolean exist = false;
+        exist=check(pathGuests,fiscaleCode);
+            if(!exist) {
+                txtFileW = new FileWriter(pathGuests, true);
+                bufferWriter = new BufferedWriter(txtFileW);
+                super.WriteGuests(fiscaleCode, nameGuest, surnameGuest, age);
+            }
+
+
+
+
     }
 
     @Override
-    public void WriteEvent(String nameEvent, GregorianCalendar dateEvent, int guestNumber) throws IOException {
-        super.WriteEvent(nameEvent, dateEvent, guestNumber);
+    public void WriteEvent(String nameEvent, GregorianCalendar dateEvent,int guestNumber) throws IOException {
+        boolean exist = false;
+        exist = check(pathEvents,nameEvent);
+        if(!exist) {
+            txtFileW = new FileWriter(pathEvents, true);
+            bufferWriter = new BufferedWriter(txtFileW);
+            super.WriteEvent(nameEvent, dateEvent, guestNumber);
+        }
     }
+
+
+    public boolean check(String path,String key)throws IOException{
+        boolean esito = false;
+        String line;
+        String [] colonna;
+        txtFileR = new FileReader(path);
+        buffReader = new BufferedReader( txtFileR);
+
+        while( buffReader.ready()) {
+            line =  buffReader.readLine();
+            colonna = line.split("\t");
+            if (colonna[0].equals(key)) {
+                esito = true;
+            }
+        }
+        closeReading();
+        return esito;
+    }
+
 
     //faccio chiusura sia del bufferWriter che del file
     public void closeAll() throws IOException{
-        bufferWriter.close();
-        buffReader.close();
-        txtFileW.close();
-        txtFileR.close();
+        closeWriting();
+        closeReading();
         super.generate();
     }
+
+    public void closeWriting() throws IOException{
+        bufferWriter.close();
+        txtFileW.close();
+    }
+
+    public void closeReading() throws IOException{
+        buffReader.close();
+        txtFileR.close();
+    }
+
+    public String getPathClient() {
+        return pathClient;
+    }
+
+    public String getPathGuests() {
+        return pathGuests;
+    }
+
+    public String getPathEvents() {
+        return pathEvents;
+    }
+
 }
+

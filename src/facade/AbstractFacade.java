@@ -1,34 +1,43 @@
 package facade;
 
-import persone.Cliente;
+import com.sun.security.ntlm.Client;
+import persone.*;
+import java.io.*;
+import java.util.*;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
 
 public class AbstractFacade {
+
     protected ArrayList <String> field;
+     private boolean registered = false;
+    Cliente client = null;
+
+    /*
+    ATTENZIONE_ questo fetchClient va implementato nelle classi eredi
+    @AUTHOR Gabrielesavella
+     */
+    public Cliente fetchClient(String username,String password)throws IOException{
+        String line;
+        String [] colonna;
 
 
-    public ArrayList<String> fetchClient(String username,String password){
-        field=new ArrayList<String>(2);
-        field.add(username);
-        field.add(password);
-        try {
-            return fetch();
-        } catch (IOException e) {
-            e.printStackTrace();
+        BufferedReader reader = new BufferedReader(new FileReader("registrazioni.txt"));
+
+        while(reader.ready()) {
+            line=reader.readLine();
+            colonna = line.split("\t");
+            fetch(username,password,colonna);
         }
-        return null;
+        return client;
     }
 
-    public void WriteClient(String name, String surname, String email, String password)throws IOException{
-        field=new ArrayList<String>(2);
+    public void WriteClient(String username, String password,String name, String surname, String email)throws IOException{
+        field = new ArrayList<String>(5);
+        field.add(username);
+        field.add(password);
         field.add(name);
         field.add(surname);
         field.add(email);
-        field.add(password);
         generate();
     }
 
@@ -61,8 +70,20 @@ public class AbstractFacade {
         field.clear();
     }
 
-    public ArrayList<String> fetch() throws IOException{
-        return field;
+    public Cliente fetch(String username,String password,String[] colonna) throws IOException{
+        //colonna 1 e 2 perchè la colonna 0 è un intero che indica il numero di riga
+        if(colonna[0].equals(username) && colonna[1].equals(password)){
+            registered = true;
+            client = new Cliente(colonna[0],colonna[2],colonna[3],colonna[4],colonna[1]);
+            System.out.println(client);
+            return client;
+
+        }
+        else
+        {
+            return client;
+        }
+
     }
 
     public ArrayList<String> getField() {

@@ -4,6 +4,7 @@ import facade.txtFacade;
 import locale.Evento;
 import locale.Locale;
 import locale.Tavolo;
+import persone.Cliente;
 import persone.Invitato;
 
 import java.io.IOException;
@@ -63,8 +64,8 @@ public class PrenotazionePosti {
         Evento k = new Evento("Battesimo", orarioEvento, bellaNapoli, 20);
 
         //invitati;
-        Invitato a = new Invitato("1","maffo","marco",39);
-        Invitato b = new Invitato("2","luca","marco",39);
+        Invitato a = new Invitato("mfnmrc95","marco","maffoni",39);
+        Invitato b = new Invitato("cvlc97","luca","cavo",39);
         Invitato c = new Invitato("3","gilbe","marco",39);
         Invitato d = new Invitato("4","gabri","marco",39);
         Invitato t = new Invitato("5","lecce","marco",39);
@@ -128,24 +129,30 @@ public class PrenotazionePosti {
         // stampe per prova;
         System.out.println(bellaNapoli.stampaNomeEventi());
         try {
-            txtFacade prova = new txtFacade("primidueinvitati.txt", 2);
+            txtFacade prova = new txtFacade( 2);
             prova.WriteGuests(a.getCf(),a.getNome(),a.getCognome(),a.getEtà());
             prova.WriteGuests(b.getCf(),b.getNome(),b.getCognome(),b.getEtà());
+            prova.WriteGuests(c.getCf(),c.getNome(),c.getCognome(),c.getEtà());
+            prova.WriteClient("Myusername","mypassword","luca","usb","mygmail@gmail.com");
+            prova.WriteEvent(e.getName(),e.getDataEvento(),e.getNumInvitati());
+           // prova.WriteEvent(e.getName(),orarioEvento,20);
+            Cliente clienteregistrato = prova.fetchClient("Myusername","mypassword");
+            System.out.println("cliente registrato: "+clienteregistrato.getUsername()+"  "+clienteregistrato.getCognome()+"  "+clienteregistrato.getNome());
 
 
 
         }catch(IOException e1){
             System.out.println("Eccezione: " + e1);
         }
-        e.showListaInvitati();
+        //e.showListaInvitati();
 
-        k.showListaInvitati();
+        //k.showListaInvitati();
 
         //
 
-        bellaNapoli.smistamentoTavoli(e);
-        System.out.println("maffo balordo ");
-        System.out.println(bellaNapoli.getInvitatiAlTavolo(tav1));
+        //bellaNapoli.smistamentoTavoli(e);
+
+        //System.out.println(bellaNapoli.getInvitatiAlTavolo(tav1));
 
 
     }

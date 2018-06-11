@@ -8,9 +8,9 @@ import java.util.*;
 
 
 public class Evento {
-    private String nomeEvento;
+    private String nomeEvento,nomeLocation;
 
-    private locale.Locale location = null;
+    private Locale location = null;
     private ArrayList <Invitato> invitati;
     private  ArrayList <Vincolo> lista_vincoli;
     private GregorianCalendar dataEvento;
@@ -32,7 +32,28 @@ public class Evento {
         lista_vincoli = new ArrayList();
         this.invitati = new ArrayList(numInvitati);
         this.numInvitati=numInvitati;
-        location.getEventi().add(this);
+
+    }
+
+    public Evento(String nomeEvento, GregorianCalendar dataEvento, String nomeLocation, int numInvitati){
+
+        /*Crea un Evento caratterizzato da un nome, una data e un Locale. Al suo interno verranno successivamente inseriti
+        una lista di Invitati e di Vincoli*/
+
+
+        this.nomeEvento = nomeEvento;
+        this.nomeLocation = nomeLocation;
+        this.dataEvento = dataEvento;
+        lista_vincoli = new ArrayList();
+        this.invitati = new ArrayList(numInvitati);
+        this.numInvitati=numInvitati;
+
+    }
+
+    public Evento(String nomeEvento, GregorianCalendar dataEvento, int numInvitati) {
+        this.nomeEvento = nomeEvento;
+        this.dataEvento = dataEvento;
+        this.numInvitati = numInvitati;
     }
 
     public String getName(){return nomeEvento;}
@@ -93,5 +114,9 @@ public class Evento {
 
     public void setDataEvento(GregorianCalendar dataEvento) {
         this.dataEvento = dataEvento;
+    }
+
+    public GregorianCalendar getDataEvento() {
+        return dataEvento;
     }
 }
