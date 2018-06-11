@@ -1,7 +1,7 @@
 package persone;
 
 public class Cliente {
-    private String ID,username,email,Psw,nome,cognome;
+    private String username,email,Psw,nome,cognome;
 
 
     public Cliente( String username,String nome, String cognome, String email,String Psw) {
