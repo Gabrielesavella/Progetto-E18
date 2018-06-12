@@ -4,24 +4,34 @@ package persone;
 /*@author Marco Maffoni,Gabriele Savella*/
 public class Invitato {
 
-    private String cf,nome,cognome;
-    private int età;
+    private String ID_Inv;
+    private String nome,cognome;
+    private int eta;
     /*
     @parametri:
-    cf è il codice fiscale dell'invitato
+    ID_inv è l'identificativo dell'invitato, composto da NomeEvento + contatore
     nome è il nome dell'invitato
     cognome è il cognome dell'invitato
      */
-    public Invitato (String cf,String nome,String cognome,int età){
-        this.cf = cf;
+    public Invitato (String nome,String cognome,int eta){
+        this.ID_Inv="";
         this.cognome = cognome;
         this.nome = nome;
-        this.età = età;
+        this.eta=eta;
+
+        ;
     }
 
-    public String getCf() {
-        return cf;
+    public void setID_Inv(String ID_Inv) {
+        this.ID_Inv = ID_Inv;
     }
+
+    public String getID_Inv() {
+                return ID_Inv
+                ;
+    }
+
+
 
     public String getNome() {
         return nome;
@@ -31,17 +41,17 @@ public class Invitato {
         return cognome;
     }
 
-    public int getEtà() {
-        return età;
+    public int getEta() {
+        return eta;
     }
 
     @Override
     public String toString() {
         return "Invitato " +
-                cf +
+                ID_Inv +
                 ", nome: " + nome +
                 ", cognome: " + cognome  +
-                ", età: " + età +
+                ", età: " + eta +
                 '\n';
     }
 }

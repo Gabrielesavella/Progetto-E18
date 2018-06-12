@@ -33,9 +33,19 @@ public class Evento {
         this.invitati = new ArrayList(numInvitati);
         this.numInvitati=numInvitati;
         location.getEventi().add(this);
+        createID_Inv();
     }
 
     public String getName(){return nomeEvento;}
+
+    public void createID_Inv(){
+        int j=0;
+        for (Invitato i :invitati){
+            j++;
+            i.setID_Inv(nomeEvento + Integer.toString(j));
+        }
+
+    }
 
 
 

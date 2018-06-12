@@ -32,7 +32,7 @@ public class ConnessioneDB {// crea la connessione col database "smistamento_pos
     String ID_Inv;
     String nomeInv;
     String cognomeInv;
-    int et‡Inv;
+    int etaInv;
     String ID_Evento;
     GregorianCalendar dataEvento;
     Locale location;
@@ -44,7 +44,7 @@ public class ConnessioneDB {// crea la connessione col database "smistamento_pos
     boolean starVicino;
     boolean starLontano;
     boolean tavoloOnore;
-    boolean difficolt‡Motorie;
+    boolean difficoltaMotorie;
     boolean vegetariano;
     boolean vicinoTV;
 
@@ -81,11 +81,11 @@ public class ConnessioneDB {// crea la connessione col database "smistamento_pos
         this.cognomeUser = cliente1.getCognome();
         this.ID_User = cliente1.getID();
         this.password = cliente1.getPsw();
-        Invitato inv = new Invitato(ID_Inv, nomeInv, cognomeInv, et‡Inv);
-        this.ID_Inv = inv.getCf();
+        Invitato inv = new Invitato(nomeInv, cognomeInv, etaInv);
+        this.ID_Inv = inv.getID_Inv();
         this.nomeInv = inv.getNome();
         this.cognomeInv = inv.getCognome();
-        this.et‡Inv = inv.getEt‡();
+        this.etaInv = inv.getEta();
         Evento evento1 = new Evento(ID_Evento, dataEvento, location, numeroInvitati);
         this.ID_Evento = evento1.getName();
         this.dataEvento = evento1.getDataEvento();
@@ -247,7 +247,7 @@ public class ConnessioneDB {// crea la connessione col database "smistamento_pos
     
     // i campi relativi ai vincoli li ho inseriti come boolean
 
-    public void inserisciDatiInvitato(String ID_Evento, String ID_Inv, String nomeInv, String cognomeInv, int et‡Inv, boolean starVicino, boolean starLontano, boolean tavoloOnore, boolean difficolt‡Motorie, boolean vegetariano, boolean vicinoTV) {
+    public void inserisciDatiInvitato(String ID_Evento, String ID_Inv, String nomeInv, String cognomeInv, int etaInv, boolean starVicino, boolean starLontano, boolean tavoloOnore, boolean difficoltaMotorie, boolean vegetariano, boolean vicinoTV) {
         Statement stmt = null;
         ResultSet rs = null;
         String table = "dati_Invitati";
@@ -257,7 +257,7 @@ public class ConnessioneDB {// crea la connessione col database "smistamento_pos
         } else {
             try {
 
-                String queryEntry = "INSERT INTO " + table + " (`ID_Evento`, `ID_Invitato`, `nomeInvitato`, `cognomeInvitato`, `et‡Invitato`,`VoglioStareVicinoA`,`NonVoglioStareVicinoA`,`TavoloD'Onore`,`Difficolt‡Motorie`,`Vegetariano`,`VicinoTV`,) VALUES ('" + ID_Evento + "','" + ID_Inv + "','" + nomeInv + "','" + cognomeInv + "','" + et‡Inv + "','" + starVicino + "','" + starLontano + "','" + tavoloOnore + "','" + difficolt‡Motorie + "','" + vegetariano + "','" + vicinoTV + "');";
+                String queryEntry = "INSERT INTO " + table + " (`ID_Evento`, `ID_Invitato`, `nomeInvitato`, `cognomeInvitato`, `etaInvitato`,`VoglioStareVicinoA`,`NonVoglioStareVicinoA`,`TavoloD'Onore`,`DifficoltaMotorie`,`Vegetariano`,`VicinoTV`,) VALUES ('" + ID_Evento + "','" + ID_Inv + "','" + nomeInv + "','" + cognomeInv + "','" + etaInv + "','" + starVicino + "','" + starLontano + "','" + tavoloOnore + "','" + difficoltaMotorie + "','" + vegetariano + "','" + vicinoTV + "');";
                 stmt.executeUpdate(queryEntry);
 
             } catch (SQLException e) {
