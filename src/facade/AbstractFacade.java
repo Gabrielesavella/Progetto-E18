@@ -12,7 +12,6 @@ import java.util.GregorianCalendar;
 public class AbstractFacade {
 
     protected ArrayList <String> field;
-
     private Cliente client = null;
     private Evento evento = null;
 
@@ -56,7 +55,7 @@ public class AbstractFacade {
     }
 
     public void WriteEvent(String nameEvent, GregorianCalendar dateEvent,int guestNumber)throws IOException{
-       //promemoria per @author Gabrielesavella : da convertire dateevent in string (ora mancanzi di tempo causa lezione
+
         field=new ArrayList<String>(3);
         field.add(nameEvent);
         field.add(Integer.toString(dateEvent.get(Calendar.DATE)));
@@ -74,7 +73,7 @@ public class AbstractFacade {
     }
 
     public Cliente fetch(String username,String password,String[] colonna) throws IOException{
-        //colonna 1 e 2 perchè la colonna 0 è un intero che indica il numero di riga
+
         return client;
     }
 
