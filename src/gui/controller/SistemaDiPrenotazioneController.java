@@ -67,7 +67,9 @@ public class SistemaDiPrenotazioneController{
     }
 
 
-    public Evento getEvento(String nomeEvento){ return null; }
+    public Evento getEvento(String nomeEvento){
+        return null;
+    }
 
 
     public boolean acquisisciInvitati(ArrayList<Invitato> invitati){

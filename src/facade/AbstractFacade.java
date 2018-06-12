@@ -1,6 +1,5 @@
 package facade;
 
-import com.sun.security.ntlm.Client;
 import locale.Evento;
 import persone.*;
 import java.io.*;
@@ -20,7 +19,6 @@ public class AbstractFacade {
     public Cliente fetchClient(String username,String password)throws IOException{
         String line;
         String [] colonna;
-
 
         BufferedReader reader = new BufferedReader(new FileReader("registrazioni.txt"));
 

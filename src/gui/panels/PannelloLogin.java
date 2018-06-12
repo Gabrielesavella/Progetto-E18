@@ -79,17 +79,18 @@ public class PannelloLogin extends JPanel {
         logIn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-//                if (PannelloRegistrazione.clienti!=null){
-//                    for (Cliente c:PannelloRegistrazione.clienti) {
-//                        if (c.getID().equals(username.getText()) && c.getPsw().equals(password.getText())){
-//                            FinestraCreazioneEvento fe=new FinestraCreazioneEvento(locali);
-//                            fe.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-//                            fe.setVisible(true);
-//                        }
-//                    }
-//                }
-//                ArrayList<String> recordLoggato= .fetchClient(tUsername.getText(),tPassword.getText());
-//                Cliente cliente= new Cliente(recordLoggato.get(0),recordLoggato.get(1),recordLoggato.get(2),recordLoggato.get(3));
+/*                if (PannelloRegistrazione.clienti!=null){
+                    for (Cliente c:PannelloRegistrazione.clienti) {
+                        if (c.getID().equals(username.getText()) && c.getPsw().equals(password.getText())){
+                            FinestraCreazioneEvento fe=new FinestraCreazioneEvento(locali);
+                            fe.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+                            fe.setVisible(true);
+                        }
+                    }
+                }
+                ArrayList<String> recordLoggato= .fetchClient(tUsername.getText(),tPassword.getText());
+                Cliente cliente= new Cliente(recordLoggato.get(0),recordLoggato.get(1),recordLoggato.get(2),recordLoggato.get(3));
+*/
                 Cliente cliente = sisPr.login(tUsername.getText(), String.valueOf(tPassword.getPassword()));
                 if (cliente!=null){
                     FinestraCreazioneEvento fe=new FinestraCreazioneEvento(locali,cliente);
