@@ -2,6 +2,7 @@ package facade;
 
 import locale.Evento;
 import persone.Cliente;
+import persone.Invitato;
 
 import java.io.*;
 import java.util.GregorianCalendar;
@@ -16,6 +17,7 @@ public class txtFacade extends AbstractFacade {
     private BufferedReader buffReader;
     private Evento evento = null;
     private Cliente client = null;
+    public Invitato invitato = null;
     private boolean registered = false;
 
     //costruttori
@@ -132,7 +134,7 @@ public class txtFacade extends AbstractFacade {
         return evento;
     }
 
-    @Override
+
     public Evento fetch(String nomeEvento, String[] colonna) throws IOException {
 
         if (colonna[0].equals(nomeEvento)) {
@@ -146,6 +148,40 @@ public class txtFacade extends AbstractFacade {
         }
 
     }
+    //fetchInvitati + get del relativo oggetto
+
+    public Invitato fetchInvitato(String idInvitato) throws IOException {
+
+        String line;
+        String[] colonna;
+        FileWriter writing = new FileWriter(pathGuests, true);
+        writing.close();
+        buffReader = new BufferedReader(new FileReader(pathGuests));
+
+        while ( buffReader.ready()) {
+            line =  buffReader.readLine();
+            colonna = line.split("\t");
+            invitato = getInvitato(idInvitato, colonna);
+        }
+        return invitato;
+    }
+
+
+    public Invitato getInvitato(String idInvitato, String[] colonna) throws IOException {
+
+        if (colonna[0].equals(idInvitato)) {
+            invitato = new Invitato(colonna[0],colonna[1],colonna[2],Integer.parseInt(colonna[3]));
+            return invitato;
+
+        } else {
+            return invitato;
+        }
+
+    }
+
+    
+
+
 
     //controllo che l'oggetto non sia già memorizzato nel file
 
