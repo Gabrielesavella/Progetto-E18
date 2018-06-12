@@ -15,6 +15,8 @@ public class txtFacade extends AbstractFacade {
     private BufferedWriter bufferWriter;
     private BufferedReader buffReader;
     private Evento evento = null;
+    private Cliente client = null;
+    private boolean registered = false;
 
     public txtFacade(String namefile, int numberofObject) throws IOException {
         super();
@@ -53,17 +55,25 @@ public class txtFacade extends AbstractFacade {
 
     @Override
     public Cliente fetch(String username, String password, String[] colonna) throws IOException{
-       return super.fetch(username, password, colonna);
+        if(colonna[0].equals(username) && colonna[1].equals(password)){
+            registered = true;
+            client = new Cliente(colonna[0],colonna[2],colonna[3],colonna[4],colonna[1]);
+            return client;
+
+        }
+        else
+        {
+            return client;
+        }
     }
 
     public Evento fetchEvento(String nomeEvento) throws IOException {
 
         String line;
         String [] colonna;
-
-
-
-        BufferedReader reader = new BufferedReader(new FileReader("Eventi.txt"));
+        FileWriter writing = new FileWriter(pathEvents,true);
+        writing.close();
+        BufferedReader reader = new BufferedReader(new FileReader(pathEvents));
 
         while(reader.ready()) {
             line=reader.readLine();
@@ -180,5 +190,23 @@ public class txtFacade extends AbstractFacade {
         return pathEvents;
     }
 
+    @Override
+    public Cliente fetchClient(String username, String password) throws IOException {
+        String line;
+        String [] colonna;
+         FileWriter writing = new FileWriter(pathClient,true);
+         writing.close();
+
+
+
+        BufferedReader reader = new BufferedReader(new FileReader(pathClient));
+
+        while(reader.ready()) {
+            line=reader.readLine();
+            colonna = line.split("\t");
+            fetch(username,password,colonna);
+        }
+        return client;
+    }
 }
 
