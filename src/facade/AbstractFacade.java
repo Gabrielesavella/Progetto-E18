@@ -21,7 +21,6 @@ public class AbstractFacade {
     @AUTHOR Gabrielesavella
      */
     public Cliente fetchClient(String username,String password)throws IOException{
-<<<<<<< HEAD
         String line;
         String [] colonna;
 
@@ -33,9 +32,6 @@ public class AbstractFacade {
             fetch(username,password,colonna);
         }
         return client;
-=======
-       return client;
->>>>>>> 78bdd0c36414b65b7ffa900ea4138717acbb61b7
     }
 
     public void WriteClient(String username, String password,String name, String surname, String email)throws IOException{
