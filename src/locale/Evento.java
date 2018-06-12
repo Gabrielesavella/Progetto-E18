@@ -78,6 +78,10 @@ public class Evento {
 
     public int getNumInvitati(){return numInvitati;}
 
+    public GregorianCalendar getDataEvento(){
+        return dataEvento;
+    }
+
     public void setLista_vincoli(ArrayList <Vincolo> lista_vincoli) {
         this.lista_vincoli = lista_vincoli;
     }
