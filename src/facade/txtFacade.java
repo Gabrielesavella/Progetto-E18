@@ -2,11 +2,8 @@ package facade;
 
 import locale.Evento;
 import persone.Cliente;
-import java.lang.String;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.GregorianCalendar;
 
 public class txtFacade extends AbstractFacade {
@@ -100,9 +97,9 @@ public class txtFacade extends AbstractFacade {
     @Override
     public void WriteClient(String username,String password,String name, String surname, String email)throws IOException {
         boolean exist = false;
+        txtFileW = new FileWriter(pathClient, true);
         exist = check(pathClient,username);
         if(!exist) {
-            txtFileW = new FileWriter(pathClient, true);
             bufferWriter = new BufferedWriter(txtFileW);
             super.WriteClient(username, password, name, surname, email);
         }
@@ -111,9 +108,9 @@ public class txtFacade extends AbstractFacade {
     @Override
     public void WriteGuests(String fiscaleCode, String nameGuest, String surnameGuest, int age) throws IOException {
         boolean exist = false;
+        txtFileW = new FileWriter(pathGuests, true);
         exist=check(pathGuests,fiscaleCode);
             if(!exist) {
-                txtFileW = new FileWriter(pathGuests, true);
                 bufferWriter = new BufferedWriter(txtFileW);
                 super.WriteGuests(fiscaleCode, nameGuest, surnameGuest, age);
             }
@@ -126,9 +123,9 @@ public class txtFacade extends AbstractFacade {
     @Override
     public void WriteEvent(String nameEvent, GregorianCalendar dateEvent,int guestNumber) throws IOException {
         boolean exist = false;
+        txtFileW = new FileWriter(pathEvents, true);
         exist = check(pathEvents,nameEvent);
         if(!exist) {
-            txtFileW = new FileWriter(pathEvents, true);
             bufferWriter = new BufferedWriter(txtFileW);
             super.WriteEvent(nameEvent, dateEvent, guestNumber);
         }
