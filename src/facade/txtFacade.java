@@ -154,7 +154,7 @@ public class txtFacade extends AbstractFacade {
 
     public ArrayList<Invitato> fetchAllGuests() throws IOException{
 
-        ArrayList<Invitato> AllGuests = new ArrayList<>();
+        ArrayList<Invitato> AllGuests = new ArrayList<Invitato>();
 
         String line;
         String[] colonna;
@@ -168,7 +168,6 @@ public class txtFacade extends AbstractFacade {
             invitato = new Invitato(colonna[0],colonna[1],colonna[2],Integer.parseInt(colonna[3]));
             AllGuests.add(invitato);
         }
-
         return AllGuests;
 
     }
