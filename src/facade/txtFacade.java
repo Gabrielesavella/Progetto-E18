@@ -5,6 +5,7 @@ import persone.Cliente;
 import persone.Invitato;
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.GregorianCalendar;
 
 public class txtFacade extends AbstractFacade {
@@ -148,9 +149,44 @@ public class txtFacade extends AbstractFacade {
         }
 
     }
-    //fetchInvitati + get del relativo oggetto
 
-    public Invitato fetchInvitato(String idInvitato) throws IOException {
+    //fetch AllGuests
+
+    public ArrayList<Invitato> fetchAllGuests() throws IOException{
+
+        ArrayList<Invitato> AllGuests = new ArrayList<>();
+
+        String line;
+        String[] colonna;
+        FileWriter writing = new FileWriter(pathGuests, true);
+        writing.close();
+        buffReader = new BufferedReader(new FileReader(pathGuests));
+
+        while ( buffReader.ready()) {
+            line = buffReader.readLine();
+            colonna = line.split("\t");
+            invitato = new Invitato(colonna[0],colonna[1],colonna[2],Integer.parseInt(colonna[3]));
+            AllGuests.add(invitato);
+        }
+
+        return AllGuests;
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+    //fetchInvitato + get del relativo oggetto
+
+    public Invitato fetchGuest(String idInvitato) throws IOException {
 
         String line;
         String[] colonna;
@@ -161,13 +197,13 @@ public class txtFacade extends AbstractFacade {
         while ( buffReader.ready()) {
             line =  buffReader.readLine();
             colonna = line.split("\t");
-            invitato = getInvitato(idInvitato, colonna);
+            invitato = getGuest(idInvitato, colonna);
         }
         return invitato;
     }
 
 
-    public Invitato getInvitato(String idInvitato, String[] colonna) throws IOException {
+    public Invitato getGuest(String idInvitato, String[] colonna) throws IOException {
 
         if (colonna[0].equals(idInvitato)) {
             invitato = new Invitato(colonna[0],colonna[1],colonna[2],Integer.parseInt(colonna[3]));
