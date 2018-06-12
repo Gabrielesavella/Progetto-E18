@@ -1,35 +1,27 @@
 package facade;
 
-import com.sun.security.ntlm.Client;
 import locale.Evento;
-import persone.*;
+import persone.Cliente;
+
 import java.io.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 
 public class AbstractFacade {
 
     protected ArrayList <String> field;
-     private boolean registered = false;
-    Cliente client = null;
+
+    private Cliente client = null;
+    private Evento evento = null;
 
     /*
     ATTENZIONE_ questo fetchClient va implementato nelle classi eredi
     @AUTHOR Gabrielesavella
      */
     public Cliente fetchClient(String username,String password)throws IOException{
-        String line;
-        String [] colonna;
-
-
-        BufferedReader reader = new BufferedReader(new FileReader("registrazioni.txt"));
-
-        while(reader.ready()) {
-            line=reader.readLine();
-            colonna = line.split("\t");
-            fetch(username,password,colonna);
-        }
-        return client;
+       return client;
     }
 
     public void WriteClient(String username, String password,String name, String surname, String email)throws IOException{
@@ -43,7 +35,7 @@ public class AbstractFacade {
     }
 
     public void WriteGuests(String fiscaleCode,String nameGuest, String surnameGuest,int age) throws IOException{
-        field=new ArrayList<String>(2);
+        field=new ArrayList<String>(4);
         field.add(fiscaleCode);
         field.add(nameGuest);
         field.add(surnameGuest);
@@ -55,7 +47,7 @@ public class AbstractFacade {
 
     public void WriteEvent(String nameEvent, GregorianCalendar dateEvent,int guestNumber)throws IOException{
        //promemoria per @author Gabrielesavella : da convertire dateevent in string (ora mancanzi di tempo causa lezione
-        field=new ArrayList<String>(2);
+        field=new ArrayList<String>(3);
         field.add(nameEvent);
         field.add(Integer.toString(dateEvent.get(Calendar.DATE)));
         field.add(Integer.toString(guestNumber));
@@ -73,21 +65,11 @@ public class AbstractFacade {
 
     public Cliente fetch(String username,String password,String[] colonna) throws IOException{
         //colonna 1 e 2 perchè la colonna 0 è un intero che indica il numero di riga
-        if(colonna[0].equals(username) && colonna[1].equals(password)){
-            registered = true;
-            client = new Cliente(colonna[0],colonna[2],colonna[3],colonna[4],colonna[1]);
-            return client;
-
-        }
-        else
-        {
-            return client;
-        }
-
+        return client;
     }
 
     public Evento fetch(String nomeEvento, String[] colonna) throws IOException{
-        return null;
+        return evento;
     }
 
     public ArrayList<String> getField() {
