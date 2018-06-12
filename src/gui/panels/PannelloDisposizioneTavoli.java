@@ -1,5 +1,6 @@
 package gui.panels;
 
+import gui.controller.SistemaDiPrenotazioneController;
 import locale.Evento;
 import locale.Locale;
 import locale.Tavolo;
@@ -31,12 +32,20 @@ public class PannelloDisposizioneTavoli extends JPanel {
         this.add(pAllGuests);
         this.add(pTablesGuests);
 
+        SistemaDiPrenotazioneController sisPr= new SistemaDiPrenotazioneController();
+
         stampaElenco.append("Numero invitati: " + evento.getNumInvitati()+"\n");
         stampaElenco.append("Invitati presenti: " + evento.getListaInvitati().size()+"\n");
+        stampaElenco.append("Invitati presenti: " +"\n");
 
-        for (Invitato i:evento.getListaInvitati()) {
+        for (Invitato i:sisPr.getInvitati()) {
             stampaElenco.append(i.getCf()+"\t"+i.getNome()+"\t"+i.getCognome()+"\t"+i.getEtà()+"\n");
         }
+
+
+//        for (Invitato i:evento.getListaInvitati()) {
+//            stampaElenco.append(i.getCf()+"\t"+i.getNome()+"\t"+i.getCognome()+"\t"+i.getEtà()+"\n");
+//        }
         stampaDisposizione.append("\nDisposizione:\n");
 
         for (Tavolo t:locale.smistamentoTavoli(evento)) {

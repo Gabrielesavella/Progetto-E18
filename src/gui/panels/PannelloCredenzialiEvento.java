@@ -88,7 +88,7 @@ public class PannelloCredenzialiEvento extends JPanel{
                     if(l.id_locale.equals(dropDownLocali.getSelectedItem())) {
                         localeSelezionato=l;
                         if (sisPr.creaEvento(tNome.getText(),calendar,Integer.parseInt(tnInv.getText()),cliente))
-                            System.out.println("abbebbe!!!");
+                            System.out.println("evento creato :)");
                     }
                 }
 

@@ -1,6 +1,7 @@
 package gui.panels;
 
 //import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
+import gui.controller.SistemaDiPrenotazioneController;
 import gui.finestre.FinestraDisposizioneTavoli;
 import locale.Evento;
 import locale.Locale;
@@ -50,6 +51,8 @@ public class PannelloSpecificheEvento extends JPanel {
         add(tuploadExcel);
         add(bUpload);
 
+        SistemaDiPrenotazioneController sisPr= new SistemaDiPrenotazioneController();
+
         bDownload.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -66,12 +69,16 @@ public class PannelloSpecificheEvento extends JPanel {
                 for (int i = 0; i<evento.getNumInvitati(); i++)
                     writer.println(i+1+"\t\t\t\t\t\t\t\t");
                 writer.close();
+
+
             }
         });
 
         bUpload.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e)  {
+
+                ArrayList<Invitato> invitati=new ArrayList<>();
                 Scanner scanner= null;
                 try {
                     File fin=new File("the-file-name.txt");
@@ -88,9 +95,11 @@ public class PannelloSpecificheEvento extends JPanel {
                         System.out.println("Invitati inferiori al numero previsto.");
                         break;
                     }
-                    evento.addInvitato(new Invitato(str[1],str[2],str[3],Integer.parseInt(str[4])));
-
+                    Invitato i= new Invitato(str[1],str[2],str[3],Integer.parseInt(str[4]));
+                    evento.addInvitato(i);
+                    invitati.add(i);
                 }
+                sisPr.acquisisciInvitati(invitati);
                 System.out.println("Acquisizione invitati effettuata.");
                 FinestraDisposizioneTavoli fd=new FinestraDisposizioneTavoli(locale,evento);
                 fd.setVisible(true);

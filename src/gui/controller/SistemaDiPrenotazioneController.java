@@ -68,7 +68,14 @@ public class SistemaDiPrenotazioneController{
 
 
     public Evento getEvento(String nomeEvento){
-        return null;
+        String[] columns= new String[10];
+        Evento evento=null;
+        try {
+            evento=facade.fetch(nomeEvento,columns);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return evento;
     }
 
 
@@ -84,6 +91,15 @@ public class SistemaDiPrenotazioneController{
         return true;
     }
 
-    public ArrayList<Invitato> getInvitati(){ return null; }
+    public ArrayList<Invitato> getInvitati(){
+        ArrayList<Invitato> invitati= null;
+        try {
+            txtFacade txtFacade= new txtFacade(1);
+            invitati.addAll(txtFacade.fetchAllGuests());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return invitati;
+    }
 
 }
