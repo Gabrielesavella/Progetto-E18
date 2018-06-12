@@ -168,21 +168,10 @@ public class txtFacade extends AbstractFacade {
             invitato = new Invitato(colonna[0],colonna[1],colonna[2],Integer.parseInt(colonna[3]));
             AllGuests.add(invitato);
         }
+        closeReading();
         return AllGuests;
 
     }
-
-
-
-
-
-
-
-
-
-
-
-
     //fetchInvitato + get del relativo oggetto
 
     public Invitato fetchGuest(String idInvitato) throws IOException {
