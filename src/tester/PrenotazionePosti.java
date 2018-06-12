@@ -63,26 +63,26 @@ public class PrenotazionePosti {
         Evento k = new Evento("Battesimo", orarioEvento, bellaNapoli, 20);
 
         //invitati;
-        Invitato a = new Invitato("1","maffo","marco",39);
-        Invitato b = new Invitato("2","luca","marco",39);
-        Invitato c = new Invitato("3","gilbe","marco",39);
-        Invitato d = new Invitato("4","gabri","marco",39);
-        Invitato t = new Invitato("5","lecce","marco",39);
-        Invitato f = new Invitato("6","fudi","marco",39);
-        Invitato g = new Invitato("7","dori","marco",39);
-        Invitato h = new Invitato("8","ischia","marco",39);
-        Invitato i = new Invitato("9","salvo","marco",39);
-        Invitato l = new Invitato("10","fede","marco",39);
-        Invitato m = new Invitato("11","ale","marco",39);
-        Invitato n = new Invitato("12","fox","marco",39);
-        Invitato o = new Invitato("13","volpi","marco",39);
-        Invitato p = new Invitato("14","saro","marco",39);
-        Invitato q = new Invitato("15","slto","marco",39);
-        Invitato r = new Invitato("16","carlo","marco",39);
-        Invitato s = new Invitato("17","gavino","marco",39);
-        Invitato u = new Invitato("18","pops","marco",39);
-        Invitato v = new Invitato("19","paolo","marco",39);
-        Invitato z = new Invitato("20","mauro","marco",39);
+        Invitato a = new Invitato("maffo","marco",39);
+        Invitato b = new Invitato("luca","marco",39);
+        Invitato c = new Invitato("gilbe","marco",39);
+        Invitato d = new Invitato("gabri","marco",39);
+        Invitato t = new Invitato("lecce","marco",39);
+        Invitato f = new Invitato("fudi","marco",39);
+        Invitato g = new Invitato("dori","marco",39);
+        Invitato h = new Invitato("ischia","marco",39);
+        Invitato i = new Invitato("salvo","marco",39);
+        Invitato l = new Invitato("fede","marco",39);
+        Invitato m = new Invitato("ale","marco",39);
+        Invitato n = new Invitato("fox","marco",39);
+        Invitato o = new Invitato("volpi","marco",39);
+        Invitato p = new Invitato("saro","marco",39);
+        Invitato q = new Invitato("slto","marco",39);
+        Invitato r = new Invitato("carlo","marco",39);
+        Invitato s = new Invitato("gavino","marco",39);
+        Invitato u = new Invitato("pops","marco",39);
+        Invitato v = new Invitato("paolo","marco",39);
+        Invitato z = new Invitato("mauro","marco",39);
         //        //inserimento invitati nelle liste evento 1;
         e.addInvitati(a);
         e.addInvitati(b);
@@ -129,8 +129,8 @@ public class PrenotazionePosti {
         System.out.println(bellaNapoli.stampaNomeEventi());
         try {
             txtFacade prova = new txtFacade("primidueinvitati.txt", 2);
-            prova.WriteGuests(a.getCf(),a.getNome(),a.getCognome(),a.getEtà());
-            prova.WriteGuests(b.getCf(),b.getNome(),b.getCognome(),b.getEtà());
+            prova.WriteGuests(a.getID_Inv(),a.getNome(),a.getCognome(),a.getEta());
+            prova.WriteGuests(b.getID_Inv(),b.getNome(),b.getCognome(),b.getEta());
 
 
 

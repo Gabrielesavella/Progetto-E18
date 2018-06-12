@@ -24,7 +24,7 @@ public class PannelloDisposizioneTavoli extends JPanel {
 
         stampaDisposizione.append("numero invitati: " + evento.getNumInvitati()+"\n");
         for (Invitato i:evento.getListaInvitati()) {
-            stampaDisposizione.append(i.getCf()+"\t"+i.getNome()+"\t"+i.getCognome()+"\t"+i.getEtà()+"\n");
+            stampaDisposizione.append(i.getID_Inv()+"\t"+i.getNome()+"\t"+i.getCognome()+"\t"+i.getEta()+"\n");
         }
 //        stampaDisposizione.append("\nDisposizione:\n");
 //        for (Tavolo t:evento) {
