@@ -30,9 +30,12 @@ public class PreferenzaInvitato implements Vincolo {
 
             case STA_VICINO_A:
 
+                int tavoliUtil = evento.getLocation().getTavoliLocale().size();
+
                 for(Tavolo t : evento.getLocation().getTavoliLocale()){
 
                     int n = 0;
+
 
                     if (t.getArraylistInvitati().contains(lista_vincolati.get(n)) && lista_vincolati.size()>=n){
 
@@ -43,7 +46,11 @@ public class PreferenzaInvitato implements Vincolo {
 
                         n++;
 
-                    } else if (!(t.getArraylistInvitati().contains(lista_vincolati.get(n))) && lista_vincolati.size()<n){
+                    } else if (!(t.getArraylistInvitati().contains(lista_vincolati.get(n))) && lista_vincolati.size()<n && tavoliUtil>0){
+
+                        tavoliUtil--;
+
+                    } else if (!(t.getArraylistInvitati().contains(lista_vincolati.get(n))) && lista_vincolati.size()==(n-1) && tavoliUtil==0){
 
                         mettiVicino();
 
@@ -53,6 +60,8 @@ public class PreferenzaInvitato implements Vincolo {
 
 
             case NON_STA_VICINO_A:
+
+                int tavUt = evento.getLocation().getTavoliLocale().size();
 
                 for(Tavolo t : evento.getLocation().getTavoliLocale()){
 
@@ -67,11 +76,13 @@ public class PreferenzaInvitato implements Vincolo {
 
                         n++;
 
-                    } else if (!(t.getArraylistInvitati().contains(lista_vincolati.get(n))) && lista_vincolati.size()<n){
+                    } else if (!(t.getArraylistInvitati().contains(lista_vincolati.get(n))) && lista_vincolati.size()<n && tavUt>0){
+
+                        tavUt--;
+
+                    } else if (!(t.getArraylistInvitati().contains(lista_vincolati.get(n))) && lista_vincolati.size()==(n-1) && tavUt==0)
 
                         mettiLontano();
-
-                    }
 
                 }
 
@@ -163,7 +174,7 @@ public class PreferenzaInvitato implements Vincolo {
                 contatore = lista_vincolati.size();
             }
 
-            else if ((contatore + 1) == lista_vincolati.size()){
+            else if (contatore == lista_vincolati.size()){
 
                 break;
 
