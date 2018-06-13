@@ -1,7 +1,7 @@
 package tester;
 
+import facade.XlsFacade;
 import facade.txtFacade;
-import jdk.nashorn.internal.runtime.WithObject;
 import locale.Evento;
 import locale.Locale;
 import locale.Tavolo;
@@ -11,6 +11,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import persone.Cliente;
 import persone.Invitato;
 
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -32,7 +33,7 @@ public class PrenotazionePosti {
     private static String[] columns = {"Surname", "Name", "FC", "Age"};
     private static List<Invitato> employees =  new ArrayList<>();
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         Tavolo tav1 = new Tavolo("tav1", 4);
         Tavolo tav2 = new Tavolo("tav2", 6);
         Tavolo tav3 = new Tavolo("tav3", 8);
@@ -166,79 +167,8 @@ public class PrenotazionePosti {
         //System.out.println(bellaNapoli.getInvitatiAlTavolo(tav1));
 
 
-        // Create a Workbook
-        Workbook workbook = new XSSFWorkbook();// new HSSFWorkbook() for generating `.xls` file
-
-        /* CreationHelper helps us create instances of various things like DataFormat,
-           Hyperlink, RichTextString etc, in a format (HSSF, XSSF) independent way */
-        CreationHelper createHelper = workbook.getCreationHelper();
-        // Create a Sheet
-        Sheet sheet = workbook.createSheet("sheetOne");
-
-        // Create a Font for styling header cells
-        Font headerFont = workbook.createFont();
-        headerFont.setBold(true);
-        headerFont.setFontHeightInPoints((short) 14);
-        headerFont.setColor(IndexedColors.RED.getIndex());
-
-        // Create a CellStyle with the font
-        CellStyle headerCellStyle = workbook.createCellStyle();
-        headerCellStyle.setFont(headerFont);
-
-        // Create a Row
-        Row headerRow = sheet.createRow(0);
-
-
-        // Create cells
-        for (int count = 0; count < columns.length; count++) {
-            Cell cell = headerRow.createCell(count);
-            cell.setCellValue(columns[count]);
-            cell.setCellStyle(headerCellStyle);
-        }
-
-        // Create Cell Style for formatting Date
-        CellStyle dateCellStyle = workbook.createCellStyle();
-        dateCellStyle.setDataFormat(createHelper.createDataFormat().getFormat("dd-MM-yyyy"));
-
-        // Create Other rows and cells with employees data
-        int rowNum = 1;
-        for (Invitato invitato : k.getListaInvitati()) {
-            Row row = sheet.createRow(rowNum++);
-
-            row.createCell(0)
-                    .setCellValue(invitato.getNome());
-
-            row.createCell(1)
-                    .setCellValue(invitato.getCognome());
-
-            Cell dateOfBirthCell = row.createCell(2);
-            dateOfBirthCell.setCellValue(invitato.getCf());
-            dateOfBirthCell.setCellStyle(dateCellStyle);
-
-            row.createCell(3)
-                    .setCellValue(invitato.getEtà());
-        }
-
-        // Resize all columns to fit the content size
-        for (int count = 0; count < columns.length; count++) {
-            sheet.autoSizeColumn(count);
-        }
-
-        // Write the output to a file
-        FileOutputStream fileOut = null;
-        try {
-            fileOut = new FileOutputStream("poi-generated-file.xlsx");
-            workbook.write(fileOut);
-            fileOut.close();
-
-            // Closing the workbook
-            workbook.close();
-        } catch (FileNotFoundException e1) {
-            e1.printStackTrace();
-        } catch (IOException e1) {
-            e1.printStackTrace();
-        }
-
+        XlsFacade excel = new XlsFacade();
+        excel.generateXlsGuests(e.getName());
     }
 
 }

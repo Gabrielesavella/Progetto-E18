@@ -14,7 +14,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;
-//import org.desktop.swingx.JXDatePicker;
+
 
 public class PannelloCredenzialiEvento extends JPanel{
     public PannelloCredenzialiEvento(ArrayList<locale.Locale> locali, Cliente cliente){
