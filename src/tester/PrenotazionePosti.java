@@ -156,19 +156,29 @@ public class PrenotazionePosti {
         } catch (IOException e1) {
             System.out.println("Eccezione: " + e1);
         }
-        //e.showListaInvitati();
+        e.showListaInvitati();
 
-        //k.showListaInvitati();
+        k.showListaInvitati();
 
         //
 
-        //bellaNapoli.smistamentoTavoli(e);
+        bellaNapoli.smistamentoTavoli(e);
+        ArrayList<Invitato> invitatiTotali = new ArrayList<>();
 
-        //System.out.println(bellaNapoli.getInvitatiAlTavolo(tav1));
+        invitatiTotali = bellaNapoli.getInvitatiOgniTavolo();
+
+        for (Invitato invitati:invitatiTotali) {
+            System.out.println(invitati.toString());
+
+        }
+
+
 
 
         XlsFacade excel = new XlsFacade();
-        excel.generateXlsGuests(e.getName());
+        //excel.generateXlsGuests(e.getName());
+
+        excel.readXlsGuests(e.getName());
     }
 
 }

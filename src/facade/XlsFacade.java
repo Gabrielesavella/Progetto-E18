@@ -93,9 +93,9 @@ public class XlsFacade {
                 while (cellIterator.hasNext()) {
                     Cell currentCell = (Cell) cellIterator.next();
                     if (currentCell.getCellTypeEnum() == CellType.STRING) {
-                        System.out.print(currentCell.getStringCellValue() + "--");
+                        System.out.print(currentCell.getStringCellValue() + "  ");
                     } else if (currentCell.getCellTypeEnum() == CellType.NUMERIC) {
-                        System.out.print(currentCell.getNumericCellValue() + "--");
+                        System.out.print(currentCell.getNumericCellValue() + " anni ");
                     }
                 }
                 System.out.println();
