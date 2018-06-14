@@ -32,7 +32,11 @@ public class TesterDB {
        // connetto.inserisciDatiInvitato(ID_Evento, ID_Inv, nomeInv, cognomeInv, etaInv);
        // connetto.inserisciVincoliTavolo(ID_Evento, ID_Inv, 1, 0, 1 , 0, 0 , 0 );
         //connetto.inserisciVincoloInvitati(ID_Evento, ID_Inv, starVicino, starLontano);
-        connetto.getCliente(ID_Cliente);
+       // connetto.getCliente(ID_Cliente);
+        //connetto.getEvento(ID_Evento);
+       // connetto.getInvitato(ID_Inv);
+        //connetto.getVincoloInvitato(ID_Inv);
+        connetto.getVincoloTavolo(ID_Inv);
         connetto.closeConn();
         System.out.println("Stato della connessione dopo il tentativo di chiusura di essa: " + connetto.checkConn());
     }

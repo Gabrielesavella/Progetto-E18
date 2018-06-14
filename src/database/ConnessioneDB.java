@@ -28,7 +28,9 @@ public class ConnessioneDB {// crea la connessione col database "smistamento_pos
     private Connection conn = null; //si crea una nuova connessione, per adesso nulla
     private boolean openConn = false; //variabile per verificare se la connessione col DB è aperta o meno
 
-    private String ID_Cl, nomeCl, cognomeCl, pwdCl;
+    private String ID_Cl, nomeCl, cognomeCl, pwdCl, nomeLoc, ID_Ev, ID_Inv, nomeInv, cogInv, Vicino, Lontano;
+    private int numInv, etaInv, diffMot, veg, bamb, tavOnore, tavIsol, vicTV;
+    private Date dataEv;
 
 
     public void startConn() { //metodo per inizializzare la connessione
@@ -305,7 +307,7 @@ public class ConnessioneDB {// crea la connessione col database "smistamento_pos
             try {
                 stmt = conn.createStatement();
                 rs = stmt.executeQuery("SELECT * FROM clienti WHERE `ID_Cliente`='" + ID_Cliente + "';");
-                System.out.println(String.format("%-30s %-30s %-30s %-45s", "ID_CLIENTE", "NOME", "COGNOME", "PASSWORD'"));
+                System.out.println(String.format("%-30s %-30s %-30s %-45s", "ID_CLIENTE", "NOME", "COGNOME", "PASSWORD"));
                 while (rs.next()) {
 
 
@@ -314,11 +316,11 @@ public class ConnessioneDB {// crea la connessione col database "smistamento_pos
                             this.cognomeCl=rs.getString(3);
                             this.pwdCl= rs.getString(4);
 
-                    System.out.println(String.format("%-25s %-20s %-20s %-4d",
-                            rs.getString(1),
-                            rs.getString(2),
-                            rs.getString(3),
-                            rs.getString(4)));
+                    System.out.println(String.format("%-30s %-30s %-30s %-45s",
+                            ID_Cl,
+                            nomeCl,
+                            cognomeCl,
+                            pwdCl));
 
                 }
 
@@ -333,7 +335,7 @@ public class ConnessioneDB {// crea la connessione col database "smistamento_pos
                         e.printStackTrace();
                     }
                 }
-                if (stmt != null) { //teoricamente chiudendo il resultset si dovrebbe chiudere anche lo statement, ma preferisco essere più preciso
+                if (stmt != null) {
                     try {
                         stmt.close();
 
@@ -347,5 +349,234 @@ public class ConnessioneDB {// crea la connessione col database "smistamento_pos
 
 
     }
+
+    public void getEvento(String ID_Evento) {
+        startConn();
+        Statement stmt = null; //creazione di uno Statement, per adesso nullo
+        ResultSet rs = null; //variabile che contiene il risultato dello Statement
+        if (!openConn) {
+            startConn();
+
+        } else {
+            try {
+                stmt = conn.createStatement();
+                rs = stmt.executeQuery("SELECT * FROM eventi WHERE `ID_Evento`='" + ID_Evento + "';");
+                System.out.println(String.format("%-30s %-30s %-30s %-30s %-30s", "ID_EVENTO", "ID_CLIENTE", "DATAEVENTO", "LOCALE", "NUMEROINVITATI"));
+                while (rs.next()) {
+
+
+                    this.ID_Cl= rs.getString(1);
+                    this.ID_Ev=rs.getString(2);
+                    this.dataEv=rs.getDate(3);
+                    this.nomeLoc= rs.getString(4);
+                    this.numInv= rs.getInt(5);
+
+                    System.out.println(String.format("%-30s %-30s %-15s %-30s %-3d",
+                            ID_Cl,
+                            ID_Ev,
+                            dataEv.toString(),
+                            nomeLoc,
+                            numInv));
+
+                }
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            } finally {
+                if (rs != null) {
+                    try {
+                        rs.close();
+
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                }
+                if (stmt != null) {
+                    try {
+                        stmt.close();
+
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+            }
+        }
+
+
+    }
+
+    public void getInvitato(String ID_Invitato) {
+        startConn();
+        Statement stmt = null; //creazione di uno Statement, per adesso nullo
+        ResultSet rs = null; //variabile che contiene il risultato dello Statement
+        if (!openConn) {
+            startConn();
+
+        } else {
+            try {
+                stmt = conn.createStatement();
+                rs = stmt.executeQuery("SELECT * FROM invitati WHERE `ID_Invitato`='" + ID_Invitato + "';");
+                System.out.println(String.format("%-30s %-30s %-30s %-30s %-30s", "ID_EVENTO", "ID_INVITATO", "NOMEINVITATO", "COGNOMEINVITATO", "ETAINVITATO"));
+                while (rs.next()) {
+
+
+                    this.ID_Ev= rs.getString(1);
+                    this.ID_Inv=rs.getString(2);
+                    this.nomeInv=rs.getString(3);
+                    this.cogInv= rs.getString(4);
+                    this.etaInv= rs.getInt(5);
+
+                    System.out.println(String.format("%-30s %-30s %-30s %-30s %-3d",
+                            ID_Ev,
+                            ID_Inv,
+                            nomeInv,
+                            cogInv,
+                            etaInv));
+
+                }
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            } finally {
+                if (rs != null) {
+                    try {
+                        rs.close();
+
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                }
+                if (stmt != null) {
+                    try {
+                        stmt.close();
+
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+            }
+        }
+
+
+    }
+
+    public void getVincoloTavolo(String ID_Inv) {
+        startConn();
+        Statement stmt = null; //creazione di uno Statement, per adesso nullo
+        ResultSet rs = null; //variabile che contiene il risultato dello Statement
+        if (!openConn) {
+            startConn();
+
+        } else {
+            try {
+                stmt = conn.createStatement();
+                rs = stmt.executeQuery("SELECT * FROM specifica_tavolo WHERE `ID_Invitato`='" + ID_Inv + "';");
+                System.out.println(String.format("%-30s %-30s %-15s %-15s %-15s %-15s %-15s %-15s", "ID_EVENTO", "ID_INVITATO", "TAVOLONORE", "DIFFICOLTAMOTORIE", "VEGETARIANO", "VEGETARIANO", "VICINOTV", "BAMBINI", "TAVOLOISOLATO"));
+                while (rs.next()) {
+
+
+                    this.ID_Ev= rs.getString(1);
+                    this.ID_Inv=rs.getString(2);
+                    this.tavOnore=rs.getInt(3);
+                    this.diffMot= rs.getInt(4);
+                    this.veg= rs.getInt(5);
+                    this.vicTV= rs.getInt(6);
+                    this.bamb= rs.getInt(7);
+                    this.tavIsol= rs.getInt(8);
+
+                    System.out.println(String.format("%-30s %-30s  %-15s  %-15s  %-15s  %-15s  %-15s  %-15s",
+                            ID_Ev,
+                            ID_Inv,
+                            tavOnore,
+                            diffMot,
+                            veg,
+                            vicTV,
+                            bamb,
+                            tavIsol));
+                }
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            } finally {
+                if (rs != null) {
+                    try {
+                        rs.close();
+
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                }
+                if (stmt != null) {
+                    try {
+                        stmt.close();
+
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+            }
+        }
+
+
+    }
+
+    public void getVincoloInvitato(String ID_Invitato) {
+        startConn();
+        Statement stmt = null; //creazione di uno Statement, per adesso nullo
+        ResultSet rs = null; //variabile che contiene il risultato dello Statement
+        if (!openConn) {
+            startConn();
+
+        } else {
+            try {
+                stmt = conn.createStatement();
+                rs = stmt.executeQuery("SELECT * FROM preferenza_invitato WHERE `ID_Invitato`='" + ID_Invitato + "';");
+                System.out.println(String.format("%-30s %-30s %-30s %-30s", "ID_EVENTO", "ID_INVITATO", "VICINO", "NONVICINO"));
+                while (rs.next()) {
+
+
+                    this.ID_Ev= rs.getString(1);
+                    this.ID_Inv=rs.getString(2);
+                    this.Vicino=rs.getString(3);
+                    this.Lontano= rs.getString(4);
+
+                    System.out.println(String.format("%-30s %-30s %-30s %-45s",
+                            ID_Cl,
+                            ID_Ev,
+                            Vicino,
+                            Lontano));
+
+                }
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            } finally {
+                if (rs != null) {
+                    try {
+                        rs.close();
+
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                }
+                if (stmt != null) {
+                    try {
+                        stmt.close();
+
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+            }
+        }
+
+
+    }
+
+
 
 }
