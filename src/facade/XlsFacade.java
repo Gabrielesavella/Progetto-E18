@@ -2,12 +2,12 @@ package facade;
 
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.*;
 import persone.Invitato;
 
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class XlsFacade {
     Workbook workbook;
@@ -15,7 +15,7 @@ public class XlsFacade {
     FileOutputStream fileOut = null;
     private Sheet sheet;
     private String xlsGuest = "Guest.xls", xlsVincoli = "Vincoli.xls";
-    
+
 
     public boolean generateXlsGuests(String nomeEvento){
         workbook = new HSSFWorkbook();
@@ -25,7 +25,7 @@ public class XlsFacade {
 
 
         CreationHelper createHelper = workbook.getCreationHelper();
-        sheet = workbook.createSheet(nomeEvento+" la vendetta");
+        sheet = workbook.createSheet(nomeEvento);
         Font headerFont = workbook.createFont();
         headerFont.setBold(true);
         headerFont.setFontHeightInPoints((short) 14);
@@ -75,6 +75,39 @@ public class XlsFacade {
             generated = false;
         }
         return generated;
+    }
+
+    public boolean readXlsGuests(String nomeEvento){
+        boolean done = true;
+
+        try {
+            String file = nomeEvento+".xls";
+
+            FileInputStream excelFile = new FileInputStream(new File(file));
+            workbook = new HSSFWorkbook(excelFile);
+            Sheet dataTypeSheet = workbook.getSheetAt(0);
+            Iterator iterator = dataTypeSheet.iterator();
+            while (iterator.hasNext()) {
+                Row currentRow = (Row) iterator.next();
+                Iterator cellIterator = currentRow.iterator();
+                while (cellIterator.hasNext()) {
+                    Cell currentCell = (Cell) cellIterator.next();
+                    if (currentCell.getCellTypeEnum() == CellType.STRING) {
+                        System.out.print(currentCell.getStringCellValue() + "--");
+                    } else if (currentCell.getCellTypeEnum() == CellType.NUMERIC) {
+                        System.out.print(currentCell.getNumericCellValue() + "--");
+                    }
+                }
+                System.out.println();
+            }
+        } catch (FileNotFoundException ex) {
+            System.out.println(ex.getMessage());
+            done = false;
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+            done = false;
+        }
+        return done;
     }
 
     
