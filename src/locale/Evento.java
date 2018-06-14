@@ -77,6 +77,8 @@ public class Evento {
 
     public int getNumInvitati(){return numInvitati;}
 
+    public ArrayList<Vincolo> getLista_vincoli(){ return lista_vincoli; }
+
     public GregorianCalendar getDataEvento(){
         return dataEvento;
     }
