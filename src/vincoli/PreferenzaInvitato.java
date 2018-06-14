@@ -10,9 +10,9 @@ import java.util.ArrayList;
 public class PreferenzaInvitato implements Vincolo {
 
     private Evento evento;
-    private ArrayList<Invitato> lista_vincolati = new ArrayList<>();
+    private ArrayList<Invitato> lista_vincolati = new ArrayList<Invitato>();
     private PreferenzaInvitatoEnum preferenza;
-    private ArrayList<Invitato> lista_vincolati_senza_duplicati = new ArrayList<>();
+    private ArrayList<Invitato> lista_vincolati_senza_duplicati = new ArrayList<Invitato>();
 
     public PreferenzaInvitato(ArrayList<Invitato> lista_vincolati, Evento evento, PreferenzaInvitatoEnum preferenza) {
 
@@ -20,6 +20,7 @@ public class PreferenzaInvitato implements Vincolo {
         this.evento = evento;
         this.preferenza = preferenza;
         creaVincolo();
+        evento.getLista_vincoli().add(this);
     }
 
 
@@ -34,28 +35,30 @@ public class PreferenzaInvitato implements Vincolo {
 
                 for(Tavolo t : evento.getLocation().getTavoliLocale()){
 
-                    int n = 0;
+                    for (int n = 0; (n-1)==lista_vincolati.size();) {
 
 
-                    if (t.getArraylistInvitati().contains(lista_vincolati.get(n)) && lista_vincolati.size()>=n){
+                        if (t.getArraylistInvitati().contains(lista_vincolati.get(n)) && lista_vincolati.size() >= n) {
 
-                        mettiVicinoAiVincolati();
+                            mettiVicinoAiVincolati();
+                            break;
 
 
-                    } else if (!(t.getArraylistInvitati().contains(lista_vincolati.get(n))) && lista_vincolati.size()>=n) {
+                        } else if (!(t.getArraylistInvitati().contains(lista_vincolati.get(n))) && lista_vincolati.size() >= n) {
 
-                        n++;
+                            n++;
 
-                    } else if (!(t.getArraylistInvitati().contains(lista_vincolati.get(n))) && lista_vincolati.size()<n && tavoliUtil>0){
+                        } else if (!(t.getArraylistInvitati().contains(lista_vincolati.get(n))) && lista_vincolati.size() < n && tavoliUtil > 0) {
 
-                        tavoliUtil--;
+                            tavoliUtil--;
+                            break;
 
-                    } else if (!(t.getArraylistInvitati().contains(lista_vincolati.get(n))) && lista_vincolati.size()==(n-1) && tavoliUtil==0){
+                        } else if (!(t.getArraylistInvitati().contains(lista_vincolati.get(n))) && lista_vincolati.size() == (n - 1) && tavoliUtil == 0) {
 
-                        mettiVicino();
-
+                            mettiVicino();
+                            break;
+                        }
                     }
-
                 }
 
 
@@ -63,29 +66,32 @@ public class PreferenzaInvitato implements Vincolo {
 
                 int tavUt = evento.getLocation().getTavoliLocale().size();
 
-                for(Tavolo t : evento.getLocation().getTavoliLocale()){
+                for(Tavolo t : evento.getLocation().getTavoliLocale()) {
 
-                    int n = 0;
+                    for (int n = 0; (n - 1) == lista_vincolati.size(); ) {
 
-                    if (t.getArraylistInvitati().contains(lista_vincolati.get(n)) && lista_vincolati.size()>=n){
+                        if (t.getArraylistInvitati().contains(lista_vincolati.get(n)) && lista_vincolati.size() >= n) {
 
-                        mettiLontanoAiVincolati();
+                            mettiLontanoAiVincolati();
+                            break;
 
+                        } else if (!(t.getArraylistInvitati().contains(lista_vincolati.get(n))) && lista_vincolati.size() >= n) {
 
-                    } else if (!(t.getArraylistInvitati().contains(lista_vincolati.get(n))) && lista_vincolati.size()>=n) {
+                            n++;
 
-                        n++;
+                        } else if (!(t.getArraylistInvitati().contains(lista_vincolati.get(n))) && lista_vincolati.size() < n && tavUt > 0) {
 
-                    } else if (!(t.getArraylistInvitati().contains(lista_vincolati.get(n))) && lista_vincolati.size()<n && tavUt>0){
+                            tavUt--;
+                            break;
 
-                        tavUt--;
+                        } else if (!(t.getArraylistInvitati().contains(lista_vincolati.get(n))) && lista_vincolati.size() == (n - 1) && tavUt == 0){
 
-                    } else if (!(t.getArraylistInvitati().contains(lista_vincolati.get(n))) && lista_vincolati.size()==(n-1) && tavUt==0)
-
-                        mettiLontano();
-
+                            mettiLontano();
+                            break;
+                            
+                        }
+                    }
                 }
-
         }
 
     }
