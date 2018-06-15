@@ -26,6 +26,8 @@ public class PreferenzaInvitato2 implements Vincolo {
         lista_vincolati.addAll(vincolatiAInvitato);
         this.numero_vincolati = lista_vincolati.size();
         creaVincolo();
+        lista_vincolati.remove(invitato);
+        lista_vincolati.removeAll(vincolatiAInvitato);
     }
 
     private void creaVincolo() {
@@ -46,22 +48,32 @@ public class PreferenzaInvitato2 implements Vincolo {
 
     public void mettiVicini(){
 
-        for (int k=0; k==lista_vincolati.size(); k++){
+        for (int k=0; k < numero_vincolati;  k++){
 
             if (controllaSePresente(lista_vincolati.get(k))==true){
 
                 smistaViciniSenzaDuplicati();
+                break;
 
-            } else if (k==lista_vincolati.size() && controllaSePresente(lista_vincolati.get(k))==false) {smistaVicini();}
+            } else  {
+                smistaVicini();
+                break;
+            }
         }
     }
 
+
     private void smistaVicini() {
+
         for (Tavolo t : evento.getLocation().getTavoliLocale()){
+
             if (t.getDisponibile() && t.getNumPosti()>=lista_vincolati.size()){
-                for (int j=0; j==lista_vincolati.size(); j++){
-                    t.addGuest(lista_vincolati.get(j));
-                }
+                System.out.println("Tavolo n" + t.getIDTavolo());
+                t.addAllGuests(lista_vincolati);
+                break;
+               // lista_vincolati.removeAll(lista_vincolati);
+            }else if (t.getDisponibile() == false  || t.getNumPosti() < lista_vincolati.size()) {
+                System.out.println(t.getIDTavolo() + " non disponibile");
             }
         }
     };
@@ -85,7 +97,7 @@ public class PreferenzaInvitato2 implements Vincolo {
 
         for (Tavolo t : evento.getLocation().getTavoliLocale()){
 
-                for (int k = 0; k==lista_vincolati.size(); k++){
+                for (int k = 0; k < lista_vincolati.size(); k++){
 
                     if (t.getArraylistInvitati().contains(lista_vincolati.get(k))) {
 
@@ -111,16 +123,21 @@ public class PreferenzaInvitato2 implements Vincolo {
 
         for (Tavolo t: evento.getLocation().getTavoliLocale()){
 
-            for (int n=0; n==lista_vincolati.size(); n++){
+
+            for (int n=0; n < lista_vincolati.size(); n++){
 
                 if(t.getArraylistInvitati().contains(lista_vincolati.get(n)) && t.getDisponibile() && t.getNumPosti()>= (numero_vincolati-creaListaDuplicati().size())){
                     t.addAllGuests(removeDuplicati());
+                    break;
 
-                } else if (t.getArraylistInvitati().contains(lista_vincolati.get(n)) && (t.getDisponibile() || t.getNumPosti()>=(numero_vincolati- creaListaDuplicati().size()))){
-                    System.out.println("Gli invitati:\n "+ getNomeVincolati() + "non possono essere posizionati secondo il vincolo" + preferenza +"\n");
+                } else if (t.getArraylistInvitati().contains(lista_vincolati.get(n)) && (t.getDisponibile()== false) || t.getNumPosti()<(numero_vincolati- creaListaDuplicati().size())){
+                    System.out.println("Gli invitati:\n "+ getNomeVincolati() + "non possono essere posizionati secondo il vincolo " + preferenza +"\n");
+                    break;
                 }
             }
+
         }
+
     }
 
 
@@ -135,5 +152,7 @@ public class PreferenzaInvitato2 implements Vincolo {
         return a;
     }
 
-
+    public ArrayList<Invitato> Clear(){
+        return lista_vincolati;
+    }
 }

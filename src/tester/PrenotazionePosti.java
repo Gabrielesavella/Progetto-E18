@@ -5,6 +5,8 @@ import locale.Evento;
 import locale.Locale;
 import locale.Tavolo;
 import persone.Invitato;
+import vincoli.PreferenzaInvitato2;
+import vincoli.PreferenzaInvitatoEnum;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -125,6 +127,7 @@ public class PrenotazionePosti {
         k.addInvitati(u);
         k.addInvitati(v);
         k.addInvitati(z);
+         /*
         // stampe per prova;
         System.out.println(bellaNapoli.stampaNomeEventi());
         try {
@@ -141,11 +144,40 @@ public class PrenotazionePosti {
 
         k.showListaInvitati();
 
-        //
+
 
         bellaNapoli.smistamentoTavoli(e);
         System.out.println("maffo balordo ");
         System.out.println(bellaNapoli.getInvitatiAlTavolo(tav1));
+
+        */
+        // test per la gestione dei vincoli;
+
+         ArrayList<Invitato> listaVincolati  = new ArrayList<>();
+        ArrayList<Invitato> listaVincolati2  = new ArrayList<>();
+
+
+
+        listaVincolati.add(b);
+        listaVincolati.add(c);
+        listaVincolati.add(d);
+        listaVincolati.add(f);
+        listaVincolati2.add(g);
+
+        /*
+        listaVincolati.add(g);
+        listaVincolati.add(h);
+        listaVincolati.add(l);
+        listaVincolati.add(m);
+        listaVincolati.add(n);
+        listaVincolati.add(o);
+        */
+
+        PreferenzaInvitato2 provaVincolo = new PreferenzaInvitato2(a,listaVincolati,e,PreferenzaInvitatoEnum.STA_VICINO_A);
+        PreferenzaInvitato2 provaVincolo2 = new PreferenzaInvitato2(b,listaVincolati2,e,PreferenzaInvitatoEnum.STA_VICINO_A);
+
+        System.out.println(e.getLocation().showInvitatiAiTavoli());
+
 
 
     }
