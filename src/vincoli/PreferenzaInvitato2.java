@@ -26,10 +26,10 @@ public class PreferenzaInvitato2 implements Vincolo {
         lista_vincolati.addAll(vincolatiAInvitato);
         this.numero_vincolati = lista_vincolati.size();
         creaVincolo();
-        lista_vincolati.remove(invitato);
-        lista_vincolati.removeAll(vincolatiAInvitato);
+
     }
 
+    //Questo metodo crea il vincolo secondo la preferenza.
     private void creaVincolo() {
 
         switch (preferenza){
@@ -46,6 +46,7 @@ public class PreferenzaInvitato2 implements Vincolo {
 
     }
 
+    //Questo metodo indica come mettere a sedere gli invitati a seconda che alcuni siano già seduti o meno.
     public void mettiVicini(){
 
         for (int k=0; k < numero_vincolati;  k++){
@@ -62,23 +63,69 @@ public class PreferenzaInvitato2 implements Vincolo {
         }
     }
 
-
+    //Questo metodo mette gli invitati vicino al primo tavolo disponibile.
     private void smistaVicini() {
 
         for (Tavolo t : evento.getLocation().getTavoliLocale()){
 
             if (t.getDisponibile() && t.getNumPosti()>=lista_vincolati.size()){
-                System.out.println("Tavolo n" + t.getIDTavolo());
                 t.addAllGuests(lista_vincolati);
                 break;
-               // lista_vincolati.removeAll(lista_vincolati);
-            }else if (t.getDisponibile() == false  || t.getNumPosti() < lista_vincolati.size()) {
-                System.out.println(t.getIDTavolo() + " non disponibile");
+
             }
         }
     };
 
-    public void mettiLontani(){};
+    //Questo metodo indica come mettere a sedere gli invitati a seconda che alcuni siano già seduti o meno.
+    public void mettiLontani(){
+
+        for (int k=0; k < numero_vincolati;  k++){
+
+            if (controllaSePresente(lista_vincolati.get(k))==true){
+
+                smistaLontaniSenzaDuplicati();
+                break;
+
+            } else  {
+                smistaLontani();
+                break;
+            }
+        }
+
+    }
+
+    ////Questo metodo mette gli invitati lontani al primo tavolo disponibile.
+    private void smistaLontani() {
+
+        int k = 0;
+        for (Tavolo t : evento.getLocation().getTavoliLocale()){
+
+            if(t.getDisponibile() && (t.getPostiTot()-t.mostraInvitatiSeduti())>= 1 && k<lista_vincolati.size() && tavoliDispVincoloLontananza()>=lista_vincolati.size() ){
+                t.addGuest(lista_vincolati.get(k));
+                k++;
+
+            } else if (tavoliDispVincoloLontananza()<lista_vincolati.size()){
+                System.out.println("Gli invitati:\n"+ getNomeVincolati() + "non possono essere posizionati secondo il vincolo " + preferenza +"\n");
+                break;
+            }
+        }
+    }
+
+    //Questo metodo controlla se ci sono abbastanza tavoli liberi per creare questo vincolo di lontananza.
+    public int tavoliDispVincoloLontananza(){
+        int tavoliDisp = evento.getLocation().getTavoliLocale().size();
+
+        for (Tavolo t: evento.getLocation().getTavoliLocale()){
+            if (t.getDisponibile()==false || ((t.getPostiTot()-t.mostraInvitatiSeduti())== 0)){
+                tavoliDisp--;
+            }
+        }
+        return tavoliDisp;
+    }
+    private void smistaLontaniSenzaDuplicati() {
+    }
+
+    ;
 
     // Controlla se è già seduto ad un tavolo l'invitato
     public boolean controllaSePresente(Invitato i){
@@ -118,6 +165,7 @@ public class PreferenzaInvitato2 implements Vincolo {
 
     }
 
+    //Questo metodo mette a sedere le persone, considerando che alcuni sono già seduti a tavola.
     public void smistaViciniSenzaDuplicati(){
 
 

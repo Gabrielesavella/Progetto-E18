@@ -19,6 +19,7 @@ public class Tavolo {
     private boolean disponibile;
     private ArrayList<Invitato> AssegnamentiTavolo;
     private SpecificaTavolo tipoTavolo;
+    private final int postiTot;
 
     /*mettiamo due costruttori, in cui specifichiamo che il tavolo
     (almeno nella fase iniziale del progetto) è interno al locale.
@@ -33,6 +34,7 @@ public class Tavolo {
         num_posti = 6;
         AssegnamentiTavolo = new ArrayList<Invitato>(num_posti);
         interno = true;
+        postiTot=num_posti;
     }
     /*CORREZIONE: nel costruttore1 va inizializzato l'array degli invitati, in modo che
      * se si acceda al metodo assegnaposti l'array venga inizializzato,
@@ -45,6 +47,7 @@ public class Tavolo {
         interno = true;
         disponibile = true;
         AssegnamentiTavolo = new ArrayList<Invitato>(num_posti);
+        postiTot=num_posti;
     }
 
 
@@ -98,9 +101,20 @@ public class Tavolo {
         for (Invitato i : AssegnamentiTavolo){
             invitatiTavolo += i.getNome() + i.getCognome() + "\n";
         }
-        return invitatiTavolo;
+        return "Tavolo: " + getIDTavolo() + "\n\n"+ invitatiTavolo;
     }
 
+    public final int getPostiTot(){
+        return postiTot;
+    }
+
+    public int mostraInvitatiSeduti(){
+        int seduti = 0;
+        for (Invitato i : AssegnamentiTavolo){
+            seduti++;
+        }
+        return seduti;
+    }
     /*
     questo metodo rimuove tutti gli invitati dal tavolo, successivamente rende disponibile il tavolo e aggiorna il numero
     di posti

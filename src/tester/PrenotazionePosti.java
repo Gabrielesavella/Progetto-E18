@@ -153,20 +153,27 @@ public class PrenotazionePosti {
         */
         // test per la gestione dei vincoli;
 
-         ArrayList<Invitato> listaVincolati  = new ArrayList<>();
+        ArrayList<Invitato> listaVincolati  = new ArrayList<>();
         ArrayList<Invitato> listaVincolati2  = new ArrayList<>();
-
+        ArrayList<Invitato> listaVincolati3  = new ArrayList<>();
 
 
         listaVincolati.add(b);
         listaVincolati.add(c);
         listaVincolati.add(d);
         listaVincolati.add(f);
+
         listaVincolati2.add(g);
 
+        listaVincolati3.add(h);
+        listaVincolati3.add(l);
+        listaVincolati3.add(m);
+        listaVincolati3.add(n);
+        //listaVincolati3.add(o);
         /*
         listaVincolati.add(g);
         listaVincolati.add(h);
+        listaVincolati.add(i);
         listaVincolati.add(l);
         listaVincolati.add(m);
         listaVincolati.add(n);
@@ -175,6 +182,7 @@ public class PrenotazionePosti {
 
         PreferenzaInvitato2 provaVincolo = new PreferenzaInvitato2(a,listaVincolati,e,PreferenzaInvitatoEnum.STA_VICINO_A);
         PreferenzaInvitato2 provaVincolo2 = new PreferenzaInvitato2(b,listaVincolati2,e,PreferenzaInvitatoEnum.STA_VICINO_A);
+        PreferenzaInvitato2 provaVincolo3 = new PreferenzaInvitato2(i,listaVincolati3,e,PreferenzaInvitatoEnum.NON_STA_VICINO_A);
 
         System.out.println(e.getLocation().showInvitatiAiTavoli());
 
