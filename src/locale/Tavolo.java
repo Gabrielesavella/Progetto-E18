@@ -93,6 +93,14 @@ public class Tavolo {
         openAssignment();
     }
 
+    public String showInvitati(){
+        String invitatiTavolo = "";
+        for (Invitato i : AssegnamentiTavolo){
+            invitatiTavolo += i.getNome() + i.getCognome() + "\n";
+        }
+        return invitatiTavolo;
+    }
+
     /*
     questo metodo rimuove tutti gli invitati dal tavolo, successivamente rende disponibile il tavolo e aggiorna il numero
     di posti

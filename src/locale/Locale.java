@@ -159,6 +159,13 @@ public class Locale {
         return num_tavoli;
     }
 
+    public String showInvitatiAiTavoli(){
+        String invitatiTavoli = "";
+        for (Tavolo t : tavoli){
+            invitatiTavoli += t.showInvitati() + "\n\n\n";
+        }
+        return invitatiTavoli;
+    }
     /*creo un metodo per calcolare il massimo numero di posti
      * derivato dalla capienza dei tavoli presenti nel locale
      * @author: Gabrielesavella

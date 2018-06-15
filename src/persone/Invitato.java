@@ -16,7 +16,7 @@ public class Invitato {
     cognome è il cognome dell'invitato
      */
     public Invitato (String nome,String cognome,int eta){
-        
+
         this.cognome = cognome;
         this.nome = nome;
         this.eta=eta;
