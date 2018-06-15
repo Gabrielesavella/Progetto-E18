@@ -99,7 +99,7 @@ public class Tavolo {
     public String showInvitati(){
         String invitatiTavolo = "";
         for (Invitato i : AssegnamentiTavolo){
-            invitatiTavolo += i.getNome() + i.getCognome() + "\n";
+            invitatiTavolo += i.getNome() + " "+ i.getCognome() + "\n";
         }
         return "Tavolo: " + getIDTavolo() + "\n\n"+ invitatiTavolo;
     }

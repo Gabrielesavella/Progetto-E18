@@ -25,10 +25,16 @@ public class PreferenzaInvitato2 implements Vincolo {
         lista_vincolati.add(invitato);
         lista_vincolati.addAll(vincolatiAInvitato);
         this.numero_vincolati = lista_vincolati.size();
-        creaVincolo();
+        verificaIdoneita();
 
     }
 
+    //Questo metodo verifica se le persone che vengono vincolate siano realmente presenti all'evento.
+    public void verificaIdoneita(){
+        if (evento.getListaInvitati().containsAll(lista_vincolati)){
+            creaVincolo();
+        }
+    }
     //Questo metodo crea il vincolo secondo la preferenza.
     private void creaVincolo() {
 
@@ -68,10 +74,13 @@ public class PreferenzaInvitato2 implements Vincolo {
 
         for (Tavolo t : evento.getLocation().getTavoliLocale()){
 
-            if (t.getDisponibile() && t.getNumPosti()>=lista_vincolati.size()){
+            if (t.getDisponibile() && t.getNumPosti()>=lista_vincolati.size() && tavoliDispVincoloVicinanza()>1){
                 t.addAllGuests(lista_vincolati);
                 break;
 
+            } else if ((t.getDisponibile()==false || t.getNumPosti()>=lista_vincolati.size()) && tavoliDispVincoloVicinanza()==1){
+                System.out.println("Gli invitati:\n"+ getNomeVincolati() + "non possono essere posizionati secondo il vincolo " + preferenza +"\n");
+                break;
             }
         }
     };
@@ -122,11 +131,26 @@ public class PreferenzaInvitato2 implements Vincolo {
         }
         return tavoliDisp;
     }
+
+
     private void smistaLontaniSenzaDuplicati() {
+    };
+
+    //Questo metodo controlla se ci sono abbastanza tavoli liberi per creare questo vincolo di vicinanza.
+    public int tavoliDispVincoloVicinanza(){
+
+        int tavoliDispVic = evento.getLocation().getTavoliLocale().size();
+
+        for (Tavolo t: evento.getLocation().getTavoliLocale()){
+
+            if (t.getDisponibile()==false || ((t.getPostiTot()-t.mostraInvitatiSeduti())<numero_vincolati)){
+                tavoliDispVic--;
+            }
+
+        }
+        return tavoliDispVic;
+
     }
-
-    ;
-
     // Controlla se è già seduto ad un tavolo l'invitato
     public boolean controllaSePresente(Invitato i){
         boolean giaPresente = false;
@@ -200,7 +224,4 @@ public class PreferenzaInvitato2 implements Vincolo {
         return a;
     }
 
-    public ArrayList<Invitato> Clear(){
-        return lista_vincolati;
-    }
 }
