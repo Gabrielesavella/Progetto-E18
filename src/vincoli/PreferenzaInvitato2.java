@@ -131,6 +131,8 @@ public class PreferenzaInvitato2 implements Vincolo {
         return tavoliDispLont;
     }
 
+    //Questo metodo controlla se ci sono abbastanza tavoli liberi per creare questo vincolo di lontananza, essendoci già person
+    //sedute.
     public int tavoliDispVincoloLontananzaContandoDuplicati(){
         int tavoliDispLont = evento.getLocation().getTavoliLocale().size();
 
@@ -146,6 +148,7 @@ public class PreferenzaInvitato2 implements Vincolo {
         return tavoliDispLont;
     }
 
+    //Questo metodo mette a sedere le persone lontane, considerando che alcuni sono già seduti a tavola.
     private void smistaLontaniSenzaDuplicati() {
 
         boolean non_possibile=false;
@@ -228,7 +231,7 @@ public class PreferenzaInvitato2 implements Vincolo {
 
     }
 
-    //Questo metodo mette a sedere le persone, considerando che alcuni sono già seduti a tavola.
+    //Questo metodo mette a sedere le persone vicine, considerando che alcuni sono già seduti a tavola.
     public void smistaViciniSenzaDuplicati(){
 
 
@@ -252,7 +255,7 @@ public class PreferenzaInvitato2 implements Vincolo {
     }
 
 
-
+    //Stampa il nome di tutti i vincolati presenti nella lista.
     public String getNomeVincolati() {
         String a = "";
 
