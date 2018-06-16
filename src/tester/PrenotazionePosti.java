@@ -85,7 +85,8 @@ public class PrenotazionePosti {
         Invitato u = new Invitato("pops","marco",39);
         Invitato v = new Invitato("paolo","marco",39);
         Invitato z = new Invitato("mauro","marco",39);
-        Invitato die = new Invitato("Diego", "Boggioni", 23);
+        Invitato w = new Invitato("francesco", "turri", 39);
+
         //        //inserimento invitati nelle liste evento 1;
         e.addInvitati(a);
         e.addInvitati(b);
@@ -107,6 +108,7 @@ public class PrenotazionePosti {
         e.addInvitati(u);
         e.addInvitati(v);
         e.addInvitati(z);
+        e.addInvitati(w);
         //evento 2//
         k.addInvitati(a);
         k.addInvitati(b);
@@ -157,7 +159,7 @@ public class PrenotazionePosti {
         ArrayList<Invitato> listaVincolati  = new ArrayList<>();
         ArrayList<Invitato> listaVincolati2  = new ArrayList<>();
         ArrayList<Invitato> listaVincolati3  = new ArrayList<>();
-
+        ArrayList<Invitato> listaVincolati4  = new ArrayList<>();
 
         listaVincolati.add(b);
         listaVincolati.add(c);
@@ -165,9 +167,6 @@ public class PrenotazionePosti {
         listaVincolati.add(f);
         listaVincolati.add(p);
         listaVincolati.add(q);
-        //listaVincolati.add(r);
-        //listaVincolati.add(s);
-        //listaVincolati.add(u);
 
         listaVincolati2.add(g);
 
@@ -175,7 +174,17 @@ public class PrenotazionePosti {
         listaVincolati3.add(l);
         listaVincolati3.add(m);
         listaVincolati3.add(n);
-        //listaVincolati3.add(o);
+
+
+        listaVincolati4.add(h);
+        listaVincolati4.add(l);
+        listaVincolati4.add(z);
+        listaVincolati4.add(r);
+        listaVincolati4.add(s);
+        listaVincolati4.add(u);
+        listaVincolati4.add(v);
+        listaVincolati4.add(z);
+        //listaVincolati4.add(w);
         /*
         listaVincolati.add(g);
         listaVincolati.add(h);
@@ -189,6 +198,7 @@ public class PrenotazionePosti {
         PreferenzaInvitato2 provaVincolo = new PreferenzaInvitato2(a,listaVincolati,e,PreferenzaInvitatoEnum.STA_VICINO_A);
         PreferenzaInvitato2 provaVincolo2 = new PreferenzaInvitato2(b,listaVincolati2,e,PreferenzaInvitatoEnum.STA_VICINO_A);
         PreferenzaInvitato2 provaVincolo3 = new PreferenzaInvitato2(i,listaVincolati3,e,PreferenzaInvitatoEnum.NON_STA_VICINO_A);
+        PreferenzaInvitato2 provaVincolo4 = new PreferenzaInvitato2(o,listaVincolati4,e,PreferenzaInvitatoEnum.NON_STA_VICINO_A);
 
         System.out.println(e.getLocation().showInvitatiAiTavoli());
 

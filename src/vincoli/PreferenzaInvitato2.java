@@ -16,6 +16,7 @@ public class PreferenzaInvitato2 implements Vincolo {
     private ArrayList<Invitato> lista_vincolati_senza_duplicati = new ArrayList<Invitato>();
     private ArrayList<Invitato> lista_vincolati_solo_duplicati = new ArrayList<Invitato>();
     private final int numero_vincolati;
+    private int numero_vincolati_senza_duplicati;
 
     public PreferenzaInvitato2(Invitato invitato, ArrayList<Invitato> vincolatiAInvitato, Evento evento, PreferenzaInvitatoEnum preferenza) {
 
@@ -38,15 +39,13 @@ public class PreferenzaInvitato2 implements Vincolo {
     //Questo metodo crea il vincolo secondo la preferenza.
     private void creaVincolo() {
 
-        switch (preferenza){
+        if (preferenza==PreferenzaInvitatoEnum.STA_VICINO_A){
 
-            case STA_VICINO_A:
+            mettiVicini();
 
-                mettiVicini();
+        } else if (preferenza==PreferenzaInvitatoEnum.NON_STA_VICINO_A){
 
-            case NON_STA_VICINO_A:
-
-                mettiLontani();
+            mettiLontani();
 
         }
 
@@ -95,7 +94,7 @@ public class PreferenzaInvitato2 implements Vincolo {
                 smistaLontaniSenzaDuplicati();
                 break;
 
-            } else  {
+            } else  if ((k+1)==numero_vincolati && controllaSePresente(lista_vincolati.get(k))==false){
                 smistaLontani();
                 break;
             }
@@ -122,18 +121,56 @@ public class PreferenzaInvitato2 implements Vincolo {
 
     //Questo metodo controlla se ci sono abbastanza tavoli liberi per creare questo vincolo di lontananza.
     public int tavoliDispVincoloLontananza(){
-        int tavoliDisp = evento.getLocation().getTavoliLocale().size();
+        int tavoliDispLont = evento.getLocation().getTavoliLocale().size();
 
         for (Tavolo t: evento.getLocation().getTavoliLocale()){
             if (t.getDisponibile()==false || ((t.getPostiTot()-t.mostraInvitatiSeduti())== 0)){
-                tavoliDisp--;
+                tavoliDispLont--;
             }
         }
-        return tavoliDisp;
+        return tavoliDispLont;
     }
 
+    public int tavoliDispVincoloLontananzaContandoDuplicati(){
+        int tavoliDispLont = evento.getLocation().getTavoliLocale().size();
+
+        for (Tavolo t: evento.getLocation().getTavoliLocale()){
+            for (int n=0; n<lista_vincolati.size(); n++){
+
+                if (t.getDisponibile()==false || ((t.getPostiTot()-t.mostraInvitatiSeduti())== 0) || t.getArraylistInvitati().contains(lista_vincolati.get(n))){
+                tavoliDispLont--;
+                break;
+                }
+            }
+        }
+        return tavoliDispLont;
+    }
 
     private void smistaLontaniSenzaDuplicati() {
+
+        boolean non_possibile=false;
+
+        for (Tavolo t: evento.getLocation().getTavoliLocale()){
+
+
+            for (int n=0; n < lista_vincolati.size(); n++){
+
+                if(!(t.getArraylistInvitati().contains(lista_vincolati.get(n))) && t.getDisponibile() && t.getNumPosti()>=1 && tavoliDispVincoloLontananzaContandoDuplicati()>=(numero_vincolati- creaListaDuplicati().size())){
+                    t.addGuest(removeDuplicati().get(n));
+                    removeDuplicati().remove(removeDuplicati().get(n));
+                    break;
+
+                } else if (tavoliDispVincoloLontananzaContandoDuplicati()<(numero_vincolati- creaListaDuplicati().size())){
+                    System.out.println("Gli invitati:\n"+ getNomeVincolati() + "non possono essere posizionati secondo il vincolo " + preferenza +"\n");
+                    non_possibile=true;
+                    break;
+                }
+            }
+
+            if (non_possibile==true){break;}
+
+        }
+
     };
 
     //Questo metodo controlla se ci sono abbastanza tavoli liberi per creare questo vincolo di vicinanza.
@@ -185,7 +222,9 @@ public class PreferenzaInvitato2 implements Vincolo {
 
         lista_vincolati.removeAll(creaListaDuplicati());
         lista_vincolati_senza_duplicati.addAll(lista_vincolati);
+
         return lista_vincolati_senza_duplicati;
+
 
     }
 
@@ -198,7 +237,7 @@ public class PreferenzaInvitato2 implements Vincolo {
 
             for (int n=0; n < lista_vincolati.size(); n++){
 
-                if(t.getArraylistInvitati().contains(lista_vincolati.get(n)) && t.getDisponibile() && t.getNumPosti()>= (numero_vincolati-creaListaDuplicati().size())){
+                if(t.getArraylistInvitati().contains(lista_vincolati.get(n)) && t.getDisponibile() && t.getNumPosti()>=(numero_vincolati-creaListaDuplicati().size())){
                     t.addAllGuests(removeDuplicati());
                     break;
 
