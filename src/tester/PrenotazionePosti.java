@@ -179,6 +179,7 @@ public class PrenotazionePosti {
         //excel.generateXlsGuests(e.getName());
 
         excel.readXlsGuests(e.getName());
+        excel.openfile(e.getName()+".xls");
     }
 
 }

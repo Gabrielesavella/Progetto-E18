@@ -3,8 +3,10 @@ package facade;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.*;
+import org.apache.poi.ss.usermodel.Font;
 import persone.Invitato;
 
+import java.awt.*;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -108,6 +110,22 @@ public class XlsFacade {
             done = false;
         }
         return done;
+    }
+
+
+    public boolean openfile(String nameFile) throws IOException{
+        File file = new File(nameFile);
+
+
+        if(!Desktop.isDesktopSupported()){
+            System.out.println("Desktop is not supported");
+            return false;
+        }
+
+        Desktop desktop = Desktop.getDesktop();
+        if(file.exists())
+        desktop.open(file);
+        return true;
     }
 
     
