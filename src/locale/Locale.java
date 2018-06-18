@@ -29,6 +29,7 @@ public class Locale {
     Calendar calendar;
     private ArrayList<Tavolo> tavoli;
     private ArrayList<Tavolo> tavoliUtilizzati = new ArrayList<>();
+    private ArrayList<Invitato> lista_gia_presenti = new ArrayList<>();
 
     // cambiato il tipo di dato giorno chiusura da String a Gregoria calendar , molto più facile da gestire
     // aggiunta inoltre del passaggio dei tavoli tramite parametro
@@ -100,6 +101,9 @@ public class Locale {
 
     /*Smista tutti invitati ad un particolare evento nei tavoli. Fatto ciò, restituisce un arraylist di tutti i tavoli utilizzati*/
     public ArrayList<Tavolo> smistamentoTavoli(Evento e){
+
+        rimuoviGiaPresenti(e);
+
         int count = 0;
         ArrayList<Invitato>listainvitati;
 
@@ -124,6 +128,14 @@ public class Locale {
                 }
             }
         return tavoliUtilizzati;
+    }
+
+    //Rimuove dagli invitati da smistare, le persone che sono già sedute al tavolo.
+    public void rimuoviGiaPresenti(Evento e){
+        for (Tavolo t : tavoli){
+            lista_gia_presenti.addAll(t.getArraylistInvitati());
+        }
+        e.getListaInvitati().removeAll(lista_gia_presenti);
     }
 
     /*Restituisce un arraylist di tutti gli invitati presenti in tutti i tavoli utilizzati*/
