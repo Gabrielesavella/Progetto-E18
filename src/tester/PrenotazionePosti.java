@@ -201,8 +201,10 @@ public class PrenotazionePosti {
         PreferenzaInvitato2 provaVincolo3 = new PreferenzaInvitato2(i,listaVincolati3,e,PreferenzaInvitatoEnum.NON_STA_VICINO_A);
         PreferenzaInvitato2 provaVincolo4 = new PreferenzaInvitato2(o,listaVincolati4,e,PreferenzaInvitatoEnum.NON_STA_VICINO_A);
 
+        System.out.println("Smisto le persone secondo i vincoli:\n\n");
         System.out.println(e.getLocation().showInvitatiAiTavoli());
-        System.out.println("\n\n\n\n\n");
+
+        System.out.println("\n\n\n\n\nOra smisto gli invitati rimanenti:\n\n");
 
         bellaNapoli.smistamentoTavoli(e);
         System.out.println(e.getLocation().showInvitatiAiTavoli());
