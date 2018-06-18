@@ -5,6 +5,7 @@ import locale.Evento;
 import locale.Locale;
 import locale.Tavolo;
 import persone.Invitato;
+import vincoli.PreferenzaInvitato;
 import vincoli.PreferenzaInvitato2;
 import vincoli.PreferenzaInvitatoEnum;
 
@@ -161,6 +162,7 @@ public class PrenotazionePosti {
         ArrayList<Invitato> listaVincolati2  = new ArrayList<>();
         ArrayList<Invitato> listaVincolati3  = new ArrayList<>();
         ArrayList<Invitato> listaVincolati4  = new ArrayList<>();
+        ArrayList<Invitato> listaVincolati5  = new ArrayList<>();
 
         listaVincolati.add(b);
         listaVincolati.add(c);
@@ -186,6 +188,9 @@ public class PrenotazionePosti {
         //listaVincolati4.add(v);
         //listaVincolati4.add(z);
         //listaVincolati4.add(w);
+
+        listaVincolati5.add(g);
+
         /*
         listaVincolati.add(g);
         listaVincolati.add(h);
@@ -200,6 +205,7 @@ public class PrenotazionePosti {
         PreferenzaInvitato2 provaVincolo2 = new PreferenzaInvitato2(b,listaVincolati2,e,PreferenzaInvitatoEnum.STA_VICINO_A);
         PreferenzaInvitato2 provaVincolo3 = new PreferenzaInvitato2(i,listaVincolati3,e,PreferenzaInvitatoEnum.NON_STA_VICINO_A);
         PreferenzaInvitato2 provaVincolo4 = new PreferenzaInvitato2(o,listaVincolati4,e,PreferenzaInvitatoEnum.NON_STA_VICINO_A);
+        PreferenzaInvitato2 provaVincolo5 = new PreferenzaInvitato2(b, listaVincolati5, e, PreferenzaInvitatoEnum.NON_STA_VICINO_A);
 
         System.out.println("Smisto le persone secondo i vincoli:\n\n");
         System.out.println(e.getLocation().showInvitatiAiTavoli());

@@ -9,33 +9,38 @@ import java.util.ArrayList;
 
 public class PreferenzaInvitato2 implements Vincolo {
 
-    private ArrayList<Invitato> vincolatiAInvitato;
     private Evento evento;
     private ArrayList<Invitato> lista_vincolati = new ArrayList<Invitato>();
     private PreferenzaInvitatoEnum preferenza;
     private ArrayList<Invitato> lista_vincolati_senza_duplicati = new ArrayList<Invitato>();
     private ArrayList<Invitato> lista_vincolati_solo_duplicati = new ArrayList<Invitato>();
     private final int numero_vincolati;
-    private int numero_vincolati_senza_duplicati;
 
     public PreferenzaInvitato2(Invitato invitato, ArrayList<Invitato> vincolatiAInvitato, Evento evento, PreferenzaInvitatoEnum preferenza) {
-
-        this.vincolatiAInvitato=vincolatiAInvitato;
+        
         this.evento = evento;
         this.preferenza = preferenza;
         lista_vincolati.add(invitato);
         lista_vincolati.addAll(vincolatiAInvitato);
         this.numero_vincolati = lista_vincolati.size();
         verificaIdoneita();
-
+        evento.getLista_vincoli().add(this);
+        lista_vincolati.removeAll(lista_vincolati);
+        lista_vincolati.addAll(vincolatiAInvitato);
+        lista_vincolati.add(invitato);
     }
 
-    //Questo metodo verifica se le persone che vengono vincolate siano realmente presenti all'evento.
+    //Questo metodo verifica se le persone che vengono vincolate siano realmente presenti all'evento e se ci sono
+    //altri vincoli che confutano questo.
     public void verificaIdoneita(){
-        if (evento.getListaInvitati().containsAll(lista_vincolati)){
+        if (evento.getListaInvitati().containsAll(lista_vincolati) && controllaIncongruenze()==false){
             creaVincolo();
+        } else {
+            System.out.println("Vincolo incongruente!\nGli invitati:\n"+ getNomeVincolati() + "non possono essere posizionati secondo il vincolo " + preferenza +"\nControlla di aver messo effettivamente persone invitate all'evento, oppure di non aver violato un vincolo precedente.\n");
         }
     }
+
+
     //Questo metodo crea il vincolo secondo la preferenza.
     private void creaVincolo() {
 
@@ -265,5 +270,44 @@ public class PreferenzaInvitato2 implements Vincolo {
 
         return a;
     }
+
+    public PreferenzaInvitatoEnum getPreferenza() {
+        return preferenza;
+    }
+
+    public ArrayList<Invitato> getLista_vincolati() {
+        return lista_vincolati;
+    }
+
+    //Questo metodo controlla se ci sono o meno vincoli che vanno a confutare un altro vincolo.
+    public boolean controllaIncongruenze() {
+
+        boolean incongruente=false;
+        int max_accettabile=2;
+
+        for (Vincolo v : evento.getLista_vincoli()){
+
+            for (int k=0; k<lista_vincolati.size(); k++){
+
+                if (v instanceof PreferenzaInvitato2 && !(((PreferenzaInvitato2) v).getPreferenza().equals(preferenza)) && ((PreferenzaInvitato2) v).getLista_vincolati().contains(lista_vincolati.get(k)) && max_accettabile>0){
+
+                    max_accettabile--;
+
+                    if (max_accettabile==0){
+
+                        incongruente=true;
+                        break;
+                    }
+
+                }
+            }
+
+            if (incongruente==true){break;} else {max_accettabile=2;}
+
+        }
+
+        return incongruente;
+    }
+
 
 }
