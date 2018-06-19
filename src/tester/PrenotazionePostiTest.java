@@ -35,7 +35,6 @@ public class PrenotazionePostiTest {
         Tavoli.add(a); //6
         Tavoli.add(b);//4
         Tavoli.add(x);//8
-        System.out.println("il tavolo istanziato ha posti :"+x.toString());
         Tavoli.add(d);//5
         Tavoli.add(e);//6
         Tavoli.add(f);//7
@@ -135,7 +134,7 @@ public class PrenotazionePostiTest {
         PreferenzaInvitato2 provaVincolo2 = new PreferenzaInvitato2(b,listaVincolati2,e,PreferenzaInvitatoEnum.STA_VICINO_A);
         PreferenzaInvitato2 provaVincolo3 = new PreferenzaInvitato2(i,listaVincolati3,e,PreferenzaInvitatoEnum.NON_STA_VICINO_A);
         PreferenzaInvitato2 provaVincolo4 = new PreferenzaInvitato2(o,listaVincolati4,e,PreferenzaInvitatoEnum.NON_STA_VICINO_A);
-        System.out.println(e.getName());
+        //System.out.println(e.getName());
         //System.out.println( e.getLocation().smistamentoTavoli(e));
 
 
