@@ -44,7 +44,7 @@ public class Locale {
         calendar.setWeekDate(01,01,6);
         this.id_locale=id_locale;
         this.numMaxTavoli=numMaxTavoli;
-        this.tavoli = new ArrayList(numMaxTavoli);
+        this.tavoli = new ArrayList<Tavolo>();
         this.tavoli.addAll(tavoli);
         this.giornodichiusura = new GregorianCalendar();
         this.giornodichiusura.add(GregorianCalendar.DAY_OF_WEEK,Calendar.MONDAY);
@@ -240,5 +240,14 @@ public class Locale {
 
     public ArrayList<Tavolo> getTavoliLocale() {
         return tavoli;
+    }
+    public int getNPostiTavolo(String idTavolo) {
+        int numposti = 0;
+
+        for (Tavolo t : tavoli) {
+            if (t.getIDTavolo().equals(idTavolo))
+                numposti += t.getPostiTot();
+        }
+        return numposti;
     }
 }

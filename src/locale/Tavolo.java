@@ -69,11 +69,11 @@ public class Tavolo {
             endAssignment();
         }
     }
-
     /*
     in questo metodo passo la lista degli invitati che può stare in un determinato tavolo
      */
     public void addAllGuests(ArrayList<Invitato> guests){
+
 
         if (disponibile && guests.size()<= num_posti) {
             AssegnamentiTavolo.addAll(guests);
@@ -178,5 +178,6 @@ public class Tavolo {
     public void openAssignment(){
         disponibile = true;
     }
+
 
 }
