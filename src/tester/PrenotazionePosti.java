@@ -71,7 +71,7 @@ public class PrenotazionePosti {
         Invitato c = new Invitato("Marco","Lecce",39);
         Invitato d = new Invitato("Federico","Dorigo",39);
         Invitato t = new Invitato("Mario","Rossi",39);
-        Invitato f = new Invitato("Gerry","Scotti",39);
+        Invitato f = new Invitato("Salvatore","Parisi",39);
         Invitato g = new Invitato("Maurizio","Costanzo",39);
         Invitato h = new Invitato("Carlo","Conti",39);
         Invitato i = new Invitato("Matteo","Salvini",39);
@@ -89,7 +89,7 @@ public class PrenotazionePosti {
         Invitato w = new Invitato("Ilary", "Blasi", 39);
         Invitato y = new Invitato("Enrico", "Mentana", 39);
         Invitato j = new Invitato("Enzo", "Sorrentino", 55);
-        Invitato y2 = new Invitato("Filippo", "Viglietti", 24);
+        Invitato y2 = new Invitato("Gerry", "Scotti", 60);
 
         //        //inserimento invitati nelle liste evento 1;
         e.addInvitati(a);
