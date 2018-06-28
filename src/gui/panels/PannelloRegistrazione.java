@@ -12,6 +12,11 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ *
+ * @author lecciovich
+ */
+
 public class PannelloRegistrazione extends JPanel {
     static Cliente lecciovich= new Cliente("lecciovich","Marco","Lecce","emailprova@gmail.com","prova");
     static ArrayList<Cliente> clienti=new ArrayList<Cliente>(2);

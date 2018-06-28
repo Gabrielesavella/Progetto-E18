@@ -10,6 +10,11 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
+/**
+ *
+ * @author lecciovich
+ */
+
 public class PannelloDisposizioneTavoli extends JPanel {
     public PannelloDisposizioneTavoli(Locale locale, Evento evento){
         JPanel  pAllGuests = new JPanel();
@@ -38,8 +43,8 @@ public class PannelloDisposizioneTavoli extends JPanel {
         stampaElenco.append("Invitati presenti: " + evento.getListaInvitati().size()+"\n");
         stampaElenco.append("Invitati presenti: " +"\n");
 
-        for (Invitato i:sisPr.getInvitati()) {
-            stampaElenco.append(i.getCf()+"\t"+i.getNome()+"\t"+i.getCognome()+"\t"+i.getEtà()+"\n");
+        for (Invitato i:evento.getListaInvitati()) {
+            stampaElenco.append(i.getNome()+"\t"+i.getCognome()+"\t"+i.getEtà()+"\n");//i.getCf()+"\t"+
         }
 
 

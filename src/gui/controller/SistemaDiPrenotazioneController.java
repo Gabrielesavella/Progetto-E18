@@ -10,13 +10,21 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 
+/**
+ *
+ * @author lecciovich
+ */
+
+
 public class SistemaDiPrenotazioneController{
     private boolean loggedIn=false;
     private AbstractFacade facade;
+    private XlsFacade xlsFacade;
 
     public SistemaDiPrenotazioneController(){
         try {
             facade=new txtFacade(1);
+            xlsFacade=new XlsFacade();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -100,6 +108,21 @@ public class SistemaDiPrenotazioneController{
             e.printStackTrace();
         }
         return invitati;
+    }
+
+    public boolean createXlsGenerality(String nomeEvento){
+        xlsFacade.generateXlsGuests(nomeEvento);
+        try {
+            xlsFacade.openfile(nomeEvento+".xls");
+            return true;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public ArrayList<Invitato> loadXlsGenerality(String nomeEvento){
+        return xlsFacade.readXlsGuests(nomeEvento);
     }
 
 }

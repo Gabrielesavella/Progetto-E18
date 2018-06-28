@@ -11,6 +11,11 @@ import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ *
+ * @author lecciovich
+ */
+
 public class FinestraLogin extends JFrame {
     public FinestraLogin(ArrayList<Locale> locali){
         setSize(800,800);

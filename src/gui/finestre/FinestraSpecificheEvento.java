@@ -8,6 +8,11 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
+/**
+ *
+ * @author lecciovich
+ */
+
 public class FinestraSpecificheEvento extends JFrame{
     public FinestraSpecificheEvento(Locale locale, Evento evento){
         setSize(200,200);

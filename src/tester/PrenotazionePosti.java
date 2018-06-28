@@ -74,26 +74,26 @@ public class PrenotazionePosti {
         Evento k = new Evento("Battesimo", orarioEvento, bellaNapoli, 20);
 
         //invitati;
-        Invitato a = new Invitato("mfnmrc95", "marco", "maffoni", 39);
-        Invitato b = new Invitato("cvlc97", "luca", "cavo", 39);
-        Invitato c = new Invitato("3", "gilbe", "marco", 39);
-        Invitato d = new Invitato("4", "gabri", "marco", 39);
-        Invitato t = new Invitato("5", "lecce", "marco", 39);
-        Invitato f = new Invitato("6", "fudi", "marco", 39);
-        Invitato g = new Invitato("7", "dori", "marco", 39);
-        Invitato h = new Invitato("8", "ischia", "marco", 39);
-        Invitato i = new Invitato("9", "salvo", "marco", 39);
-        Invitato l = new Invitato("10", "fede", "marco", 39);
-        Invitato m = new Invitato("11", "ale", "marco", 39);
-        Invitato n = new Invitato("12", "fox", "marco", 39);
-        Invitato o = new Invitato("13", "volpi", "marco", 39);
-        Invitato p = new Invitato("14", "saro", "marco", 39);
-        Invitato q = new Invitato("15", "slto", "marco", 39);
-        Invitato r = new Invitato("16", "carlo", "marco", 39);
-        Invitato s = new Invitato("17", "gavino", "marco", 39);
-        Invitato u = new Invitato("18", "pops", "marco", 39);
-        Invitato v = new Invitato("19", "paolo", "marco", 39);
-        Invitato z = new Invitato("20", "mauro", "marco", 39);
+        Invitato a = new Invitato( "marco", "maffoni", 39);//"mfnmrc95",
+        Invitato b = new Invitato( "luca", "cavo", 39);//"cvlc97",
+        Invitato c = new Invitato( "gilbe", "marco", 39);//"3",
+        Invitato d = new Invitato("gabri", "marco", 39);//"4",
+        Invitato t = new Invitato("lecce", "marco", 39);//"5",
+        Invitato f = new Invitato("fudi", "marco", 39);//"6",
+        Invitato g = new Invitato("dori", "marco", 39);//"7",
+        Invitato h = new Invitato("ischia", "marco", 39);//"8",
+        Invitato i = new Invitato("salvo", "marco", 39);//"9",
+        Invitato l = new Invitato("fede", "marco", 39);//"10",
+        Invitato m = new Invitato("ale", "marco", 39);//"11",
+        Invitato n = new Invitato("fox", "marco", 39);//"12",
+        Invitato o = new Invitato("volpi", "marco", 39);//"13",
+        Invitato p = new Invitato("saro", "marco", 39);//"14",
+        Invitato q = new Invitato("slto", "marco", 39);//"15",
+        Invitato r = new Invitato("carlo", "marco", 39);//"16",
+        Invitato s = new Invitato("gavino", "marco", 39);//"17",
+        Invitato u = new Invitato("pops", "marco", 39);//"18",
+        Invitato v = new Invitato("paolo", "marco", 39);//"19",
+        Invitato z = new Invitato("mauro", "marco", 39);//"20",
         //        //inserimento invitati nelle liste evento 1;
         e.addInvitato(a);
         e.addInvitato(b);

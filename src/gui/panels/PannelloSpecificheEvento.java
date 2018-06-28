@@ -16,6 +16,11 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ *
+ * @author lecciovich
+ */
+
 public class PannelloSpecificheEvento extends JPanel {
     public PannelloSpecificheEvento(Locale locale, Evento evento){
 
@@ -56,21 +61,21 @@ public class PannelloSpecificheEvento extends JPanel {
         bDownload.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                PrintWriter writer = null;
-                try {
-                    writer = new PrintWriter("the-file-name.txt", "UTF-8");
-                } catch (FileNotFoundException e1) {
-                    e1.printStackTrace();
-                } catch (UnsupportedEncodingException e1) {
-                    e1.printStackTrace();
-                }
+//                PrintWriter writer = null;
+//                try {
+//                    writer = new PrintWriter("the-file-name.txt", "UTF-8");
+//                } catch (FileNotFoundException e1) {
+//                    e1.printStackTrace();
+//                } catch (UnsupportedEncodingException e1) {
+//                    e1.printStackTrace();
+//                }
+//
+//                writer.println("\t\tCod.Fiscale\tNome\tCognome\tetà");
+//                for (int i = 0; i<evento.getNumInvitati(); i++)
+//                    writer.println(i+1+"\t\t\t\t\t\t\t\t");
+//                writer.close();
 
-                writer.println("\t\tCod.Fiscale\tNome\tCognome\tetà");
-                for (int i = 0; i<evento.getNumInvitati(); i++)
-                    writer.println(i+1+"\t\t\t\t\t\t\t\t");
-                writer.close();
-
-
+                sisPr.createXlsGenerality(evento.getName());
             }
         });
 
@@ -79,6 +84,7 @@ public class PannelloSpecificheEvento extends JPanel {
             public void actionPerformed(ActionEvent e)  {
 
                 ArrayList<Invitato> invitati=new ArrayList<>();
+/*
                 Scanner scanner= null;
                 try {
                     File fin=new File("the-file-name.txt");
@@ -99,7 +105,12 @@ public class PannelloSpecificheEvento extends JPanel {
                     evento.addInvitato(i);
                     invitati.add(i);
                 }
-                sisPr.acquisisciInvitati(invitati);
+*/
+                for (Invitato i:sisPr.loadXlsGenerality(evento.getName())) {
+                    evento.addInvitato(i);
+                }
+
+            //    sisPr.acquisisciInvitati(invitati);
                 System.out.println("Acquisizione invitati effettuata.");
                 FinestraDisposizioneTavoli fd=new FinestraDisposizioneTavoli(locale,evento);
                 fd.setVisible(true);

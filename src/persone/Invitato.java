@@ -12,8 +12,8 @@ public class Invitato {
     nome è il nome dell'invitato
     cognome è il cognome dell'invitato
      */
-    public Invitato (String cf,String nome,String cognome,int età){
-        this.cf = cf;
+    public Invitato (String nome,String cognome,int età){//String cf,
+        //this.cf = cf;
         this.cognome = cognome;
         this.nome = nome;
         this.età = età;
