@@ -98,10 +98,13 @@ public class Tavolo {
 
     public String showInvitati(){
         String invitatiTavolo = "";
-        for (Invitato i : AssegnamentiTavolo){
-            invitatiTavolo += i.getNome() + " "+ i.getCognome() + "\n";
+
+        for (Invitato i : AssegnamentiTavolo) {
+            invitatiTavolo += i.getNome() + " " + i.getCognome() + "\n";
         }
-        return "Tavolo: " + getIDTavolo() + "\n\n"+ invitatiTavolo;
+
+        return "Tavolo: " + getIDTavolo() + " Numero posti: " + getPostiTot() + "\n\n" + invitatiTavolo;
+
     }
 
     public final int getPostiTot(){

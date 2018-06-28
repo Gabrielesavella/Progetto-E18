@@ -17,7 +17,7 @@ public class PreferenzaInvitato2 implements Vincolo {
     private final int numero_vincolati;
 
     public PreferenzaInvitato2(Invitato invitato, ArrayList<Invitato> vincolatiAInvitato, Evento evento, PreferenzaInvitatoEnum preferenza) {
-        
+
         this.evento = evento;
         this.preferenza = preferenza;
         lista_vincolati.add(invitato);

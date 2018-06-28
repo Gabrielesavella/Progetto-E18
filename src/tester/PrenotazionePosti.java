@@ -62,7 +62,7 @@ public class PrenotazionePosti {
 
 
         //eventi;
-        Evento e = new Evento("Matrimonio", orarioEvento,  bellaNapoli, 20);
+        Evento e = new Evento("Matrimonio", orarioEvento,  bellaNapoli, 22);
         Evento k = new Evento("Battesimo", orarioEvento, bellaNapoli, 20);
 
         //invitati;
@@ -88,6 +88,8 @@ public class PrenotazionePosti {
         Invitato z = new Invitato("Massimiliano","Allegri",39);
         Invitato w = new Invitato("Ilary", "Blasi", 39);
         Invitato y = new Invitato("Enrico", "Mentana", 39);
+        Invitato j = new Invitato("Enzo", "Sorrentino", 55);
+        Invitato y2 = new Invitato("Filippo", "Viglietti", 24);
 
         //        //inserimento invitati nelle liste evento 1;
         e.addInvitati(a);
@@ -111,6 +113,9 @@ public class PrenotazionePosti {
         e.addInvitati(v);
         e.addInvitati(z);
         e.addInvitati(w);
+        e.addInvitati(j);
+        e.addInvitati(y);
+        e.addInvitati(y2);
         //evento 2//
         k.addInvitati(a);
         k.addInvitati(b);
@@ -176,14 +181,14 @@ public class PrenotazionePosti {
         listaVincolati3.add(h);
         listaVincolati3.add(l);
         listaVincolati3.add(m);
-        listaVincolati3.add(n);
+        //listaVincolati3.add(n);
 
 
         listaVincolati4.add(h);
         listaVincolati4.add(l);
         listaVincolati4.add(z);
         listaVincolati4.add(r);
-        listaVincolati4.add(s);
+        //listaVincolati4.add(s);
         listaVincolati4.add(u);
         //listaVincolati4.add(v);
         //listaVincolati4.add(z);

@@ -116,17 +116,19 @@ public class Locale {
                         t.addGuest(listainvitati.get(count));
                         count++;
 
-                    } while (t.getDisponibile() && (count+1)<listainvitati.size());
+                    } while (t.getDisponibile() && (count+1)<=listainvitati.size());
                     tavoliUtilizzati.add(t);
                    /*
                     se conto tutti gli invitati della lista esco dal ciclo del tavolo (count è incrementato di 1 perchè
                     parte da zero
                      */
-                    if ((count) == listainvitati.size())
+                    if (count == listainvitati.size()) {
                         break;
+                    }
 
                 }
             }
+
         return tavoliUtilizzati;
     }
 
@@ -174,7 +176,9 @@ public class Locale {
     public String showInvitatiAiTavoli(){
         String invitatiTavoli = "";
         for (Tavolo t : tavoli){
-            invitatiTavoli += t.showInvitati() + "\n\n\n";
+            if (!(t.getNumPosti()==t.getPostiTot())) {
+                invitatiTavoli += t.showInvitati() + "\n\n\n";
+            }
         }
         return invitatiTavoli;
     }
