@@ -1,3 +1,4 @@
+
 package locale;
 
 import locale.Locale;
@@ -8,9 +9,9 @@ import java.util.*;
 
 
 public class Evento {
-    private String nomeEvento,nomeLocation;
+    private String nomeEvento;
 
-    private Locale location = null;
+    private locale.Locale location = null;
     private ArrayList <Invitato> invitati;
     private  ArrayList <Vincolo> lista_vincoli;
     private GregorianCalendar dataEvento;
@@ -18,7 +19,7 @@ public class Evento {
 
 
 
-    /*nell'uml manca la data dell'evento ( l'aggiungo al costruttore )]*/
+
 
     public Evento(String nomeEvento, GregorianCalendar dataEvento, Locale location, int numInvitati){
 
@@ -32,21 +33,7 @@ public class Evento {
         lista_vincoli = new ArrayList();
         this.invitati = new ArrayList(numInvitati);
         this.numInvitati=numInvitati;
-
-    }
-
-    public Evento(String nomeEvento, GregorianCalendar dataEvento, String nomeLocation, int numInvitati){
-
-        /*Crea un Evento caratterizzato da un nome, una data e un Locale. Al suo interno verranno successivamente inseriti
-        una lista di Invitati e di Vincoli*/
-
-
-        this.nomeEvento = nomeEvento;
-        this.nomeLocation = nomeLocation;
-        this.dataEvento = dataEvento;
-        lista_vincoli = new ArrayList();
-        this.invitati = new ArrayList(numInvitati);
-        this.numInvitati=numInvitati;
+        location.getEventi().add(this);
 
     }
 
@@ -57,7 +44,6 @@ public class Evento {
     }
 
     public String getName(){return nomeEvento;}
-
 
 
     public Evento(String nomeEvento, GregorianCalendar dataEvento, Locale location,
@@ -74,7 +60,6 @@ public class Evento {
         invitati = new ArrayList();
         this.invitati.addAll(invitati);
         location.getEventi().add(this);
-
     }
 
 
@@ -88,7 +73,7 @@ public class Evento {
         this.location = location;
     }
 
-    public void addInvitato(Invitato invitato){
+    public void addInvitati(Invitato invitato){
         invitati.add(invitato);
     }
 
@@ -98,6 +83,12 @@ public class Evento {
     }*/
 
     public int getNumInvitati(){return numInvitati;}
+
+    public ArrayList<Vincolo> getLista_vincoli(){ return lista_vincoli; }
+
+    public GregorianCalendar getDataEvento(){
+        return dataEvento;
+    }
 
     public void setLista_vincoli(ArrayList <Vincolo> lista_vincoli) {
         this.lista_vincoli = lista_vincoli;
@@ -114,9 +105,5 @@ public class Evento {
 
     public void setDataEvento(GregorianCalendar dataEvento) {
         this.dataEvento = dataEvento;
-    }
-
-    public GregorianCalendar getDataEvento() {
-        return dataEvento;
     }
 }

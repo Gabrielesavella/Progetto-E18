@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="librerie">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/librerie" />
+      <root url="jar://$USER_HOME$/Documents/swingx-0.9.4.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+    <jarDirectory url="file://$PROJECT_DIR$/librerie" recursive="false" />
+  </library>
+</component>

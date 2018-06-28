@@ -29,39 +29,25 @@ public class PannelloDisposizioneTavoli extends JPanel {
         pTablesGuests.add(labelDisposizione);
         pTablesGuests.add(stampaDisposizione);
 
-        this.add(pAllGuests);
-        this.add(pTablesGuests);
 
-        SistemaDiPrenotazioneController sisPr= new SistemaDiPrenotazioneController();
-
-        stampaElenco.append("Numero invitati: " + evento.getNumInvitati()+"\n");
-        stampaElenco.append("Invitati presenti: " + evento.getListaInvitati().size()+"\n");
-        stampaElenco.append("Invitati presenti: " +"\n");
-
-        for (Invitato i:sisPr.getInvitati()) {
-            stampaElenco.append(i.getCf()+"\t"+i.getNome()+"\t"+i.getCognome()+"\t"+i.getEtà()+"\n");
+        stampaDisposizione.append("numero invitati: " + evento.getNumInvitati()+"\n");
+        for (Invitato i:evento.getListaInvitati()) {
+            stampaDisposizione.append(i.getID_Inv()+"\t"+i.getNome()+"\t"+i.getCognome()+"\t"+i.getEta()+"\n");
         }
 
 
 //        for (Invitato i:evento.getListaInvitati()) {
-//            stampaElenco.append(i.getCf()+"\t"+i.getNome()+"\t"+i.getCognome()+"\t"+i.getEtà()+"\n");
+//            stampaElenco.append(i.getID_Inv(+"\t"+i.getNome()+"\t"+i.getCognome()+"\t"+i.getEta()+"\n");
 //        }
         stampaDisposizione.append("\nDisposizione:\n");
 
         for (Tavolo t:locale.smistamentoTavoli(evento)) {
             stampaDisposizione.append(t.getIDTavolo()+"\n");
             for (Invitato invitato:t.getArraylistInvitati()) {
-                stampaDisposizione.append(invitato.getCf()+"\t"+invitato.getNome()+"\t"+invitato.getCognome()+"\t"+invitato.getEtà()+"\n");
+                stampaDisposizione.append(invitato.getID_Inv()+"\t"+invitato.getNome()+"\t"+invitato.getCognome()+"\t"+invitato.getEta()+"\n");
             }
         }
-//        stampaDisposizione.append();
-//        for (Tavolo tavolo:evento.getLocation().smistamentoTavoli(evento)) {
-//            ArrayList<Invitato> invitatiTavolo=tavolo.getArraylistInvitati();
-//            for (Invitato i:invitatiTavolo) {
-//                stampaDisposizione.append(i.getCf()+"\t"+i.getNome()+"\t"+i.getCognome()+"\t"+i.getEtà()+"\n");
-//            }
-//        }
-//        stampaDisposizione.append("\t"+evento.getLocation().);
+
 
 
     }

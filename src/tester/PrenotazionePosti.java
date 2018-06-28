@@ -1,37 +1,35 @@
 package tester;
 
-import facade.*;
-import locale.*;
+import facade.txtFacade;
+import locale.Evento;
 import locale.Locale;
-import persone.*;
+import locale.Tavolo;
+import persone.Invitato;
+import vincoli.PreferenzaInvitato;
+import vincoli.PreferenzaInvitato2;
+import vincoli.PreferenzaInvitatoEnum;
 
-import java.io.*;
-import java.util.*;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.GregorianCalendar;
 
-/**
- *
- * @author salvi
- */
 public class PrenotazionePosti {
 
     /**
      * creazione dei locali che ossono essere utilizzati dall'utente
-     * @author Gabrielesavella
+     * @author Gabrielesavella,Salvi
      */
-
-    private static String[] columns = {"Surname", "Name", "FC", "Age"};
-    private static List<Invitato> employees =  new ArrayList<>();
-
-    public static void main(String[] args) throws IOException {
-        Tavolo tav1 = new Tavolo("tav1", 4);
-        Tavolo tav2 = new Tavolo("tav2", 6);
-        Tavolo tav3 = new Tavolo("tav3", 8);
-        Tavolo tav4 = new Tavolo("tav4", 4);
-        Tavolo tav5 = new Tavolo("tav5", 6);
-        Tavolo tav6 = new Tavolo("tav6", 8);
+    public static void main(String[] args) {
+        Tavolo tav1 = new Tavolo("tav1",4);
+        Tavolo tav2 = new Tavolo("tav2",6);
+        Tavolo tav3 = new Tavolo("tav3",8);
+        Tavolo tav4 = new Tavolo("tav4",4);
+        Tavolo tav5 = new Tavolo("tav5",6);
+        Tavolo tav6 = new Tavolo("tav6",8);
 
 
-        ArrayList<Tavolo> listaTavoli = new ArrayList<Tavolo>();
+
+        ArrayList<Tavolo> listaTavoli = new ArrayList <Tavolo>();
         listaTavoli.add(tav1);
         listaTavoli.add(tav2);
         listaTavoli.add(tav3);
@@ -40,130 +38,176 @@ public class PrenotazionePosti {
         listaTavoli.add(tav6);
 
 
+
         GregorianCalendar orarioapertura = new GregorianCalendar();
-        orarioapertura.add(GregorianCalendar.HOUR, 9);
+        orarioapertura.add(GregorianCalendar.HOUR,9);
         GregorianCalendar chiusura = new GregorianCalendar();
-        chiusura.add(GregorianCalendar.HOUR, 18);
+        chiusura.add(GregorianCalendar.HOUR,18);
         GregorianCalendar orarioEvento = new GregorianCalendar();
         orarioEvento.add(GregorianCalendar.HOUR, 12);
         orarioEvento.add(GregorianCalendar.MINUTE, 30);
         /*
         i locali chiudono tutti il lunedì (questa è l'intenzione)
+        link per vedere che il giorno di chiusura lunedì ha costante 2
+        https://docs.oracle.com/javase/7/docs/api/constant-values.html#java.util.Calendar.MONDAY
          */
         //
-        chiusura.add(GregorianCalendar.DAY_OF_WEEK, 2);
+        chiusura.add(GregorianCalendar.DAY_OF_WEEK,2);
         // Locale daMimmo = new Locale("da Giulio",20,listaTavoli,orarioapertura, chiusura);
-        Locale bellaNapoli = new Locale("Bella Napoli", 30, listaTavoli, orarioapertura, chiusura);
+        Locale bellaNapoli = new Locale ("Bella Napoli", 30, listaTavoli, orarioapertura, chiusura);
 
 
         //eventi;
-        Evento e = new Evento("Matrimonio", orarioEvento, bellaNapoli, 20);
+        Evento e = new Evento("Matrimonio", orarioEvento,  bellaNapoli, 22);
         Evento k = new Evento("Battesimo", orarioEvento, bellaNapoli, 20);
 
         //invitati;
-        Invitato a = new Invitato("mfnmrc95", "marco", "maffoni", 39);
-        Invitato b = new Invitato("cvlc97", "luca", "cavo", 39);
-        Invitato c = new Invitato("3", "gilbe", "marco", 39);
-        Invitato d = new Invitato("4", "gabri", "marco", 39);
-        Invitato t = new Invitato("5", "lecce", "marco", 39);
-        Invitato f = new Invitato("6", "fudi", "marco", 39);
-        Invitato g = new Invitato("7", "dori", "marco", 39);
-        Invitato h = new Invitato("8", "ischia", "marco", 39);
-        Invitato i = new Invitato("9", "salvo", "marco", 39);
-        Invitato l = new Invitato("10", "fede", "marco", 39);
-        Invitato m = new Invitato("11", "ale", "marco", 39);
-        Invitato n = new Invitato("12", "fox", "marco", 39);
-        Invitato o = new Invitato("13", "volpi", "marco", 39);
-        Invitato p = new Invitato("14", "saro", "marco", 39);
-        Invitato q = new Invitato("15", "slto", "marco", 39);
-        Invitato r = new Invitato("16", "carlo", "marco", 39);
-        Invitato s = new Invitato("17", "gavino", "marco", 39);
-        Invitato u = new Invitato("18", "pops", "marco", 39);
-        Invitato v = new Invitato("19", "paolo", "marco", 39);
-        Invitato z = new Invitato("20", "mauro", "marco", 39);
+        Invitato a = new Invitato("Marco","Maffoni",39);
+        Invitato b = new Invitato("Gabriele","Savella",39);
+        Invitato c = new Invitato("Marco","Lecce",39);
+        Invitato d = new Invitato("Federico","Dorigo",39);
+        Invitato t = new Invitato("Mario","Rossi",39);
+        Invitato f = new Invitato("Salvatore","Parisi",39);
+        Invitato g = new Invitato("Maurizio","Costanzo",39);
+        Invitato h = new Invitato("Carlo","Conti",39);
+        Invitato i = new Invitato("Matteo","Salvini",39);
+        Invitato l = new Invitato("Luigi","Di Maio",39);
+        Invitato m = new Invitato("Silvio","Berlusconi",39);
+        Invitato n = new Invitato("Gonzalo","Higuain",39);
+        Invitato o = new Invitato("Belen","Rodriguez",39);
+        Invitato p = new Invitato("Maurizio","Sarri",39);
+        Invitato q = new Invitato("Antonio","Conte",39);
+        Invitato r = new Invitato("Maria","De Filippi",39);
+        Invitato s = new Invitato("Francesco","Totti",39);
+        Invitato u = new Invitato("Filippo","Inzaghi",39);
+        Invitato v = new Invitato("Paolo","Maldini",39);
+        Invitato z = new Invitato("Massimiliano","Allegri",39);
+        Invitato w = new Invitato("Ilary", "Blasi", 39);
+        Invitato y = new Invitato("Enrico", "Mentana", 39);
+        Invitato j = new Invitato("Enzo", "Sorrentino", 55);
+        Invitato y2 = new Invitato("Gerry", "Scotti", 60);
+
         //        //inserimento invitati nelle liste evento 1;
-        e.addInvitato(a);
-        e.addInvitato(b);
-        e.addInvitato(c);
-        e.addInvitato(d);
-        e.addInvitato(f);
-        e.addInvitato(g);
-        e.addInvitato(h);
-        e.addInvitato(i);
-        e.addInvitato(l);
-        e.addInvitato(m);
-        e.addInvitato(n);
-        e.addInvitato(o);
-        e.addInvitato(p);
-        e.addInvitato(q);
-        e.addInvitato(r);
-        e.addInvitato(s);
-        e.addInvitato(t);
-        e.addInvitato(u);
-        e.addInvitato(v);
-        e.addInvitato(z);
+        e.addInvitati(a);
+        e.addInvitati(b);
+        e.addInvitati(c);
+        e.addInvitati(d);
+        e.addInvitati(f);
+        e.addInvitati(g);
+        e.addInvitati(h);
+        e.addInvitati(i);
+        e.addInvitati(l);
+        e.addInvitati(m);
+        e.addInvitati(n);
+        e.addInvitati(o);
+        e.addInvitati(p);
+        e.addInvitati(q);
+        e.addInvitati(r);
+        e.addInvitati(s);
+        e.addInvitati(t);
+        e.addInvitati(u);
+        e.addInvitati(v);
+        e.addInvitati(z);
+        e.addInvitati(w);
+        e.addInvitati(j);
+        e.addInvitati(y);
+        e.addInvitati(y2);
         //evento 2//
-        k.addInvitato(a);
-        k.addInvitato(b);
-        k.addInvitato(c);
-        k.addInvitato(d);
-        k.addInvitato(f);
-        k.addInvitato(g);
-        k.addInvitato(h);
-        k.addInvitato(i);
-        k.addInvitato(l);
-        k.addInvitato(m);
-        k.addInvitato(n);
-        k.addInvitato(o);
-        k.addInvitato(p);
-        k.addInvitato(q);
-        k.addInvitato(r);
-        k.addInvitato(s);
-        k.addInvitato(t);
-        k.addInvitato(u);
-        k.addInvitato(v);
-        k.addInvitato(z);
+        k.addInvitati(a);
+        k.addInvitati(b);
+        k.addInvitati(c);
+        k.addInvitati(d);
+        k.addInvitati(f);
+        k.addInvitati(g);
+        k.addInvitati(h);
+        k.addInvitati(i);
+        k.addInvitati(l);
+        k.addInvitati(m);
+        k.addInvitati(n);
+        k.addInvitati(o);
+        k.addInvitati(p);
+        k.addInvitati(q);
+        k.addInvitati(r);
+        k.addInvitati(s);
+        k.addInvitati(t);
+        k.addInvitati(u);
+        k.addInvitati(v);
+        k.addInvitati(z);
+         /*
         // stampe per prova;
         System.out.println(bellaNapoli.stampaNomeEventi());
         try {
-            txtFacade prova = new txtFacade(2);
-            prova.WriteGuests(a.getCf(), a.getNome(), a.getCognome(), a.getEtà());
-            prova.WriteGuests(b.getCf(), b.getNome(), b.getCognome(), b.getEtà());
-            prova.WriteGuests(c.getCf(), c.getNome(), c.getCognome(), c.getEtà());
-            prova.WriteClient("Myusername", "mypassword", "luca", "usb", "mygmail@gmail.com");
-            prova.WriteEvent(e.getName(), e.getDataEvento(), e.getNumInvitati());
-            prova.WriteEvent(k.getName(), k.getDataEvento(), k.getNumInvitati());
-            Cliente clienteregistrato = prova.fetchClient("Myusername", "mypassword");
-            Evento eventoToFind = prova.fetchEvento(k.getName());
-
-            System.out.println("cliente registrato: " + clienteregistrato.getUsername() + "  " + clienteregistrato.getCognome() + "  " + clienteregistrato.getNome());
-            System.out.println(eventoToFind.getName());
-
-
-        } catch (IOException e1) {
+            txtFacade prova = new txtFacade("primidueinvitati.txt", 2);
+            prova.WriteGuests(a.getID_Inv(),a.getNome(),a.getCognome(),a.getEta());
+            prova.WriteGuests(b.getID_Inv(),b.getNome(),b.getCognome(),b.getEta());
+        }catch(IOException e1){
             System.out.println("Eccezione: " + e1);
         }
         e.showListaInvitati();
-
         k.showListaInvitati();
+        bellaNapoli.smistamentoTavoli(e);
+        System.out.println("maffo balordo ");
+        System.out.println(bellaNapoli.getInvitatiAlTavolo(tav1));
+        */
+        // test per la gestione dei vincoli;
 
-        //
+        ArrayList<Invitato> listaVincolati  = new ArrayList<>();
+        ArrayList<Invitato> listaVincolati2  = new ArrayList<>();
+        ArrayList<Invitato> listaVincolati3  = new ArrayList<>();
+        ArrayList<Invitato> listaVincolati4  = new ArrayList<>();
+        ArrayList<Invitato> listaVincolati5  = new ArrayList<>();
+
+        listaVincolati.add(b);
+        listaVincolati.add(c);
+        listaVincolati.add(d);
+        listaVincolati.add(f);
+        listaVincolati.add(p);
+        listaVincolati.add(q);
+
+        listaVincolati2.add(g);
+
+        listaVincolati3.add(h);
+        listaVincolati3.add(l);
+        listaVincolati3.add(m);
+        //listaVincolati3.add(n);
+
+
+        listaVincolati4.add(h);
+        listaVincolati4.add(l);
+        listaVincolati4.add(z);
+        listaVincolati4.add(r);
+        //listaVincolati4.add(s);
+        listaVincolati4.add(u);
+        //listaVincolati4.add(v);
+        //listaVincolati4.add(z);
+        //listaVincolati4.add(w);
+
+        listaVincolati5.add(g);
+
+        /*
+        listaVincolati.add(g);
+        listaVincolati.add(h);
+        listaVincolati.add(i);
+        listaVincolati.add(l);
+        listaVincolati.add(m);
+        listaVincolati.add(n);
+        listaVincolati.add(o);
+        */
+
+        PreferenzaInvitato2 provaVincolo = new PreferenzaInvitato2(a,listaVincolati,e,PreferenzaInvitatoEnum.STA_VICINO_A);
+        PreferenzaInvitato2 provaVincolo2 = new PreferenzaInvitato2(b,listaVincolati2,e,PreferenzaInvitatoEnum.STA_VICINO_A);
+        PreferenzaInvitato2 provaVincolo3 = new PreferenzaInvitato2(i,listaVincolati3,e,PreferenzaInvitatoEnum.NON_STA_VICINO_A);
+        PreferenzaInvitato2 provaVincolo4 = new PreferenzaInvitato2(o,listaVincolati4,e,PreferenzaInvitatoEnum.NON_STA_VICINO_A);
+        PreferenzaInvitato2 provaVincolo5 = new PreferenzaInvitato2(b, listaVincolati5, e, PreferenzaInvitatoEnum.NON_STA_VICINO_A);
+
+        System.out.println("Smisto le persone secondo i vincoli:\n\n");
+        System.out.println(e.getLocation().showInvitatiAiTavoli());
+
+        System.out.println("\n\n\n\n\nOra smisto gli invitati rimanenti:\n\n");
 
         bellaNapoli.smistamentoTavoli(e);
-        ArrayList<Invitato> invitatiTotali = new ArrayList<>();
+        System.out.println(e.getLocation().showInvitatiAiTavoli());
 
-        invitatiTotali = bellaNapoli.getInvitatiOgniTavolo();
-
-        for (Invitato invitati:invitatiTotali) {
-            System.out.println(invitati.toString());
-
-        }
-
-        XlsFacade excel = new XlsFacade();
-        //excel.generateXlsGuests(e.getName());
-
-        excel.readXlsGuests(e.getName());
-        excel.openfile(e.getName()+".xls");
     }
 
 }

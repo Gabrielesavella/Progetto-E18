@@ -1,15 +1,13 @@
 package facade;
 
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.hssf.usermodel.*;
 import org.apache.poi.ss.usermodel.*;
-import org.apache.poi.*;
 import org.apache.poi.ss.usermodel.Font;
-import persone.Invitato;
+import persone.*;
 
 import java.awt.*;
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.*;
 
 public class XlsFacade {
     Workbook workbook;
@@ -79,9 +77,10 @@ public class XlsFacade {
         return generated;
     }
 
-    public boolean readXlsGuests(String nomeEvento){
+    public ArrayList<Invitato> readXlsGuests(String nomeEvento){
         boolean done = true;
 
+        ArrayList<Invitato> invitati= new ArrayList<>(2);
         try {
             String file = nomeEvento+".xls";
 
@@ -89,16 +88,29 @@ public class XlsFacade {
             workbook = new HSSFWorkbook(excelFile);
             Sheet dataTypeSheet = workbook.getSheetAt(0);
             Iterator iterator = dataTypeSheet.iterator();
+            iterator.next();
+
             while (iterator.hasNext()) {
+                String name=null,surname=null;
+                int eta=-1;
                 Row currentRow = (Row) iterator.next();
                 Iterator cellIterator = currentRow.iterator();
+
                 while (cellIterator.hasNext()) {
                     Cell currentCell = (Cell) cellIterator.next();
                     if (currentCell.getCellTypeEnum() == CellType.STRING) {
                         System.out.print(currentCell.getStringCellValue() + "  ");
+                        if(currentCell.getColumnIndex()==1){
+                            name=currentCell.getStringCellValue();
+                        }else if(currentCell.getColumnIndex()==2){
+                            surname=currentCell.getStringCellValue();
+                        }
                     } else if (currentCell.getCellTypeEnum() == CellType.NUMERIC) {
                         System.out.print(currentCell.getNumericCellValue() + " anni ");
+                        eta=(int)currentCell.getNumericCellValue();
                     }
+                    if (!cellIterator.hasNext())
+                        invitati.add(new Invitato(name,surname,eta));
                 }
                 System.out.println();
             }
@@ -109,7 +121,7 @@ public class XlsFacade {
             System.out.println(ex.getMessage());
             done = false;
         }
-        return done;
+        return invitati;
     }
 
 

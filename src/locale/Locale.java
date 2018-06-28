@@ -1,11 +1,8 @@
 package locale;
 
-import persone.Invitato;
+import persone.*;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
+import java.util.*;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -29,6 +26,7 @@ public class Locale {
     Calendar calendar;
     private ArrayList<Tavolo> tavoli;
     private ArrayList<Tavolo> tavoliUtilizzati = new ArrayList<>();
+    private ArrayList<Invitato> lista_gia_presenti = new ArrayList<>();
 
     // cambiato il tipo di dato giorno chiusura da String a Gregoria calendar , molto più facile da gestire
     // aggiunta inoltre del passaggio dei tavoli tramite parametro
@@ -43,7 +41,7 @@ public class Locale {
         calendar.setWeekDate(01,01,6);
         this.id_locale=id_locale;
         this.numMaxTavoli=numMaxTavoli;
-        this.tavoli = new ArrayList(numMaxTavoli);
+        this.tavoli = new ArrayList<Tavolo>();
         this.tavoli.addAll(tavoli);
         this.giornodichiusura = new GregorianCalendar();
         this.giornodichiusura.add(GregorianCalendar.DAY_OF_WEEK,Calendar.MONDAY);
@@ -100,6 +98,9 @@ public class Locale {
 
     /*Smista tutti invitati ad un particolare evento nei tavoli. Fatto ciò, restituisce un arraylist di tutti i tavoli utilizzati*/
     public ArrayList<Tavolo> smistamentoTavoli(Evento e){
+
+        rimuoviGiaPresenti(e);
+
         int count = 0;
         ArrayList<Invitato>listainvitati;
 
@@ -124,6 +125,14 @@ public class Locale {
                 }
             }
         return tavoliUtilizzati;
+    }
+
+    //Rimuove dagli invitati da smistare, le persone che sono già sedute al tavolo.
+    public void rimuoviGiaPresenti(Evento e){
+        for (Tavolo t : tavoli){
+            lista_gia_presenti.addAll(t.getArraylistInvitati());
+        }
+        e.getListaInvitati().removeAll(lista_gia_presenti);
     }
 
     /*Restituisce un arraylist di tutti gli invitati presenti in tutti i tavoli utilizzati*/
@@ -159,6 +168,14 @@ public class Locale {
         return num_tavoli;
     }
 
+    public String showInvitatiAiTavoli(){
+        String invitatiTavoli = "";
+        for (Tavolo t : tavoli){
+            if (!(t.getNumPosti()==t.getPostiTot()))
+            invitatiTavoli += t.showInvitati() + "\n\n\n";
+        }
+        return invitatiTavoli;
+    }
     /*creo un metodo per calcolare il massimo numero di posti
      * derivato dalla capienza dei tavoli presenti nel locale
      * @author: Gabrielesavella
@@ -221,5 +238,14 @@ public class Locale {
 
     public ArrayList<Tavolo> getTavoliLocale() {
         return tavoli;
+    }
+    public int getNPostiTavolo(String idTavolo) {
+        int numposti = 0;
+
+        for (Tavolo t : tavoli) {
+            if (t.getIDTavolo().equals(idTavolo))
+                numposti += t.getPostiTot();
+        }
+        return numposti;
     }
 }

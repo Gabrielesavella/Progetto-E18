@@ -1,27 +1,44 @@
 
 package persone;
 
+import java.util.Random;
+
 /*@author Marco Maffoni,Gabriele Savella*/
 public class Invitato {
 
-    private String cf,nome,cognome;
-    private int età;
+    private String ID_Inv;
+    private String nome,cognome;
+    private int eta;
     /*
     @parametri:
-    cf è il codice fiscale dell'invitato
+    ID_inv è l'identificativo dell'invitato, composto dalle prime tre cifre del nome e del cognome + un numero random intero compreso tra 1 e 1000
     nome è il nome dell'invitato
     cognome è il cognome dell'invitato
      */
-    public Invitato (String cf,String nome,String cognome,int età){
-        this.cf = cf;
+    public Invitato (String nome,String cognome,int eta){
+
         this.cognome = cognome;
         this.nome = nome;
-        this.età = età;
+        this.eta=eta;
+        this.ID_Inv=setID_Inv();
     }
 
-    public String getCf() {
-        return cf;
+    public String getID_Inv() {
+        return ID_Inv;
     }
+
+    public String setID_Inv (){
+
+    String univoco = "";
+    String n= nome.substring(0,3);
+    String c= cognome.substring(0,3);
+    Random r= new Random();
+    int k= r.nextInt(1000);
+    String a = Integer.toString(k);
+    univoco= n + c + a;
+    return univoco;
+    }
+
 
     public String getNome() {
         return nome;
@@ -32,16 +49,16 @@ public class Invitato {
     }
 
 
-    public int getEtà() {
-        return età;
+    public int getEta() {
+        return eta;
     }
     @Override
     public String toString() {
         return "Invitato " +
-                cf +
+                ID_Inv +
                 ", nome: " + nome +
                 ", cognome: " + cognome  +
-                ", età: " + età +
+                ", età: " + eta +
                 '\n';
     }
 }
