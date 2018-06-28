@@ -31,10 +31,10 @@ public class Invitato {
         return cognome;
     }
 
+
     public int getEtà() {
         return età;
     }
-
     @Override
     public String toString() {
         return "Invitato " +
