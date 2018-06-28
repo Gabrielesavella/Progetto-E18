@@ -1,23 +1,12 @@
 package tester;
 
-import facade.XlsFacade;
-import facade.txtFacade;
-import locale.Evento;
+import facade.*;
+import locale.*;
 import locale.Locale;
-import locale.Tavolo;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ss.usermodel.*;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import persone.Cliente;
-import persone.Invitato;
+import persone.*;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.GregorianCalendar;
-import java.util.List;
+import java.io.*;
+import java.util.*;
 
 /**
  *
@@ -60,8 +49,6 @@ public class PrenotazionePosti {
         orarioEvento.add(GregorianCalendar.MINUTE, 30);
         /*
         i locali chiudono tutti il lunedì (questa è l'intenzione)
-        link per vedere che il giorno di chiusura lunedì ha costante 2
-        https://docs.oracle.com/javase/7/docs/api/constant-values.html#java.util.Calendar.MONDAY
          */
         //
         chiusura.add(GregorianCalendar.DAY_OF_WEEK, 2);
@@ -171,9 +158,6 @@ public class PrenotazionePosti {
             System.out.println(invitati.toString());
 
         }
-
-
-
 
         XlsFacade excel = new XlsFacade();
         //excel.generateXlsGuests(e.getName());
