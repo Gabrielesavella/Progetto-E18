@@ -1,14 +1,10 @@
 package gui.panels;
 
-import gui.controller.SistemaDiPrenotazioneController;
-import locale.Evento;
-import locale.Locale;
-import locale.Tavolo;
-import persone.Invitato;
+import locale.*;
+import persone.*;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
 
 /**
  *
@@ -39,6 +35,7 @@ public class PannelloDisposizioneTavoli extends JPanel {
         stampaDisposizione.append("numero invitati: " + evento.getNumInvitati()+"\n");
         for (Invitato i:evento.getListaInvitati()) {
             stampaDisposizione.append(i.getID_Inv()+"\t"+i.getNome()+"\t"+i.getCognome()+"\t"+i.getEta()+"\n");
+
         }
 
 
