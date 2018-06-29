@@ -5,7 +5,6 @@ import locale.Locale;
 import locale.Tavolo;
 import persone.Invitato;
 import vincoli.PreferenzaInvitato;
-import vincoli.PreferenzaInvitatoEnum;
 
 import java.util.ArrayList;
 import java.util.GregorianCalendar;

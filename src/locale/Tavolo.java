@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 
-public class Tavolo {
+public class Tavolo implements Comparable{
     /*
      * aggiunta dell'attributo assegnamenti, che verrà modificato in base
      * agli assegnamenti dei posti disponibili negli invitati
@@ -26,7 +26,7 @@ public class Tavolo {
     Nel costruttore 1, il tavolo ha un numero fisso di posti .
     Nel costruttore 2, il tavolo ha un numero di posti deciso da programma
     ( in modo da rendere più flessibile il programma )
-    @author Salvi
+    @author Salvatore Parisi
      */
     public Tavolo(String id_tavolo){
         disponibile = true;
@@ -134,7 +134,6 @@ public class Tavolo {
         return interno;
     }
 
-
     public String getIDTavolo(){
         return id_tavolo;
     }
@@ -145,6 +144,16 @@ public class Tavolo {
 
     public int getNumPosti(){
         return num_posti;
+    }
+
+    /*i seguenti due metodi sono nescessari per la gestione dei vincoli*/
+
+    public void setDisponibile(boolean disp){
+        this.disponibile=disp;
+    }
+
+    public void setId_tavolo(String id_tavolo) {
+        this.id_tavolo = id_tavolo;
     }
 
 
@@ -183,4 +192,9 @@ public class Tavolo {
     }
 
 
+    @Override
+    public int compareTo(Object compareTav) {
+        int compareNumPosti = ((Tavolo) compareTav).getPostiTot();
+        return this.postiTot - compareNumPosti;
+    }
 }
