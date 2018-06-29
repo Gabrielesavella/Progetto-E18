@@ -1,20 +1,15 @@
 package tester;
 
-import facade.txtFacade;
-import junit.framework.TestCase;
 import locale.Evento;
 import locale.Locale;
 import locale.Tavolo;
 import persone.Invitato;
-import vincoli.PreferenzaInvitato2;
+import vincoli.PreferenzaInvitato;
 import vincoli.PreferenzaInvitatoEnum;
 
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
-import java.util.List;
-import java.util.Set;
 
-import static org.junit.Assert.*;
 import org.junit.*;
 import org.junit.Test;
 
@@ -130,10 +125,10 @@ public class PrenotazionePostiTest {
         listaVincolati4.add(u);
         listaVincolati4.add(v);
 
-        PreferenzaInvitato2 provaVincolo = new PreferenzaInvitato2(a,listaVincolati,e,PreferenzaInvitatoEnum.STA_VICINO_A);
-        PreferenzaInvitato2 provaVincolo2 = new PreferenzaInvitato2(b,listaVincolati2,e,PreferenzaInvitatoEnum.STA_VICINO_A);
-        PreferenzaInvitato2 provaVincolo3 = new PreferenzaInvitato2(i,listaVincolati3,e,PreferenzaInvitatoEnum.NON_STA_VICINO_A);
-        PreferenzaInvitato2 provaVincolo4 = new PreferenzaInvitato2(o,listaVincolati4,e,PreferenzaInvitatoEnum.NON_STA_VICINO_A);
+        PreferenzaInvitato provaVincolo = new PreferenzaInvitato(a,listaVincolati,e,PreferenzaInvitatoEnum.STA_VICINO_A);
+        PreferenzaInvitato provaVincolo2 = new PreferenzaInvitato(b,listaVincolati2,e,PreferenzaInvitatoEnum.STA_VICINO_A);
+        PreferenzaInvitato provaVincolo3 = new PreferenzaInvitato(i,listaVincolati3,e,PreferenzaInvitatoEnum.NON_STA_VICINO_A);
+        PreferenzaInvitato provaVincolo4 = new PreferenzaInvitato(o,listaVincolati4,e,PreferenzaInvitatoEnum.NON_STA_VICINO_A);
         //System.out.println(e.getName());
         //System.out.println( e.getLocation().smistamentoTavoli(e));
 
