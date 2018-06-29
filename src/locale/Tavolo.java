@@ -41,7 +41,7 @@ public class Tavolo implements Comparable{
      *  nel costruttore2 ho aggiunto la memorizzazione del dato
      * numeroposti @author Gabrielesavella
      */
-    public Tavolo (String id_tavolo, int num_posti){
+    public Tavolo (String ID_Locale, String id_tavolo, int num_posti){
         this.id_tavolo = id_tavolo;
         this.num_posti = num_posti;
         interno = true;
@@ -156,6 +156,10 @@ public class Tavolo implements Comparable{
         this.id_tavolo = id_tavolo;
     }
 
+    public void setNum_posti(int numero){
+        this.num_posti=numero;
+    }
+
 
     /*Restituisce l'array di Invitati per ogni tavolo.*/
     public ArrayList<Invitato> getAssegnamentiTavolo(){
@@ -194,7 +198,7 @@ public class Tavolo implements Comparable{
 
     @Override
     public int compareTo(Object compareTav) {
-        int compareNumPosti = ((Tavolo) compareTav).getPostiTot();
+        int compareNumPosti = ((Tavolo) compareTav).getNumPosti();
         return this.postiTot - compareNumPosti;
     }
 }

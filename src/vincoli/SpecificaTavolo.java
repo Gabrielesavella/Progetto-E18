@@ -27,6 +27,7 @@ public class SpecificaTavolo implements Vincolo {
         this.vegetariano=vegetariano;
         this.vicinoTV=vicinoTV;
 
+
     }
 
     public String getID_Evento() {

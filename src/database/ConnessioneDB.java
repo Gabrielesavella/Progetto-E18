@@ -6,6 +6,8 @@
 package database;
 
 import locale.Evento;
+import locale.Locale;
+import locale.Tavolo;
 import persone.Cliente;
 import persone.Invitato;
 import vincoli.PreferenzaInvitato;
@@ -30,11 +32,12 @@ public class ConnessioneDB {// crea la connessione col database "smistamento_pos
     private final String dbDriver = "com.mysql.cj.jdbc.Driver";  //il driver per collegarsi al DB ?useLegacyDatetimeCode=false&serverTimezone=UTC&useSSL=false
     private final String dbUrl = "jdbc:mysql://localhost:3306/smistamento_posti?useLegacyDatetimeCode=false&serverTimezone=UTC&useSSL=false"; //url del database e schema
     private Connection conn = null; //si crea una nuova connessione, per adesso nulla
-    private boolean openConn = false; //variabile per verificare se la connessione col DB Ã¨ aperta o meno
+    private boolean openConn = false; //variabile per verificare se la connessione col DB è aperta o meno
 
-    private String ID_Cl, nomeCl, cognomeCl, pwdCl, nomeLoc, ID_Ev, ID_Inv, nomeInv, cogInv, vicino, lontano;
-    private int numInv, etaInv, diffMot, veg, bamb, tavOnore, tavIsol, vicTV;
-    private Date dataEv;
+    private String ID_Cl, nomeCl, cognomeCl, pwdCl, nomeLoc, ID_Ev, ID_Inv, nomeInv, cogInv, vicino, lontano, ID_Locale, ID_Tavolo;
+    private int numInv, etaInv, diffMot, veg, bamb, tavOnore, tavIsol, vicTV, numMaxtavoli, numeroPosti;
+    private Date dataEv, oraApertura, oraChiusura, giornoChiusura;
+
 
 
 
@@ -70,15 +73,17 @@ public class ConnessioneDB {// crea la connessione col database "smistamento_pos
 
 
     /*Ho creato cinque TABLE:
-    1) Clienti: la cui chiave primaria è ID_Cliente
-    2) Eventi: le cui chiavi sono ID_Cliente e ID_Evento
-    3) Invitati: le cui chiavi sono ID_Evento e ID_Invitato, in modo da poter fare la select su entrambe le chiavi
-    4) Specifica_Tavolo (vincoli relativi al tavolo): le cui chiavi sono ID_Evento ed ID_Invitato
-    5) Preferenze_Invitato (vincoli relativi all'invitato): le cui chiavi sono ID_Evento ed ID_Invitato
+    1) Clienti (chiave: ID_Cliente)
+    2) Eventi (chiavi: ID_Cliente e ID_Evento)
+    3) Locali (chiave: ID_locale)
+    4) Tavoli (chiave: ID_tavolo)
+    5) Invitati (chiavi ID_Evento e ID_Invitato)
+    6) Specifica_Tavolo, vincoli relativi alla scelta del tavolo  (chiavi: ID_Evento ed ID_Invitato)
+    7) Preferenze_Invitato, vincoli relativi a quali invitati avere vicino o lontano, (chiavi: ID_Evento ed ID_Invitato)
 
     Per ognuna di queste table c'è un metodo:
      - inserisciDatiNomedellaTable, che inserisce nuovi valori nei campi della Table
-     - getNomeTable, che seleziona e ritorna i valori della Table, sempre secondo la chiave primaria selezionata
+     - getNomeTable, che seleziona e ritorna i valori della Table, sempre secondo la chiave primaria selezionata, da inserire nel costruttore corrispettivo
     */
 
     //Metodo che inserisce nuovi dati nella table Cliente
@@ -111,6 +116,94 @@ public class ConnessioneDB {// crea la connessione col database "smistamento_pos
                     }
                 }
                 //teoricamente chiudendo il resultset si dovrebbe chiudere anche lo statement, ma preferisco essere più preciso
+                if (stmt != null) {
+                    try {
+                        stmt.close();
+
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+            }
+
+        }
+    }
+
+    // metodo che inserisce i dati del singolo invitato nella table "Locali"
+
+    public void inserisciDatiLocale (String ID_Locale, int numMaxtavoli, Date oraApertura, Date oraChiusura, Date giornoChiusura) {
+
+        Statement stmt = null;
+        ResultSet rs = null;
+        String table = "locali";
+
+        if (!openConn) {
+            startConn();
+
+        } else {
+            try {
+                stmt = conn.createStatement();
+                String queryEntry = "INSERT INTO " + table + " (`ID_Locale`, `numMaxtavoli`, `oraApertura`, `oraChiusura`, `giornoChiusura`) VALUES ('" + ID_Locale + "','" + numMaxtavoli + "','" + oraApertura + "','" + oraChiusura + "','" + giornoChiusura + "');";
+                stmt.executeUpdate(queryEntry);
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            } finally {
+                if (rs != null) {
+                    try {
+                        rs.close();
+
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                if (stmt != null) {
+                    try {
+                        stmt.close();
+
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+            }
+
+        }
+    }
+
+    // metodo che inserisce i dati di ogni tavolo nella table "Tavoli"
+
+    public void inserisciTavoli (String ID_Locale, String ID_Tavolo, int numeroPosti) {
+
+        Statement stmt = null;
+        ResultSet rs = null;
+        String table = "tavoli";
+
+
+
+        if (!openConn) {
+            startConn();
+
+        } else {
+            try {
+                stmt = conn.createStatement();
+                String queryEntry = "INSERT INTO " + table + " (`ID_Locale`, `ID_Tavolo`, `numeroPosti`) VALUES ('" + ID_Locale + "','" + ID_Tavolo + "','" + numeroPosti + "');";
+                stmt.executeUpdate(queryEntry);
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            } finally {
+                if (rs != null) {
+                    try {
+                        rs.close();
+
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                }
+
                 if (stmt != null) {
                     try {
                         stmt.close();
@@ -170,7 +263,7 @@ public class ConnessioneDB {// crea la connessione col database "smistamento_pos
         }
     }
 
-    // metodo che inserisce i dati del sinvolo invitato nella table "Invitati"
+    // metodo che inserisce i dati del singolo invitato nella table "Invitati"
 
     public void inserisciDatiInvitato(String ID_Evento, String ID_Inv, String nomeInv, String cognomeInv, int etaInv) {
 
@@ -301,10 +394,12 @@ public class ConnessioneDB {// crea la connessione col database "smistamento_pos
 
     //prende dalla TABLE clienti i dati relativi al cliente con la specifica chiave ID_Cliente, che sono quelli da inserire nel costruttore di Cliente()
 
-    public void getCliente(String ID_Cliente) {
+    public ArrayList<Cliente> getCliente(String ID_Cliente) {
         startConn();
         Statement stmt = null; //creazione di uno Statement, per adesso nullo
         ResultSet rs = null; //variabile che contiene il risultato dello Statement
+        Cliente cl;
+        ArrayList<Cliente> clienti= new ArrayList<>();
         if (!openConn) {
             startConn();
 
@@ -320,6 +415,8 @@ public class ConnessioneDB {// crea la connessione col database "smistamento_pos
                     this.cognomeCl=rs.getString(3);
                     this.pwdCl= rs.getString(4);
 
+                    cl= new Cliente (nomeCl, cognomeCl, ID_Cl, pwdCl);
+                    clienti.add(cl);
 
                 }
 
@@ -344,14 +441,67 @@ public class ConnessioneDB {// crea la connessione col database "smistamento_pos
                 }
             }
         }
+        return clienti;
+    }
+
+    public ArrayList<Locale> getLocale(String ID_Locale) {
+        Locale l;
+        ArrayList <Locale> locali= new ArrayList<>();
+
+        startConn();
+        Statement stmt = null; //creazione di uno Statement, per adesso nullo
+        ResultSet rs = null; //variabile che contiene il risultato dello Statement
+        if (!openConn) {
+            startConn();
+
+        } else {
+            try {
+                stmt = conn.createStatement();
+                rs = stmt.executeQuery("SELECT * FROM locali WHERE `ID_Locale`='" + ID_Locale + "';");
+                while (rs.next()) {
+
+                    this.ID_Locale= rs.getString(1);
+                    this.numMaxtavoli=rs.getInt(2);
+                    this.oraApertura=rs.getDate(3);
+                    this.oraChiusura= rs.getDate(4);
+                    this.giornoChiusura= rs.getDate(5);
+
+                    l= new Locale(ID_Locale, numMaxtavoli, oraApertura, oraChiusura, giornoChiusura);
+                    locali.add(l);
+                }
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            } finally {
+                if (rs != null) {
+                    try {
+                        rs.close();
+
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                }
+                if (stmt != null) {
+                    try {
+                        stmt.close();
+
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }
+        return locali;
     }
 
     //prende dalla TABLE clienti i dati relativi all'evento con la specifica chiave ID_Evento, che sono quelli da inserire nel costruttore di Evento()
 
-    public void getEvento(String ID_Evento) {
+    public ArrayList<Evento> getEvento(String ID_Evento) {
         startConn();
         Statement stmt = null;
         ResultSet rs = null;
+        Evento ev;
+        ArrayList<Evento> eventi= new ArrayList<>();
         if (!openConn) {
             startConn();
 
@@ -368,9 +518,8 @@ public class ConnessioneDB {// crea la connessione col database "smistamento_pos
                     this.nomeLoc= rs.getString(4);
                     this.numInv= rs.getInt(5);
 
-
-
-                   // Evento e= new Evento(ID_Ev, dataEv, nomeLoc, numInv);
+                    ev= new Evento(ID_Ev, dataEv, nomeLoc, numInv);
+                    eventi.add(ev);
 
                     }
 
@@ -395,6 +544,57 @@ public class ConnessioneDB {// crea la connessione col database "smistamento_pos
                 }
             }
         }
+        return eventi;
+    }
+
+    public ArrayList<Tavolo> getTavolo (String ID_Locale) {
+        startConn();
+        Statement stmt = null; //creazione di uno Statement, per adesso nullo
+        ResultSet rs = null; //variabile che contiene il risultato dello Statement
+        Tavolo t;
+        ArrayList<Tavolo> tavoli= new ArrayList<>();
+        if (!openConn) {
+            startConn();
+
+        } else {
+            try {
+                stmt = conn.createStatement();
+                rs = stmt.executeQuery("SELECT * FROM clienti WHERE `ID_Locale`='" + ID_Locale + "';");
+                while (rs.next()) {
+
+
+                    this.ID_Locale= rs.getString(1);
+                    this.ID_Tavolo=rs.getString(2);
+                    this.numeroPosti=rs.getInt(3);
+
+
+                    t= new Tavolo (ID_Locale, ID_Tavolo, numeroPosti);
+                    tavoli.add(t);
+
+                }
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            } finally {
+                if (rs != null) {
+                    try {
+                        rs.close();
+
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                }
+                if (stmt != null) {
+                    try {
+                        stmt.close();
+
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }
+        return tavoli;
     }
 
     //ritorna l'array di invitati per lo specifico Evento di identificativo ID_Ev
@@ -444,7 +644,6 @@ public class ConnessioneDB {// crea la connessione col database "smistamento_pos
                         e.printStackTrace();
                     }
                 }
-
             }
         }
 

@@ -25,7 +25,7 @@ public class Locale {
     public String id_locale;
     private int numMaxTavoli;
     private int numMaxPosti;
-    private GregorianCalendar oraApertura, oraChiusura, giornodichiusura;
+    GregorianCalendar giornodichiusura, oraApertura, oraChiusura;
     Calendar calendar;
     private ArrayList<Tavolo> tavoli;
     private ArrayList<Tavolo> tavoliUtilizzati = new ArrayList<>();
@@ -39,17 +39,17 @@ public class Locale {
     nel locale, novità: tutti i locali hanno come giorno di chiusura il lunedì di default
     @author Gabrielesavella
      */
-    public Locale(String id_locale,int numMaxTavoli,ArrayList<Tavolo> tavoli, GregorianCalendar oraApertura, GregorianCalendar oraChiusura) {
+    public Locale(String id_locale,int numMaxTavoli, Date ora_Apertura, Date ora_Chiusura, Date giorno_Chiusura) {
         this.calendar = new GregorianCalendar();
         calendar.setWeekDate(01,01,6);
         this.id_locale=id_locale;
         this.numMaxTavoli=numMaxTavoli;
         this.tavoli = new ArrayList<Tavolo>();
         this.tavoli.addAll(tavoli);
-        this.giornodichiusura = new GregorianCalendar();
+        this.giornodichiusura.setTime(giorno_Chiusura);
         this.giornodichiusura.add(GregorianCalendar.DAY_OF_WEEK,Calendar.MONDAY);
-        this.oraApertura=oraApertura;
-        this.oraChiusura=oraChiusura;
+        this.oraChiusura.setTime(ora_Chiusura);
+        this.oraApertura.setTime(ora_Apertura);
         eventi_locale = new ArrayList<>();
     }
     /*

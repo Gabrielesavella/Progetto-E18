@@ -1,5 +1,6 @@
 package locale;
 
+import database.ConnessioneDB;
 import locale.Locale;
 import persone.Invitato;
 import vincoli.Vincolo;
@@ -13,17 +14,20 @@ public class Evento {
     private locale.Locale location = null;
     private ArrayList <Invitato> invitati;
     private  ArrayList <Vincolo> lista_vincoli;
-    private GregorianCalendar dataEvento;
+    private Date dataEvento;
     private int numInvitati;
+    private ConnessioneDB c;
 
 
 
     /*nell'uml manca la data dell'evento ( l'aggiungo al costruttore )]*/
 
-    public Evento(String nomeEvento, GregorianCalendar dataEvento, Locale location, int numInvitati){
+    public Evento(String nomeEvento, Date dataEvento, String nomeLocale, int numInvitati){
 
         /*Crea un Evento caratterizzato da un nome, una data e un Locale. Al suo interno verranno successivamente inseriti
         una lista di Invitati e di Vincoli*/
+
+
 
 
         this.nomeEvento = nomeEvento;
@@ -39,7 +43,8 @@ public class Evento {
     public String getName(){return nomeEvento;}
 
 
-    public Evento(String nomeEvento, GregorianCalendar dataEvento, Locale location,
+
+    public Evento(String nomeEvento, Date dataEvento, Locale location,
                   ArrayList <Vincolo> lista_vincoli, ArrayList <Invitato> invitati){
 
         /*il locale è creato dall'evento?? serve una classe nel mezzo che crei le istanze?
@@ -79,7 +84,7 @@ public class Evento {
 
     public ArrayList<Vincolo> getLista_vincoli(){ return lista_vincoli; }
 
-    public GregorianCalendar getDataEvento(){
+    public Date getDataEvento(){
         return dataEvento;
     }
 
@@ -96,7 +101,7 @@ public class Evento {
         }
     }
 
-    public void setDataEvento(GregorianCalendar dataEvento) {
+    public void setDataEvento(Date dataEvento) {
         this.dataEvento = dataEvento;
     }
 }
