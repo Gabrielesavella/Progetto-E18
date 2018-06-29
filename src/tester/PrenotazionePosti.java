@@ -202,11 +202,11 @@ public class PrenotazionePosti {
         listaVincolati.add(o);
         */
 
-        PreferenzaInvitato provaVincolo = new PreferenzaInvitato(a,listaVincolati,e,PreferenzaInvitatoEnum.STA_VICINO_A);
-        PreferenzaInvitato provaVincolo2 = new PreferenzaInvitato(b,listaVincolati2,e,PreferenzaInvitatoEnum.STA_VICINO_A);
-        PreferenzaInvitato provaVincolo3 = new PreferenzaInvitato(i,listaVincolati3,e,PreferenzaInvitatoEnum.NON_STA_VICINO_A);
-        PreferenzaInvitato provaVincolo4 = new PreferenzaInvitato(o,listaVincolati4,e,PreferenzaInvitatoEnum.NON_STA_VICINO_A);
-        PreferenzaInvitato provaVincolo5 = new PreferenzaInvitato(b, listaVincolati5, e, PreferenzaInvitatoEnum.NON_STA_VICINO_A);
+        //PreferenzaInvitato provaVincolo = new PreferenzaInvitato(a,listaVincolati,e,PreferenzaInvitatoEnum.STA_VICINO_A);
+        //PreferenzaInvitato provaVincolo2 = new PreferenzaInvitato(b,listaVincolati2,e,PreferenzaInvitatoEnum.STA_VICINO_A);
+        //PreferenzaInvitato provaVincolo3 = new PreferenzaInvitato(i,listaVincolati3,e,PreferenzaInvitatoEnum.NON_STA_VICINO_A);
+        //PreferenzaInvitato provaVincolo4 = new PreferenzaInvitato(o,listaVincolati4,e,PreferenzaInvitatoEnum.NON_STA_VICINO_A);
+        //PreferenzaInvitato provaVincolo5 = new PreferenzaInvitato(b, listaVincolati5, e, PreferenzaInvitatoEnum.NON_STA_VICINO_A);
 
         System.out.println("Smisto le persone secondo i vincoli:\n\n");
         System.out.println(e.getLocation().showInvitatiAiTavoli());
