@@ -2,20 +2,16 @@
 package gui.panels;
 
 //import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
-import gui.controller.SistemaDiPrenotazioneController;
-import gui.finestre.FinestraDisposizioneTavoli;
-import locale.Evento;
+import gui.controller.*;
+import gui.finestre.*;
+import locale.*;
 import locale.Locale;
-import persone.Invitato;
-
+import persone.*;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.*;
-import java.util.ArrayList;
-import java.util.Scanner;
+import java.awt.event.*;
+import java.util.*;
 
 /**
  *
@@ -108,10 +104,12 @@ public class PannelloSpecificheEvento extends JPanel {
                 }
 */
                 for (Invitato i:sisPr.loadXlsGenerality(evento.getName())) {
+
                     evento.addInvitati(i);
                 }
 
                 //    sisPr.acquisisciInvitati(invitati);
+
                 System.out.println("Acquisizione invitati effettuata.");
                 FinestraDisposizioneTavoli fd=new FinestraDisposizioneTavoli(locale,evento);
                 fd.setVisible(true);

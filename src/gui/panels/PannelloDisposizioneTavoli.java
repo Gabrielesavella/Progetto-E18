@@ -10,6 +10,11 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
+/**
+ *
+ * @author lecciovich
+ */
+
 public class PannelloDisposizioneTavoli extends JPanel {
     public PannelloDisposizioneTavoli(Locale locale, Evento evento){
         JPanel  pAllGuests = new JPanel();
@@ -28,6 +33,7 @@ public class PannelloDisposizioneTavoli extends JPanel {
 
         pTablesGuests.add(labelDisposizione);
         pTablesGuests.add(stampaDisposizione);
+
 
 
         stampaDisposizione.append("numero invitati: " + evento.getNumInvitati()+"\n");

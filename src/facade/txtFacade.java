@@ -165,7 +165,9 @@ public class txtFacade extends AbstractFacade {
         while ( buffReader.ready()) {
             line = buffReader.readLine();
             colonna = line.split("\t");
+
             invitato = new Invitato(colonna[1],colonna[2],Integer.parseInt(colonna[3]));
+
             AllGuests.add(invitato);
         }
         closeReading();
@@ -194,7 +196,9 @@ public class txtFacade extends AbstractFacade {
     public Invitato getGuest(String idInvitato, String[] colonna) throws IOException {
 
         if (colonna[0].equals(idInvitato)) {
+
             invitato = new Invitato(colonna[1],colonna[2],Integer.parseInt(colonna[3]));
+
             return invitato;
 
         } else {

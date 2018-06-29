@@ -1,2 +1,6 @@
 a	a	a	a	a	
+<<<<<<< HEAD
 b	b	b	b	b	
+=======
+Myusername	mypassword	luca	usb	mygmail@gmail.com	
+>>>>>>> 3f1422d072919fe3c5341bccecfaad485b208733

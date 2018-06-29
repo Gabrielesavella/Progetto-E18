@@ -13,6 +13,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+/**
+ *
+ * @author lecciovich
+ */
+
 public class PannelloLogin extends JPanel {
     public PannelloLogin(ArrayList<Locale> locali){
         // LookandFeel setup

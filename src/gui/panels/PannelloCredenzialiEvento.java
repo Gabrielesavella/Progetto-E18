@@ -15,6 +15,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
+/**
+ *
+ * @author lecciovich
+ */
 
 public class PannelloCredenzialiEvento extends JPanel{
     public PannelloCredenzialiEvento(ArrayList<locale.Locale> locali, Cliente cliente){

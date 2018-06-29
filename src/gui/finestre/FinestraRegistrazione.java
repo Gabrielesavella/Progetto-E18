@@ -10,6 +10,11 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
+/**
+ *
+ * @author lecciovich
+ */
+
 public class FinestraRegistrazione extends JFrame {
     public FinestraRegistrazione(ArrayList<Locale> locali){
         setSize(800,800);

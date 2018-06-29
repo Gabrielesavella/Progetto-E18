@@ -1,5 +1,18 @@
+<<<<<<< HEAD
 Matrimonio	29	20	
 Battesimo	29	20	
 a	14	13	
 ev	21	13	
 qwe	13	14	
+=======
+cena con amici	14	10	
+momo§	21	10	
+cena da ciccio	21	10	
+Matrimonio	13	20	
+Battesimo	13	20	
+cena fra amici	22	10	
+a	15	10	
+cena a cena	21	10	
+cena ceci	21	10	
+cena da ceci	29	10	
+>>>>>>> 3f1422d072919fe3c5341bccecfaad485b208733

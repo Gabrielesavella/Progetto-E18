@@ -62,6 +62,7 @@ public class PrenotazionePosti {
         Evento k = new Evento("Battesimo", orarioEvento, bellaNapoli, 20);
 
         //invitati;
+<<<<<<< HEAD
         Invitato a = new Invitato("Marco","Maffoni",39);
         Invitato b = new Invitato("Gabriele","Savella",39);
         Invitato c = new Invitato("Marco","Lecce",39);
@@ -87,6 +88,28 @@ public class PrenotazionePosti {
         Invitato j = new Invitato("Enzo", "Sorrentino", 55);
         Invitato y2 = new Invitato("Gerry", "Scotti", 60);
 
+=======
+        Invitato a = new Invitato( "marco", "maffoni", 39);//"mfnmrc95",
+        Invitato b = new Invitato( "luca", "cavo", 39);//"cvlc97",
+        Invitato c = new Invitato( "gilbe", "marco", 39);//"3",
+        Invitato d = new Invitato("gabri", "marco", 39);//"4",
+        Invitato t = new Invitato("lecce", "marco", 39);//"5",
+        Invitato f = new Invitato("fudi", "marco", 39);//"6",
+        Invitato g = new Invitato("dori", "marco", 39);//"7",
+        Invitato h = new Invitato("ischia", "marco", 39);//"8",
+        Invitato i = new Invitato("salvo", "marco", 39);//"9",
+        Invitato l = new Invitato("fede", "marco", 39);//"10",
+        Invitato m = new Invitato("ale", "marco", 39);//"11",
+        Invitato n = new Invitato("fox", "marco", 39);//"12",
+        Invitato o = new Invitato("volpi", "marco", 39);//"13",
+        Invitato p = new Invitato("saro", "marco", 39);//"14",
+        Invitato q = new Invitato("slto", "marco", 39);//"15",
+        Invitato r = new Invitato("carlo", "marco", 39);//"16",
+        Invitato s = new Invitato("gavino", "marco", 39);//"17",
+        Invitato u = new Invitato("pops", "marco", 39);//"18",
+        Invitato v = new Invitato("paolo", "marco", 39);//"19",
+        Invitato z = new Invitato("mauro", "marco", 39);//"20",
+>>>>>>> 3f1422d072919fe3c5341bccecfaad485b208733
         //        //inserimento invitati nelle liste evento 1;
         e.addInvitati(a);
         e.addInvitati(b);

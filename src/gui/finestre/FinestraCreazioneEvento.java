@@ -8,6 +8,11 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.Locale;
 
+/**
+ *
+ * @author lecciovich
+ */
+
 public class FinestraCreazioneEvento extends JFrame {
     public FinestraCreazioneEvento(ArrayList<locale.Locale> locali, Cliente cliente){
         setSize(500,500);
