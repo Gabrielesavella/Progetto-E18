@@ -16,6 +16,7 @@ public class PreferenzaInvitato implements Vincolo {
     private final int numero_vincolati_lontani;
     private Invitato invi;
     String vicino, lontano, ID_Inv, ID_Ev;
+    private ArrayList<Evento> eventi;
     private Evento evento;
     private ArrayList<Invitato> lista_vincolati_vicini = new ArrayList<Invitato>();
     private ArrayList<Invitato> lista_vincolati_lontani = new ArrayList<Invitato>();
@@ -31,7 +32,8 @@ public class PreferenzaInvitato implements Vincolo {
 
         c.startConn();
         this.ID_Ev = ID_Ev;
-        //evento =
+        eventi=c.getEvento(ID_Ev);
+        evento=prendiEvento(ID_Ev);
         this.ID_Inv= ID_Inv;
         this.vicino=vicino;
         this.lontano=lontano;
@@ -92,6 +94,18 @@ public class PreferenzaInvitato implements Vincolo {
         }
         return this.invi;
     }
+
+    public Evento prendiEvento(String ID_E) {
+        Evento eve = null;
+
+        for (Evento e : eventi) {
+            if (ID_E == e.getName()) {
+                eve = e;
+            }
+        }
+        return eve;
+    }
+
 
     public boolean getVerificaIdoneita(){
         return verificaIdoneita();

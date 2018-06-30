@@ -82,7 +82,7 @@ public class Locale {
 
         for (Tavolo elemento:tavoli) {
             ++count_id;
-            tavoli.add(new Tavolo(radice+count_id,6));
+            tavoli.add(new Tavolo(radice+count_id));
         }
         // il numero di posti lo calcolo in base ai tavoli che ho dato che occupano la capienza massima del locale
         this.numMaxPosti = getMaxSeats();
@@ -253,5 +253,9 @@ public class Locale {
                 numposti += t.getPostiTot();
         }
         return numposti;
+    }
+
+    public String getId_locale() {
+        return id_locale;
     }
 }

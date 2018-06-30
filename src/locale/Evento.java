@@ -9,11 +9,12 @@ import java.util.*;
 
 
 public class Evento {
-    private String nomeEvento;
 
-    private locale.Locale location = null;
+    private String nomeEvento;
+    private Locale location;
     private ArrayList <Invitato> invitati;
     private  ArrayList <Vincolo> lista_vincoli;
+    private ArrayList<Locale> locali;
     private Date dataEvento;
     private int numInvitati;
     private ConnessioneDB c;
@@ -27,11 +28,10 @@ public class Evento {
         /*Crea un Evento caratterizzato da un nome, una data e un Locale. Al suo interno verranno successivamente inseriti
         una lista di Invitati e di Vincoli*/
 
-
-
-
+        c.startConn();
+        locali= c.getLocale(nomeLocale);
         this.nomeEvento = nomeEvento;
-        this.location = location;
+        this.location=prendiLocale(nomeLocale);
         this.dataEvento = dataEvento;
         lista_vincoli = new ArrayList();
         this.invitati = new ArrayList(numInvitati);
@@ -42,6 +42,16 @@ public class Evento {
 
     public String getName(){return nomeEvento;}
 
+
+    public Locale prendiLocale(String nomeLoc) {
+        Locale loca=null;
+        for (Locale l : locali) {
+            if (nomeLoc == l.getId_locale()) {
+                loca = l;
+            }
+        }
+        return loca;
+    }
 
 
     public Evento(String nomeEvento, Date dataEvento, Locale location,
