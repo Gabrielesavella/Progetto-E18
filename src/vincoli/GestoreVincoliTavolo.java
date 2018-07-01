@@ -19,40 +19,48 @@ public class GestoreVincoliTavolo {
     private ArrayList<Tavolo> tavoliVincolati;
     private ArrayList<SpecificaTavolo> nessunaSpecifica, unicaSpecifica, piuSpecifiche, vincoliTav, vincoliNonRispettabili;
     private ArrayList<Invitato> invitati;
-    private Invitato invi;
-    private Tavolo tavola;
+
 
     public GestoreVincoliTavolo(String ID_Ev) {
-       //prelevo dal DB gli Invitati, i Tavoli e i VincoliTavolo relativo all'Evento secondo il suo identificativo ID_Ev
+       //prelevo dal DB gli Invitati, i Tavoli e i VincoliTavolo relativi all'Evento, secondo il suo identificativo ID_Ev
         c.startConn();
         this.vincoliTav = c.getVincoloTavolo(ID_Ev);
         this.invitati = c.getInvitato(ID_Ev);
         this.tavoli= c.getTavolo(ID_Ev);
+
         //Ordino i tavoli per numero di posti liberi (dal minore al maggiore)
         //E' conveniente sortarli per posti liberi e non per posti totali perché in questo punto del programma tali valori coincidono,
         //mentre successivamente ho bisogno di averli sortati per "posti liberi"
         Collections.sort(tavoli);
+
         //verifico che il numero di invitati per ogni vincolo sia >= al limite minimo (la metà del numero di posti del più piccolo dei tavoli)
         verificaLimiteMinimo(contaInvitatiPerVincolo(vincoliTav));
-        //divido gli Invitati in tre categoria seconda del numero di VincoliTavolo (0, 1 o piu)
+
+        //divido gli Invitati in tre categoria, secondo il numero di VincoliTavolo (0, 1 o piu)
         smistaInvitati();
-        // Ordino i vincoli per numero di invitati (dal maggiore al minore così da ottimizzare il processo di assegnazione dei tavoli
+
+        // Ordino i vincoli per numero di invitati (dal maggiore al minore) così da ottimizzare il processo di assegnazione dei tavoli
         // ai rispetti vincoli (il vincolo col maggior numero di invitati si vedrà assegnato il primo tavolo sufficentemente capiente
         // da ospitare tutti gli invitati con tal vincolo, dato che i tavoli sono ordinati dal più piccolo al più grande)
         assegnaTavoli(ordinaVincoli(contaInvitatiPerVincolo(unicaSpecifica), false));
+
         //elaboro prima gli invitati con un solo vincolo
         accomodaInvitati(this.unicaSpecifica);
+
         //ordino gli invitati con più di un vincolo per numero di vincoli ad invitato (dal minore al maggiore) e i tavoli per numero di
-        //posti liberi in ordine inverso (dal maggiore al minore). così l'invitato con meno numero di vincoli (più difficile da piazzare
+        //posti liberi in ordine inverso (dal maggiore al minore): così l'invitato con meno numero di vincoli (più difficile da piazzare
         // rispetto a chi ne ha di più) si vedrà assegnato al tavolo con più posti da riempire
         ordinaVincoli(gesticiVincoliPlurimi(), true);
         Collections.sort(tavoli, Collections.reverseOrder());
+
         //sistemo gli invitati con più di una specifica
         accomodaInvitati(this.piuSpecifiche);
+
         //Se ci sono ancora altri invitati vincolati non sistemati nei tavoli unisco i tavoli vincolati con altri tavoli dell'ArrayList tavoli
         //in modo da aumentare il numero di posti per tavolo e far sedere tutti gli invitati
         controllaInvitati();
         accomodaInvitati(this.piuSpecifiche);
+
         //Ultimo controllo: se ci sono ancora invitati non seduti allora significa che tali vincoli non possono essere rispettati
         //L'algoritmo è stato costruito in modo che questi ultimi due casi siano poco probabili
         lastCheck();
@@ -171,12 +179,13 @@ public class GestoreVincoliTavolo {
         List<String> mapChiavi = new ArrayList<>(hm.keySet());
         List<Integer> mapValori = new ArrayList<>(hm.values());
 
-        if (!natural){
-        Collections.sort(mapValori, Collections.reverseOrder());
-        Collections.sort(mapChiavi, Collections.reverseOrder());}
-        if(natural){
+        if (natural){
             Collections.sort(mapValori);
             Collections.sort(mapChiavi);
+        }
+        else{
+            Collections.sort(mapValori, Collections.reverseOrder());
+            Collections.sort(mapChiavi, Collections.reverseOrder());
         }
 
         LinkedHashMap<String, Integer> mappaSort = new LinkedHashMap<>();
@@ -215,17 +224,18 @@ public class GestoreVincoliTavolo {
         }
     }
 
-    /*Metodo che prende dall'ID_Inv del vincolo restituisce il corrispettivo Invitato */
+    /*Metodo che prende dall'ID_Inv del vincolo e restituisce il corrispettivo Invitato */
 
     public Invitato prendiInvitati(String ID) {
-
+        Invitato invi= new Invitato();
         for (Invitato i : invitati) {
             if (ID == i.getID_Inv()) {
-                this.invi = i;
+                invi = i;
                 invitati.remove(i);
+                break;
             }
         }
-        return this.invi;
+        return invi;
     }
 
     /*Metodo che sistema gli Invitati con un determinato vincolo nello specifico Tavolo */
@@ -323,13 +333,14 @@ public class GestoreVincoliTavolo {
 //Metodo che, dato l'ID_Tavolo, mi restituisce il tavolo vincolato
 
     public Tavolo trovaTavolo(String nomeTavolo){
-        Tavolo t;
+        Tavolo tavola= new Tavolo();
         for (Tavolo tav : tavoliVincolati) {
            if (tav.getIDTavolo()==nomeTavolo){
-            this.tavola=tav;
+            tavola=tav;
+            break;
            }
         }
-       return this.tavola;
+       return tavola;
     }
 
      //Metodo che unisce il tavolo vincolato (del vincolo che sto considerando) con un altro tavolo t, in modo che il numero di posti
