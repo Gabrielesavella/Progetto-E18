@@ -7,6 +7,7 @@ import persone.Invitato;
 import vincoli.PreferenzaInvitato;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.GregorianCalendar;
 
 /**
@@ -20,12 +21,18 @@ public class PrenotazionePosti {
      * @author Gabrielesavella
      */
     public static void main(String[] args) {
-    	Tavolo tav1 = new Tavolo("tav1",4);
-    	Tavolo tav2 = new Tavolo("tav2",6);
-    	Tavolo tav3 = new Tavolo("tav3",8);
-        Tavolo tav4 = new Tavolo("tav4",4);
-        Tavolo tav5 = new Tavolo("tav5",6);
-        Tavolo tav6 = new Tavolo("tav6",8);
+    	Tavolo tav1 = new Tavolo("tav1");
+    	tav1.setNum_posti(4);
+    	Tavolo tav2 = new Tavolo("tav2");
+    	tav2.setNum_posti(6);
+    	Tavolo tav3 = new Tavolo("tav3");
+    	tav3.setNum_posti(8);
+        Tavolo tav4 = new Tavolo("tav4");
+        tav4.setNum_posti(4);
+        Tavolo tav5 = new Tavolo("tav5");
+        tav5.setNum_posti(6);
+        Tavolo tav6 = new Tavolo("tav6");
+        tav6.setNum_posti(8);
 
 
 
@@ -39,27 +46,36 @@ public class PrenotazionePosti {
 
 
 
-        GregorianCalendar orarioapertura = new GregorianCalendar();
-        orarioapertura.add(GregorianCalendar.HOUR,9);
-        GregorianCalendar chiusura = new GregorianCalendar();
-        chiusura.add(GregorianCalendar.HOUR,18);
-        GregorianCalendar orarioEvento = new GregorianCalendar();
-        orarioEvento.add(GregorianCalendar.HOUR, 12);
-        orarioEvento.add(GregorianCalendar.MINUTE, 30);
+        Date orarioapertura = new Date();
+        orarioapertura.setHours(9);
+        Date chiusura = new Date();
+        chiusura.setHours(18);
+        Date orarioEvento = new Date();
+        orarioEvento.setHours(12);
+        orarioEvento.setMinutes(30);
+        Date giornoChiusura = new Date();
+        giornoChiusura.setDate(GregorianCalendar.MONDAY);
         /*
         i locali chiudono tutti il lunedì (questa è l'intenzione)
         link per vedere che il giorno di chiusura lunedì ha costante 2
         https://docs.oracle.com/javase/7/docs/api/constant-values.html#java.util.Calendar.MONDAY
          */
         //
-        chiusura.add(GregorianCalendar.DAY_OF_WEEK,2);
+
        // Locale daMimmo = new Locale("da Giulio",20,listaTavoli,orarioapertura, chiusura);
-        Locale bellaNapoli = new Locale ("Bella Napoli", 30, listaTavoli, orarioapertura, chiusura);
+        Locale bellaNapoli = new Locale ("Bella Napoli", 30, orarioapertura, chiusura, giornoChiusura);
+
+        bellaNapoli.aggiungiTavolo(tav1);
+        bellaNapoli.aggiungiTavolo(tav2);
+        bellaNapoli.aggiungiTavolo(tav3);
+        bellaNapoli.aggiungiTavolo(tav4);
+        bellaNapoli.aggiungiTavolo(tav5);
+        bellaNapoli.aggiungiTavolo(tav6);
 
 
         //eventi;
-        Evento e = new Evento("Matrimonio", orarioEvento,  bellaNapoli, 22);
-        Evento k = new Evento("Battesimo", orarioEvento, bellaNapoli, 20);
+        Evento e = new Evento("Matrimonio", orarioEvento,  bellaNapoli.getId_locale(), 22);
+        Evento k = new Evento("Battesimo", orarioEvento, bellaNapoli.getId_locale(), 20);
 
         //invitati;
         Invitato a = new Invitato("Marco","Maffoni",39);

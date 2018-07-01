@@ -30,6 +30,7 @@ public class Locale {
     private ArrayList<Tavolo> tavoli;
     private ArrayList<Tavolo> tavoliUtilizzati = new ArrayList<>();
     private ArrayList<Invitato> lista_gia_presenti = new ArrayList<>();
+    Date giorno_Chiusura = new Date ();
 
     // cambiato il tipo di dato giorno chiusura da String a Gregoria calendar , molto più facile da gestire
     // aggiunta inoltre del passaggio dei tavoli tramite parametro
@@ -40,14 +41,16 @@ public class Locale {
     @author Gabrielesavella
      */
     public Locale(String id_locale,int numMaxTavoli, Date ora_Apertura, Date ora_Chiusura, Date giorno_Chiusura) {
+
+        this.giorno_Chiusura=giorno_Chiusura;
         this.calendar = new GregorianCalendar();
         calendar.setWeekDate(01,01,6);
         this.id_locale=id_locale;
         this.numMaxTavoli=numMaxTavoli;
-        this.tavoli = new ArrayList<Tavolo>();
-        this.tavoli.addAll(tavoli);
-        this.giornodichiusura.setTime(giorno_Chiusura);
-        this.giornodichiusura.add(GregorianCalendar.DAY_OF_WEEK,Calendar.MONDAY);
+        this.tavoli = new ArrayList<>();
+        //this.tavoli.addAll(tavoli);
+        //this.giornodichiusura.setTime(giorno_Chiusura);
+        //this.giornodichiusura.add(GregorianCalendar.DAY_OF_WEEK,Calendar.MONDAY);
         this.oraChiusura.setTime(ora_Chiusura);
         this.oraApertura.setTime(ora_Apertura);
         eventi_locale = new ArrayList<>();
@@ -229,6 +232,14 @@ public class Locale {
             numMaxPosti += newTable.getNumPosti();
         }
 
+    }
+
+    public void aggiungiTavolo(Tavolo tavolo){
+        if (tavoli.size()<numMaxTavoli){
+            tavoli.add(tavolo);
+        } else {
+            System.out.println("Non ci stanno più tavoli nel locale.");
+        }
     }
 
     /*

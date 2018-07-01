@@ -9,6 +9,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.GregorianCalendar;
 
 public class PannelloCredenzialiEvento extends JPanel{
@@ -72,7 +73,7 @@ public class PannelloCredenzialiEvento extends JPanel{
                 int annoInt= Integer.parseInt(anno.getText());
                 int meseInt= Integer.parseInt(mese.getText());
                 int giornoInt= Integer.parseInt(giorno.getText());
-                GregorianCalendar calendar = new GregorianCalendar(annoInt,meseInt,giornoInt);
+                Date calendar = new Date(annoInt,meseInt,giornoInt);
 
                 for (Locale l:locali) {
                     if(l.id_locale.equals(dropDownLocali.getSelectedItem())) {
@@ -80,7 +81,7 @@ public class PannelloCredenzialiEvento extends JPanel{
                     }
                 }
 
-                Evento evento=new Evento(tNome.getText(),calendar,localeSelezionato,invitati);
+                Evento evento=new Evento(tNome.getText(),calendar,localeSelezionato.getId_locale(),invitati);
                 FinestraSpecificheEvento fs= new FinestraSpecificheEvento(localeSelezionato,evento);
                 //fs.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
                 fs.setVisible(true);
