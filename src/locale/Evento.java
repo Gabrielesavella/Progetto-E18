@@ -66,7 +66,7 @@ public class Evento {
         location.getEventi().add(this);
     }
 
-    public GregorianCalendar ricavaData(String data){
+    public static GregorianCalendar ricavaData(String data){
 
         GregorianCalendar date = new GregorianCalendar();
 
@@ -91,6 +91,13 @@ public class Evento {
         }
         return loca;
     }
+
+    public static String getStringData(GregorianCalendar dataGreg){
+        String dataString= new String("");
+        dataString.concat(String.valueOf(dataGreg.get(GregorianCalendar.DATE)));
+        return dataString;
+    }
+
 
     public Locale getLocation(){ return location;}
 

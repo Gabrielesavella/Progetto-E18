@@ -33,8 +33,8 @@ public class TesterGui {
          */
         //
         chiusura.add(GregorianCalendar.DAY_OF_WEEK,2);
-        Locale daMimmo = new Locale("da Giulio",20, orarioapertura.toString(),orarioapertura.toString(), chiusura.toString());
-        Locale bellaNapoli = new Locale ("Bella Napoli", 30, orarioapertura.toString(), orarioapertura.toString(), chiusura.toString());
+        Locale daMimmo = new Locale("da Giulio",20, orarioapertura.getTime().toString(),orarioapertura.getTime().toString(), chiusura.getTime().toString());
+        Locale bellaNapoli = new Locale ("Bella Napoli", 30, orarioapertura.getTime().toString(), orarioapertura.getTime().toString(), chiusura.getTime().toString());
 
         ArrayList<Locale> locali= new ArrayList<>();
         locali.add(daMimmo);

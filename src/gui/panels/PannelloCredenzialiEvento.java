@@ -1,8 +1,11 @@
 package gui.panels;
 
+import gui.controller.SistemaDiPrenotazioneController;
 import gui.finestre.FinestraSpecificheEvento;
 import locale.Evento;
 import locale.Locale;
+import org.jdesktop.swingx.JXDatePicker;
+import persone.Cliente;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,8 +15,15 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
+import static locale.Evento.getStringData;
+
+/**
+ *
+ * @author lecciovich
+ */
+
 public class PannelloCredenzialiEvento extends JPanel{
-    public PannelloCredenzialiEvento(ArrayList<locale.Locale> locali){
+    public PannelloCredenzialiEvento(ArrayList<locale.Locale> locali, Cliente cliente){
         JButton ok=new JButton("OK");
 
         JLabel nome= new JLabel("Nome Evento:");
@@ -33,19 +43,21 @@ public class PannelloCredenzialiEvento extends JPanel{
         campi.add(tNome);
         campi.add(data);
 
-        JPanel pData= new JPanel();
-        pData.setLayout(new GridLayout(1,5));
+        //JPanel pData= new JPanel();
+        //pData.setLayout(new GridLayout(1,5));
 
-        JTextField giorno=new JTextField("gg");
-        JTextField mese= new JTextField("mm");
-        JTextField anno= new JTextField("aaaa");
-        JLabel token= new JLabel("/");
+//        JTextField giorno=new JTextField("gg");
+//        JTextField mese= new JTextField("mm");
+//        JTextField anno= new JTextField("aaaa");
+//        JLabel token= new JLabel("/");
 
-        pData.add(giorno);
-        pData.add(mese);
-        pData.add(anno);
+        JXDatePicker calendario=new JXDatePicker();
 
-        campi.add(pData);
+//        pData.add(giorno);
+//        pData.add(mese);
+//        pData.add(anno);
+
+        campi.add(calendario);
 
         JComboBox<String> dropDownLocali= new JComboBox<String>();
 
@@ -64,28 +76,33 @@ public class PannelloCredenzialiEvento extends JPanel{
         add(campi);
         add(ok,BorderLayout.SOUTH);
 
+        SistemaDiPrenotazioneController sisPr = new SistemaDiPrenotazioneController();
         ok.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Locale localeSelezionato=null;
 
                 int invitati=Integer.parseInt(tnInv.getText());
-                int annoInt= Integer.parseInt(anno.getText());
-                int meseInt= Integer.parseInt(mese.getText());
-                int giornoInt= Integer.parseInt(giorno.getText());
-                Date calendar = new Date(annoInt,meseInt,giornoInt);
+//                int annoInt= Integer.parseInt(anno.getText());
+//                int meseInt= Integer.parseInt(mese.getText());
+//                int giornoInt= Integer.parseInt(giorno.getText());
+                Date data=calendario.getDate();
+                GregorianCalendar calendar = new GregorianCalendar();//annoInt,meseInt,giornoInt
+                calendar.setTime(data);
 
                 for (Locale l:locali) {
                     if(l.id_locale.equals(dropDownLocali.getSelectedItem())) {
                         localeSelezionato=l;
+                        if (sisPr.creaEvento(tNome.getText(),calendar,Integer.parseInt(tnInv.getText()),cliente))
+                            System.out.println("evento creato :)");
                     }
                 }
 
-                Evento evento=new Evento(tNome.getText(),calendar.toString(),localeSelezionato.getId_locale(),invitati);
-                FinestraSpecificheEvento fs= new FinestraSpecificheEvento(localeSelezionato,evento);
-                //fs.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+                Evento evento=new Evento(tNome.getText(),calendar.getTime().toString(),localeSelezionato.getId_locale(),invitati);
+                FinestraSpecificheEvento fs= new FinestraSpecificheEvento(localeSelezionato,evento);//fetchEvento
                 fs.setVisible(true);
             }
         });
     }
+
 }

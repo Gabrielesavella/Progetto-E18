@@ -9,6 +9,11 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
+/**
+ *
+ * @author lecciovich
+ */
+
 public class FinestraDisposizioneTavoli extends JFrame {
     public FinestraDisposizioneTavoli(Locale locale, Evento evento){
         setSize(200,200);

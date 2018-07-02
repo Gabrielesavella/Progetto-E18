@@ -46,8 +46,8 @@ public class PrenotazionePostiTest {
         orarioEvento.add(GregorianCalendar.MINUTE, 30);
         chiusura.add(GregorianCalendar.DAY_OF_WEEK,2);
         // Locale daMimmo = new Locale("da Giulio",20,listaTavoli,orarioapertura, chiusura);
-        Locale bellaNapoli = new Locale ("Bella Napoli", 30, orarioapertura.toString(), orarioapertura.toString(), chiusura.toString());
-        e = new Evento("Matrimonio", orarioEvento.toString(),  bellaNapoli.getId_locale(), 50);
+        Locale bellaNapoli = new Locale ("Bella Napoli", 30, orarioapertura.getTime().toString(), orarioapertura.getTime().toString(), chiusura.getTime().toString());
+        e = new Evento("Matrimonio", orarioEvento.getTime().toString(),  bellaNapoli.getId_locale(), 50);
     }
     @Before
     public void SettaInvitati(){
