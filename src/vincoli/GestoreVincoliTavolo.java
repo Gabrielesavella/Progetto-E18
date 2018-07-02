@@ -227,7 +227,7 @@ public class GestoreVincoliTavolo {
     /*Metodo che prende dall'ID_Inv del vincolo e restituisce il corrispettivo Invitato */
 
     public Invitato prendiInvitati(String ID) {
-        Invitato invi= new Invitato();
+        Invitato invi=null;
         for (Invitato i : invitati) {
             if (ID == i.getID_Inv()) {
                 invi = i;
@@ -333,7 +333,7 @@ public class GestoreVincoliTavolo {
 //Metodo che, dato l'ID_Tavolo, mi restituisce il tavolo vincolato
 
     public Tavolo trovaTavolo(String nomeTavolo){
-        Tavolo tavola= new Tavolo();
+        Tavolo tavola= null;
         for (Tavolo tav : tavoliVincolati) {
            if (tav.getIDTavolo()==nomeTavolo){
             tavola=tav;
