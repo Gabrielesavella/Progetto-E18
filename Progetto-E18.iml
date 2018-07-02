@@ -18,6 +18,7 @@
       </library>
     </orderEntry>
     <orderEntry type="library" name="poi-3.5-FINAL" level="application" />
-    <orderEntry type="library" name="librerie" level="project" />
+    <orderEntry type="library" name="poi-3" level="project" />
+    <orderEntry type="library" name="swingx-1.6" level="project" />
   </component>
 </module>

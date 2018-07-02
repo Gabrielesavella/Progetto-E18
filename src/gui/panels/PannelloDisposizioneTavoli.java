@@ -23,6 +23,8 @@ public class PannelloDisposizioneTavoli extends JPanel {
         Dimension d=new Dimension(400,400);
         stampaDisposizione.setSize(d);
         stampaDisposizione.setLineWrap(true);
+        stampaDisposizione.setEditable(false);
+        stampaElenco.setEditable(false);
 
         pAllGuests.add(labelElenco);
         pAllGuests.add(stampaElenco);
@@ -30,6 +32,8 @@ public class PannelloDisposizioneTavoli extends JPanel {
         pTablesGuests.add(labelDisposizione);
         pTablesGuests.add(stampaDisposizione);
 
+        add(pAllGuests);
+        add(pTablesGuests);
 
 
         stampaDisposizione.append("numero invitati: " + evento.getNumInvitati()+"\n");
@@ -39,9 +43,9 @@ public class PannelloDisposizioneTavoli extends JPanel {
         }
 
 
-//        for (Invitato i:evento.getListaInvitati()) {
-//            stampaElenco.append(i.getID_Inv(+"\t"+i.getNome()+"\t"+i.getCognome()+"\t"+i.getEta()+"\n");
-//        }
+        for (Invitato i:evento.getListaInvitati()) {
+            stampaElenco.append(i.getID_Inv()+"\t"+i.getNome()+"\t"+i.getCognome()+"\t"+i.getEta()+"\n");
+        }
         stampaDisposizione.append("\nDisposizione:\n");
 
         for (Tavolo t:locale.smistamentoTavoli(evento)) {
@@ -50,8 +54,6 @@ public class PannelloDisposizioneTavoli extends JPanel {
                 stampaDisposizione.append(invitato.getID_Inv()+"\t"+invitato.getNome()+"\t"+invitato.getCognome()+"\t"+invitato.getEta()+"\n");
             }
         }
-
-
 
     }
 }
