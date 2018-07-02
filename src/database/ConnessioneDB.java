@@ -34,11 +34,8 @@ public class ConnessioneDB {// crea la connessione col database "smistamento_pos
     private Connection conn = null; //si crea una nuova connessione, per adesso nulla
     private boolean openConn = false; //variabile per verificare se la connessione col DB è aperta o meno
 
-    private String ID_Cl, nomeCl, cognomeCl, pwdCl, nomeLoc, ID_Ev, ID_Inv, nomeInv, cogInv, vicino, lontano, ID_Locale, ID_Tavolo;
+    private String ID_Cl, nomeCl, cognomeCl, pwdCl, nomeLoc, ID_Ev, ID_Inv, nomeInv, cogInv, vicino, lontano, ID_Locale, ID_Tavolo, dataEv, oraApertura, oraChiusura, giornoChiusura;
     private int numInv, etaInv, diffMot, veg, bamb, tavOnore, tavIsol, vicTV, numMaxtavoli, numeroPosti;
-    private Date dataEv, oraApertura, oraChiusura, giornoChiusura;
-
-
 
 
 
@@ -462,9 +459,9 @@ public class ConnessioneDB {// crea la connessione col database "smistamento_pos
 
                     this.ID_Locale= rs.getString(1);
                     this.numMaxtavoli=rs.getInt(2);
-                    this.oraApertura=rs.getDate(3);
-                    this.oraChiusura= rs.getDate(4);
-                    this.giornoChiusura= rs.getDate(5);
+                    this.oraApertura=rs.getString(3);
+                    this.oraChiusura= rs.getString(4);
+                    this.giornoChiusura= rs.getString(5);
 
                     l= new Locale(ID_Locale, numMaxtavoli, oraApertura, oraChiusura, giornoChiusura);
                     locali.add(l);
@@ -514,7 +511,7 @@ public class ConnessioneDB {// crea la connessione col database "smistamento_pos
 
                     this.ID_Cl= rs.getString(1);
                     this.ID_Ev=rs.getString(2);
-                    this.dataEv=rs.getDate(3);
+                    this.dataEv=rs.getString(3);
                     this.nomeLoc= rs.getString(4);
                     this.numInv= rs.getInt(5);
 

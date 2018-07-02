@@ -18,8 +18,7 @@ public class Tavolo implements Comparable{
     private String id_tavolo;
     private boolean disponibile;
     private ArrayList<Invitato> AssegnamentiTavolo;
-    private SpecificaTavolo tipoTavolo;
-    private final int postiTot;
+    private int postiTot;
 
     /*
     Nel costruttore 1, il tavolo ha un numero fisso di posti .
@@ -189,7 +188,6 @@ public class Tavolo implements Comparable{
                 ", id_tavolo='" + id_tavolo + '\'' +
                 ", disponibile=" + disponibile +
                 ", arrPostiTavolo=" + ( AssegnamentiTavolo== null ? null : Arrays.asList(AssegnamentiTavolo)) +
-                ", tipoTavolo=" + tipoTavolo +
                 '}';
     }
 

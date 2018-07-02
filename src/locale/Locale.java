@@ -1,5 +1,6 @@
 package locale;
 
+import database.ConnessioneDB;
 import persone.Invitato;
 
 import java.util.ArrayList;
@@ -31,6 +32,7 @@ public class Locale {
     private ArrayList<Tavolo> tavoliUtilizzati = new ArrayList<>();
     private ArrayList<Invitato> lista_gia_presenti = new ArrayList<>();
     GregorianCalendar giorno_Chiusura = new GregorianCalendar();
+    ConnessioneDB c;
 
     // cambiato il tipo di dato giorno chiusura da String a Gregoria calendar , molto più facile da gestire
     // aggiunta inoltre del passaggio dei tavoli tramite parametro
@@ -42,15 +44,22 @@ public class Locale {
      */
     public Locale(String id_locale,int numMaxTavoli, String ora_Apertura, String ora_Chiusura, String giorno_Chiusura) {
 
-        this.calendar = new GregorianCalendar();
-        calendar.setWeekDate(01, 01, 6);
+        c.startConn();
+        this.tavoli=c.getTavolo(id_locale);
+        this.eventi_locale=c.getEvento(id_locale);
+        c.closeConn();
         this.id_locale = id_locale;
         this.numMaxTavoli = numMaxTavoli;
-        this.tavoli = new ArrayList<>();
         this.oraApertura = ricavaOrario(ora_Apertura);
         this.oraChiusura = ricavaOrario(ora_Chiusura);
         this.giorno_Chiusura = ricavaGiorno(giorno_Chiusura);
-        eventi_locale = new ArrayList<>();
+
+
+        this.calendar = new GregorianCalendar();
+        calendar.setWeekDate(01, 01, 6);
+
+
+
 
     }
 
