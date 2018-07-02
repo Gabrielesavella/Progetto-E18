@@ -6,8 +6,7 @@ import locale.Tavolo;
 import persone.Invitato;
 import vincoli.PreferenzaInvitato;
 
-import java.util.ArrayList;
-import java.util.GregorianCalendar;
+import java.util.*;
 
 import org.junit.*;
 import org.junit.Test;
@@ -47,8 +46,8 @@ public class PrenotazionePostiTest {
         orarioEvento.add(GregorianCalendar.MINUTE, 30);
         chiusura.add(GregorianCalendar.DAY_OF_WEEK,2);
         // Locale daMimmo = new Locale("da Giulio",20,listaTavoli,orarioapertura, chiusura);
-        Locale bellaNapoli = new Locale ("Bella Napoli", 30, Tavoli, orarioapertura, chiusura);
-        e = new Evento("Matrimonio", orarioEvento,  bellaNapoli, 50);
+        Locale bellaNapoli = new Locale ("Bella Napoli", 30, orarioapertura.getTime(), orarioapertura.getTime(), chiusura.getTime());
+        e = new Evento("Matrimonio", orarioEvento.getTime(),  bellaNapoli.getId_locale(), 50);
     }
     @Before
     public void SettaInvitati(){

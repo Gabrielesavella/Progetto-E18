@@ -5,8 +5,7 @@ import locale.Locale;
 import locale.Tavolo;
 
 import javax.swing.*;
-import java.util.ArrayList;
-import java.util.GregorianCalendar;
+import java.util.*;
 
 public class TesterGui {
     public static void main(String[] args) {
@@ -34,8 +33,8 @@ public class TesterGui {
          */
         //
         chiusura.add(GregorianCalendar.DAY_OF_WEEK,2);
-        Locale daMimmo = new Locale("da Giulio",20,listaTavoli,orarioapertura, chiusura);
-        Locale bellaNapoli = new Locale ("Bella Napoli", 30, listaTavoli, orarioapertura, chiusura);
+        Locale daMimmo = new Locale("da Giulio",20, orarioapertura.getTime(),orarioapertura.getTime(), chiusura.getTime());
+        Locale bellaNapoli = new Locale ("Bella Napoli", 30, orarioapertura.getTime(), orarioapertura.getTime(), chiusura.getTime());
 
         ArrayList<Locale> locali= new ArrayList<>();
         locali.add(daMimmo);

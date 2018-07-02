@@ -232,6 +232,7 @@ public class PrenotazionePosti {
         bellaNapoli.smistamentoTavoli(e);
         System.out.println(e.getLocation().showInvitatiAiTavoli());
 
+
     }
 
 }

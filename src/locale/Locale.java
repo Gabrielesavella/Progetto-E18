@@ -25,7 +25,7 @@ public class Locale {
     public String id_locale;
     private int numMaxTavoli;
     private int numMaxPosti;
-    GregorianCalendar giornodichiusura, oraApertura, oraChiusura;
+    Date giornodichiusura, oraApertura, oraChiusura;
     Calendar calendar;
     private ArrayList<Tavolo> tavoli;
     private ArrayList<Tavolo> tavoliUtilizzati = new ArrayList<>();
@@ -48,11 +48,10 @@ public class Locale {
         this.id_locale=id_locale;
         this.numMaxTavoli=numMaxTavoli;
         this.tavoli = new ArrayList<>();
-        //this.tavoli.addAll(tavoli);
-        //this.giornodichiusura.setTime(giorno_Chiusura);
-        //this.giornodichiusura.add(GregorianCalendar.DAY_OF_WEEK,Calendar.MONDAY);
-        this.oraChiusura.setTime(ora_Chiusura);
-        this.oraApertura.setTime(ora_Apertura);
+        oraChiusura = new Date();
+        oraApertura = new Date();
+        this.oraChiusura.setTime(ora_Chiusura.getTime());
+        this.oraApertura.setTime(ora_Apertura.getTime());
         eventi_locale = new ArrayList<>();
     }
     /*
@@ -63,15 +62,10 @@ public class Locale {
         this.numMaxPosti=numMaxPosti;
         this.numMaxTavoli=numMaxTavoli;
         this.tavoli = new ArrayList(numMaxTavoli);
-        oraApertura=new GregorianCalendar();
-        oraApertura.add(GregorianCalendar.HOUR,9);
-        oraApertura.add(GregorianCalendar.MINUTE,0);
-        oraChiusura=new GregorianCalendar();
-        oraChiusura.add(GregorianCalendar.HOUR,18);
-        oraChiusura.add(GregorianCalendar.MINUTE,0);
+        oraApertura=new Date();
+        oraChiusura=new Date();
         //giorno di chiusura lunedì
-        this.giornodichiusura =new GregorianCalendar();
-        this.giornodichiusura.setFirstDayOfWeek(Calendar.MONDAY);
+        this.giornodichiusura =new Date();
         eventi_locale = new ArrayList<>();
     }
 
@@ -89,15 +83,11 @@ public class Locale {
         }
         // il numero di posti lo calcolo in base ai tavoli che ho dato che occupano la capienza massima del locale
         this.numMaxPosti = getMaxSeats();
-        oraApertura = new GregorianCalendar();
-        oraApertura.add(GregorianCalendar.HOUR,9);
-        oraApertura.add(GregorianCalendar.MINUTE,0);
-        oraChiusura = new GregorianCalendar();
-        oraChiusura.add(GregorianCalendar.HOUR,18);
-        oraChiusura.add(GregorianCalendar.MINUTE,0);
+        oraApertura = new Date();
+        oraChiusura = new Date();
         //giorno di chiusura lunedì
-        this.giornodichiusura =new GregorianCalendar();
-        this.giornodichiusura.add(GregorianCalendar.DAY_OF_WEEK,Calendar.MONDAY);
+        this.giornodichiusura =new Date();
+
 
 
     }
