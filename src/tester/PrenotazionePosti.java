@@ -46,24 +46,12 @@ public class PrenotazionePosti {
 
 
 
-        Date orarioapertura = new Date();
-        orarioapertura.setHours(9);
-        Date chiusura = new Date();
-        chiusura.setHours(18);
-        Date orarioEvento = new Date();
-        orarioEvento.setHours(12);
-        orarioEvento.setMinutes(30);
-        Date giornoChiusura = new Date();
-        giornoChiusura.setDate(GregorianCalendar.MONDAY);
-        /*
-        i locali chiudono tutti il lunedì (questa è l'intenzione)
-        link per vedere che il giorno di chiusura lunedì ha costante 2
-        https://docs.oracle.com/javase/7/docs/api/constant-values.html#java.util.Calendar.MONDAY
-         */
-        //
+        String orarioapertura = Integer.toString(9);
+        String chiusura = Integer.toString(18);
+        String orarioEvento = Integer.toString(12);
+        String giornoChiusura = Integer.toString(GregorianCalendar.MONDAY);
 
-       // Locale daMimmo = new Locale("da Giulio",20,listaTavoli,orarioapertura, chiusura);
-        Locale bellaNapoli = new Locale ("Bella Napoli", 30, orarioapertura.toString(), chiusura.toString(), giornoChiusura.toString());
+        Locale bellaNapoli = new Locale ("Bella Napoli", 30, orarioapertura, chiusura, giornoChiusura);
 
         bellaNapoli.aggiungiTavolo(tav1);
         bellaNapoli.aggiungiTavolo(tav2);
@@ -74,8 +62,8 @@ public class PrenotazionePosti {
 
 
         //eventi;
-        Evento e = new Evento("Matrimonio", orarioEvento.toString(),  bellaNapoli.getId_locale(), 22);
-        Evento k = new Evento("Battesimo", orarioEvento.toString(), bellaNapoli.getId_locale(), 20);
+        Evento e = new Evento("Matrimonio", orarioEvento,  bellaNapoli.getId_locale(), 22);
+        Evento k = new Evento("Battesimo", orarioEvento, bellaNapoli.getId_locale(), 20);
 
         //invitati;
         Invitato a = new Invitato("Marco","Maffoni",39);

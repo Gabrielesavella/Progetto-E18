@@ -19,22 +19,14 @@ public class TesterGui {
         listaTavoli.add(tav2);
         listaTavoli.add(tav3);
 
-        GregorianCalendar orarioapertura = new GregorianCalendar();
-        orarioapertura.add(GregorianCalendar.HOUR,9);
-        GregorianCalendar chiusura = new GregorianCalendar();
-        chiusura.add(GregorianCalendar.HOUR,18);
-        GregorianCalendar orarioEvento = new GregorianCalendar();
-        orarioEvento.add(GregorianCalendar.HOUR, 12);
-        orarioEvento.add(GregorianCalendar.MINUTE, 30);
-        /*
-        i locali chiudono tutti il lunedì (questa è l'intenzione)
-        link per vedere che il giorno di chiusura lunedì ha costante 2
-        https://docs.oracle.com/javase/7/docs/api/constant-values.html#java.util.Calendar.MONDAY
-         */
-        //
-        chiusura.add(GregorianCalendar.DAY_OF_WEEK,2);
-        Locale daMimmo = new Locale("da Giulio",20, orarioapertura.getTime().toString(),orarioapertura.getTime().toString(), chiusura.getTime().toString());
-        Locale bellaNapoli = new Locale ("Bella Napoli", 30, orarioapertura.getTime().toString(), orarioapertura.getTime().toString(), chiusura.getTime().toString());
+        String orarioapertura = Integer.toString(9);
+        String chiusura = Integer.toString(18);
+
+        String giornoChiusura = Integer.toString(GregorianCalendar.MONDAY);
+
+
+        Locale daMimmo = new Locale("da Giulio",20, orarioapertura,chiusura, giornoChiusura);
+        Locale bellaNapoli = new Locale ("Bella Napoli", 30, orarioapertura,chiusura,giornoChiusura);
 
         ArrayList<Locale> locali= new ArrayList<>();
         locali.add(daMimmo);
