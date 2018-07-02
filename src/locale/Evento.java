@@ -35,7 +35,7 @@ public class Evento {
         this.nomeEvento = nomeEvento;
         this.location=prendiLocale(nomeLocale);
         this.numInvitati=numInvitati;
-        this.dataEvento = ricavaOrario(dataEvento);
+        this.dataEvento = ricavaData(dataEvento);
 
         lista_vincoli = new ArrayList();
         this.invitati = new ArrayList(numInvitati);
@@ -66,16 +66,17 @@ public class Evento {
         location.getEventi().add(this);
     }
 
-    public GregorianCalendar ricavaOrario(String orario){
+    public GregorianCalendar ricavaData(String data){
 
-        GregorianCalendar time = new GregorianCalendar();
+        GregorianCalendar date = new GregorianCalendar();
 
-        String[] st = orario.split(":");
+        String[] st = data.split("/");
 
-        time.add(GregorianCalendar.HOUR, Integer.parseInt(st[0]));
-        time.add(GregorianCalendar.MINUTE, Integer.parseInt(st[1]));
+        date.add(GregorianCalendar.DAY_OF_MONTH, Integer.parseInt(st[0]));
+        date.add(GregorianCalendar.MONTH, Integer.parseInt(st[1]));
+        date.add(GregorianCalendar.YEAR, Integer.parseInt(st[2]));
 
-        return time;
+        return date;
     }
 
     public String getName(){return nomeEvento;}
@@ -132,6 +133,6 @@ public class Evento {
     }
 
     public void setDataEvento(String dataEvento) {
-        this.dataEvento = ricavaOrario(dataEvento);
+        this.dataEvento = ricavaData(dataEvento);
     }
 }
