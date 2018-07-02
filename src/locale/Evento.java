@@ -13,17 +13,18 @@ public class Evento {
     private String nomeEvento;
     private Locale location;
     private ArrayList <Invitato> invitati;
-    private  ArrayList <Vincolo> lista_vincoli;
+    private ArrayList <Vincolo> lista_vincoli;
     private ArrayList<Locale> locali;
-    private Date dataEvento;
+    private GregorianCalendar dataEvento;
     private int numInvitati;
     private ConnessioneDB c;
+    private Date dataEv;
 
 
 
     /*nell'uml manca la data dell'evento ( l'aggiungo al costruttore )]*/
 
-    public Evento(String nomeEvento, Date dataEvento, String nomeLocale, int numInvitati){
+    public Evento(String nomeEvento, String dataEvento, String nomeLocale, int numInvitati){
 
         /*Crea un Evento caratterizzato da un nome, una data e un Locale. Al suo interno verranno successivamente inseriti
         una lista di Invitati e di Vincoli*/
@@ -32,7 +33,7 @@ public class Evento {
         locali= c.getLocale(nomeLocale);
         this.nomeEvento = nomeEvento;
         this.location=prendiLocale(nomeLocale);
-        this.dataEvento = dataEvento;
+        this.dataEvento = ricavaOrario(dataEvento);
         lista_vincoli = new ArrayList();
         this.invitati = new ArrayList(numInvitati);
         this.numInvitati=numInvitati;
@@ -42,27 +43,11 @@ public class Evento {
 
     public Evento(String nomeEvento, Date time, int numInvitati) {
         this.nomeEvento = nomeEvento;
-        this.dataEvento = time;
+        this.dataEv = time;
         this.numInvitati=numInvitati;
-
-
     }
 
-    public String getName(){return nomeEvento;}
-
-
-    public Locale prendiLocale(String nomeLoc) {
-        Locale loca=null;
-        for (Locale l : locali) {
-            if (nomeLoc == l.getId_locale()) {
-                loca = l;
-            }
-        }
-        return loca;
-    }
-
-
-    public Evento(String nomeEvento, Date dataEvento, Locale location,
+    public Evento(String nomeEvento, GregorianCalendar dataEvento, Locale location,
                   ArrayList <Vincolo> lista_vincoli, ArrayList <Invitato> invitati){
 
         /*il locale è creato dall'evento?? serve una classe nel mezzo che crei le istanze?
@@ -78,6 +63,30 @@ public class Evento {
         location.getEventi().add(this);
     }
 
+    public GregorianCalendar ricavaOrario(String orario){
+
+        GregorianCalendar time = new GregorianCalendar();
+
+        String[] st = orario.split(":");
+
+        time.add(GregorianCalendar.HOUR, Integer.parseInt(st[0]));
+        time.add(GregorianCalendar.MINUTE, Integer.parseInt(st[1]));
+
+        return time;
+    }
+
+    public String getName(){return nomeEvento;}
+
+
+    public Locale prendiLocale(String nomeLoc) {
+        Locale loca=null;
+        for (Locale l : locali) {
+            if (nomeLoc == l.getId_locale()) {
+                loca = l;
+            }
+        }
+        return loca;
+    }
 
     public Locale getLocation(){ return location;}
 
@@ -102,7 +111,7 @@ public class Evento {
 
     public ArrayList<Vincolo> getLista_vincoli(){ return lista_vincoli; }
 
-    public Date getDataEvento(){
+    public GregorianCalendar getDataEvento(){
         return dataEvento;
     }
 
@@ -119,7 +128,7 @@ public class Evento {
         }
     }
 
-    public void setDataEvento(Date dataEvento) {
-        this.dataEvento = dataEvento;
+    public void setDataEvento(String dataEvento) {
+        this.dataEvento = ricavaOrario(dataEvento);
     }
 }
