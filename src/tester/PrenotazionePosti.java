@@ -63,7 +63,7 @@ public class PrenotazionePosti {
         //
 
        // Locale daMimmo = new Locale("da Giulio",20,listaTavoli,orarioapertura, chiusura);
-        Locale bellaNapoli = new Locale ("Bella Napoli", 30, orarioapertura, chiusura, giornoChiusura);
+        Locale bellaNapoli = new Locale ("Bella Napoli", 30, orarioapertura.toString(), chiusura.toString(), giornoChiusura.toString());
 
         bellaNapoli.aggiungiTavolo(tav1);
         bellaNapoli.aggiungiTavolo(tav2);
@@ -74,8 +74,8 @@ public class PrenotazionePosti {
 
 
         //eventi;
-        Evento e = new Evento("Matrimonio", orarioEvento,  bellaNapoli.getId_locale(), 22);
-        Evento k = new Evento("Battesimo", orarioEvento, bellaNapoli.getId_locale(), 20);
+        Evento e = new Evento("Matrimonio", orarioEvento.toString(),  bellaNapoli.getId_locale(), 22);
+        Evento k = new Evento("Battesimo", orarioEvento.toString(), bellaNapoli.getId_locale(), 20);
 
         //invitati;
         Invitato a = new Invitato("Marco","Maffoni",39);

@@ -81,7 +81,7 @@ public class PannelloCredenzialiEvento extends JPanel{
                     }
                 }
 
-                Evento evento=new Evento(tNome.getText(),calendar,localeSelezionato.getId_locale(),invitati);
+                Evento evento=new Evento(tNome.getText(),calendar.toString(),localeSelezionato.getId_locale(),invitati);
                 FinestraSpecificheEvento fs= new FinestraSpecificheEvento(localeSelezionato,evento);
                 //fs.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
                 fs.setVisible(true);
