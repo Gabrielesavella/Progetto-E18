@@ -2,21 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="01950896-05c3-4eb0-824d-3d94235cef39" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/junit_4_7.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/poi_3.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/poi_3.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/swingx_1_6.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/swingx_1_6.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Progetto-E18.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Progetto-E18.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/gui/finestre/FinestraCreazioneEvento.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gui/finestre/FinestraCreazioneEvento.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/gui/finestre/FinestraDisposizioneTavoli.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gui/finestre/FinestraDisposizioneTavoli.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/gui/finestre/FinestraRegistrazione.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gui/finestre/FinestraRegistrazione.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/gui/finestre/FinestraSpecificheEvento.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gui/finestre/FinestraSpecificheEvento.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/gui/finestre/FinestraUtente.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gui/finestre/FinestraUtente.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/gui/panels/PannelloCredenzialiEvento.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gui/panels/PannelloCredenzialiEvento.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/gui/panels/PannelloDisposizioneTavoli.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gui/panels/PannelloDisposizioneTavoli.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/gui/panels/PannelloLogin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gui/panels/PannelloLogin.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/gui/panels/PannelloRegistrazione.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gui/panels/PannelloRegistrazione.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/locale/Evento.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/locale/Evento.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/tester/PrenotazionePostiTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tester/PrenotazionePostiTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/tester/TesterGui.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tester/TesterGui.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/tester/TesterLocale.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tester/TesterLocale.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -42,11 +32,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="PannelloCredenzialiEvento.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="PannelloCredenzialiEvento.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/gui/panels/PannelloCredenzialiEvento.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="622">
-              <caret line="97" column="21" selection-start-line="97" selection-start-column="21" selection-end-line="97" selection-end-column="21" />
+            <state relative-caret-position="102">
+              <caret line="6" column="18" selection-start-line="6" selection-start-column="18" selection-end-line="6" selection-end-column="18" />
             </state>
           </provider>
         </entry>
@@ -54,8 +44,8 @@
       <file leaf-file-name="PrenotazionePostiTest.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/tester/PrenotazionePostiTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="235">
-              <caret line="39" column="67" selection-start-line="39" selection-start-column="67" selection-end-line="39" selection-end-column="67" />
+            <state relative-caret-position="184">
+              <caret line="36" column="8" selection-start-line="36" selection-start-column="8" selection-end-line="36" selection-end-column="8" />
             </state>
           </provider>
         </entry>
@@ -63,17 +53,29 @@
       <file leaf-file-name="TesterGui.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/tester/TesterGui.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="147">
+            <state relative-caret-position="510">
               <caret line="35" selection-start-line="35" selection-end-line="35" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Locale.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Locale.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/locale/Locale.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="413">
+            <state relative-caret-position="370">
               <caret line="46" selection-start-line="46" selection-end-line="46" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="XlsFacade.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/facade/XlsFacade.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="34">
+              <caret line="2" selection-start-line="2" selection-end-line="2" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -81,7 +83,7 @@
       <file leaf-file-name="TesterLocale.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/tester/TesterLocale.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="350">
+            <state relative-caret-position="595">
               <caret line="38" column="3" selection-start-line="38" selection-start-column="3" selection-end-line="38" selection-end-column="3" />
             </state>
           </provider>
@@ -90,7 +92,7 @@
       <file leaf-file-name="Evento.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/locale/Evento.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="496">
+            <state relative-caret-position="1513">
               <caret line="94" column="18" selection-start-line="94" selection-start-column="18" selection-end-line="94" selection-end-column="18" />
             </state>
           </provider>
@@ -99,21 +101,8 @@
       <file leaf-file-name="PannelloDisposizioneTavoli.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/gui/panels/PannelloDisposizioneTavoli.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="607">
+            <state relative-caret-position="918">
               <caret line="58" column="1" selection-start-line="58" selection-start-column="1" selection-end-line="58" selection-end-column="1" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="PannelloRegistrazione.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/gui/panels/PannelloRegistrazione.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-468">
-              <caret line="24" column="10" selection-start-line="24" selection-start-column="10" selection-end-line="24" selection-end-column="10" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#566#575#0" expanded="true" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -121,7 +110,7 @@
       <file leaf-file-name="PrenotazionePosti.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/tester/PrenotazionePosti.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="486">
+            <state relative-caret-position="969">
               <caret line="65" column="107" selection-start-line="65" selection-start-column="107" selection-end-line="65" selection-end-column="107" />
             </state>
           </provider>
@@ -130,7 +119,7 @@
       <file leaf-file-name="PannelloLogin.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/gui/panels/PannelloLogin.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="629">
+            <state relative-caret-position="1615">
               <caret line="112" column="1" selection-start-line="112" selection-start-column="1" selection-end-line="112" selection-end-column="1" />
             </state>
           </provider>
@@ -171,17 +160,18 @@
   <component name="NodePackageJsonFileManager">
     <packageJsonPaths />
   </component>
-  <component name="ProjectFrameBounds">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="124" />
     <option name="y" value="62" />
     <option name="width" value="1316" />
-    <option name="height" value="824" />
+    <option name="height" value="788" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
       <pane id="Scope" />
       <pane id="AndroidView" />
       <pane id="ProjectPane">
@@ -194,97 +184,24 @@
             <path>
               <item name="Progetto-E18" type="b2602c69:ProjectViewProjectNode" />
               <item name="Progetto-E18" type="462c0819:PsiDirectoryNode" />
-              <item name=".idea" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Progetto-E18" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Progetto-E18" type="462c0819:PsiDirectoryNode" />
-              <item name="librerie" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Progetto-E18" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Progetto-E18" type="462c0819:PsiDirectoryNode" />
-              <item name="librerie" type="462c0819:PsiDirectoryNode" />
-              <item name="poi-3.17" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Progetto-E18" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Progetto-E18" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="Progetto-E18" type="b2602c69:ProjectViewProjectNode" />
               <item name="Progetto-E18" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="database" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Progetto-E18" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Progetto-E18" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="facade" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Progetto-E18" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Progetto-E18" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="gui" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Progetto-E18" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Progetto-E18" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="gui" type="462c0819:PsiDirectoryNode" />
-              <item name="controller" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Progetto-E18" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Progetto-E18" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="gui" type="462c0819:PsiDirectoryNode" />
-              <item name="finestre" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Progetto-E18" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Progetto-E18" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="gui" type="462c0819:PsiDirectoryNode" />
               <item name="panels" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Progetto-E18" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Progetto-E18" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="locale" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Progetto-E18" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Progetto-E18" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="persone" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Progetto-E18" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Progetto-E18" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="tester" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Progetto-E18" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Progetto-E18" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="vincoli" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$USER_HOME$/Documents/swingx-0.9.4.jar!/" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="project.structure.last.edited" value="Libraries" />
@@ -296,121 +213,6 @@
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$" />
     </key>
-  </component>
-  <component name="RestoreUpdateTree" date="Moments ago" ActionInfo="_Update">
-    <UpdatedFiles>
-      <FILE-GROUP>
-        <option name="myUpdateName" value="Updated from server" />
-        <option name="myStatusName" value="Changed on server" />
-        <option name="mySupportsDeletion" value="false" />
-        <option name="myCanBeAbsent" value="false" />
-        <option name="myId" value="CHANGED_ON_SERVER" />
-        <FILE-GROUP>
-          <option name="myUpdateName" value="Updated" />
-          <option name="myStatusName" value="Changed" />
-          <option name="mySupportsDeletion" value="false" />
-          <option name="myCanBeAbsent" value="false" />
-          <option name="myId" value="UPDATED" />
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/gui/panels/PannelloCredenzialiEvento.java</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/tester/PrenotazionePosti.java</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/tester/PrenotazionePostiTest.java</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/tester/TesterGui.java</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/tester/TesterLocale.java</PATH>
-        </FILE-GROUP>
-        <FILE-GROUP>
-          <option name="myUpdateName" value="Created" />
-          <option name="myStatusName" value="Created" />
-          <option name="mySupportsDeletion" value="false" />
-          <option name="myCanBeAbsent" value="false" />
-          <option name="myId" value="CREATED" />
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/.idea/libraries/junit_4_7.xml</PATH>
-        </FILE-GROUP>
-        <FILE-GROUP>
-          <option name="myUpdateName" value="Deleted" />
-          <option name="myStatusName" value="Deleted" />
-          <option name="mySupportsDeletion" value="false" />
-          <option name="myCanBeAbsent" value="true" />
-          <option name="myId" value="REMOVED_FROM_REPOSITORY" />
-        </FILE-GROUP>
-        <FILE-GROUP>
-          <option name="myUpdateName" value="Restored" />
-          <option name="myStatusName" value="Will be restored" />
-          <option name="mySupportsDeletion" value="false" />
-          <option name="myCanBeAbsent" value="false" />
-          <option name="myId" value="RESTORED" />
-        </FILE-GROUP>
-      </FILE-GROUP>
-      <FILE-GROUP>
-        <option name="myUpdateName" value="Modified" />
-        <option name="myStatusName" value="Modified" />
-        <option name="mySupportsDeletion" value="false" />
-        <option name="myCanBeAbsent" value="false" />
-        <option name="myId" value="MODIFIED" />
-      </FILE-GROUP>
-      <FILE-GROUP>
-        <option name="myUpdateName" value="Skipped" />
-        <option name="myStatusName" value="Skipped" />
-        <option name="mySupportsDeletion" value="false" />
-        <option name="myCanBeAbsent" value="false" />
-        <option name="myId" value="SKIPPED" />
-      </FILE-GROUP>
-      <FILE-GROUP>
-        <option name="myUpdateName" value="Merged with conflicts" />
-        <option name="myStatusName" value="Will be merged with conflicts" />
-        <option name="mySupportsDeletion" value="false" />
-        <option name="myCanBeAbsent" value="false" />
-        <option name="myId" value="MERGED_WITH_CONFLICTS" />
-      </FILE-GROUP>
-      <FILE-GROUP>
-        <option name="myUpdateName" value="Merged with tree conflicts" />
-        <option name="myStatusName" value="Merged with tree conflicts" />
-        <option name="mySupportsDeletion" value="false" />
-        <option name="myCanBeAbsent" value="false" />
-        <option name="myId" value="MERGED_WITH_TREE_CONFLICT" />
-      </FILE-GROUP>
-      <FILE-GROUP>
-        <option name="myUpdateName" value="Merged with property conflicts" />
-        <option name="myStatusName" value="Will be merged with property conflicts" />
-        <option name="mySupportsDeletion" value="false" />
-        <option name="myCanBeAbsent" value="false" />
-        <option name="myId" value="MERGED_WITH_PROPERTY_CONFLICT" />
-      </FILE-GROUP>
-      <FILE-GROUP>
-        <option name="myUpdateName" value="Merged" />
-        <option name="myStatusName" value="Will be merged" />
-        <option name="mySupportsDeletion" value="false" />
-        <option name="myCanBeAbsent" value="false" />
-        <option name="myId" value="MERGED" />
-      </FILE-GROUP>
-      <FILE-GROUP>
-        <option name="myUpdateName" value="Not in repository" />
-        <option name="myStatusName" value="Not in repository" />
-        <option name="mySupportsDeletion" value="true" />
-        <option name="myCanBeAbsent" value="false" />
-        <option name="myId" value="UNKNOWN" />
-      </FILE-GROUP>
-      <FILE-GROUP>
-        <option name="myUpdateName" value="Locally added" />
-        <option name="myStatusName" value="Locally added" />
-        <option name="mySupportsDeletion" value="false" />
-        <option name="myCanBeAbsent" value="false" />
-        <option name="myId" value="LOCALLY_ADDED" />
-      </FILE-GROUP>
-      <FILE-GROUP>
-        <option name="myUpdateName" value="Locally removed" />
-        <option name="myStatusName" value="Locally removed" />
-        <option name="mySupportsDeletion" value="false" />
-        <option name="myCanBeAbsent" value="false" />
-        <option name="myId" value="LOCALLY_REMOVED" />
-      </FILE-GROUP>
-      <FILE-GROUP>
-        <option name="myUpdateName" value="Switched" />
-        <option name="myStatusName" value="Switched" />
-        <option name="mySupportsDeletion" value="false" />
-        <option name="myCanBeAbsent" value="false" />
-        <option name="myId" value="SWITCHED" />
-      </FILE-GROUP>
-    </UpdatedFiles>
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -495,66 +297,46 @@
       <updated>1530436847872</updated>
       <workItem from="1530436849349" duration="2243000" />
       <workItem from="1530521001692" duration="2636000" />
+      <workItem from="1530550248484" duration="252000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="12593000" />
+    <option name="totallyTimeSpent" value="12845000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="124" y="62" width="1316" height="824" extended-state="0" />
+    <frame x="-8" y="-8" width="1382" height="784" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info anchor="right" id="Palette" order="6" />
-      <window_info anchor="bottom" id="TODO" order="10" />
-      <window_info anchor="bottom" id="Messages" order="19" sideWeight="0.49607536" weight="0.5034388" />
-      <window_info anchor="right" id="Palette&#9;" order="15" />
-      <window_info id="Image Layers" order="7" />
-      <window_info anchor="right" id="Capture Analysis" order="4" />
-      <window_info anchor="bottom" id="Event Log" order="12" sideWeight="0.50156987" side_tool="true" visible="true" weight="0.3287483" />
-      <window_info anchor="right" id="Maven Projects" order="8" />
-      <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49843013" visible="true" weight="0.3287483" />
-      <window_info anchor="bottom" id="Version Control" order="11" />
-      <window_info anchor="bottom" id="Terminal" order="8" />
-      <window_info id="Capture Tool" order="13" />
-      <window_info id="Designer" order="3" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25745684" />
-      <window_info anchor="right" id="Database" order="7" weight="0.028257458" />
-      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info id="UI Designer" order="4" />
-      <window_info anchor="right" id="Theme Preview" order="5" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.39889959" />
-      <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="right" id="Palette" order="9" />
-      <window_info id="Designer" order="8" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="3" weight="0.25" />
-      <window_info anchor="right" id="Capture Analysis" order="10" />
-      <window_info anchor="bottom" id="Inspection" order="9" weight="0.4" />
-      <window_info anchor="right" id="Ant Build" order="2" weight="0.25" />
-      <window_info anchor="bottom" id="Terminal" order="14" />
-      <window_info id="Structure" order="5" side_tool="true" weight="0.25" />
-      <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="13" />
+      <window_info anchor="bottom" id="Messages" order="18" sideWeight="0.4978038" visible="true" weight="0.32884902" />
+      <window_info anchor="right" id="Palette&#9;" order="13" />
+      <window_info id="Image Layers" order="9" />
+      <window_info anchor="right" id="Capture Analysis" order="10" />
+      <window_info anchor="bottom" id="Event Log" order="17" sideWeight="0.5021962" side_tool="true" visible="true" weight="0.32884902" />
+      <window_info anchor="right" id="Maven Projects" order="14" />
       <window_info anchor="bottom" id="Database Changes" order="15" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="16" />
       <window_info anchor="bottom" id="Run" order="4" />
-      <window_info id="Image Layers" order="9" />
+      <window_info anchor="bottom" id="Terminal" order="14" />
       <window_info id="Capture Tool" order="10" />
-      <window_info id="UI Designer" order="11" />
-      <window_info anchor="bottom" id="Debug" order="5" weight="0.4" />
-      <window_info anchor="right" id="Theme Preview" order="11" />
+      <window_info id="Designer" order="8" />
+      <window_info active="true" content_ui="combo" id="Project" order="2" visible="true" weight="0.24450952" />
       <window_info anchor="right" id="Database" order="12" />
-      <window_info anchor="right" id="Palette&#9;" order="13" />
-      <window_info anchor="bottom" id="Message" order="0" />
-      <window_info active="true" anchor="bottom" id="Event Log" order="17" sideWeight="0.50078493" side_tool="true" visible="true" weight="0.3287483" />
-      <window_info anchor="bottom" id="Cvs" order="6" weight="0.25" />
+      <window_info id="Learn" />
+      <window_info id="Structure" order="5" side_tool="true" weight="0.25" />
+      <window_info anchor="right" id="Ant Build" order="2" weight="0.25" />
+      <window_info id="UI Designer" order="11" />
+      <window_info anchor="right" id="Theme Preview" order="11" />
       <window_info id="Favorites" order="12" side_tool="true" />
+      <window_info anchor="bottom" id="Debug" order="5" weight="0.4" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="3" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="9" weight="0.4" />
+      <window_info anchor="right" id="Commander" order="0" weight="0.4" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Cvs" order="6" weight="0.25" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Messages" order="18" sideWeight="0.49921507" visible="true" weight="0.3287483" />
-      <window_info anchor="right" id="Maven Projects" order="14" />
-      <window_info content_ui="combo" id="Project" order="2" visible="true" weight="0.25745684" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -584,20 +366,8 @@
         </state>
       </provider>
     </entry>
-    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_101.jdk/Contents/Home/src.zip!/java/lang/String.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="154">
-          <caret line="1962" selection-start-line="1962" selection-end-line="1962" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/vincoli/PreferenzaInvitato2.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1036">
-          <caret line="122" column="13" lean-forward="true" selection-start-line="122" selection-start-column="13" selection-end-line="122" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_101.jdk/Contents/Home/src.zip!/java/lang/String.java" />
+    <entry file="file://$PROJECT_DIR$/src/vincoli/PreferenzaInvitato2.java" />
     <entry file="file://$PROJECT_DIR$/src/database/ConnessioneDB.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-602">
@@ -745,13 +515,6 @@
     <entry file="file://$PROJECT_DIR$/smistamento_posti_clienti.sql" />
     <entry file="file://$PROJECT_DIR$/smistamento_posti_eventi.sql" />
     <entry file="file://$PROJECT_DIR$/smistamento_posti_tavoli.sql" />
-    <entry file="file://$PROJECT_DIR$/src/facade/XlsFacade.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="516">
-          <caret line="123" selection-start-line="123" selection-end-line="123" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/gui/controller/SistemaDiPrenotazioneController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="396">
@@ -820,75 +583,84 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/gui/panels/PannelloRegistrazione.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-468">
+        <state relative-caret-position="238">
           <caret line="24" column="10" selection-start-line="24" selection-start-column="10" selection-end-line="24" selection-end-column="10" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#566#575#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/gui/panels/PannelloLogin.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="629">
+        <state relative-caret-position="1615">
           <caret line="112" column="1" selection-start-line="112" selection-start-column="1" selection-end-line="112" selection-end-column="1" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/gui/panels/PannelloDisposizioneTavoli.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="607">
+        <state relative-caret-position="918">
           <caret line="58" column="1" selection-start-line="58" selection-start-column="1" selection-end-line="58" selection-end-column="1" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/tester/TesterLocale.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="350">
+        <state relative-caret-position="595">
           <caret line="38" column="3" selection-start-line="38" selection-start-column="3" selection-end-line="38" selection-end-column="3" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/tester/PrenotazionePostiTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="235">
-          <caret line="39" column="67" selection-start-line="39" selection-start-column="67" selection-end-line="39" selection-end-column="67" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/tester/PrenotazionePosti.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="486">
+        <state relative-caret-position="969">
           <caret line="65" column="107" selection-start-line="65" selection-start-column="107" selection-end-line="65" selection-end-column="107" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/locale/Evento.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="496">
+        <state relative-caret-position="1513">
           <caret line="94" column="18" selection-start-line="94" selection-start-column="18" selection-end-line="94" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/gui/panels/PannelloCredenzialiEvento.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="622">
-          <caret line="97" column="21" selection-start-line="97" selection-start-column="21" selection-end-line="97" selection-end-column="21" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/tester/TesterGui.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="147">
+        <state relative-caret-position="510">
           <caret line="35" selection-start-line="35" selection-end-line="35" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/locale/Locale.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="413">
+        <state relative-caret-position="370">
           <caret line="46" selection-start-line="46" selection-end-line="46" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/facade/XlsFacade.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" selection-start-line="2" selection-end-line="2" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/tester/PrenotazionePostiTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="184">
+          <caret line="36" column="8" selection-start-line="36" selection-start-column="8" selection-end-line="36" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/gui/panels/PannelloCredenzialiEvento.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="6" column="18" selection-start-line="6" selection-start-column="18" selection-end-line="6" selection-end-column="18" />
         </state>
       </provider>
     </entry>
@@ -921,6 +693,7 @@
       </state>
       <state key="GlobalLibrariesConfigurable.UI">
         <settings>
+          <last-edited>poi-3</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>
@@ -949,7 +722,6 @@
             <option name="proportions">
               <list>
                 <option value="0.2" />
-                <option value="0.6" />
               </list>
             </option>
           </splitter-proportions>
@@ -969,7 +741,7 @@
       </state>
       <state key="ProjectLibrariesConfigurable.UI">
         <settings>
-          <last-edited>mysql-connector-java-5.1.18-bin</last-edited>
+          <last-edited>swingx-1.6</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>
