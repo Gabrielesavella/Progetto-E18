@@ -43,7 +43,7 @@ public class Locale {
     @author Gabrielesavella
      */
     public Locale(String id_locale,int numMaxTavoli, String ora_Apertura, String ora_Chiusura, String giorno_Chiusura) {
-
+        c=new ConnessioneDB();
         c.startConn();
         this.tavoli=c.getTavolo(id_locale);
         this.eventi_locale=c.getEvento(id_locale);
@@ -63,9 +63,21 @@ public class Locale {
 
     }
 
+    public GregorianCalendar getGiornodichiusura() {
+        return giornodichiusura;
+    }
+
+    public GregorianCalendar getOraApertura() {
+        return oraApertura;
+    }
+
+    public GregorianCalendar getOraChiusura() {
+        return oraChiusura;
+    }
+
     /*
-        AGGIUNTA: in questo costruttore ho passato anche i tavoli
-         */
+            AGGIUNTA: in questo costruttore ho passato anche i tavoli
+             */
     public Locale(int numMaxTavoli,int numMaxPosti,ArrayList<Tavolo> tavoli){
         this.id_locale= "Ristorante"+numLoc++;
         this.numMaxPosti=numMaxPosti;

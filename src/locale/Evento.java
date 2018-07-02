@@ -19,18 +19,20 @@ public class Evento {
     private int numInvitati;
     private ConnessioneDB c;
     private Date dataEv;
+    private String nomeLocale;
 
 
 
     /*nell'uml manca la data dell'evento ( l'aggiungo al costruttore )]*/
 
+
     public Evento(String nomeEvento, String dataEvento, String nomeLocale, int numInvitati){
 
         /*Crea un Evento caratterizzato da un nome, una data e un Locale. Al suo interno verranno successivamente inseriti
         una lista di Invitati e di Vincoli*/
-
+        c= new ConnessioneDB();
         c.startConn();
-        locali= c.getLocale(nomeLocale);
+        Locale locale= c.getLocale(nomeLocale);
         c.closeConn();
         this.nomeEvento = nomeEvento;
         this.location=prendiLocale(nomeLocale);
@@ -66,6 +68,8 @@ public class Evento {
         location.getEventi().add(this);
     }
 
+
+
     public static GregorianCalendar ricavaData(String data){
 
         GregorianCalendar date = new GregorianCalendar();
@@ -81,6 +85,7 @@ public class Evento {
 
     public String getName(){return nomeEvento;}
 
+    public String getNomeLocale(){return nomeLocale;}
 
     public Locale prendiLocale(String nomeLoc) {
         Locale loca=null;

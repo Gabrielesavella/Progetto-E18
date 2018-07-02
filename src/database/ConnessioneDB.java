@@ -391,11 +391,11 @@ public class ConnessioneDB {// crea la connessione col database "smistamento_pos
 
     //prende dalla TABLE clienti i dati relativi al cliente con la specifica chiave ID_Cliente, che sono quelli da inserire nel costruttore di Cliente()
 
-    public ArrayList<Cliente> getCliente(String ID_Cliente) {
+    public Cliente getCliente(String ID_Cliente) {
         startConn();
         Statement stmt = null; //creazione di uno Statement, per adesso nullo
         ResultSet rs = null; //variabile che contiene il risultato dello Statement
-        Cliente cl;
+        Cliente cl=null;
         ArrayList<Cliente> clienti= new ArrayList<>();
         if (!openConn) {
             startConn();
@@ -438,11 +438,62 @@ public class ConnessioneDB {// crea la connessione col database "smistamento_pos
                 }
             }
         }
+        return cl;
+    }
+
+    public ArrayList<Cliente>  getClienti () {
+        startConn();
+        Statement stmt = null; //creazione di uno Statement, per adesso nullo
+        ResultSet rs = null; //variabile che contiene il risultato dello Statement
+        Cliente cl=null;
+        ArrayList<Cliente> clienti= new ArrayList<>();
+        if (!openConn) {
+            startConn();
+
+        } else {
+            try {
+                stmt = conn.createStatement();
+                rs = stmt.executeQuery("SELECT * FROM clienti ;");
+
+                while (rs.next()) {
+
+
+                    this.ID_Cl= rs.getString(1);
+                    this.nomeCl=rs.getString(2);
+                    this.cognomeCl=rs.getString(3);
+                    this.pwdCl= rs.getString(4);
+
+                    cl= new Cliente (nomeCl, cognomeCl, ID_Cl, pwdCl);
+                    clienti.add(cl);
+
+                }
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            } finally {
+                if (rs != null) {
+                    try {
+                        rs.close();
+
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                }
+                if (stmt != null) {
+                    try {
+                        stmt.close();
+
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }
         return clienti;
     }
 
-    public ArrayList<Locale> getLocale(String ID_Locale) {
-        Locale l;
+    public Locale getLocale(String ID_Locale) {
+        Locale l=null;
         ArrayList <Locale> locali= new ArrayList<>();
 
         startConn();
@@ -488,16 +539,66 @@ public class ConnessioneDB {// crea la connessione col database "smistamento_pos
                 }
             }
         }
+        return l;
+    }
+
+    public ArrayList<Locale> getLocali() {
+        Locale l;
+        ArrayList <Locale> locali= new ArrayList<>();
+
+        startConn();
+        Statement stmt = null; //creazione di uno Statement, per adesso nullo
+        ResultSet rs = null; //variabile che contiene il risultato dello Statement
+        if (!openConn) {
+            startConn();
+
+        } else {
+            try {
+                stmt = conn.createStatement();
+                rs = stmt.executeQuery("SELECT * FROM locali;");
+                while (rs.next()) {
+
+                    this.ID_Locale= rs.getString(1);
+                    this.numMaxtavoli=rs.getInt(2);
+                    this.oraApertura=rs.getString(3);
+                    this.oraChiusura= rs.getString(4);
+                    this.giornoChiusura= rs.getString(5);
+
+                    l= new Locale(ID_Locale, numMaxtavoli, oraApertura, oraChiusura, giornoChiusura);
+                    locali.add(l);
+                }
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            } finally {
+                if (rs != null) {
+                    try {
+                        rs.close();
+
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                }
+                if (stmt != null) {
+                    try {
+                        stmt.close();
+
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }
         return locali;
     }
 
     //prende dalla TABLE clienti i dati relativi all'evento con la specifica chiave ID_Evento, che sono quelli da inserire nel costruttore di Evento()
 
-    public ArrayList<Evento> getEvento(String ID_Evento) {
+    public ArrayList<Evento> getEvento(String id_locale) {
         startConn();
         Statement stmt = null;
         ResultSet rs = null;
-        Evento ev;
+        Evento ev=null;
         ArrayList<Evento> eventi= new ArrayList<>();
         if (!openConn) {
             startConn();
@@ -505,7 +606,7 @@ public class ConnessioneDB {// crea la connessione col database "smistamento_pos
         } else {
             try {
                 stmt = conn.createStatement();
-                rs = stmt.executeQuery("SELECT * FROM eventi WHERE `ID_Evento`='" + ID_Evento + "';");
+                rs = stmt.executeQuery("SELECT * FROM eventi WHERE `ID_Locale`='" + id_locale + "';");
                 while (rs.next()) {
 
 
@@ -542,6 +643,57 @@ public class ConnessioneDB {// crea la connessione col database "smistamento_pos
             }
         }
         return eventi;
+    }
+
+    public Evento getEventoSingolo(String ID_Evento) {
+        startConn();
+        Statement stmt = null;
+        ResultSet rs = null;
+        Evento ev=null;
+        ArrayList<Evento> eventi= new ArrayList<>();
+        if (!openConn) {
+            startConn();
+
+        } else {
+            try {
+                stmt = conn.createStatement();
+                rs = stmt.executeQuery("SELECT * FROM eventi WHERE `ID_Evento`='" + ID_Evento + "';");
+                while (rs.next()) {
+
+
+                    this.ID_Cl= rs.getString(1);
+                    this.ID_Ev=rs.getString(2);
+                    this.dataEv=rs.getString(3);
+                    this.nomeLoc= rs.getString(4);
+                    this.numInv= rs.getInt(5);
+
+                    ev= new Evento(ID_Ev, dataEv, nomeLoc, numInv);
+                    eventi.add(ev);
+
+                }
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            } finally {
+                if (rs != null) {
+                    try {
+                        rs.close();
+
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                }
+                if (stmt != null) {
+                    try {
+                        stmt.close();
+
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }
+        return ev;
     }
 
     public ArrayList<Tavolo> getTavolo (String ID_Locale) {
