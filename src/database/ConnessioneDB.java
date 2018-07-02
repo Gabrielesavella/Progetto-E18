@@ -129,7 +129,7 @@ public class ConnessioneDB {// crea la connessione col database "smistamento_pos
 
     // metodo che inserisce i dati del singolo invitato nella table "Locali"
 
-    public void inserisciDatiLocale (String ID_Locale, int numMaxtavoli, Date oraApertura, Date oraChiusura, Date giornoChiusura) {
+    public void inserisciDatiLocale (String ID_Locale, int numMaxtavoli, String oraApertura, String oraChiusura, String giornoChiusura) {
 
         Statement stmt = null;
         ResultSet rs = null;
@@ -217,7 +217,7 @@ public class ConnessioneDB {// crea la connessione col database "smistamento_pos
 
     //Metodo che inserisce i dati del singolo Evento nella TABLE "Eventi"
 
-    public void inserisciDatiEvento(String ID_Cliente, String ID_Evento, Date dataEvento, String nomeLocale, int numeroInvitati) {
+    public void inserisciDatiEvento(String ID_Cliente, String ID_Evento, String dataEvento, String nomeLocale, int numeroInvitati) {
 
         Statement stmt = null;
         ResultSet rs = null;
