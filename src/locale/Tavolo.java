@@ -21,8 +21,7 @@ public class Tavolo implements Comparable{
     private SpecificaTavolo tipoTavolo;
     private final int postiTot;
 
-    /*mettiamo due costruttori, in cui specifichiamo che il tavolo
-    (almeno nella fase iniziale del progetto) è interno al locale.
+    /*
     Nel costruttore 1, il tavolo ha un numero fisso di posti .
     Nel costruttore 2, il tavolo ha un numero di posti deciso da programma
     ( in modo da rendere più flessibile il programma )
@@ -36,12 +35,19 @@ public class Tavolo implements Comparable{
         interno = true;
         postiTot=num_posti;
     }
-    /*CORREZIONE: nel costruttore1 va inizializzato l'array degli invitati, in modo che
-     * se si acceda al metodo assegnaposti l'array venga inizializzato,
-     *  nel costruttore2 ho aggiunto la memorizzazione del dato
+    /*
      * numeroposti @author Gabrielesavella
      */
     public Tavolo (String ID_Locale, String id_tavolo, int num_posti){
+        this.id_tavolo = id_tavolo;
+        this.num_posti = num_posti;
+        interno = true;
+        disponibile = true;
+        AssegnamentiTavolo = new ArrayList<Invitato>(num_posti);
+        postiTot=num_posti;
+    }
+    //metodo utilizzato per il tavolo
+    public Tavolo (String id_tavolo, int num_posti){
         this.id_tavolo = id_tavolo;
         this.num_posti = num_posti;
         interno = true;

@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="librerie">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/librerie/poi-3.5-FINAL.jar!/" />
+      <root url="jar://$PROJECT_DIR$/librerie/junit-4.7.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+    <jarDirectory url="jar://$PROJECT_DIR$/librerie/junit-4.7.jar!/" recursive="false" />
+    <jarDirectory url="jar://$PROJECT_DIR$/librerie/poi-3.5-FINAL.jar!/" recursive="false" />
+  </library>
+</component>
