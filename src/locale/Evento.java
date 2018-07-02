@@ -40,6 +40,14 @@ public class Evento {
 
     }
 
+    public Evento(String nomeEvento, Date time, int numInvitati) {
+        this.nomeEvento = nomeEvento;
+        this.dataEvento = time;
+        this.numInvitati=numInvitati;
+
+
+    }
+
     public String getName(){return nomeEvento;}
 
 

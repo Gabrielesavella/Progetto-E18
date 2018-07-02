@@ -37,13 +37,13 @@ public class txtFacade extends AbstractFacade {
 
     //writings
     @Override
-    public void WriteClient(String username, String password, String name, String surname, String email) throws IOException {
+    public void WriteClient(String username, String password,String name, String surname) throws IOException {
         boolean exist = false;
         txtFileW = new FileWriter(pathClient, true);
         exist = check(pathClient, username);
         if (!exist) {
             bufferWriter = new BufferedWriter(txtFileW);
-            super.WriteClient(username, password, name, surname, email);
+            super.WriteClient(username, password, name, surname);
         }
     }
 
@@ -109,7 +109,7 @@ public class txtFacade extends AbstractFacade {
     public Cliente fetch(String username, String password, String[] colonna) throws IOException {
         if (colonna[0].equals(username) && colonna[1].equals(password)) {
             registered = true;
-            client = new Cliente(colonna[0], colonna[2], colonna[3], colonna[4], colonna[1]);
+            client = new Cliente(colonna[0], colonna[2], colonna[3], colonna[1]);
             return client;
 
         } else {
@@ -141,7 +141,7 @@ public class txtFacade extends AbstractFacade {
         if (colonna[0].equals(nomeEvento)) {
             GregorianCalendar orarioapertura = new GregorianCalendar();
             orarioapertura.add(GregorianCalendar.HOUR, Integer.parseInt(colonna[1]));
-            evento = new Evento(colonna[0], orarioapertura, Integer.parseInt(colonna[2]));
+            evento = new Evento(colonna[0], orarioapertura.getTime(), Integer.parseInt(colonna[2]));
             return evento;
 
         } else {

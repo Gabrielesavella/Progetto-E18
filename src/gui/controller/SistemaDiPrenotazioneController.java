@@ -38,7 +38,7 @@ public class SistemaDiPrenotazioneController{
                 System.out.println("found client with same username. Please try again with a different one.");
                 return false;
             }
-            facade.WriteClient(username,password,name,surname,email);
+            facade.WriteClient(username,password,name,surname);
             return true;
         } catch (IOException e) {
             e.printStackTrace();

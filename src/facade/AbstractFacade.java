@@ -33,13 +33,12 @@ public class AbstractFacade {
         return client;
     }
 
-    public void WriteClient(String username, String password,String name, String surname, String email)throws IOException{
+    public void WriteClient(String username, String password,String name, String surname)throws IOException{
         field = new ArrayList<String>(5);
         field.add(username);
         field.add(password);
         field.add(name);
         field.add(surname);
-        field.add(email);
         generate();
     }
 
