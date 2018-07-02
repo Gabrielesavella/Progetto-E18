@@ -25,12 +25,12 @@ public class Locale {
     public String id_locale;
     private int numMaxTavoli;
     private int numMaxPosti;
-    Date giornodichiusura, oraApertura, oraChiusura;
+    GregorianCalendar giornodichiusura, oraApertura, oraChiusura;
     Calendar calendar;
     private ArrayList<Tavolo> tavoli;
     private ArrayList<Tavolo> tavoliUtilizzati = new ArrayList<>();
     private ArrayList<Invitato> lista_gia_presenti = new ArrayList<>();
-    Date giorno_Chiusura = new Date ();
+    GregorianCalendar giorno_Chiusura = new GregorianCalendar();
 
     // cambiato il tipo di dato giorno chiusura da String a Gregoria calendar , molto più facile da gestire
     // aggiunta inoltre del passaggio dei tavoli tramite parametro
@@ -40,32 +40,32 @@ public class Locale {
     nel locale, novità: tutti i locali hanno come giorno di chiusura il lunedì di default
     @author Gabrielesavella
      */
-    public Locale(String id_locale,int numMaxTavoli, Date ora_Apertura, Date ora_Chiusura, Date giorno_Chiusura) {
+    public Locale(String id_locale,int numMaxTavoli, String ora_Apertura, String ora_Chiusura, String giorno_Chiusura) {
 
-        this.giorno_Chiusura=giorno_Chiusura;
         this.calendar = new GregorianCalendar();
-        calendar.setWeekDate(01,01,6);
-        this.id_locale=id_locale;
-        this.numMaxTavoli=numMaxTavoli;
+        calendar.setWeekDate(01, 01, 6);
+        this.id_locale = id_locale;
+        this.numMaxTavoli = numMaxTavoli;
         this.tavoli = new ArrayList<>();
-        oraChiusura = new Date();
-        oraApertura = new Date();
-        this.oraChiusura.setTime(ora_Chiusura.getTime());
-        this.oraApertura.setTime(ora_Apertura.getTime());
+        this.oraApertura = ricavaOrario(ora_Apertura);
+        this.oraChiusura = ricavaOrario(ora_Chiusura);
+        this.giorno_Chiusura = ricavaGiorno(giorno_Chiusura);
         eventi_locale = new ArrayList<>();
+
     }
+
     /*
-    AGGIUNTA: in questo costruttore ho passato anche i tavoli
-     */
+        AGGIUNTA: in questo costruttore ho passato anche i tavoli
+         */
     public Locale(int numMaxTavoli,int numMaxPosti,ArrayList<Tavolo> tavoli){
         this.id_locale= "Ristorante"+numLoc++;
         this.numMaxPosti=numMaxPosti;
         this.numMaxTavoli=numMaxTavoli;
         this.tavoli = new ArrayList(numMaxTavoli);
-        oraApertura=new Date();
-        oraChiusura=new Date();
+        oraApertura=new GregorianCalendar();
+        oraChiusura=new GregorianCalendar();
         //giorno di chiusura lunedì
-        this.giornodichiusura =new Date();
+        this.giornodichiusura = new GregorianCalendar();
         eventi_locale = new ArrayList<>();
     }
 
@@ -83,13 +83,48 @@ public class Locale {
         }
         // il numero di posti lo calcolo in base ai tavoli che ho dato che occupano la capienza massima del locale
         this.numMaxPosti = getMaxSeats();
-        oraApertura = new Date();
-        oraChiusura = new Date();
+        oraApertura = new GregorianCalendar();
+        oraChiusura = new GregorianCalendar();
         //giorno di chiusura lunedì
-        this.giornodichiusura =new Date();
+        this.giornodichiusura =new GregorianCalendar();
 
+    }
 
+    public GregorianCalendar ricavaOrario(String orario){
 
+        GregorianCalendar time = new GregorianCalendar();
+
+        String[] st = orario.split(":");
+
+        time.add(GregorianCalendar.HOUR, Integer.parseInt(st[0]));
+        time.add(GregorianCalendar.MINUTE, Integer.parseInt(st[1]));
+
+        return time;
+    }
+
+    public GregorianCalendar ricavaGiorno(String giorno) {
+
+        GregorianCalendar day = new GregorianCalendar();
+
+        switch (giorno){
+
+            case "Lunedì":
+                day.add(GregorianCalendar.MONDAY, Calendar.WEEK_OF_YEAR);
+            case "Martedì":
+                day.add(GregorianCalendar.TUESDAY, Calendar.WEEK_OF_YEAR);
+            case "Mercoledì":
+                day.add(GregorianCalendar.WEDNESDAY, Calendar.WEEK_OF_YEAR);
+            case "Giovedì":
+                day.add(GregorianCalendar.THURSDAY, Calendar.WEEK_OF_YEAR);
+            case "Venerdì":
+                day.add(GregorianCalendar.FRIDAY, Calendar.WEEK_OF_YEAR);
+            case "Sabato":
+                day.add(GregorianCalendar.SATURDAY, Calendar.WEEK_OF_YEAR);
+            case "Domenica":
+                day.add(GregorianCalendar.SUNDAY, Calendar.WEEK_OF_YEAR);
+        }
+
+        return day;
     }
 
     /*Smista tutti invitati ad un particolare evento nei tavoli. Fatto ciò, restituisce un arraylist di tutti i tavoli utilizzati*/

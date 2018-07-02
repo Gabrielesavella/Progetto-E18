@@ -1,19 +1,21 @@
 package gui.panels;
 
 //import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
-import gui.finestre.FinestraDisposizioneTavoli;
-import locale.Evento;
+import gui.controller.*;
+import gui.finestre.*;
+import locale.*;
 import locale.Locale;
-import persone.Invitato;
-
+import persone.*;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.*;
-import java.util.ArrayList;
-import java.util.Scanner;
+import java.awt.event.*;
+import java.util.*;
+
+/**
+ *
+ * @author lecciovich
+ */
 
 public class PannelloSpecificheEvento extends JPanel {
     public PannelloSpecificheEvento(Locale locale, Evento evento){
@@ -50,28 +52,35 @@ public class PannelloSpecificheEvento extends JPanel {
         add(tuploadExcel);
         add(bUpload);
 
+        SistemaDiPrenotazioneController sisPr= new SistemaDiPrenotazioneController();
+
         bDownload.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                PrintWriter writer = null;
-                try {
-                    writer = new PrintWriter("the-file-name.txt", "UTF-8");
-                } catch (FileNotFoundException e1) {
-                    e1.printStackTrace();
-                } catch (UnsupportedEncodingException e1) {
-                    e1.printStackTrace();
-                }
+//                PrintWriter writer = null;
+//                try {
+//                    writer = new PrintWriter("the-file-name.txt", "UTF-8");
+//                } catch (FileNotFoundException e1) {
+//                    e1.printStackTrace();
+//                } catch (UnsupportedEncodingException e1) {
+//                    e1.printStackTrace();
+//                }
+//
+//                writer.println("\t\tCod.Fiscale\tNome\tCognome\tetà");
+//                for (int i = 0; i<evento.getNumInvitati(); i++)
+//                    writer.println(i+1+"\t\t\t\t\t\t\t\t");
+//                writer.close();
 
-                writer.println("\t\tCod.Fiscale\tNome\tCognome\tetà");
-                for (int i = 0; i<evento.getNumInvitati(); i++)
-                    writer.println(i+1+"\t\t\t\t\t\t\t\t");
-                writer.close();
+                sisPr.createXlsGenerality(evento.getName());
             }
         });
 
         bUpload.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e)  {
+
+                ArrayList<Invitato> invitati=new ArrayList<>();
+/*
                 Scanner scanner= null;
                 try {
                     File fin=new File("the-file-name.txt");
@@ -88,9 +97,18 @@ public class PannelloSpecificheEvento extends JPanel {
                         System.out.println("Invitati inferiori al numero previsto.");
                         break;
                     }
-                    evento.addInvitati(new Invitato(str[1],str[2],Integer.parseInt(str[3])));
-
+                    Invitato i= new Invitato(str[1],str[2],str[3],Integer.parseInt(str[4]));
+                    evento.addInvitato(i);
+                    invitati.add(i);
                 }
+*/
+                for (Invitato i:sisPr.loadXlsGenerality(evento.getName())) {
+
+                    evento.addInvitati(i);
+                }
+
+                //    sisPr.acquisisciInvitati(invitati);
+
                 System.out.println("Acquisizione invitati effettuata.");
                 FinestraDisposizioneTavoli fd=new FinestraDisposizioneTavoli(locale,evento);
                 fd.setVisible(true);

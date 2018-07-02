@@ -3,24 +3,19 @@ package persone;
 import java.util.GregorianCalendar;
 
 public class Cliente {
-    private String ID,conf_Psw,Psw,nome,cognome;//,luogonascita
-    //private GregorianCalendar data;
-    //private boolean okpws;
+    private String ID,username,Psw,nome,cognome,email;
 
-    public Cliente(String nome, String cognome, String ID, String psw) {//, String conf_Psw, String luogonascita
+
+    public Cliente(String nome, String cognome, String ID, String psw) {
         this.ID = ID;
-//        this.conf_Psw = conf_Psw;
         Psw = psw;
         this.nome = nome;
         this.cognome = cognome;
-//        this.luogonascita = luogonascita;
-
     }
 
     public Cliente(String nome, String cognome) {//, String luogonascita
         this.nome = nome;
         this.cognome = cognome;
-//        this.luogonascita = luogonascita;
     }
 
     public void setID(String ID) {
