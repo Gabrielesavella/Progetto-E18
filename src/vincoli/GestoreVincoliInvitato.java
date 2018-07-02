@@ -25,6 +25,7 @@ public class GestoreVincoliInvitato implements Vincolo {
         c.startConn();
         lista_vincoli= c.getVincoloInvitato(ID_Evento);
         invitati= c.getInvitato(ID_Evento);
+        c.closeConn();
         evento.getLista_vincoli().add(this);
         creaVincolo();
     }

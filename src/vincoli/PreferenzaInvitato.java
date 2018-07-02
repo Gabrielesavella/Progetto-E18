@@ -31,19 +31,25 @@ public class PreferenzaInvitato implements Vincolo {
     public PreferenzaInvitato(String ID_Ev, String ID_Inv, String vicino, String lontano) {
 
         c.startConn();
+        c.getVincoloInvitato(ID_Ev);
+        invitati= c.getInvitato(ID_Ev);
+        c.closeConn();
+
         this.ID_Ev = ID_Ev;
         eventi=c.getEvento(ID_Ev);
         evento=prendiEvento(ID_Ev);
         this.ID_Inv= ID_Inv;
         this.vicino=vicino;
         this.lontano=lontano;
-        invitati= c.getInvitato(ID_Ev);
+
         creaListaInvitatiLontani();
         creaListaInvitatiVicini();
         creaListaInvitati();
         this.numero_vincolati_vicini = lista_vincolati_vicini.size();
         this.numero_vincolati_lontani = lista_vincolati_lontani.size();
+
         evento.getLista_vincoli().add(this);
+
     }
 
 

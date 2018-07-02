@@ -27,6 +27,7 @@ public class GestoreVincoliTavolo {
         this.vincoliTav = c.getVincoloTavolo(ID_Ev);
         this.invitati = c.getInvitato(ID_Ev);
         this.tavoli= c.getTavolo(ID_Ev);
+        c.closeConn();
 
         //Ordino i tavoli per numero di posti liberi (dal minore al maggiore)
         //E' conveniente sortarli per posti liberi e non per posti totali perché in questo punto del programma tali valori coincidono,

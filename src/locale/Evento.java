@@ -31,12 +31,15 @@ public class Evento {
 
         c.startConn();
         locali= c.getLocale(nomeLocale);
+        c.closeConn();
         this.nomeEvento = nomeEvento;
         this.location=prendiLocale(nomeLocale);
+        this.numInvitati=numInvitati;
         this.dataEvento = ricavaOrario(dataEvento);
+
         lista_vincoli = new ArrayList();
         this.invitati = new ArrayList(numInvitati);
-        this.numInvitati=numInvitati;
+
         location.getEventi().add(this);
 
     }
