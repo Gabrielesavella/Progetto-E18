@@ -1,9 +1,10 @@
 package gui.panels;
 
 import gui.controller.SistemaDiPrenotazioneController;
+import gui.finestre.FinestraCreazioneEvento;
 import gui.finestre.FinestraSpecificheEvento;
-import locale.Evento;
-import locale.Locale;
+import locale.GestoreEvento;
+import locale.GestoreLocale;
 import org.jdesktop.swingx.JXDatePicker;
 import persone.Cliente;
 
@@ -11,11 +12,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;
-
-import static locale.Evento.getStringData;
 
 /**
  *
@@ -23,7 +23,7 @@ import static locale.Evento.getStringData;
  */
 
 public class PannelloCredenzialiEvento extends JPanel{
-    public PannelloCredenzialiEvento(ArrayList<locale.Locale> locali, Cliente cliente){
+    public PannelloCredenzialiEvento(ArrayList<GestoreLocale> locali, Cliente cliente, FinestraCreazioneEvento frame){
         JButton ok=new JButton("OK");
 
         JLabel nome= new JLabel("Nome Evento:");
@@ -62,8 +62,8 @@ public class PannelloCredenzialiEvento extends JPanel{
         JComboBox<String> dropDownLocali= new JComboBox<String>();
 
         dropDownLocali.addItem("da Giulio");
-        dropDownLocali.addItem("respiriani");
-        dropDownLocali.addItem("persone da bullizzare");
+        dropDownLocali.addItem("fortezza della solitudine");
+        dropDownLocali.addItem("morte nera");
 
 
 
@@ -80,7 +80,7 @@ public class PannelloCredenzialiEvento extends JPanel{
         ok.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Locale localeSelezionato=null;
+                GestoreLocale gestoreLocaleSelezionato =null;
 
                 int invitati=Integer.parseInt(tnInv.getText());
 //                int annoInt= Integer.parseInt(anno.getText());
@@ -90,19 +90,20 @@ public class PannelloCredenzialiEvento extends JPanel{
                 GregorianCalendar calendar = new GregorianCalendar();//annoInt,meseInt,giornoInt
                 calendar.setTime(data);
 
-                for (Locale l:locali) {
+                for (GestoreLocale l:locali) {
                     if(l.id_locale.equals(dropDownLocali.getSelectedItem())) {
-                        localeSelezionato=l;
+                        gestoreLocaleSelezionato =l;
                         if (sisPr.creaEvento(tNome.getText(),calendar,Integer.parseInt(tnInv.getText()),cliente))
-                            System.out.println("evento creato :)");
+                            System.out.println("gestoreEvento creato :)");
                     }
                 }
 
-                Evento evento=new Evento(tNome.getText(),calendar.getTime().toString(),localeSelezionato.getId_locale(),invitati);
-                FinestraSpecificheEvento fs= new FinestraSpecificheEvento(localeSelezionato,evento);//fetchEvento
+                GestoreEvento gestoreEvento =new GestoreEvento(tNome.getText(),calendar, gestoreLocaleSelezionato,invitati);
+                FinestraSpecificheEvento fs= new FinestraSpecificheEvento(gestoreLocaleSelezionato, gestoreEvento);//fetchEvento
                 fs.setVisible(true);
+                frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
+
             }
         });
     }
-
 }

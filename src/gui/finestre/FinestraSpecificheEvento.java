@@ -1,12 +1,11 @@
 package gui.finestre;
 
 import gui.panels.PannelloSpecificheEvento;
-import locale.Evento;
-import locale.Locale;
+import locale.GestoreEvento;
+import locale.GestoreLocale;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
 
 /**
  *
@@ -14,9 +13,9 @@ import java.util.ArrayList;
  */
 
 public class FinestraSpecificheEvento extends JFrame{
-    public FinestraSpecificheEvento(Locale locale, Evento evento){
+    public FinestraSpecificheEvento(GestoreLocale gestoreLocale, GestoreEvento gestoreEvento){
         setSize(200,200);
-        PannelloSpecificheEvento ps=new PannelloSpecificheEvento(locale,evento);
+        PannelloSpecificheEvento ps=new PannelloSpecificheEvento(gestoreLocale, gestoreEvento,this);
         Container c=getContentPane();
         c.add(ps);
     }

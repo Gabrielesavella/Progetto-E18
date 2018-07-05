@@ -1,12 +1,14 @@
 package facade;
 
-import locale.Evento;
+import locale.GestoreEvento;
 import persone.Cliente;
 import persone.Invitato;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
+
+import static persone.Invitato.setID_Inv;
 
 public class txtFacade extends AbstractFacade {
 
@@ -16,7 +18,7 @@ public class txtFacade extends AbstractFacade {
     private FileReader txtFileR;
     private BufferedWriter bufferWriter;
     private BufferedReader buffReader;
-    private Evento evento = null;
+    private GestoreEvento gestoreEvento = null;
     private Cliente client = null;
     public Invitato invitato = null;
     private boolean registered = false;
@@ -37,13 +39,13 @@ public class txtFacade extends AbstractFacade {
 
     //writings
     @Override
-    public void WriteClient(String username, String password,String name, String surname) throws IOException {
+    public void WriteClient(String username, String password, String name, String surname, String email) throws IOException {
         boolean exist = false;
         txtFileW = new FileWriter(pathClient, true);
         exist = check(pathClient, username);
         if (!exist) {
             bufferWriter = new BufferedWriter(txtFileW);
-            super.WriteClient(username, password, name, surname);
+            super.WriteClient(username, password, name, surname, email);
         }
     }
 
@@ -106,10 +108,10 @@ public class txtFacade extends AbstractFacade {
 
 
     @Override
-    public Cliente fetch(String username, String password, String[] colonna) throws IOException {
-        if (colonna[0].equals(username) && colonna[1].equals(password)) {
+    public Cliente fetch( String username, String password, String[] colonna) throws IOException {
+        if (colonna[3].equals(username) && colonna[4].equals(password)) {
             registered = true;
-            client = new Cliente(colonna[0], colonna[2], colonna[3], colonna[1]);
+            client = new Cliente(colonna[0], colonna[1], colonna[3], colonna[2], colonna[4]);
             return client;
 
         } else {
@@ -119,7 +121,7 @@ public class txtFacade extends AbstractFacade {
 
     //fetchEvento + fetch del relativo oggetto
 
-    public Evento fetchEvento(String nomeEvento) throws IOException {
+    public GestoreEvento fetchEvento(String nomeEvento) throws IOException {
 
         String line;
         String[] colonna;
@@ -130,22 +132,22 @@ public class txtFacade extends AbstractFacade {
         while (reader.ready()) {
             line = reader.readLine();
             colonna = line.split("\t");
-            evento = fetch(nomeEvento, colonna);
+            gestoreEvento = fetch(nomeEvento, colonna);
         }
-        return evento;
+        return gestoreEvento;
     }
 
 
-    public Evento fetch(String nomeEvento, String[] colonna) throws IOException {
+    public GestoreEvento fetch(String nomeEvento, String[] colonna) throws IOException {
 
         if (colonna[0].equals(nomeEvento)) {
             GregorianCalendar orarioapertura = new GregorianCalendar();
             orarioapertura.add(GregorianCalendar.HOUR, Integer.parseInt(colonna[1]));
-            evento = new Evento(colonna[0], orarioapertura.getTime(), Integer.parseInt(colonna[2]));
-            return evento;
+            gestoreEvento = new GestoreEvento(colonna[0], orarioapertura, Integer.parseInt(colonna[2]));
+            return gestoreEvento;
 
         } else {
-            return evento;
+            return gestoreEvento;
         }
 
     }
@@ -165,7 +167,9 @@ public class txtFacade extends AbstractFacade {
         while ( buffReader.ready()) {
             line = buffReader.readLine();
             colonna = line.split("\t");
-            invitato = new Invitato(colonna[0],colonna[1],colonna[2],Integer.parseInt(colonna[3]));
+
+            invitato = new Invitato(setID_Inv(colonna[1], colonna[2]), colonna[1],colonna[2],Integer.parseInt(colonna[3]));
+
             AllGuests.add(invitato);
         }
         closeReading();
@@ -190,11 +194,13 @@ public class txtFacade extends AbstractFacade {
         return invitato;
     }
 
-
+    //REVISIONARE
     public Invitato getGuest(String idInvitato, String[] colonna) throws IOException {
 
         if (colonna[0].equals(idInvitato)) {
-            invitato = new Invitato(colonna[0],colonna[1],colonna[2],Integer.parseInt(colonna[3]));
+
+            invitato = new Invitato(setID_Inv(colonna[1],colonna[2]), colonna[1],colonna[2],Integer.parseInt(colonna[3]));
+
             return invitato;
 
         } else {

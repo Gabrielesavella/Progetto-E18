@@ -1,15 +1,14 @@
 package gui.panels;
 
-import facade.AbstractFacade;
 import gui.controller.SistemaDiPrenotazioneController;
-import locale.Locale;
+import locale.GestoreLocale;
 import persone.Cliente;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
+import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 
 /**
@@ -18,11 +17,11 @@ import java.util.ArrayList;
  */
 
 public class PannelloRegistrazione extends JPanel {
-    //static Cliente lecciovich= new Cliente("lecciovich","Marco","Lecce","emailprova@gmail.com","prova");
+    static Cliente lecciovich= new Cliente("lecciovich","Marco","Lecce", "marcolecce@gmail.com","prova");
     static ArrayList<Cliente> clienti=new ArrayList<Cliente>(2);
 
-    public PannelloRegistrazione(ArrayList<Locale> locali){
-        //clienti.add(lecciovich);
+    public PannelloRegistrazione(ArrayList<GestoreLocale> locali,JFrame frame){
+        clienti.add(lecciovich);
 
         JButton conferma = new JButton("Registrati");
         //etichette per descrizione campi di testo
@@ -92,6 +91,8 @@ public class PannelloRegistrazione extends JPanel {
                 boolean psswrdCorretta=tPassword.getText().equals(tConfPassword.getText());
                 if(registrazione & psswrdCorretta){
                     clienteAdded.setText("Ho aggiunto un cliente");
+                    frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
+
                 }
                 else {
                     if (!psswrdCorretta) {

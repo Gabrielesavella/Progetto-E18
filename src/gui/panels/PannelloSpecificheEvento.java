@@ -1,15 +1,18 @@
+
 package gui.panels;
 
 //import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
 import gui.controller.*;
 import gui.finestre.*;
 import locale.*;
-import locale.Locale;
+import locale.GestoreLocale;
 import persone.*;
+import vincoli.*;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.IOException;
 import java.util.*;
 
 /**
@@ -18,7 +21,7 @@ import java.util.*;
  */
 
 public class PannelloSpecificheEvento extends JPanel {
-    public PannelloSpecificheEvento(Locale locale, Evento evento){
+    public PannelloSpecificheEvento(GestoreLocale gestoreLocale, GestoreEvento gestoreEvento, FinestraSpecificheEvento frame){
 
 
         // etichette specifiche
@@ -41,16 +44,21 @@ public class PannelloSpecificheEvento extends JPanel {
         bDownload.setPreferredSize(new Dimension(WIDHT,HEIGHT));
         JButton bUpload= new JButton(newI2);
         bDownload.setPreferredSize(new Dimension(WIDHT,HEIGHT));
+        JButton bUploadOblig=new JButton("invia :)");
+        bDownload.setPreferredSize(new Dimension(WIDHT,HEIGHT/2));
 
         // campi testo
         JLabel tdownloadExcel= new JLabel("download");
         JLabel tuploadExcel= new JLabel("upload");
+        JLabel tuploadOblig= new JLabel("uploadOblig");
 
-        setLayout(new GridLayout(2,2));
+        setLayout(new GridLayout(3,2));
         add(tdownloadExcel);
         add(bDownload);
         add(tuploadExcel);
         add(bUpload);
+        add(tuploadOblig);
+        add(bUploadOblig);
 
         SistemaDiPrenotazioneController sisPr= new SistemaDiPrenotazioneController();
 
@@ -67,17 +75,17 @@ public class PannelloSpecificheEvento extends JPanel {
 //                }
 //
 //                writer.println("\t\tCod.Fiscale\tNome\tCognome\tetà");
-//                for (int i = 0; i<evento.getNumInvitati(); i++)
+//                for (int i = 0; i<gestoreEvento.getNumInvitati(); i++)
 //                    writer.println(i+1+"\t\t\t\t\t\t\t\t");
 //                writer.close();
 
-                sisPr.createXlsGenerality(evento.getName());
+                sisPr.createXlsGenerality(gestoreEvento.getName());
             }
         });
 
         bUpload.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e)  {
+            public void actionPerformed(ActionEvent e) {
 
                 ArrayList<Invitato> invitati=new ArrayList<>();
 /*
@@ -98,20 +106,33 @@ public class PannelloSpecificheEvento extends JPanel {
                         break;
                     }
                     Invitato i= new Invitato(str[1],str[2],str[3],Integer.parseInt(str[4]));
-                    evento.addInvitato(i);
+                    gestoreEvento.addInvitato(i);
                     invitati.add(i);
                 }
 */
-                for (Invitato i:sisPr.loadXlsGenerality(evento.getName())) {
 
-                    evento.addInvitati(i);
-                }
+                    for (Invitato i : sisPr.loadXlsGenerality(gestoreEvento.getName())) {
+
+                        gestoreEvento.addInvitati(i);
+                    }
+
 
                 //    sisPr.acquisisciInvitati(invitati);
 
-                System.out.println("Acquisizione invitati effettuata.");
-                FinestraDisposizioneTavoli fd=new FinestraDisposizioneTavoli(locale,evento);
+                System.out.println("Acquisizione 1 invitati effettuata.");
+                sisPr.writeXlsObligations(gestoreEvento.getName());
+
+            }
+        });
+
+        bUploadOblig.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("Acquisizione 2 invitati effettuataAAAAAAAAAAAAAAA.");
+                GestoreVincoliTavolo gestoreVincoliTavolo= new GestoreVincoliTavolo(gestoreLocale.getTavoliLocale(),gestoreEvento.getListaInvitati(),sisPr.saveOnObligations(gestoreEvento.getName()));
+                FinestraDisposizioneTavoli fd=new FinestraDisposizioneTavoli(gestoreLocale, gestoreEvento,gestoreVincoliTavolo);
                 fd.setVisible(true);
+                frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
 
             }
         });

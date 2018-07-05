@@ -15,7 +15,7 @@ public class Tavolo implements Comparable{
 
     private int num_posti,assegnamenti = 0;
     private boolean interno;
-    private String id_tavolo;
+    private String id_tavolo, ID_Locale;
     private boolean disponibile;
     private ArrayList<Invitato> AssegnamentiTavolo;
     private int postiTot;
@@ -38,6 +38,7 @@ public class Tavolo implements Comparable{
      * numeroposti @author Gabrielesavella
      */
     public Tavolo (String ID_Locale, String id_tavolo, int num_posti){
+        this.ID_Locale=ID_Locale;
         this.id_tavolo = id_tavolo;
         this.num_posti = num_posti;
         interno = true;
@@ -203,6 +204,10 @@ public class Tavolo implements Comparable{
     @Override
     public int compareTo(Object compareTav) {
         int compareNumPosti = ((Tavolo) compareTav).getNumPosti();
-        return this.postiTot - compareNumPosti;
+        return this.num_posti - compareNumPosti;
+    }
+
+    public String getID_Loc() {
+        return ID_Locale;
     }
 }

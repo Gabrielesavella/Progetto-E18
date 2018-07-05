@@ -25,7 +25,7 @@ DROP TABLE IF EXISTS `eventi`;
 CREATE TABLE `eventi` (
   `ID_Evento` varchar(30) NOT NULL,
   `ID_Cliente` varchar(30) NOT NULL,
-  `DataEvento` date NOT NULL,
+  `DataEvento` varchar(30) NOT NULL,
   `Locale` varchar(30) NOT NULL,
   `NumeroInvitati` int(3) NOT NULL,
   PRIMARY KEY (`ID_Evento`,`ID_Cliente`)

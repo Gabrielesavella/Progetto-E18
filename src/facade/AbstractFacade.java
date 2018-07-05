@@ -1,6 +1,6 @@
 package facade;
 
-import locale.Evento;
+import locale.GestoreEvento;
 import persone.Cliente;
 
 import java.io.*;
@@ -13,7 +13,7 @@ public class AbstractFacade {
 
     protected ArrayList <String> field;
     private Cliente client = null;
-    private Evento evento = null;
+    private GestoreEvento gestoreEvento = null;
 
     /*
     ATTENZIONE_ questo fetchClient va implementato nelle classi eredi
@@ -33,12 +33,13 @@ public class AbstractFacade {
         return client;
     }
 
-    public void WriteClient(String username, String password,String name, String surname)throws IOException{
+    public void WriteClient(String username, String password,String name, String surname, String email)throws IOException{
         field = new ArrayList<String>(5);
         field.add(username);
         field.add(password);
         field.add(name);
         field.add(surname);
+        field.add(email);
         generate();
     }
 
@@ -76,8 +77,8 @@ public class AbstractFacade {
         return client;
     }
 
-    public Evento fetch(String nomeEvento, String[] colonna) throws IOException{
-        return evento;
+    public GestoreEvento fetch(String nomeEvento, String[] colonna) throws IOException{
+        return gestoreEvento;
     }
 
     public ArrayList<String> getField() {

@@ -5,9 +5,7 @@
  */
 package database;
 
-import locale.Evento;
-import locale.Locale;
-import locale.Tavolo;
+import locale.*;
 import persone.Cliente;
 import persone.Invitato;
 import vincoli.PreferenzaInvitato;
@@ -15,11 +13,7 @@ import vincoli.SpecificaTavolo;
 
 import java.sql.*;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.GregorianCalendar;
-
 
 
 /**
@@ -34,7 +28,7 @@ public class ConnessioneDB {// crea la connessione col database "smistamento_pos
     private Connection conn = null; //si crea una nuova connessione, per adesso nulla
     private boolean openConn = false; //variabile per verificare se la connessione col DB è aperta o meno
 
-    private String ID_Cl, nomeCl, cognomeCl, pwdCl, nomeLoc, ID_Ev, ID_Inv, nomeInv, cogInv, vicino, lontano, ID_Locale, ID_Tavolo, dataEv, oraApertura, oraChiusura, giornoChiusura;
+    private String ID_Cl, nomeCl, cognomeCl, emailCl, pwdCl, nomeLoc, ID_Ev, ID_Inv, nomeInv, cogInv, vicino, lontano, ID_Locale, ID_Tavolo, dataEv, oraApertura, oraChiusura, giornoChiusura;
     private int numInv, etaInv, diffMot, veg, bamb, tavOnore, tavIsol, vicTV, numMaxtavoli, numeroPosti;
 
 
@@ -77,7 +71,6 @@ public class ConnessioneDB {// crea la connessione col database "smistamento_pos
     5) Invitati (chiavi ID_Evento e ID_Invitato)
     6) Specifica_Tavolo, vincoli relativi alla scelta del tavolo  (chiavi: ID_Evento ed ID_Invitato)
     7) Preferenze_Invitato, vincoli relativi a quali invitati avere vicino o lontano, (chiavi: ID_Evento ed ID_Invitato)
-
     Per ognuna di queste table c'è un metodo:
      - inserisciDatiNomedellaTable, che inserisce nuovi valori nei campi della Table
      - getNomeTable, che seleziona e ritorna i valori della Table, sempre secondo la chiave primaria selezionata, da inserire nel costruttore corrispettivo
@@ -215,7 +208,7 @@ public class ConnessioneDB {// crea la connessione col database "smistamento_pos
         }
     }
 
-    //Metodo che inserisce i dati del singolo Evento nella TABLE "Eventi"
+    //Metodo che inserisce i dati del singolo GestoreEvento nella TABLE "Eventi"
 
     public void inserisciDatiEvento(String ID_Cliente, String ID_Evento, String dataEvento, String nomeLocale, int numeroInvitati) {
 
@@ -303,7 +296,7 @@ public class ConnessioneDB {// crea la connessione col database "smistamento_pos
 
     }
 
-    //metodo che inserisce vincoli sul tavolo secondo uno specifico Evento e uno specifico Invitato.
+    //metodo che inserisce vincoli sul tavolo secondo uno specifico GestoreEvento e uno specifico Invitato.
     // il metodo leggere i valori 1 e 0, che in Mysql sono tradotti in TINYINT= BOOLEAN.
     // TRUE: vincolo inserito, FALSE: vincolo non inserito
 
@@ -410,9 +403,61 @@ public class ConnessioneDB {// crea la connessione col database "smistamento_pos
                     this.ID_Cl= rs.getString(1);
                     this.nomeCl=rs.getString(2);
                     this.cognomeCl=rs.getString(3);
+                    this.emailCl=rs.getString(4); //Aggiunta una colonna per il campo email
+                    this.pwdCl= rs.getString(5);
+
+                    cl= new Cliente (nomeCl, cognomeCl, ID_Cl, emailCl, pwdCl);
+                    clienti.add(cl);
+
+                }
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            } finally {
+                if (rs != null) {
+                    try {
+                        rs.close();
+
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                }
+                if (stmt != null) {
+                    try {
+                        stmt.close();
+
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }
+        return cl;
+    }
+
+    public ArrayList<Cliente>  getClienti () {
+        startConn();
+        Statement stmt = null; //creazione di uno Statement, per adesso nullo
+        ResultSet rs = null; //variabile che contiene il risultato dello Statement
+        Cliente cl=null;
+        ArrayList<Cliente> clienti= new ArrayList<>();
+        if (!openConn) {
+            startConn();
+
+        } else {
+            try {
+                stmt = conn.createStatement();
+                rs = stmt.executeQuery("SELECT * FROM clienti ;");
+
+                while (rs.next()) {
+
+
+                    this.ID_Cl= rs.getString(1);
+                    this.nomeCl=rs.getString(2);
+                    this.cognomeCl=rs.getString(3);
                     this.pwdCl= rs.getString(4);
 
-                    cl= new Cliente (nomeCl, cognomeCl, ID_Cl, pwdCl);
+                    cl= new Cliente (nomeCl, cognomeCl, ID_Cl, emailCl, pwdCl);
                     clienti.add(cl);
 
                 }
@@ -592,7 +637,7 @@ public class ConnessioneDB {// crea la connessione col database "smistamento_pos
         return locali;
     }
 
-    //prende dalla TABLE clienti i dati relativi all'evento con la specifica chiave ID_Evento, che sono quelli da inserire nel costruttore di Evento()
+    //prende dalla TABLE clienti i dati relativi all'evento con la specifica chiave ID_Evento, che sono quelli da inserire nel costruttore di GestoreEvento()
 
     public ArrayList<Evento> getEvento(String id_locale) {
         startConn();
@@ -619,7 +664,7 @@ public class ConnessioneDB {// crea la connessione col database "smistamento_pos
                     ev= new Evento(ID_Ev, dataEv, nomeLoc, numInv);
                     eventi.add(ev);
 
-                    }
+                }
 
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -746,7 +791,7 @@ public class ConnessioneDB {// crea la connessione col database "smistamento_pos
         return tavoli;
     }
 
-    //ritorna l'array di invitati per lo specifico Evento di identificativo ID_Ev
+    //ritorna l'array di invitati per lo specifico GestoreEvento di identificativo ID_Ev
 
     public ArrayList<Invitato> getInvitato(String ID_Ev) {
         startConn();
@@ -800,7 +845,7 @@ public class ConnessioneDB {// crea la connessione col database "smistamento_pos
 
     }
 
-    //ritorna l'array di vincoli relativi alle specifiche sul Tavolo per lo specifico Evento di identificativo ID_Ev
+    //ritorna l'array di vincoli relativi alle specifiche sul Tavolo per lo specifico GestoreEvento di identificativo ID_Ev
 
     public ArrayList<SpecificaTavolo> getVincoloTavolo(String ID_Ev) {
         startConn();
@@ -857,7 +902,7 @@ public class ConnessioneDB {// crea la connessione col database "smistamento_pos
         return vincoliTav;
     }
 
-    //ritorna l'array di vincoli relativi alle preferenze sugli invitati, per lo specifico Evento di identificativo ID_Ev
+    //ritorna l'array di vincoli relativi alle preferenze sugli invitati, per lo specifico GestoreEvento di identificativo ID_Ev
 
     public ArrayList<PreferenzaInvitato> getVincoloInvitato(String ID_Ev) {
         startConn();
@@ -908,7 +953,7 @@ public class ConnessioneDB {// crea la connessione col database "smistamento_pos
             }
         }
 
-    return vincoliInv;
+        return vincoliInv;
     }
 
 

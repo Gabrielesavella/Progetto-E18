@@ -2,10 +2,12 @@ package gui.controller;
 
 
 import facade.*;
-import locale.Evento;
+import locale.GestoreEvento;
 import persone.Cliente;
 import persone.Invitato;
+import vincoli.*;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
@@ -38,7 +40,7 @@ public class SistemaDiPrenotazioneController{
                 System.out.println("found client with same username. Please try again with a different one.");
                 return false;
             }
-            facade.WriteClient(username,password,name,surname);
+            facade.WriteClient(username,password,name,surname,email);
             return true;
         } catch (IOException e) {
             e.printStackTrace();
@@ -75,15 +77,15 @@ public class SistemaDiPrenotazioneController{
     }
 
 
-    public Evento getEvento(String nomeEvento){
+    public GestoreEvento getEvento(String nomeEvento){
         String[] columns= new String[10];
-        Evento evento=null;
+        GestoreEvento gestoreEvento =null;
         try {
-            evento=facade.fetch(nomeEvento,columns);
+            gestoreEvento =facade.fetch(nomeEvento,columns);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return evento;
+        return gestoreEvento;
     }
 
 
@@ -122,8 +124,35 @@ public class SistemaDiPrenotazioneController{
     }
 
     public ArrayList<Invitato> loadXlsGenerality(String nomeEvento){
-        return xlsFacade.readXlsGuests(nomeEvento);
+        ArrayList<Invitato> listainvitatiEvento=null;
+        try {
+            listainvitatiEvento = xlsFacade.readXlsGuests(nomeEvento);
+
+        int sizelist = listainvitatiEvento.size();
+        txtFacade t = new txtFacade(nomeEvento+"lista_invitati.txt",sizelist);
+        for (Invitato element:listainvitatiEvento) {
+            t.WriteGuests(element.getID_Inv(),element.getNome(),element.getCognome(),element.getEta());
+        }
+        }catch (IOException e){ e.printStackTrace(); }
+
+        return listainvitatiEvento ;
     }
 
+    public ArrayList<Invitato> writeXlsObligations(String nomeEvento){
+        if (!xlsFacade.reWriteXls(nomeEvento,loadXlsGenerality(nomeEvento))){
+            return null;
+        }
+        return loadXlsGenerality(nomeEvento);
+    }
+
+    public ArrayList<SpecificaTavolo> saveOnObligations(String nomeEvento){
+        ArrayList<SpecificaTavolo> specificaTavolos=xlsFacade.readSpecificheTavolo(nomeEvento);
+//        if (specificaTavolos==null){
+//            System.out.println("no buono");
+//        }
+//        System.out.println("yuppi");
+        return specificaTavolos;
+    }
 
 }
+

@@ -25,9 +25,9 @@ DROP TABLE IF EXISTS `locali`;
 CREATE TABLE `locali` (
   `ID_Locale` varchar(45) NOT NULL,
   `numMaxtavoli` int(11) NOT NULL,
-  `oraApertura` date NOT NULL,
-  `oraChiusura` date NOT NULL,
-  `giornoChiusura` date NOT NULL,
+  `oraApertura` varchar(45) NOT NULL,
+  `oraChiusura` varchar(45) NOT NULL,
+  `giornoChiusura` varchar(45) NOT NULL,
   PRIMARY KEY (`ID_Locale`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;

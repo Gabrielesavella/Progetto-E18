@@ -1,16 +1,17 @@
 package gui.panels;
 
-import facade.AbstractFacade;
 import gui.controller.SistemaDiPrenotazioneController;
 import gui.finestre.FinestraCreazioneEvento;
+import gui.finestre.FinestraLogin;
 import gui.finestre.FinestraRegistrazione;
-import locale.Locale;
+import locale.GestoreLocale;
 import persone.Cliente;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 
 /**
@@ -19,7 +20,7 @@ import java.util.ArrayList;
  */
 
 public class PannelloLogin extends JPanel {
-    public PannelloLogin(ArrayList<Locale> locali){
+    public PannelloLogin(ArrayList<GestoreLocale> locali, FinestraLogin frame){
         // LookandFeel setup
         try {
             for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
@@ -99,8 +100,9 @@ public class PannelloLogin extends JPanel {
                 Cliente cliente = sisPr.login(tUsername.getText(), String.valueOf(tPassword.getPassword()));
                 if (cliente!=null){
                     FinestraCreazioneEvento fe=new FinestraCreazioneEvento(locali,cliente);
-                    fe.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
                     fe.setVisible(true);
+                    //fe.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+                    frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
                 }
                 else{
                     System.out.println("errore in creazione Cliente");
@@ -110,4 +112,4 @@ public class PannelloLogin extends JPanel {
 
     }
 
-}
+    }
