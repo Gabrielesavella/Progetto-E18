@@ -6,6 +6,7 @@ import locale.Tavolo;
 import persone.Invitato;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 
 public class CreatePreferenza {

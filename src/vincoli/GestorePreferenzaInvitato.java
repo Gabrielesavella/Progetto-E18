@@ -20,6 +20,7 @@ public class GestorePreferenzaInvitato implements Vincolo {
     private ArrayList<Tavolo> tavoli = new ArrayList<>();
     private ArrayList<Invitato> daSistemare = new ArrayList<>();
 
+
     public GestorePreferenzaInvitato(Invitato invitato, ArrayList<Invitato> vincolatiAInvitato, ArrayList<Tavolo> tavoli, PreferenzaInvitatoEnum preferenza) {
 
         this.gestoreEvento = gestoreEvento;
@@ -30,15 +31,15 @@ public class GestorePreferenzaInvitato implements Vincolo {
         {lista_vincolati.addAll(vincolatiAInvitato);}
         this.numero_vincolati = lista_vincolati.size();
         this.tavoli= tavoli;
-        /*verificaIdoneita();
-        lista_vincolati.removeAll(lista_vincolati);
-        lista_vincolati.addAll(vincolatiAInvitato);
-        lista_vincolati.add(invitato);*/
-        daSistemare.addAll(lista_vincolati);
 
     }
 
-
+    public void sortaTavoli(){
+        if (preferenza==PreferenzaInvitatoEnum.STA_VICINO_A){
+            Collections.sort(tavoli, Collections.reverseOrder());
+        }
+        else { Collections.sort(tavoli);}
+    }
     //Questo metodo verifica se le persone che vengono vincolate siano realmente presenti all'gestoreEvento e se ci sono
     //altri vincoli che confutano questo.
     /*public void verificaIdoneita(){
@@ -53,7 +54,10 @@ public class GestorePreferenzaInvitato implements Vincolo {
     //Questo metodo crea il vincolo secondo la preferenza.
     public void verificaIdoneita() {
 
-        if (lista_vincolati.size()==1) {
+        daSistemare.addAll(lista_vincolati);
+        removeDuplicati();
+
+        if (daSistemare.size()==0 || lista_vincolati.size()==1) {
 
             System.out.println("Nessun vincolo");}
 
@@ -61,12 +65,11 @@ public class GestorePreferenzaInvitato implements Vincolo {
 
             if (preferenza == PreferenzaInvitatoEnum.STA_VICINO_A) {
 
-                Collections.sort(tavoli, Collections.reverseOrder());
+
                 mettiVicini();
 
             } else if (preferenza == PreferenzaInvitatoEnum.NON_STA_VICINO_A) {
 
-                Collections.sort(tavoli);
                 mettiLontani();
 
             }
@@ -76,23 +79,30 @@ public class GestorePreferenzaInvitato implements Vincolo {
 
     //Questo metodo indica come mettere a sedere gli invitati a seconda che alcuni siano già seduti o meno.
     public void mettiVicini(){
-
-        for (int k=0; k < numero_vincolati;  k++){
-
-            if (controllaSePresente(lista_vincolati.get(k))==true){
-
-                smistaViciniSenzaDuplicati();
-                break;
-
-            } else  {
-                smistaVicini();
+        int tavoliInutilizzabili=0;
+        for (Tavolo t: tavoli){
+            if (t.getDisponibile() && t.getNumPosti()>=daSistemare.size() && daSistemare.size()==lista_vincolati.size()) {
+                t.addAllGuests(daSistemare);
                 break;
             }
+            else if(t.getDisponibile() && t.getNumPosti()>=daSistemare.size() && daSistemare.size()<lista_vincolati.size() && t==tavoliDispVincoloVicinanza()){
+                t.addAllGuests(daSistemare);
+                break;
+            }
+            else {
+                tavoliInutilizzabili++;
+                if(tavoliInutilizzabili==tavoli.size()){
+                    System.out.println("Nessun tavolo disponibile");
+                }
+            }
         }
+
     }
 
+
+
     //Questo metodo mette gli invitati vicino al primo tavolo disponibile.
-    private void smistaVicini() {
+    /*private void smistaVicini() {
 
         for (Tavolo t : tavoli){
 
@@ -105,25 +115,43 @@ public class GestorePreferenzaInvitato implements Vincolo {
                 break;
             }
         }
-    };
+    };*/
 
     //Questo metodo indica come mettere a sedere gli invitati a seconda che alcuni siano già seduti o meno.
     public void mettiLontani(){
+        int k=0;
 
-        for (int k=0; k < numero_vincolati;  k++){
+        for (Tavolo t : tavoli) {
 
-            if (controllaSePresente(lista_vincolati.get(k))==true){
 
-                smistaLontaniSenzaDuplicati();
-                break;
+                if (t.getDisponibile() && t.getNumPosti()>=1 && daSistemare.size()==lista_vincolati.size() && (k+1)<=daSistemare.size()) {
 
-            } else  if ((k+1)==numero_vincolati && controllaSePresente(lista_vincolati.get(k))==false){
-                smistaLontani();
-                break;
+                    t.addGuest(daSistemare.get(k));
+                    k++;
+
+                }
+                else if (daSistemare.size()<lista_vincolati.size()) {
+                    mettiLontaniSenzaDuplicati();
+                    break;
+                }
+
+        }
+
+    }
+
+    public void mettiLontaniSenzaDuplicati(){
+        int m=0;
+
+        for (Tavolo t : tavoli){
+            if (t.getDisponibile() && t.getNumPosti()>=1 && !(tavoliNonAccessibiliLontananza().contains(t)) && (m+1)<=daSistemare.size()){
+                t.addGuest(daSistemare.get(m));
+                m++;
             }
         }
 
     }
+
+
 
     ////Questo metodo mette gli invitati lontani al primo tavolo disponibile.
     private void smistaLontani() {
@@ -203,16 +231,16 @@ public class GestorePreferenzaInvitato implements Vincolo {
     };
 
     //Questo metodo controlla se ci sono abbastanza tavoli liberi per creare questo vincolo di vicinanza.
-    public int tavoliDispVincoloVicinanza(){
+    public Tavolo tavoliDispVincoloVicinanza(){
 
-        int tavoliDispVic = tavoli.size();
+        Tavolo tavoliDispVic= null;
 
         for (Tavolo t: tavoli){
-
-            if (t.getDisponibile()==false || ((t.getPostiTot()-t.mostraInvitatiSeduti())<numero_vincolati)){
-                tavoliDispVic--;
+            for (int k=0; k<lista_vincolati.size(); k++){
+                if (t.getArraylistInvitati().contains(lista_vincolati.get(k))){
+                    tavoliDispVic=t;
+                }
             }
-
         }
         return tavoliDispVic;
 
@@ -257,7 +285,7 @@ public class GestorePreferenzaInvitato implements Vincolo {
                 if (t.getArraylistInvitati().contains(lista_vincolati.get(k))) {
 
                     tav.add(t);
-
+                    break;
                 }
             }
         }
@@ -268,9 +296,9 @@ public class GestorePreferenzaInvitato implements Vincolo {
     public ArrayList<Invitato> removeDuplicati(){
 
         daSistemare.removeAll(creaListaDuplicati());
-        lista_vincolati_senza_duplicati.addAll(daSistemare);
+        //lista_vincolati_senza_duplicati.addAll(daSistemare);
 
-        return lista_vincolati_senza_duplicati;
+        return daSistemare;
 
 
     }

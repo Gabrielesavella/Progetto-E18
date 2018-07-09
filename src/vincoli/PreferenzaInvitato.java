@@ -7,6 +7,7 @@ import locale.Tavolo;
 import persone.Invitato;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class PreferenzaInvitato{
 
@@ -109,12 +110,14 @@ public class PreferenzaInvitato{
 
         if (!(vicino==null)) {
             GestorePreferenzaInvitato newPref1;
+            Collections.sort(tavoli, Collections.reverseOrder());
             newPref1 = new GestorePreferenzaInvitato(prendiInvitato(ID_Inv), creaListaInvitatiVicini(vicino), getTavoli(), PreferenzaInvitatoEnum.STA_VICINO_A);
             ges.add(newPref1);
         }
 
         if (!(lontano==null)) {
             GestorePreferenzaInvitato newPref2;
+            Collections.sort(tavoli);
             newPref2 = new GestorePreferenzaInvitato(prendiInvitato(ID_Inv), creaListaInvitatiLontani(lontano), getTavoli(), PreferenzaInvitatoEnum.NON_STA_VICINO_A);
             ges.add(newPref2);
         }
