@@ -50,7 +50,6 @@ public class TesterLocale {
         GestoreEvento e = new GestoreEvento("Matrimonio", orarioEvento,  bellaNapoli, 40);
 
         GestoreEvento k = new GestoreEvento("Battesimo", orarioEvento, bellaNapoli, 50);
-        bellaNapoli.getEventi().add(e);
 
 
         System.out.println(bellaNapoli.stampaNomeEventi());

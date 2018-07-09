@@ -24,9 +24,9 @@ public class TesterDB {
         boolean t= true;
         boolean f= false;
         ConnessioneDB connetto= new ConnessioneDB();
-        System.out.println("Stato della connessione prima del tentativo di connessione: " + connetto.checkConn());
-        connetto.startConn();
-        System.out.println("Stato della connessione dopo il tentativo di connessione: " + connetto.checkConn());
+       // System.out.println("Stato della connessione prima del tentativo di connessione: " + connetto.checkConn());
+        //connetto.startConn();
+       // System.out.println("Stato della connessione dopo il tentativo di connessione: " + connetto.checkConn());
         //connetto.inserisciDatiCliente(ID_Cliente, nomeCliente, cognomeCliente, password);
         //connetto.inserisciDatiEvento(ID_Cliente, ID_Evento, dataEvento, nomeLocale, numeroInvitati);
        // connetto.inserisciDatiInvitato(ID_Evento, ID_Inv, nomeInv, cognomeInv, etaInv);
@@ -36,9 +36,9 @@ public class TesterDB {
         //connetto.getEvento(ID_Evento);
        // connetto.getInvitato(ID_Inv);
         //connetto.getVincoloInvitato(ID_Inv);
-        connetto.getVincoloTavolo(ID_Inv);
-        connetto.closeConn();
-        System.out.println("Stato della connessione dopo il tentativo di chiusura di essa: " + connetto.checkConn());
+        //connetto.getVincoloTavolo(ID_Inv);
+        //connetto.closeConn();
+        //System.out.println("Stato della connessione dopo il tentativo di chiusura di essa: " + connetto.checkConn());
     }
 
 }

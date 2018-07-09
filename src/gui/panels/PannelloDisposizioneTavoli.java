@@ -1,5 +1,6 @@
 package gui.panels;
 
+import database.*;
 import locale.*;
 import persone.*;
 import vincoli.*;
@@ -21,13 +22,11 @@ public class PannelloDisposizioneTavoli extends JPanel {
         JTextArea stampaElenco = new JTextArea();
         JLabel  labelDisposizione = new JLabel("Elenco invitati disposti per tavoli");
         JTextArea stampaDisposizione = new JTextArea();
-
         Dimension d=new Dimension(400,400);
         stampaDisposizione.setSize(d);
         stampaDisposizione.setLineWrap(true);
         stampaDisposizione.setEditable(false);
         stampaDisposizione.setAutoscrolls(true);
-
         stampaElenco.setEditable(false);
         stampaElenco.setAutoscrolls(true);
         stampaElenco.setSize(d);
@@ -52,49 +51,62 @@ public class PannelloDisposizioneTavoli extends JPanel {
 
         }
 
+       // for (Tavolo t: gestoreLocale.smistamentoTavoli(gestoreEvento)) {
+           // stampaDisposizione.append(t.getIDTavolo()+"\n");
+          ////   stampaDisposizione.append(invitato.getID_Inv()+"\t"+invitato.getNome()+"\t"+invitato.getCognome()+"\t"+invitato.getEta()+"\n");
+          //  }
+        //}
 
-//        for (Invitato i:gestoreEvento.getListaInvitati()) {
-//            stampaElenco.append(i.getID_Inv(+"\t"+i.getNome()+"\t"+i.getCognome()+"\t"+i.getEta()+"\n");
-//        }
-
-//        for (Tavolo t: gestoreLocale.smistamentoTavoli(gestoreEvento)) {
-//            stampaDisposizione.append(t.getIDTavolo()+"\n");
-//            for (Invitato invitato:t.getArraylistInvitati()) {
-//                stampaDisposizione.append(invitato.getID_Inv()+"\t"+invitato.getNome()+"\t"+invitato.getCognome()+"\t"+invitato.getEta()+"\n");
-//            }
-//        }
-        ArrayList<Tavolo> tavoliSmistati=new ArrayList<>();
-
-        Tavolo tav1 = new Tavolo("da Giulio","tav1",5);
-        Tavolo tav2 = new Tavolo("da Giulio","tav2",6);
-        Tavolo tav3 = new Tavolo("da Giulio","tav3",8);
-        Tavolo tav4 = new Tavolo("da Giulio","tav4",4);
-        Tavolo tav5 = new Tavolo("da Giulio","tav5",6);
-        Tavolo tav6 = new Tavolo("da Giulio","tav6",8);
-
-        tavoliSmistati.add(tav1);
-        tavoliSmistati.add(tav2);
-        tavoliSmistati.add(tav3);
-        tavoliSmistati.add(tav4);
-        tavoliSmistati.add(tav5);
-        tavoliSmistati.add(tav6);
-
-//        gestoreLocale.aggiungiTavoli(gestoreLocale.getTavoliLocale());
-//        gestoreLocale.getEventi().add(gestoreEvento);
-//        gestoreLocale.aggiungiEventi(gestoreEventos);/
-// /getEventi().
-//        tavoliSmistati= gestoreLocale.smistamentoTavoli(gestoreEvento);
-//        System.out.println(gestoreLocale.showInvitatiAiTavoli());
-        //gestoreVincoliTavolo.a;
         stampaDisposizione.append("\nDisposizione:\n");
-//        stampaDisposizione.append(gestoreLocale.showInvitatiAiTavoli());
-        //gestoreLocale.aggiungiTavoli(tavoliSmistati);
-        for (Tavolo t:gestoreVincoliTavolo.getTavoliVincolati()) {
-            stampaDisposizione.append(t.getIDTavolo());
-            stampaDisposizione.append(t.showInvitati());
 
+        ConnessioneDB conn = new ConnessioneDB();
+        ArrayList <GestoreEvento> eventi = new ArrayList<>();
+        eventi.add(gestoreEvento);
+        System.out.println("numero eventi prima: "+gestoreLocale.getEventi().toString());
+
+        gestoreLocale.aggiungiEventi(eventi);
+        System.out.println("numero eventi dopo: "+gestoreLocale.getEventi().size());
+        for (Tavolo t:gestoreLocale.smistamentoTavoli(gestoreEvento)) {
+            System.out.println("sono dentro!");
+//            stampaDisposizione.append(t.showInvitati());
+            }
+
+        //stampaDisposizione.append(gestoreLocale.showInvitatiAiTavoli());
+        ArrayList<SpecificaTavolo> specifiche= new ArrayList<>();
+        specifiche=conn.getVincoloTavolo(gestoreEvento.getName());
+
+        if(specifiche!=null){
+            System.out.println("le specifiche ci sono");
         }
 
 
+        //GestoreVincoliTavolo vincolitavoli = new GestoreVincoliTavolo(gestoreEvento.getName());
+
+        ArrayList<Tavolo> tavoliDisp= gestoreVincoliTavolo.getTavoliDisponibili();
+        ArrayList<Tavolo> tavoliVincolati= gestoreVincoliTavolo.getTavoliVincolati();
+        CreatePreferenza createPreferenza= new CreatePreferenza(gestoreEvento.getName(),tavoliDisp);
+        createPreferenza.smista();
+
+//        for (Tavolo t:tavoliVincolati) {
+//            stampaDisposizione.append(String.valueOf(t.getArraylistInvitati().size()));
+//            stampaDisposizione.append(t.showInvitati());
+//            for (Invitato i:t.getArraylistInvitati()) {
+//                stampaDisposizione.append(i.getID_Inv()+"\n");
+//            }
+//        }
+        for (Tavolo t:createPreferenza.getTavoli()) {
+            stampaDisposizione.append(t.showInvitati()+"\n");
+        }
+
+
+
+
+       /* for (Tavolo t:gestoreLocale.getTavoliLocale()){
+            System.out.println("ciao");
+            stampaDisposizione.append(t.showInvitati());
+            //System.out.println("tavolo vincolato"+t.getIDTavolo());
+        }*/
+
+       // GestorePreferenzaInvitato gestorepreferenza = new GestorePreferenzaInvitato(gestoreEvento.getName(),vincolitavoli)
     }
 }

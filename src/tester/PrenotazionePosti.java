@@ -31,6 +31,7 @@ public class PrenotazionePosti {
         listaTavoli.add(tav5);
         listaTavoli.add(tav6);
 
+        Collections.sort(listaTavoli, Collections.reverseOrder());
 
 
         GregorianCalendar orarioapertura = new GregorianCalendar();
@@ -205,24 +206,24 @@ public class PrenotazionePosti {
         ArrayList<Invitato> listaVincolati  = new ArrayList<Invitato>();
         listaVincolati.add(b);
         listaVincolati.add(c);
-        GestorePreferenzaInvitato provaVincolo = new GestorePreferenzaInvitato(a,listaVincolati,e,PreferenzaInvitatoEnum.STA_VICINO_A);
+        GestorePreferenzaInvitato provaVincolo = new GestorePreferenzaInvitato(a,listaVincolati,listaTavoli,PreferenzaInvitatoEnum.STA_VICINO_A);
         provaVincolo.verificaIdoneita();
 
         ArrayList<Invitato> listaVincolati2  = new ArrayList<Invitato>();
         listaVincolati2.add(d);
-        GestorePreferenzaInvitato provaVincolo2 = new GestorePreferenzaInvitato(f,listaVincolati2,e,PreferenzaInvitatoEnum.NON_STA_VICINO_A);
+        GestorePreferenzaInvitato provaVincolo2 = new GestorePreferenzaInvitato(f,listaVincolati2,listaTavoli,PreferenzaInvitatoEnum.NON_STA_VICINO_A);
         provaVincolo2.verificaIdoneita();
 
         ArrayList<Invitato> listaVincolati3  = new ArrayList<Invitato>();
         listaVincolati3.add(g);
         listaVincolati3.add(f);
-        GestorePreferenzaInvitato provaVincolo3 = new GestorePreferenzaInvitato(d,listaVincolati3,e,PreferenzaInvitatoEnum.NON_STA_VICINO_A);
+        GestorePreferenzaInvitato provaVincolo3 = new GestorePreferenzaInvitato(d,listaVincolati3,listaTavoli,PreferenzaInvitatoEnum.NON_STA_VICINO_A);
         provaVincolo3.verificaIdoneita();
 
         ArrayList<Invitato> listaVincolati4  = new ArrayList<Invitato>();
         listaVincolati4.add(b);
         listaVincolati4.add(p);
-        GestorePreferenzaInvitato provaVincolo4 = new GestorePreferenzaInvitato(a,listaVincolati4,e,PreferenzaInvitatoEnum.STA_VICINO_A);
+        GestorePreferenzaInvitato provaVincolo4 = new GestorePreferenzaInvitato(a,listaVincolati4,listaTavoli,PreferenzaInvitatoEnum.STA_VICINO_A);
         provaVincolo4.verificaIdoneita();
 
 

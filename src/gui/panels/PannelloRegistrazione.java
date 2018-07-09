@@ -99,7 +99,7 @@ public class PannelloRegistrazione extends JPanel {
                         errore.setText("Le password non coincidono.\nRiprovare inserimento");
                         errore.setForeground(Color.RED);
                     }
-                    clienteAdded.setText("Non ho aggiunto un cliente");
+                    clienteAdded.setText("username non disponibile!");
                 }
             }
         });

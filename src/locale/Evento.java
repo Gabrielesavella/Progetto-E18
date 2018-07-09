@@ -40,6 +40,7 @@ public class Evento {
     }
 
 
+
     public static GregorianCalendar ricavaData(String data){
 
         GregorianCalendar dataEventoCalendario = new GregorianCalendar();

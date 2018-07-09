@@ -24,7 +24,7 @@ public class ConnessioneDB {// crea la connessione col database "smistamento_pos
     private final String dbUser = "root"; //nome utente
     private final String dbPwd = "21187"; //password utente
     private final String dbDriver = "com.mysql.cj.jdbc.Driver";  //il driver per collegarsi al DB ?useLegacyDatetimeCode=false&serverTimezone=UTC&useSSL=false
-    private final String dbUrl = "jdbc:mysql://localhost:3306/smistamento_posti?useLegacyDatetimeCode=false&serverTimezone=UTC&useSSL=false"; //url del database e schema
+    private final String dbUrl = "jdbc:mysql://127.0.0.1:3306/smistamento_posti?useLegacyDatetimeCode=false&serverTimezone=UTC&useSSL=false"; //url del database e schema
     private Connection conn = null; //si crea una nuova connessione, per adesso nulla
     private boolean openConn = false; //variabile per verificare se la connessione col DB è aperta o meno
 
@@ -78,7 +78,7 @@ public class ConnessioneDB {// crea la connessione col database "smistamento_pos
 
     //Metodo che inserisce nuovi dati nella table Cliente
 
-    public void inserisciDatiCliente(String ID_Cliente, String nomeCliente, String cognomeCliente, String passwordCliente) {
+    public void inserisciDatiCliente(String ID_Cliente, String nomeCliente, String cognomeCliente, String emailCliente, String passwordCliente) {
 
         Statement stmt = null;
         ResultSet rs = null;
@@ -86,11 +86,12 @@ public class ConnessioneDB {// crea la connessione col database "smistamento_pos
 
         if (!openConn) {
             startConn();
+        }
+        if (openConn) {
 
-        } else {
             try {
                 stmt = conn.createStatement();
-                String queryEntry = "INSERT INTO " + table + " (`ID_Cliente`, `NomeCliente`, `CognomeCliente`, `PasswordCliente`) VALUES ('" + ID_Cliente + "','" + nomeCliente + "','" + cognomeCliente + "','" + passwordCliente + "');";
+                String queryEntry = "INSERT INTO " + table + " (`ID_Cliente`, `NomeCliente`, `CognomeCliente`, `EmailCliente`, `PasswordCliente`) VALUES ('" + ID_Cliente + "','" + nomeCliente + "','" + cognomeCliente + "','" + emailCliente + "','" + passwordCliente + "');";
 
                 stmt.executeUpdate(queryEntry);
 
@@ -116,8 +117,9 @@ public class ConnessioneDB {// crea la connessione col database "smistamento_pos
                 }
 
             }
-
         }
+
+
     }
 
     // metodo che inserisce i dati del singolo invitato nella table "Locali"
@@ -131,7 +133,8 @@ public class ConnessioneDB {// crea la connessione col database "smistamento_pos
         if (!openConn) {
             startConn();
 
-        } else {
+        }
+        if (openConn) {
             try {
                 stmt = conn.createStatement();
                 String queryEntry = "INSERT INTO " + table + " (`ID_Locale`, `numMaxtavoli`, `oraApertura`, `oraChiusura`, `giornoChiusura`) VALUES ('" + ID_Locale + "','" + numMaxtavoli + "','" + oraApertura + "','" + oraChiusura + "','" + giornoChiusura + "');";
@@ -175,8 +178,9 @@ public class ConnessioneDB {// crea la connessione col database "smistamento_pos
 
         if (!openConn) {
             startConn();
+        }
 
-        } else {
+         if(openConn) {
             try {
                 stmt = conn.createStatement();
                 String queryEntry = "INSERT INTO " + table + " (`ID_Locale`, `ID_Tavolo`, `numeroPosti`) VALUES ('" + ID_Locale + "','" + ID_Tavolo + "','" + numeroPosti + "');";
@@ -220,11 +224,14 @@ public class ConnessioneDB {// crea la connessione col database "smistamento_pos
 
         if (!openConn) {
             startConn();
+        }
 
-        } else {
+        if (openConn) {
+
+
             try {
                 stmt = conn.createStatement();
-                String queryEntry = "INSERT INTO " + table + " (`ID_Cliente`, `ID_Evento`, `dataEvento`, `Locale`, `NumeroInvitati`) VALUES ('" + ID_Cliente + "','" + ID_Evento + "','" + dataEvento + "','" + nomeLocale + "','" + numeroInvitati + "');";
+                String queryEntry = "INSERT INTO " + table + " (`ID_Evento`, `ID_Cliente`, `dataEvento`, `ID_Locale`, `NumeroInvitati`) VALUES ('" + ID_Evento + "','" + ID_Cliente + "','" + dataEvento + "','" + nomeLocale + "','" + numeroInvitati + "');";
                 stmt.executeUpdate(queryEntry);
 
             } catch (SQLException e) {
@@ -249,8 +256,9 @@ public class ConnessioneDB {// crea la connessione col database "smistamento_pos
                 }
 
             }
-
         }
+
+
     }
 
     // metodo che inserisce i dati del singolo invitato nella table "Invitati"
@@ -262,8 +270,9 @@ public class ConnessioneDB {// crea la connessione col database "smistamento_pos
         String table = "invitati";
         if (!openConn) {
             startConn();
+        }
 
-        } else {
+         if(openConn) {
             try {
                 stmt = conn.createStatement();
                 String queryEntry = "INSERT INTO " + table + " (`ID_Evento`, `ID_Invitato`, `nomeInvitato`, `cognomeInvitato`, `etaInvitato`) VALUES ('" + ID_Evento + "','" + ID_Inv + "','" + nomeInv + "','" + cognomeInv + "','" + etaInv + "');";
@@ -307,8 +316,9 @@ public class ConnessioneDB {// crea la connessione col database "smistamento_pos
         String table = "specifica_tavolo";
         if (!openConn) {
             startConn();
+        }
 
-        } else {
+         if(openConn) {
             try {
                 stmt = conn.createStatement();
                 String queryEntry = "INSERT INTO " + table + " (`ID_Evento`, `ID_Invitato`,`TavoloD'Onore`,`DifficoltaMotorie`,`Vegetariano`,`VicinoTV`,`Bambini`,`TavoloIsolato`) VALUES ('" + ID_Evento + "','" + ID_Inv + "','" + tavoloOnore + "','" + difficoltaMotorie + "','" + vegetariano + "','" + vicinoTV + "','" + bambini + "','" + tavoloIsolato + "');";
@@ -347,8 +357,8 @@ public class ConnessioneDB {// crea la connessione col database "smistamento_pos
         String table = "preferenza_invitato";
         if (!openConn) {
             startConn();
-
-        } else {
+        }
+        if(openConn) {
             try {
                 stmt = conn.createStatement();
                 String queryEntry = "INSERT INTO " + table + " (`ID_Evento`, `ID_Invitato`,`VoglioStareVicinoA`,`NonVoglioStareVicinoA`) VALUES ('" + ID_Evento + "','" + ID_Inv + "','" + starVicino + "','" + starLontano + "');";
@@ -392,8 +402,9 @@ public class ConnessioneDB {// crea la connessione col database "smistamento_pos
         ArrayList<Cliente> clienti= new ArrayList<>();
         if (!openConn) {
             startConn();
+        }
 
-        } else {
+        if(openConn) {
             try {
                 stmt = conn.createStatement();
                 rs = stmt.executeQuery("SELECT * FROM clienti WHERE `ID_Cliente`='" + ID_Cliente + "';");
@@ -444,7 +455,8 @@ public class ConnessioneDB {// crea la connessione col database "smistamento_pos
         if (!openConn) {
             startConn();
 
-        } else {
+        }
+        if(openConn){
             try {
                 stmt = conn.createStatement();
                 rs = stmt.executeQuery("SELECT * FROM clienti ;");
@@ -483,57 +495,6 @@ public class ConnessioneDB {// crea la connessione col database "smistamento_pos
                 }
             }
         }
-        return cl;
-    }
-
-    public ArrayList<Cliente>  getClienti () {
-        startConn();
-        Statement stmt = null; //creazione di uno Statement, per adesso nullo
-        ResultSet rs = null; //variabile che contiene il risultato dello Statement
-        Cliente cl=null;
-        ArrayList<Cliente> clienti= new ArrayList<>();
-        if (!openConn) {
-            startConn();
-
-        } else {
-            try {
-                stmt = conn.createStatement();
-                rs = stmt.executeQuery("SELECT * FROM clienti ;");
-
-                while (rs.next()) {
-
-
-                    this.ID_Cl= rs.getString(1);
-                    this.nomeCl=rs.getString(2);
-                    this.cognomeCl=rs.getString(3);
-                    this.pwdCl= rs.getString(4);
-
-                    cl= new Cliente (nomeCl, cognomeCl, ID_Cl, pwdCl);
-                    clienti.add(cl);
-
-                }
-
-            } catch (SQLException e) {
-                e.printStackTrace();
-            } finally {
-                if (rs != null) {
-                    try {
-                        rs.close();
-
-                    } catch (SQLException e) {
-                        e.printStackTrace();
-                    }
-                }
-                if (stmt != null) {
-                    try {
-                        stmt.close();
-
-                    } catch (SQLException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        }
         return clienti;
     }
 
@@ -547,7 +508,8 @@ public class ConnessioneDB {// crea la connessione col database "smistamento_pos
         if (!openConn) {
             startConn();
 
-        } else {
+        }
+        if (openConn) {
             try {
                 stmt = conn.createStatement();
                 rs = stmt.executeQuery("SELECT * FROM locali WHERE `ID_Locale`='" + ID_Locale + "';");
@@ -587,9 +549,9 @@ public class ConnessioneDB {// crea la connessione col database "smistamento_pos
         return l;
     }
 
-    public ArrayList<Locale> getLocali() {
+    public ArrayList<GestoreLocale> getLocali() {
         Locale l;
-        ArrayList <Locale> locali= new ArrayList<>();
+        ArrayList <GestoreLocale> locali= new ArrayList<>();
 
         startConn();
         Statement stmt = null; //creazione di uno Statement, per adesso nullo
@@ -597,7 +559,8 @@ public class ConnessioneDB {// crea la connessione col database "smistamento_pos
         if (!openConn) {
             startConn();
 
-        } else {
+        }
+        if (openConn) {
             try {
                 stmt = conn.createStatement();
                 rs = stmt.executeQuery("SELECT * FROM locali;");
@@ -610,7 +573,8 @@ public class ConnessioneDB {// crea la connessione col database "smistamento_pos
                     this.giornoChiusura= rs.getString(5);
 
                     l= new Locale(ID_Locale, numMaxtavoli, oraApertura, oraChiusura, giornoChiusura);
-                    locali.add(l);
+
+                    locali.add( l.gestisciLocale());
                 }
 
             } catch (SQLException e) {
@@ -648,15 +612,17 @@ public class ConnessioneDB {// crea la connessione col database "smistamento_pos
         if (!openConn) {
             startConn();
 
-        } else {
+        }
+
+        if (openConn) {
             try {
                 stmt = conn.createStatement();
                 rs = stmt.executeQuery("SELECT * FROM eventi WHERE `ID_Locale`='" + id_locale + "';");
                 while (rs.next()) {
 
 
-                    this.ID_Cl= rs.getString(1);
-                    this.ID_Ev=rs.getString(2);
+                    this.ID_Ev= rs.getString(1);
+                    this.ID_Cl=rs.getString(2);
                     this.dataEv=rs.getString(3);
                     this.nomeLoc= rs.getString(4);
                     this.numInv= rs.getInt(5);
@@ -699,15 +665,17 @@ public class ConnessioneDB {// crea la connessione col database "smistamento_pos
         if (!openConn) {
             startConn();
 
-        } else {
+        }
+
+        if (openConn) {
             try {
                 stmt = conn.createStatement();
                 rs = stmt.executeQuery("SELECT * FROM eventi WHERE `ID_Evento`='" + ID_Evento + "';");
                 while (rs.next()) {
 
 
-                    this.ID_Cl= rs.getString(1);
-                    this.ID_Ev=rs.getString(2);
+                    this.ID_Ev= rs.getString(1);
+                    this.ID_Cl=rs.getString(2);
                     this.dataEv=rs.getString(3);
                     this.nomeLoc= rs.getString(4);
                     this.numInv= rs.getInt(5);
@@ -750,10 +718,12 @@ public class ConnessioneDB {// crea la connessione col database "smistamento_pos
         if (!openConn) {
             startConn();
 
-        } else {
+        }
+
+        if (openConn) {
             try {
                 stmt = conn.createStatement();
-                rs = stmt.executeQuery("SELECT * FROM clienti WHERE `ID_Locale`='" + ID_Locale + "';");
+                rs = stmt.executeQuery("SELECT * FROM tavoli WHERE `ID_Locale`='" + ID_Locale + "';");
                 while (rs.next()) {
 
 
@@ -802,7 +772,9 @@ public class ConnessioneDB {// crea la connessione col database "smistamento_pos
         if (!openConn) {
             startConn();
 
-        } else {
+        }
+
+        if (openConn) {
             try {
                 stmt = conn.createStatement();
                 rs = stmt.executeQuery("SELECT * FROM invitati WHERE `ID_Evento`='" + ID_Ev + "';");
@@ -856,7 +828,9 @@ public class ConnessioneDB {// crea la connessione col database "smistamento_pos
         if (!openConn) {
             startConn();
 
-        } else {
+        }
+
+        if (openConn) {
             try {
                 stmt = conn.createStatement();
                 rs = stmt.executeQuery("SELECT * FROM specifica_tavolo WHERE `ID_Evento`='" + ID_Ev + "';");
@@ -913,7 +887,9 @@ public class ConnessioneDB {// crea la connessione col database "smistamento_pos
         if (!openConn) {
             startConn();
 
-        } else {
+        }
+
+        if (openConn) {
             try {
                 stmt = conn.createStatement();
                 rs = stmt.executeQuery("SELECT * FROM preferenza_invitato WHERE `ID_Evento`='" + ID_Ev + "';");
@@ -926,8 +902,11 @@ public class ConnessioneDB {// crea la connessione col database "smistamento_pos
                     this.vicino=rs.getString(3);
                     this.lontano= rs.getString(4);
 
+                    if(vicino!=null || lontano!=null){
+
                     p= new PreferenzaInvitato(ID_Ev, ID_Inv, vicino, lontano);
                     vincoliInv.add(p);
+                }
                 }
 
             } catch (SQLException e) {

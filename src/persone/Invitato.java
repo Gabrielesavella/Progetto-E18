@@ -18,7 +18,7 @@ public class Invitato {
      */
 
     public Invitato (String nome,String cognome,int eta){
-        this(Invitato.setID_Inv(nome, cognome), nome, cognome, eta);
+        this(Invitato.setID_Inv(nome, cognome,eta), nome, cognome, eta);
 
     }
 
@@ -34,15 +34,16 @@ public class Invitato {
         return ID_Inv;
     }
 
-    public static String setID_Inv (String nome, String cognome){
+    public static String setID_Inv (String nome, String cognome,int eta){
 
     String univoco = "";
     String n= nome.substring(0,3);
     String c= cognome.substring(0,3);
-    Random r= new Random();
-    int k= r.nextInt(1000);
-    String a = Integer.toString(k);
-    univoco= n + c + a;
+//    Random r= new Random();
+//    int k= r.nextInt(1000);
+//    String a = Integer.toString(k);
+        //String a =
+    univoco= n + c + eta;
     return univoco;
     }
 

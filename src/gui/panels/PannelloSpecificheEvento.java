@@ -2,6 +2,7 @@
 package gui.panels;
 
 //import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
+import database.*;
 import gui.controller.*;
 import gui.finestre.*;
 import locale.*;
@@ -22,6 +23,7 @@ import java.util.*;
 
 public class PannelloSpecificheEvento extends JPanel {
     public PannelloSpecificheEvento(GestoreLocale gestoreLocale, GestoreEvento gestoreEvento, FinestraSpecificheEvento frame){
+        ConnessioneDB connessione = new ConnessioneDB();
 
 
         // etichette specifiche
@@ -112,9 +114,11 @@ public class PannelloSpecificheEvento extends JPanel {
 */
 
                     for (Invitato i : sisPr.loadXlsGenerality(gestoreEvento.getName())) {
-
                         gestoreEvento.addInvitati(i);
+                        //connessione.inserisciDatiInvitato(gestoreEvento.getName(),i.getID_Inv(),i.getNome(),i.getCognome(),i.getEta());
+
                     }
+                    //da aggiungere gli invitati qua
 
 
                 //    sisPr.acquisisciInvitati(invitati);
@@ -129,7 +133,10 @@ public class PannelloSpecificheEvento extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println("Acquisizione 2 invitati effettuataAAAAAAAAAAAAAAA.");
-                GestoreVincoliTavolo gestoreVincoliTavolo= new GestoreVincoliTavolo(gestoreLocale.getTavoliLocale(),gestoreEvento.getListaInvitati(),sisPr.saveOnObligations(gestoreEvento.getName()));
+                //GestoreVincoliTavolo gestoreVincoliTavolo= new GestoreVincoliTavolo(gestoreLocale.getTavoliLocale(),gestoreEvento.getListaInvitati(),sisPr.saveOnObligations(gestoreEvento.getName()));
+                sisPr.saveOnObligations(gestoreEvento.getName());
+                GestoreVincoliTavolo gestoreVincoliTavolo= new GestoreVincoliTavolo(gestoreEvento.getName());
+                //gestoreEvento.setLista_vincoli(gestoreVincoliTavolo.accomodaInvitati());
                 FinestraDisposizioneTavoli fd=new FinestraDisposizioneTavoli(gestoreLocale, gestoreEvento,gestoreVincoliTavolo);
                 fd.setVisible(true);
                 frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));

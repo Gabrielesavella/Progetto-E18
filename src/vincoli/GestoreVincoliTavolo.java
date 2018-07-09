@@ -16,11 +16,11 @@ import java.util.*;
 public class GestoreVincoliTavolo {
 
 
+
     private ArrayList<Tavolo> tavoli, tavoliVincolati;
     private ArrayList<SpecificaTavolo> nessunaSpecifica, unicaSpecifica, piuSpecifiche, vincoliTav, vincoliNonRispettabili;
     private ArrayList<Invitato> invitati;
     private ArrayList<Tavolo> tavoliDisponibili;
-    private ArrayList<String> etichette;
     private ConnessioneDB c;
     private Evento ev;
 
@@ -39,32 +39,32 @@ public class GestoreVincoliTavolo {
 
 
         //Ordino i tavoli per numero di posti liberi (dal minore al maggiore)
-        //E' conveniente sortarli per posti liberi e non per posti totali perchè in questo punto del programma tali valori coincidono,
+        //E' conveniente sortarli per posti liberi e non per posti totali perch� in questo punto del programma tali valori coincidono,
         //mentre successivamente ho bisogno di averli sortati per "posti liberi"
         Collections.sort(tavoli);
 
-        //verifico che il numero di invitati per ogni vincolo sia >= al limite minimo (la metÃ  del numero di posti del piu piccolo dei tavoli)
+        //verifico che il numero di invitati per ogni vincolo sia >= al limite minimo (la metà del numero di posti del piu piccolo dei tavoli)
         verificaLimiteMinimo(contaInvitatiPerVincolo(vincoliTav));
 
         //divido gli Invitati in tre categoria, secondo il numero di VincoliTavolo (0, 1 o piu)
         smistaInvitati();
 
-        // Ordino i vincoli per numero di invitati (dal maggiore al minore) cosÃ¬ da ottimizzare il processo di assegnazione dei tavoli
-        // ai rispetti vincoli (il vincolo col maggior numero di invitati si vedrÃ  assegnato il primo tavolo sufficentemente capiente
-        // da ospitare tutti gli invitati con tal vincolo, dato che i tavoli sono ordinati dal piÃ¹ piccolo al piÃ¹ grande)
+        // Ordino i vincoli per numero di invitati (dal maggiore al minore) così da ottimizzare il processo di assegnazione dei tavoli
+        // ai rispetti vincoli (il vincolo col maggior numero di invitati si vedrà assegnato il primo tavolo sufficentemente capiente
+        // da ospitare tutti gli invitati con tal vincolo, dato che i tavoli sono ordinati dal più piccolo al più grande)
         assegnaTavoli(ordinaVincoli(contaInvitatiPerVincolo(unicaSpecifica), false));
 
         //elaboro prima gli invitati con un solo vincolo
         accomodaInvitati(this.unicaSpecifica);
 
 
-        //ordino gli invitati con piÃ¹ di un vincolo per numero di vincoli ad invitato (dal minore al maggiore) e i tavoli per numero di
-        //posti liberi in ordine inverso (dal maggiore al minore): cosÃ¬ l'invitato con meno numero di vincoli (piÃ¹ difficile da piazzare
-        // rispetto a chi ne ha di piÃ¹) si vedrÃ  assegnato al tavolo con piÃ¹ posti da riempire
+        //ordino gli invitati con più di un vincolo per numero di vincoli ad invitato (dal minore al maggiore) e i tavoli per numero di
+        //posti liberi in ordine inverso (dal maggiore al minore): così l'invitato con meno numero di vincoli (più difficile da piazzare
+        // rispetto a chi ne ha di più) si vedrà assegnato al tavolo con più posti da riempire
         ordinaVincoli(gesticiVincoliPlurimi(), true);
         Collections.sort(tavoli, Collections.reverseOrder());
 
-        //sistemo gli invitati con piÃ¹ di una specifica
+        //sistemo gli invitati con più di una specifica
         ArrayList<SpecificaTavolo> ancoraSpecifiche= accomodaInvitati(this.piuSpecifiche);
 
         //Se ci sono ancora altri invitati vincolati non sistemati nei tavoli unisco i tavoli vincolati con altri tavoli dell'ArrayList tavoli
@@ -73,7 +73,7 @@ public class GestoreVincoliTavolo {
         accomodaInvitati(ancoraSpecifiche);
 
         //Ultimo controllo: se ci sono ancora invitati non seduti allora significa che tali vincoli non possono essere rispettati
-        //L'algoritmo Ã¨ stato costruito in modo che questi ultimi due casi siano poco probabili
+        //L'algoritmo è stato costruito in modo che questi ultimi due casi siano poco probabili
         lastCheck();
 
     }
@@ -103,31 +103,31 @@ public class GestoreVincoliTavolo {
         assegnaTavoli(ordinaVincoli(contaInvitatiPerVincolo(unicaSpecifica), false));
 
         //elaboro prima gli invitati con un solo vincolo
-        accomodaInvitati(this.unicaSpecifica);
+        accomodaInvitati(vincoliTav);
 
 
         //ordino gli invitati con piÃ¹ di un vincolo per numero di vincoli ad invitato (dal minore al maggiore) e i tavoli per numero di
         //posti liberi in ordine inverso (dal maggiore al minore): cosÃ¬ l'invitato con meno numero di vincoli (piÃ¹ difficile da piazzare
         // rispetto a chi ne ha di piÃ¹) si vedrÃ  assegnato al tavolo con piÃ¹ posti da riempire
-        ordinaVincoli(gesticiVincoliPlurimi(), true);
-        Collections.sort(tavoli, Collections.reverseOrder());
-
-        //sistemo gli invitati con piÃ¹ di una specifica
-        ArrayList<SpecificaTavolo> ancoraSpecifiche= accomodaInvitati(this.piuSpecifiche);
-
-        //Se ci sono ancora altri invitati vincolati non sistemati nei tavoli unisco i tavoli vincolati con altri tavoli dell'ArrayList tavoli
-        //in modo da aumentare il numero di posti per tavolo e far sedere tutti gli invitati
-        controllaInvitati();
-        accomodaInvitati(ancoraSpecifiche);
-
-        //Ultimo controllo: se ci sono ancora invitati non seduti allora significa che tali vincoli non possono essere rispettati
-        //L'algoritmo Ã¨ stato costruito in modo che questi ultimi due casi siano poco probabili
-        lastCheck();
+//        ordinaVincoli(gesticiVincoliPlurimi(), true);
+//        Collections.sort(tavoli, Collections.reverseOrder());
+//
+//        //sistemo gli invitati con piÃ¹ di una specifica
+//        ArrayList<SpecificaTavolo> ancoraSpecifiche= accomodaInvitati(this.piuSpecifiche);
+//
+//        //Se ci sono ancora altri invitati vincolati non sistemati nei tavoli unisco i tavoli vincolati con altri tavoli dell'ArrayList tavoli
+//        //in modo da aumentare il numero di posti per tavolo e far sedere tutti gli invitati
+//        controllaInvitati();
+//        accomodaInvitati(ancoraSpecifiche);
+//
+//        //Ultimo controllo: se ci sono ancora invitati non seduti allora significa che tali vincoli non possono essere rispettati
+//        //L'algoritmo Ã¨ stato costruito in modo che questi ultimi due casi siano poco probabili
+//        lastCheck();
 
     }
 
     /* Metodo che conta quanti invitati ci sono per vincolo. Ritorna un HashMap avente come valore il numero degli invitati per vincolo
-     * e come chiave "l'etichetta" del vincolo stesso. Il contatore Ã¨ il valore e non la chiave perchÃ© Ã¨ possibile che piÃ¹ vincoli abbiano
+     * e come chiave "l'etichetta" del vincolo stesso. Il contatore è il valore e non la chiave perché è possibile che più vincoli abbiano
      * lo stesso numero di invitati*/
 
     public HashMap<String, Integer> contaInvitatiPerVincolo(ArrayList<SpecificaTavolo> sp) {
@@ -148,19 +148,19 @@ public class GestoreVincoliTavolo {
             contTavOn += s.getTavoloOnore();
         }
 
-        if (contBambi!=0){contatori.put("bambini", contBambi);}
-        if (contDiffMot!=0){contatori.put("difficoltaMotorie", contDiffMot);}
-        if (contTavIsola!=0){contatori.put("tavoloIsolato", contTavIsola);}
-        if (contTavOn!=0){contatori.put("tavoloOnore", contTavOn);}
-        if (contVege!=0){contatori.put("vegetariani", contVege);}
-        if (contVicinoTV!=0){contatori.put("vicinoTV", contVicinoTV);}
+        if (contBambi>=2){contatori.put("bambini", contBambi);}
+        if (contDiffMot>=2){contatori.put("difficoltaMotorie", contDiffMot);}
+        if (contTavIsola>=2){contatori.put("tavoloIsolato", contTavIsola);}
+        if (contTavOn>=2){contatori.put("tavoloOnore", contTavOn);}
+        if (contVege>=2){contatori.put("vegetariani", contVege);}
+        if (contVicinoTV>=2){contatori.put("vicinoTV", contVicinoTV);}
 
 
 
         return contatori;
     }
 
-    //Metodo utilizzato per verificare che ogni tipo di vincolo sia superiore al limite minimo (cioÃ¨ la metÃ  del numero di posti del tavolo piÃ¹ piccolo)
+    //Metodo utilizzato per verificare che ogni tipo di vincolo sia superiore al limite minimo (cioè la metà del numero di posti del tavolo più piccolo)
     //Nel caso che un vincolo non passi tale verifica allora i vincoli di quel tipo non saranno rispettati
 
     public ArrayList<SpecificaTavolo> verificaLimiteMinimo (HashMap<String, Integer> vinc){
@@ -187,7 +187,7 @@ public class GestoreVincoliTavolo {
                                 vincoliTav.remove(sp);
                                 vincoliNonRispettabili.add(sp);
                             }
-                        case "difficoltaMotorie":
+                        case "difficoltàMotorie":
                             if (sp.getDifficoltaMotorie()!=0){
                                 vincoliTav.remove(sp);
                                 vincoliNonRispettabili.add(sp);
@@ -211,7 +211,7 @@ public class GestoreVincoliTavolo {
 
     /*Divido gli invitati in tre categorie: invitati con nessuna SpecificaTavolo, invitati con una sola specifica, invitati con piu specifiche.
     Per ottimizzare il processo di realizzazione dei vincoli piazzo nei tavoli prima gli invitati con una sola specifica, e tratto gli invitati
-    con piÃ¹ opzioni di preferenza sul tavolo come dei "jolly" con cui riempire i tavoli.
+    con più opzioni di preferenza sul tavolo come dei "jolly" con cui riempire i tavoli.
      */
 
     public void smistaInvitati() {
@@ -232,8 +232,8 @@ public class GestoreVincoliTavolo {
 
 
 
-    //Metodo utilizzato per ordinare un HashMap circa i  suoi valori. Il sorting puÃ² essere secondo il natural order(cioè crescente per gli int)
-    // o in reverse (decrescente). La scelta è regolata dal booleano immesso come parametro.
+    //Metodo utilizzato per ordinare un HashMap circa i  suoi valori. Il sorting può essere secondo il natural order(cio� crescente per gli int)
+    // o in reverse (decrescente). La scelta � regolata dal booleano immesso come parametro.
 
     public HashMap<String, Integer> ordinaVincoli(HashMap<String, Integer> hm, boolean natural){
 
@@ -348,7 +348,7 @@ public class GestoreVincoliTavolo {
         return vinc;
     }
 
-    //Metodo utilizzato per gestire gli invitati con piÃ¹ vincoli.
+    //Metodo utilizzato per gestire gli invitati con più vincoli.
     // Crea un HashMap che ha come chiave il nome dell'Invitato e come valore il numero dei suoi vincoli
 
     public HashMap<String, Integer> gesticiVincoliPlurimi(){
@@ -423,20 +423,18 @@ public class GestoreVincoliTavolo {
     }
 
     //Metodo che unisce il tavolo vincolato (del vincolo che sto considerando) con un altro tavolo t, in modo che il numero di posti
-    //del tavolo vincolato sia aumentato del numero di posti del nuovo tavolo. La condizione affinchÃ¨ questo avvenga Ã¨ che il numero di posti
-    //di cui necessito sia almeno la metÃ  del numero di posti del nuovo tavolo.
+    //del tavolo vincolato sia aumentato del numero di posti del nuovo tavolo. La condizione affinchè questo avvenga è che il numero di posti
+    //di cui necessito sia almeno la metà del numero di posti del nuovo tavolo.
 
     public void unisciTavoli (Tavolo tav, int x){
         Collections.sort(tavoli);
         ArrayList<Tavolo> tavoliRimanenti = (ArrayList)tavoli.clone();
         tavoliRimanenti.removeAll(tavoliVincolati);
-        if (tav!=null) {
-        for (Tavolo t: tavoliRimanenti){
+        if(tav!=null){for (Tavolo t: tavoliRimanenti){
             if (t.getNumPosti()==t.getPostiTot() && t.getPostiTot()-x<=2){
                 tav.setNum_posti(tav.getPostiTot()+t.getPostiTot());
                 tavoli.remove(t);
-            }
-        }
+            }}
         }
     }
 
@@ -470,6 +468,14 @@ public class GestoreVincoliTavolo {
         return vincoliNonRispettabili;
     }
 
+    public ArrayList<Tavolo> getTavoliTotali(){
+        ArrayList<Tavolo> tavoliTot = new ArrayList<>();
+        tavoliTot.addAll(tavoliDisponibili);
+        tavoliTot.addAll(tavoliVincolati);
+        return tavoliTot;
+    }
 
-
+    public ArrayList<Tavolo> getTavoliDisponibili(){
+        return tavoliDisponibili;
+    }
 }

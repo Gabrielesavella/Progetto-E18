@@ -9,8 +9,9 @@ import vincoli.*;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.GregorianCalendar;
+import java.util.*;
+
+import database.ConnessioneDB;
 
 /**
  *
@@ -19,11 +20,14 @@ import java.util.GregorianCalendar;
 
 
 public class SistemaDiPrenotazioneController{
-    private boolean loggedIn=false;
+    private boolean loggedIn=false,notdone = true;
     private AbstractFacade facade;
     private XlsFacade xlsFacade;
+    private ConnessioneDB connessione ;
+    ArrayList<Invitato> listainvitatiEvento=null;
 
     public SistemaDiPrenotazioneController(){
+        connessione = new ConnessioneDB();
         try {
             facade=new txtFacade(1);
             xlsFacade=new XlsFacade();
@@ -32,14 +36,16 @@ public class SistemaDiPrenotazioneController{
         }
     }
 
-
-    public boolean signUp(String username,String password,String name,String surname,String email){
+    //aggiunta connessione DB, se non c'è il cliente registrato , allora lo inserisco in registrazioni sul txt e nel db
+    public boolean signUp(String name,String surname,String email,String username,String password){
         try {
             Cliente fetching=facade.fetchClient(username,password);
             if (fetching!=null){
                 System.out.println("found client with same username. Please try again with a different one.");
                 return false;
             }
+            ConnessioneDB connessione = new ConnessioneDB();
+            connessione.inserisciDatiCliente(username,name,surname,email,password);
             facade.WriteClient(username,password,name,surname,email);
             return true;
         } catch (IOException e) {
@@ -65,10 +71,14 @@ public class SistemaDiPrenotazioneController{
         loggedIn=false;
     }
 
-
-    public boolean creaEvento(String nomeEvento, GregorianCalendar data, int guestNum, Cliente cliente){
+    //adattato al DB inserisce l'evento anche nel DB (controllare la data!)
+    public boolean creaEvento(String nomeEvento, GregorianCalendar data, int guestNum, Cliente cliente,String nomelocale){
+        String datadb = data.get(Calendar.DAY_OF_MONTH)+"-"+data.get(Calendar.MONTH)+"-"+data.get(Calendar.YEAR);
+        System.out.println(datadb);
         try {
             facade.WriteEvent(nomeEvento,data,guestNum);
+            //ho bisogno del nome locale
+            connessione.inserisciDatiEvento(cliente.getUsername(),nomeEvento,datadb,nomelocale,guestNum);
             return true;
         } catch (IOException e) {
             e.printStackTrace();
@@ -124,25 +134,35 @@ public class SistemaDiPrenotazioneController{
     }
 
     public ArrayList<Invitato> loadXlsGenerality(String nomeEvento){
-        ArrayList<Invitato> listainvitatiEvento=null;
+
+        ConnessioneDB connessione = new ConnessioneDB();
         try {
             listainvitatiEvento = xlsFacade.readXlsGuests(nomeEvento);
 
         int sizelist = listainvitatiEvento.size();
-        txtFacade t = new txtFacade(nomeEvento+"lista_invitati.txt",sizelist);
+        //System.out.println("numero di elementi della lista: "+sizelist);
+        txtFacade t = new txtFacade(sizelist);
+        //txtFacade t = new txtFacade(nomeEvento+"lista_invitati.txt",sizelist);
+            if(this.notdone)
         for (Invitato element:listainvitatiEvento) {
             t.WriteGuests(element.getID_Inv(),element.getNome(),element.getCognome(),element.getEta());
+            this.notdone=false;
+            connessione.inserisciDatiInvitato(nomeEvento,element.getID_Inv(),element.getNome(),element.getCognome(),element.getEta());
         }
         }catch (IOException e){ e.printStackTrace(); }
 
         return listainvitatiEvento ;
     }
-
+    //NOTA BENE: da correggere
     public ArrayList<Invitato> writeXlsObligations(String nomeEvento){
+        ArrayList<Invitato> result = new ArrayList<Invitato>();
         if (!xlsFacade.reWriteXls(nomeEvento,loadXlsGenerality(nomeEvento))){
             return null;
         }
-        return loadXlsGenerality(nomeEvento);
+        //facendo così lo richiami + di una volta , 3 se inserisci  il numero di invitati
+        //result = loadXlsGenerality(nomeEvento);
+        this.notdone=true;
+        return listainvitatiEvento;
     }
 
     public ArrayList<SpecificaTavolo> saveOnObligations(String nomeEvento){

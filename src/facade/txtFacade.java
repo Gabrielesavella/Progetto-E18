@@ -1,8 +1,10 @@
 package facade;
 
+
 import locale.GestoreEvento;
 import persone.Cliente;
 import persone.Invitato;
+import database.ConnessioneDB;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -22,6 +24,7 @@ public class txtFacade extends AbstractFacade {
     private Cliente client = null;
     public Invitato invitato = null;
     private boolean registered = false;
+    ConnessioneDB connessione= new ConnessioneDB();
 
     //costruttori
     public txtFacade(String namefile, int numberofObject) throws IOException {
@@ -58,6 +61,7 @@ public class txtFacade extends AbstractFacade {
             bufferWriter = new BufferedWriter(txtFileW);
             super.WriteGuests(fiscaleCode, nameGuest, surnameGuest, age);
         }
+
     }
 
     @Override
@@ -109,9 +113,9 @@ public class txtFacade extends AbstractFacade {
 
     @Override
     public Cliente fetch( String username, String password, String[] colonna) throws IOException {
-        if (colonna[3].equals(username) && colonna[4].equals(password)) {
+        if (colonna[0].equals(username) && colonna[1].equals(password)) {
             registered = true;
-            client = new Cliente(colonna[0], colonna[1], colonna[3], colonna[2], colonna[4]);
+            client = new Cliente(colonna[2], colonna[3], colonna[0], colonna[4], colonna[1]);
             return client;
 
         } else {
@@ -168,7 +172,7 @@ public class txtFacade extends AbstractFacade {
             line = buffReader.readLine();
             colonna = line.split("\t");
 
-            invitato = new Invitato(setID_Inv(colonna[1], colonna[2]), colonna[1],colonna[2],Integer.parseInt(colonna[3]));
+            invitato = new Invitato(setID_Inv(colonna[1], colonna[2],Integer.parseInt(colonna[3])), colonna[1],colonna[2],Integer.parseInt(colonna[3]));
 
             AllGuests.add(invitato);
         }
@@ -199,7 +203,7 @@ public class txtFacade extends AbstractFacade {
 
         if (colonna[0].equals(idInvitato)) {
 
-            invitato = new Invitato(setID_Inv(colonna[1],colonna[2]), colonna[1],colonna[2],Integer.parseInt(colonna[3]));
+            invitato = new Invitato(setID_Inv(colonna[1],colonna[2],Integer.parseInt(colonna[3])), colonna[1],colonna[2],Integer.parseInt(colonna[3]));
 
             return invitato;
 

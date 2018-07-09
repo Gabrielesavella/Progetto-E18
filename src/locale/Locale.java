@@ -11,10 +11,11 @@ public class Locale {
     private String ID_Loc, orarioApertura, orarioChiusura, giornoChiusura;
     private int numInv;
     private GestoreLocale locale;
-    private ConnessioneDB c;
+    private ConnessioneDB c=new ConnessioneDB();
     private ArrayList<Tavolo> tavoliTotali;
     private ArrayList<GestoreEvento> gestoreEventiTotali;
     private ArrayList<Evento> eventiTotali;
+
 
 
     public Locale(String ID_Loc, int numInv, String orarioApertura, String orarioChiusura, String giornoChiusura){
@@ -38,15 +39,21 @@ public class Locale {
 
         ricavaLocale();
         aggiungiTavoli();
-        aggiungiEventi();
+        //aggiungiEventi(); PARTE DA CORREGGERE
 
         return locale;
     }
 
     public void aggiungiTavoli(){
-        c.startConn();
-        tavoliTotali=c.getTavolo(ID_Loc);
-        c.closeConn();
+        if (!c.checkConn()) {
+            c.startConn();
+            tavoliTotali = c.getTavolo(ID_Loc);
+            c.closeConn();
+        }
+        else{
+            tavoliTotali=c.getTavolo(ID_Loc);
+        }
+        System.out.println(tavoliTotali.toString());
         ricavaLocale().getTavoliLocale().addAll(tavoliTotali);
     }
 
@@ -56,9 +63,16 @@ public class Locale {
 
     public ArrayList<GestoreEvento> creaListaGestoreEventi(){
 
-        c.startConn();
-        eventiTotali=c.getEvento(ID_Loc);
-        c.closeConn();
+        if(!c.checkConn()) {
+
+            c.startConn();
+            eventiTotali = c.getEvento(ID_Loc);
+            c.closeConn();
+        }
+        else
+        {
+            eventiTotali = c.getEvento(ID_Loc);
+        }
 
         ArrayList<GestoreEvento> ge= new ArrayList<>();
         for (Evento e: eventiTotali){

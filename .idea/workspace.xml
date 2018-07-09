@@ -2,43 +2,34 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="01950896-05c3-4eb0-824d-3d94235cef39" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/src/gui/finestre/FinestraLogin.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/locale/GestoreEvento.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/locale/GestoreLocale.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/vincoli/GestorePreferenzaInvitato.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/vincoli/PreferenzaInvitatoEnum.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/tester/TesterPreferenzaInvitato.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/tester/TesterVincoliTavolo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/vincoli/CreatePreferenza.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/poi_3.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/poi_3.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/swingx_1_6.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/swingx_1_6.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Progetto-E18.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Progetto-E18.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/smistamento_posti_eventi.sql" beforeDir="false" afterPath="$PROJECT_DIR$/smistamento_posti_eventi.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/smistamento_posti_locali.sql" beforeDir="false" afterPath="$PROJECT_DIR$/smistamento_posti_locali.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/database/ConnessioneDB.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/database/ConnessioneDB.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/facade/AbstractFacade.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/facade/AbstractFacade.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/facade/XlsFacade.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/facade/XlsFacade.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/facade/txtFacade.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/facade/txtFacade.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/gui/controller/SistemaDiPrenotazioneController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gui/controller/SistemaDiPrenotazioneController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/gui/finestre/FinestraCreazioneEvento.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gui/finestre/FinestraCreazioneEvento.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/gui/finestre/FinestraDisposizioneTavoli.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gui/finestre/FinestraDisposizioneTavoli.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/gui/finestre/FinestraRegistrazione.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gui/finestre/FinestraRegistrazione.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/gui/finestre/FinestraSpecificheEvento.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gui/finestre/FinestraSpecificheEvento.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/gui/finestre/FinestraUtente.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/gui/panels/PannelloCredenzialiEvento.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gui/panels/PannelloCredenzialiEvento.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/gui/panels/PannelloDisposizioneTavoli.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gui/panels/PannelloDisposizioneTavoli.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/gui/panels/PannelloLogin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gui/panels/PannelloLogin.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/gui/panels/PannelloRegistrazione.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gui/panels/PannelloRegistrazione.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/gui/panels/PannelloSpecificheEvento.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gui/panels/PannelloSpecificheEvento.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/locale/Evento.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/locale/Evento.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/locale/Locale.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/locale/Locale.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/locale/Tavolo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/locale/Tavolo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/persone/Cliente.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/persone/Cliente.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/persone/Invitato.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/persone/Invitato.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/tester/PrenotazionePosti.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tester/PrenotazionePosti.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/tester/PrenotazionePostiTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tester/PrenotazionePostiTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/tester/TesterDB.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tester/TesterDB.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/tester/TesterGui.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tester/TesterGui.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/tester/TesterLocale.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tester/TesterLocale.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/vincoli/GestoreVincoliInvitato.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/vincoli/GestorePreferenzaInvitato.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/vincoli/GestorePreferenzaInvitato.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/vincoli/GestoreVincoliTavolo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/vincoli/GestoreVincoliTavolo.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/vincoli/PreferenzaInvitato.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/vincoli/PreferenzaInvitato.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/vincoli/PreferenzaInvitatoEnum.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/vincoli/PreferenzaInvitatoEnum.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -72,23 +63,21 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="FinestraDisposizioneTavoli.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/gui/finestre/FinestraDisposizioneTavoli.java">
+      <file leaf-file-name="GestoreVincoliTavolo.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/vincoli/GestoreVincoliTavolo.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="18" selection-start-line="18" selection-end-line="18" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SistemaDiPrenotazioneController.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/gui/controller/SistemaDiPrenotazioneController.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="209">
-              <caret line="148" selection-start-line="148" selection-end-line="148" />
+            <state relative-caret-position="-2054">
+              <caret line="78" selection-start-line="78" selection-end-line="78" />
               <folding>
-                <element signature="e#1584#1585#0" expanded="true" />
-                <element signature="e#1614#1615#0" expanded="true" />
+                <element signature="imports" expanded="true" />
+                <element signature="e#3468#6200#0" />
+                <element signature="e#4095#4112#0" expanded="true" />
+                <element signature="e#17010#17011#0" expanded="true" />
+                <element signature="e#17048#17049#0" expanded="true" />
+                <element signature="e#17116#17117#0" expanded="true" />
+                <element signature="e#17161#17162#0" expanded="true" />
+                <element signature="e#17441#17442#0" expanded="true" />
+                <element signature="e#17481#17482#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -97,58 +86,32 @@
       <file leaf-file-name="PannelloSpecificheEvento.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/gui/panels/PannelloSpecificheEvento.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="252">
-              <caret line="131" selection-start-line="131" selection-end-line="131" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="GestoreVincoliTavolo.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/vincoli/GestoreVincoliTavolo.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="171">
-              <caret line="432" column="24" selection-start-line="432" selection-start-column="24" selection-end-line="432" selection-end-column="24" />
+            <state relative-caret-position="228">
+              <caret line="126" column="34" selection-start-line="126" selection-start-column="34" selection-end-line="126" selection-end-column="34" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#19824#19825#0" expanded="true" />
-                <element signature="e#19862#19863#0" expanded="true" />
-                <element signature="e#19930#19931#0" expanded="true" />
-                <element signature="e#19975#19976#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="GestoreEvento.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/locale/GestoreEvento.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="149">
-              <caret line="43" column="28" selection-start-line="43" selection-start-column="28" selection-end-line="43" selection-end-column="28" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="XlsFacade.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="XlsFacade.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/facade/XlsFacade.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="311">
-              <caret line="272" selection-start-line="272" selection-end-line="272" />
+            <state relative-caret-position="730">
+              <caret line="235" column="38" selection-start-line="235" selection-start-column="38" selection-end-line="235" selection-end-column="38" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#2367#2377#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="PannelloRegistrazione.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/gui/panels/PannelloRegistrazione.java">
+      <file leaf-file-name="SistemaDiPrenotazioneController.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/gui/controller/SistemaDiPrenotazioneController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="376">
-              <caret line="94" lean-forward="true" selection-start-line="93" selection-end-line="94" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+            <state relative-caret-position="516">
+              <caret line="168" column="82" selection-start-line="168" selection-start-column="62" selection-end-line="168" selection-end-column="82" />
             </state>
           </provider>
         </entry>
@@ -156,20 +119,63 @@
       <file leaf-file-name="PannelloDisposizioneTavoli.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/gui/panels/PannelloDisposizioneTavoli.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="299">
-              <caret line="96" lean-forward="true" selection-start-line="91" selection-end-line="96" />
+            <state relative-caret-position="130">
+              <caret line="86" column="63" selection-start-line="86" selection-start-column="47" selection-end-line="86" selection-end-column="63" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="GestoreLocale.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/locale/GestoreLocale.java">
+      <file leaf-file-name="CreatePreferenza.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/vincoli/CreatePreferenza.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="186">
-              <caret line="205" selection-start-line="205" selection-end-line="205" />
+            <state relative-caret-position="451">
+              <caret line="47" column="42" selection-start-line="47" selection-start-column="24" selection-end-line="47" selection-end-column="42" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="GestorePreferenzaInvitato.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/vincoli/GestorePreferenzaInvitato.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="269">
+              <caret line="195" lean-forward="true" selection-start-line="195" selection-end-line="195" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ConnessioneDB.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/database/ConnessioneDB.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="55">
+              <caret line="352" column="16" selection-start-line="352" selection-start-column="16" selection-end-line="352" selection-end-column="16" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Invitato.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/persone/Invitato.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="445">
+              <caret line="45" column="18" lean-forward="true" selection-start-line="45" selection-start-column="18" selection-end-line="45" selection-end-column="18" />
               <folding>
-                <element signature="e#6620#6621#0" expanded="true" />
+                <element signature="e#800#801#0" expanded="true" />
+                <element signature="e#829#830#0" expanded="true" />
+                <element signature="e#1168#1169#0" expanded="true" />
+                <element signature="e#1195#1196#0" expanded="true" />
+                <element signature="e#1229#1230#0" expanded="true" />
+                <element signature="e#1259#1260#0" expanded="true" />
+                <element signature="e#1287#1288#0" expanded="true" />
+                <element signature="e#1313#1314#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="txtFacade.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/facade/txtFacade.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="336">
+              <caret line="201" column="3" selection-start-line="201" selection-start-column="3" selection-end-line="201" selection-end-column="3" />
             </state>
           </provider>
         </entry>
@@ -180,6 +186,10 @@
     <findStrings>
       <find>orarioapertura</find>
       <find>fetch</find>
+      <find>conta</find>
+      <find>endassignment</find>
+      <find>setid_inv</find>
+      <find>Invitato</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -194,34 +204,37 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/src/gui/finestre/FinestraUtente.java" />
-        <option value="$PROJECT_DIR$/src/tester/PrenotazionePostiTest.java" />
-        <option value="$PROJECT_DIR$/src/tester/PrenotazionePosti.java" />
-        <option value="$PROJECT_DIR$/src/database/ConnessioneDB.java" />
-        <option value="$PROJECT_DIR$/src/locale/Evento.java" />
-        <option value="$PROJECT_DIR$/src/persone/Invitato.java" />
         <option value="$PROJECT_DIR$/src/vincoli/SpecificaTavolo.java" />
         <option value="$PROJECT_DIR$/smistamento_posti_locali.sql" />
         <option value="$PROJECT_DIR$/smistamento_posti_eventi.sql" />
-        <option value="$PROJECT_DIR$/src/locale/GestoreLocale.java" />
-        <option value="$PROJECT_DIR$/src/facade/txtFacade.java" />
         <option value="$PROJECT_DIR$/src/vincoli/GestoreVincoliInvitato.java" />
-        <option value="$PROJECT_DIR$/src/tester/TesterDB.java" />
-        <option value="$PROJECT_DIR$/src/gui/panels/PannelloRegistrazione.java" />
         <option value="$PROJECT_DIR$/src/gui/finestre/FinestraRegistrazione.java" />
         <option value="$PROJECT_DIR$/src/gui/finestre/FinestraLogin.java" />
-        <option value="$PROJECT_DIR$/src/gui/panels/PannelloLogin.java" />
         <option value="$PROJECT_DIR$/src/gui/finestre/FinestraDisposizioneTavoli.java" />
         <option value="$PROJECT_DIR$/src/gui/finestre/FinestraCreazioneEvento.java" />
         <option value="$PROJECT_DIR$/src/gui/finestre/FinestraSpecificheEvento.java" />
-        <option value="$PROJECT_DIR$/src/tester/TesterLocale.java" />
-        <option value="$PROJECT_DIR$/src/tester/TesterGui.java" />
-        <option value="$PROJECT_DIR$/src/gui/controller/SistemaDiPrenotazioneController.java" />
         <option value="$PROJECT_DIR$/src/gui/panels/PannelloCredenzialiEvento.java" />
+        <option value="$PROJECT_DIR$/src/tester/TesterDB.java" />
+        <option value="$PROJECT_DIR$/src/tester/PrenotazionePosti.java" />
+        <option value="$PROJECT_DIR$/src/locale/Locale.java" />
+        <option value="$PROJECT_DIR$/src/locale/Evento.java" />
+        <option value="$PROJECT_DIR$/src/database/ConnessioneDB.java" />
+        <option value="$PROJECT_DIR$/src/tester/TesterLocale.java" />
+        <option value="$PROJECT_DIR$/src/gui/panels/PannelloRegistrazione.java" />
+        <option value="$PROJECT_DIR$/src/gui/panels/PannelloLogin.java" />
+        <option value="$PROJECT_DIR$/src/locale/GestoreLocale.java" />
+        <option value="$PROJECT_DIR$/src/tester/PrenotazionePostiTest.java" />
+        <option value="$PROJECT_DIR$/src/tester/TesterVincoliTavolo.java" />
         <option value="$PROJECT_DIR$/src/locale/Tavolo.java" />
+        <option value="$PROJECT_DIR$/src/tester/TesterGui.java" />
+        <option value="$PROJECT_DIR$/registrazioni.txt" />
         <option value="$PROJECT_DIR$/src/gui/panels/PannelloSpecificheEvento.java" />
-        <option value="$PROJECT_DIR$/src/gui/panels/PannelloDisposizioneTavoli.java" />
         <option value="$PROJECT_DIR$/src/vincoli/GestoreVincoliTavolo.java" />
+        <option value="$PROJECT_DIR$/src/gui/controller/SistemaDiPrenotazioneController.java" />
+        <option value="$PROJECT_DIR$/src/persone/Invitato.java" />
+        <option value="$PROJECT_DIR$/src/facade/txtFacade.java" />
         <option value="$PROJECT_DIR$/src/facade/XlsFacade.java" />
+        <option value="$PROJECT_DIR$/src/gui/panels/PannelloDisposizioneTavoli.java" />
       </list>
     </option>
   </component>
@@ -234,19 +247,15 @@
   <component name="NodePackageJsonFileManager">
     <packageJsonPaths />
   </component>
-  <component name="ProjectFrameBounds" extendedState="6" fullScreen="true">
-    <option name="x" value="122" />
-    <option name="y" value="68" />
-    <option name="width" value="1151" />
-    <option name="height" value="740" />
+  <component name="ProjectFrameBounds">
+    <option name="width" value="1440" />
+    <option name="height" value="900" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
-      <pane id="PackagesPane" />
       <pane id="AndroidView" />
       <pane id="ProjectPane">
         <subPane>
@@ -353,6 +362,8 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -360,7 +371,7 @@
     <property name="aspect.path.notification.shown" value="true" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
-    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.last.edited" value="Libraries" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="settings.editor.selected.configurable" value="preferences.externalDependencies" />
@@ -383,17 +394,6 @@
     </option>
   </component>
   <component name="RunManager" selected="Application.TesterGui">
-    <configuration name="PrenotazionePosti" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="tester.PrenotazionePosti" />
-      <module name="Progetto-E18" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="tester.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-    </configuration>
     <configuration name="TesterDB" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="tester.TesterDB" />
       <module name="Progetto-E18" />
@@ -416,21 +416,10 @@
         </pattern>
       </extension>
     </configuration>
-    <configuration name="TesterLocale" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="tester.TesterLocale" />
-      <module name="Progetto-E18" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="tester.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-    </configuration>
     <configuration default="true" type="Application" factoryName="Application">
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
     </configuration>
-    <configuration name="PrenotazionePostiTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="PrenotazionePostiTest.ProvaPreferenzaVicini" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Progetto-E18" />
       <extension name="coverage">
         <pattern>
@@ -442,8 +431,54 @@
       <option name="ALTERNATIVE_JRE_PATH" />
       <option name="PACKAGE_NAME" value="tester" />
       <option name="MAIN_CLASS_NAME" value="tester.PrenotazionePostiTest" />
-      <option name="METHOD_NAME" />
-      <option name="TEST_OBJECT" value="class" />
+      <option name="METHOD_NAME" value="ProvaPreferenzaVicini" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <patterns />
+    </configuration>
+    <configuration name="PrenotazionePostiTest.ProvaTavoliPieni" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Progetto-E18" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="tester.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" value="tester" />
+      <option name="MAIN_CLASS_NAME" value="tester.PrenotazionePostiTest" />
+      <option name="METHOD_NAME" value="ProvaTavoliPieni" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <patterns />
+    </configuration>
+    <configuration name="PrenotazionePostiTest.Provatavoli1" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Progetto-E18" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="tester.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" value="tester" />
+      <option name="MAIN_CLASS_NAME" value="tester.PrenotazionePostiTest" />
+      <option name="METHOD_NAME" value="Provatavoli1" />
+      <option name="TEST_OBJECT" value="method" />
       <option name="VM_PARAMETERS" value="-ea" />
       <option name="PARAMETERS" />
       <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
@@ -492,19 +527,19 @@
       <listeners />
     </configuration>
     <list>
-      <item itemvalue="Application.TesterGui" />
+      <item itemvalue="JUnit.PrenotazionePostiTest.Provatavoli1" />
+      <item itemvalue="JUnit.PrenotazionePostiTest.ProvaTavoliPieni" />
+      <item itemvalue="JUnit.PrenotazionePostiTest.ProvaPreferenzaVicini" />
       <item itemvalue="Application.TesterDB" />
-      <item itemvalue="Application.PrenotazionePosti" />
-      <item itemvalue="JUnit.PrenotazionePostiTest" />
-      <item itemvalue="Application.TesterLocale" />
+      <item itemvalue="Application.TesterGui" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="Application.TesterGui" />
-        <item itemvalue="Application.TesterLocale" />
-        <item itemvalue="JUnit.PrenotazionePostiTest" />
         <item itemvalue="Application.TesterDB" />
-        <item itemvalue="Application.PrenotazionePosti" />
+        <item itemvalue="JUnit.PrenotazionePostiTest.ProvaPreferenzaVicini" />
+        <item itemvalue="JUnit.PrenotazionePostiTest.ProvaTavoliPieni" />
+        <item itemvalue="JUnit.PrenotazionePostiTest.Provatavoli1" />
       </list>
     </recent_temporary>
   </component>
@@ -521,59 +556,75 @@
       <workItem from="1530436849349" duration="2243000" />
       <workItem from="1530521001692" duration="2636000" />
       <workItem from="1530733385453" duration="17066000" />
+      <workItem from="1530798944629" duration="11525000" />
+      <workItem from="1531037418384" duration="3779000" />
+      <workItem from="1531043480145" duration="21216000" />
     </task>
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="PrenotazionePostiTest - 2018.07.04 at 15h 39m 34s.xml">
+    <history-entry file="PrenotazionePostiTest - 2018.07.06 at 11h 03m 44s.xml">
       <configuration name="PrenotazionePostiTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="PrenotazionePostiTest - 2018.07.04 at 15h 42m 23s.xml">
+    <history-entry file="PrenotazionePostiTest - 2018.07.06 at 11h 04m 25s.xml">
       <configuration name="PrenotazionePostiTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="PrenotazionePostiTest - 2018.07.04 at 15h 42m 34s.xml">
+    <history-entry file="PrenotazionePostiTest_Provatavoli1 - 2018.07.06 at 11h 04m 54s.xml">
+      <configuration name="PrenotazionePostiTest.Provatavoli1" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="PrenotazionePostiTest_ProvaTavoliPieni - 2018.07.06 at 11h 04m 58s.xml">
+      <configuration name="PrenotazionePostiTest.ProvaTavoliPieni" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="PrenotazionePostiTest_ProvaPreferenzaVicini - 2018.07.06 at 11h 05m 01s.xml">
+      <configuration name="PrenotazionePostiTest.ProvaPreferenzaVicini" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="PrenotazionePostiTest - 2018.07.06 at 17h 16m 00s.xml">
       <configuration name="PrenotazionePostiTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="PrenotazionePostiTest - 2018.07.04 at 15h 44m 21s.xml">
+    <history-entry file="PrenotazionePostiTest - 2018.07.08 at 10h 42m 00s.xml">
       <configuration name="PrenotazionePostiTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="PrenotazionePostiTest - 2018.07.04 at 15h 55m 42s.xml">
-      <configuration name="PrenotazionePostiTest" configurationId="JUnit" />
+    <history-entry file="PrenotazionePostiTest_Provatavoli1 - 2018.07.09 at 11h 07m 37s.xml">
+      <configuration name="PrenotazionePostiTest.Provatavoli1" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="PrenotazionePostiTest - 2018.07.04 at 15h 56m 57s.xml">
-      <configuration name="PrenotazionePostiTest" configurationId="JUnit" />
+    <history-entry file="PrenotazionePostiTest_ProvaTavoliPieni - 2018.07.09 at 11h 07m 44s.xml">
+      <configuration name="PrenotazionePostiTest.ProvaTavoliPieni" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="PrenotazionePostiTest_ProvaPreferenzaVicini - 2018.07.09 at 11h 07m 48s.xml">
+      <configuration name="PrenotazionePostiTest.ProvaPreferenzaVicini" configurationId="JUnit" />
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="65816000" />
+    <option name="totallyTimeSpent" value="102336000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info anchor="right" id="Palette" order="9" />
       <window_info anchor="bottom" id="TODO" order="13" />
-      <window_info anchor="bottom" id="Messages" order="18" sideWeight="0.49356222" weight="0.3272727" />
+      <window_info anchor="bottom" id="Messages" order="18" sideWeight="0.4828326" weight="0.32627645" />
       <window_info anchor="right" id="Palette&#9;" order="13" />
       <window_info id="Image Layers" order="9" />
       <window_info anchor="right" id="Capture Analysis" order="10" />
-      <window_info anchor="bottom" id="Event Log" order="17" sideWeight="0.50572246" side_tool="true" visible="true" weight="0.3987879" />
+      <window_info anchor="bottom" id="Event Log" order="17" sideWeight="0.51287556" side_tool="true" weight="0.3985056" />
       <window_info anchor="right" id="Maven Projects" order="14" />
       <window_info anchor="bottom" id="Database Changes" order="15" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="16" />
-      <window_info anchor="bottom" id="Run" order="4" sideWeight="0.49284694" weight="0.2569697" />
+      <window_info anchor="bottom" id="Run" order="4" sideWeight="0.47854078" visible="true" weight="0.25653797" />
       <window_info anchor="bottom" id="Terminal" order="14" />
       <window_info id="Capture Tool" order="10" />
       <window_info id="Designer" order="8" />
-      <window_info content_ui="combo" id="Project" order="2" visible="true" weight="0.2074392" />
+      <window_info active="true" content_ui="combo" id="Project" order="2" visible="true" weight="0.2160229" />
       <window_info anchor="right" id="Database" order="12" />
       <window_info id="Structure" order="5" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Ant Build" order="2" weight="0.25" />
       <window_info id="UI Designer" order="11" />
       <window_info anchor="right" id="Theme Preview" order="11" />
       <window_info id="Favorites" order="12" side_tool="true" />
-      <window_info active="true" anchor="bottom" id="Debug" order="5" sideWeight="0.49427754" visible="true" weight="0.3987879" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="3" weight="0.25" />
+      <window_info anchor="bottom" id="Debug" order="5" sideWeight="0.48712447" weight="0.3985056" />
       <window_info anchor="right" id="Coverage" order="16" side_tool="true" weight="0.32912534" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="3" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="9" weight="0.4" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -598,74 +649,43 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/gui/panels/PannelloSpecificheEvento.java</url>
-          <line>131</line>
+          <line>137</line>
           <properties />
-          <option name="timeStamp" value="14" />
+          <option name="timeStamp" value="31" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/gui/panels/PannelloDisposizioneTavoli.java</url>
-          <line>91</line>
+          <line>90</line>
           <properties />
-          <option name="timeStamp" value="16" />
+          <option name="timeStamp" value="35" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/facade/XlsFacade.java</url>
-          <line>272</line>
+          <url>file://$PROJECT_DIR$/src/vincoli/GestoreVincoliTavolo.java</url>
+          <line>309</line>
           <properties />
-          <option name="timeStamp" value="20" />
+          <option name="timeStamp" value="36" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/facade/txtFacade.java</url>
+          <line>174</line>
+          <properties />
+          <option name="timeStamp" value="37" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/facade/txtFacade.java</url>
+          <line>205</line>
+          <properties />
+          <option name="timeStamp" value="38" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="21" />
+      <option name="time" value="39" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/gui/finestre/FinestraUtente.java" />
-    <entry file="file://$PROJECT_DIR$/src/locale/Locale.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="411">
-          <caret line="46" selection-start-line="46" selection-end-line="46" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/smistamento_posti_clienti.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret selection-end-line="53" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/smistamento_posti_invitati.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="282">
-          <caret line="54" lean-forward="true" selection-end-line="54" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/smistamento_posti_preferenza_invitato.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-408">
-          <caret line="11" column="22" selection-end-line="53" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/smistamento_posti_specifica_tavolo.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="9" column="18" selection-end-line="57" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/smistamento_posti_tavoli.sql">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="287">
           <caret line="51" lean-forward="true" selection-start-line="51" selection-end-line="51" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/vincoli/SpecificaTavolo.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="327">
-          <caret line="66" selection-start-line="66" selection-end-line="66" />
         </state>
       </provider>
     </entry>
@@ -683,77 +703,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/vincoli/PreferenzaInvitatoEnum.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="2" column="12" selection-start-line="2" selection-start-column="12" selection-end-line="2" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/vincoli/GestorePreferenzaInvitato.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="9" column="13" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/locale/Evento.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="31">
-          <caret line="30" column="11" selection-start-line="30" selection-start-column="11" selection-end-line="30" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/persone/Cliente.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="184">
-          <caret line="14" selection-start-line="14" selection-end-line="14" />
-          <folding>
-            <element signature="e#501#502#0" expanded="true" />
-            <element signature="e#541#542#0" expanded="true" />
-            <element signature="e#579#580#0" expanded="true" />
-            <element signature="e#604#605#0" expanded="true" />
-            <element signature="e#644#645#0" expanded="true" />
-            <element signature="e#676#677#0" expanded="true" />
-            <element signature="e#722#723#0" expanded="true" />
-            <element signature="e#760#761#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/vincoli/PreferenzaInvitato.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-736">
-          <caret line="17" column="51" selection-start-line="17" selection-start-column="51" selection-end-line="17" selection-end-column="51" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/vincoli/GestoreVincoliInvitato.java" />
     <entry file="file://$PROJECT_DIR$/cena cecilista_invitati.txt">
       <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/persone/Invitato.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="248">
-          <caret line="58" selection-start-line="58" selection-end-line="58" />
-          <folding>
-            <element signature="e#800#801#0" expanded="true" />
-            <element signature="e#829#830#0" expanded="true" />
-            <element signature="e#1168#1169#0" expanded="true" />
-            <element signature="e#1195#1196#0" expanded="true" />
-            <element signature="e#1229#1230#0" expanded="true" />
-            <element signature="e#1259#1260#0" expanded="true" />
-            <element signature="e#1313#1314#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/facade/txtFacade.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="53" selection-start-line="53" selection-end-line="53" />
-        </state>
-      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/gui/finestre/FinestraCreazioneEvento.java">
       <provider selected="true" editor-type-id="text-editor">
@@ -769,27 +721,6 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/lollista_invitati.txt">
       <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/tester/TesterDB.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="199">
-          <caret line="38" column="8" selection-start-line="38" selection-start-column="8" selection-end-line="38" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/database/ConnessioneDB.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-248">
-          <caret line="18" column="3" selection-start-line="18" selection-start-column="3" selection-end-line="18" selection-end-column="3" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/tester/TesterLocale.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="327">
-          <caret line="33" selection-start-line="33" selection-end-line="33" />
-        </state>
-      </provider>
     </entry>
     <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_101.jdk/Contents/Home/src.zip!/java/net/SocketInputStream.java">
       <provider selected="true" editor-type-id="text-editor">
@@ -819,54 +750,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/tester/PrenotazionePostiTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="349">
-          <caret line="39" column="48" selection-start-line="39" selection-start-column="48" selection-end-line="39" selection-end-column="48" />
-          <folding>
-            <element signature="e#4351#4361#0" expanded="true" />
-            <element signature="e#4665#4675#0" expanded="true" />
-            <element signature="e#4956#4966#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/tester/PrenotazionePosti.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1603">
-          <caret line="35" selection-start-line="35" selection-end-line="35" />
-          <folding>
-            <element signature="e#727#735#0" expanded="true" />
-            <element signature="e#8047#8057#0" expanded="true" />
-            <element signature="e#8361#8371#0" expanded="true" />
-            <element signature="e#8652#8662#0" expanded="true" />
-            <element signature="e#8975#8985#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/gui/panels/PannelloLogin.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1365">
-          <caret line="103" selection-start-line="103" selection-end-line="103" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/gui/finestre/FinestraLogin.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="150">
           <caret line="15" selection-start-line="15" selection-end-line="15" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$PROJECT_DIR$/librerie/poi-3.17/poi-3.17.jar!/org/apache/poi/hssf/usermodel/HSSFRow.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="41" column="20" selection-start-line="41" selection-start-column="20" selection-end-line="41" selection-end-column="20" />
-          <folding>
-            <element signature="e#1490#1491#0" expanded="true" />
-            <element signature="e#1552#1553#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -891,33 +778,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/tester/TesterGui.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="261">
-          <caret line="53" selection-start-line="53" selection-end-line="53" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/gui/panels/PannelloCredenzialiEvento.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="234">
-          <caret line="65" column="42" selection-start-line="65" selection-start-column="42" selection-end-line="65" selection-end-column="42" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/locale/Tavolo.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="420">
-          <caret line="206" column="29" selection-start-line="206" selection-start-column="29" selection-end-line="206" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/gui/finestre/FinestraRegistrazione.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="180">
@@ -925,15 +785,131 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/gui/panels/PannelloRegistrazione.java">
+    <entry file="file://$PROJECT_DIR$/src/locale/Evento.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="376">
-          <caret line="94" lean-forward="true" selection-start-line="93" selection-end-line="94" />
+        <state relative-caret-position="253">
+          <caret line="86" column="2" selection-start-line="86" selection-start-column="2" selection-end-line="86" selection-end-column="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/locale/Locale.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="900">
+          <caret line="65" column="38" selection-start-line="65" selection-start-column="38" selection-end-line="65" selection-end-column="38" />
+          <folding>
+            <element signature="e#1377#1378#0" expanded="true" />
+            <element signature="e#1452#1453#0" expanded="true" />
+            <element signature="e#1812#1813#0" expanded="true" />
+            <element signature="e#1841#1842#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/persone/Cliente.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="190">
+          <caret line="14" selection-start-line="14" selection-end-line="14" />
+          <folding>
+            <element signature="e#501#502#0" expanded="true" />
+            <element signature="e#541#542#0" expanded="true" />
+            <element signature="e#579#580#0" expanded="true" />
+            <element signature="e#604#605#0" expanded="true" />
+            <element signature="e#644#645#0" expanded="true" />
+            <element signature="e#676#677#0" expanded="true" />
+            <element signature="e#722#723#0" expanded="true" />
+            <element signature="e#760#761#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/vincoli/PreferenzaInvitatoEnum.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="2" column="12" selection-start-line="2" selection-start-column="12" selection-end-line="2" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/vincoli/Vincolo.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="10" column="17" selection-start-line="10" selection-start-column="17" selection-end-line="10" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/tester/PrenotazionePosti.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="900">
+          <caret line="65" column="57" selection-start-line="65" selection-start-column="57" selection-end-line="65" selection-end-column="57" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/vincoli/SpecificaTavolo.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="14" column="13" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/gui/panels/PannelloCredenzialiEvento.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-123">
+          <caret line="65" column="42" selection-start-line="65" selection-start-column="42" selection-end-line="65" selection-end-column="42" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/gui/panels/PannelloRegistrazione.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="430">
+          <caret line="111" selection-start-line="111" selection-end-line="111" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/tester/TesterVincoliTavolo.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="295">
+          <caret line="31" selection-start-line="31" selection-end-line="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/tester/TesterPreferenzaInvitato.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/tester/TesterLocale.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/tester/PrenotazionePostiTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1755">
+          <caret line="117" column="104" selection-start-line="117" selection-start-column="104" selection-end-line="117" selection-end-column="104" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/tester/TesterDB.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/registrazioni.txt">
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/src/gui/finestre/FinestraDisposizioneTavoli.java">
       <provider selected="true" editor-type-id="text-editor">
@@ -942,23 +918,26 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/gui/panels/PannelloDisposizioneTavoli.java">
+    <entry file="file://$PROJECT_DIR$/src/tester/TesterGui.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="299">
-          <caret line="96" lean-forward="true" selection-start-line="91" selection-end-line="96" />
+        <state relative-caret-position="220">
+          <caret line="62" selection-start-line="62" selection-end-line="62" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#937#945#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/vincoli/GestoreVincoliTavolo.java">
+    <entry file="file://$PROJECT_DIR$/src/locale/GestoreEvento.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="171">
-          <caret line="432" column="24" selection-start-line="432" selection-start-column="24" selection-end-line="432" selection-end-column="24" />
+        <state relative-caret-position="213">
+          <caret line="43" column="28" selection-start-line="43" selection-start-column="28" selection-end-line="43" selection-end-column="28" />
           <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#19824#19825#0" expanded="true" />
-            <element signature="e#19862#19863#0" expanded="true" />
-            <element signature="e#19930#19931#0" expanded="true" />
-            <element signature="e#19975#19976#0" expanded="true" />
+            <element signature="e#2143#2144#0" expanded="true" />
+            <element signature="e#2181#2182#0" expanded="true" />
+            <element signature="e#2501#2502#0" expanded="true" />
+            <element signature="e#2551#2552#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -970,49 +949,139 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/locale/GestoreLocale.java">
+    <entry file="file://$PROJECT_DIR$/src/gui/panels/PannelloLogin.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="186">
-          <caret line="205" selection-start-line="205" selection-end-line="205" />
-          <folding>
-            <element signature="e#6620#6621#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="15">
+          <caret line="21" column="13" selection-start-line="21" selection-start-column="13" selection-end-line="21" selection-end-column="13" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/locale/GestoreEvento.java">
+    <entry file="file://$PROJECT_DIR$/src/locale/Tavolo.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="149">
-          <caret line="43" column="28" selection-start-line="43" selection-start-column="28" selection-end-line="43" selection-end-column="28" />
+        <state relative-caret-position="145">
+          <caret line="68" selection-start-line="68" selection-end-line="68" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/locale/GestoreLocale.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="145">
+          <caret line="72" selection-start-line="72" selection-end-line="72" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/vincoli/GestoreVincoliTavolo.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2054">
+          <caret line="78" selection-start-line="78" selection-end-line="78" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#3468#6200#0" />
+            <element signature="e#4095#4112#0" expanded="true" />
+            <element signature="e#17010#17011#0" expanded="true" />
+            <element signature="e#17048#17049#0" expanded="true" />
+            <element signature="e#17116#17117#0" expanded="true" />
+            <element signature="e#17161#17162#0" expanded="true" />
+            <element signature="e#17441#17442#0" expanded="true" />
+            <element signature="e#17481#17482#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/gui/panels/PannelloSpecificheEvento.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="252">
-          <caret line="131" selection-start-line="131" selection-end-line="131" />
+        <state relative-caret-position="228">
+          <caret line="126" column="34" selection-start-line="126" selection-start-column="34" selection-end-line="126" selection-end-column="34" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/persone/Invitato.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="445">
+          <caret line="45" column="18" lean-forward="true" selection-start-line="45" selection-start-column="18" selection-end-line="45" selection-end-column="18" />
+          <folding>
+            <element signature="e#800#801#0" expanded="true" />
+            <element signature="e#829#830#0" expanded="true" />
+            <element signature="e#1168#1169#0" expanded="true" />
+            <element signature="e#1195#1196#0" expanded="true" />
+            <element signature="e#1229#1230#0" expanded="true" />
+            <element signature="e#1259#1260#0" expanded="true" />
+            <element signature="e#1287#1288#0" expanded="true" />
+            <element signature="e#1313#1314#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/facade/txtFacade.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="336">
+          <caret line="201" column="3" selection-start-line="201" selection-start-column="3" selection-end-line="201" selection-end-column="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/librerie/poi-3.17/poi-3.17.jar!/org/apache/poi/hssf/usermodel/HSSFRow.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="41" column="20" selection-start-line="41" selection-start-column="20" selection-end-line="41" selection-end-column="20" />
+          <folding>
+            <element signature="e#1490#1491#0" expanded="true" />
+            <element signature="e#1552#1553#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/database/ConnessioneDB.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="55">
+          <caret line="352" column="16" selection-start-line="352" selection-start-column="16" selection-end-line="352" selection-end-column="16" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/gui/controller/SistemaDiPrenotazioneController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="209">
-          <caret line="148" selection-start-line="148" selection-end-line="148" />
-          <folding>
-            <element signature="e#1584#1585#0" expanded="true" />
-            <element signature="e#1614#1615#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="516">
+          <caret line="168" column="82" selection-start-line="168" selection-start-column="62" selection-end-line="168" selection-end-column="82" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/facade/XlsFacade.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="311">
-          <caret line="272" selection-start-line="272" selection-end-line="272" />
+        <state relative-caret-position="730">
+          <caret line="235" column="38" selection-start-line="235" selection-start-column="38" selection-end-line="235" selection-end-column="38" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#2367#2377#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/gui/panels/PannelloDisposizioneTavoli.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="130">
+          <caret line="86" column="63" selection-start-line="86" selection-start-column="47" selection-end-line="86" selection-end-column="63" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/vincoli/PreferenzaInvitato.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1395">
+          <caret line="105" column="48" selection-start-line="105" selection-start-column="48" selection-end-line="105" selection-end-column="48" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/vincoli/CreatePreferenza.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="451">
+          <caret line="47" column="42" selection-start-line="47" selection-start-column="24" selection-end-line="47" selection-end-column="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/vincoli/GestorePreferenzaInvitato.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="269">
+          <caret line="195" lean-forward="true" selection-start-line="195" selection-end-line="195" />
         </state>
       </provider>
     </entry>
@@ -1092,7 +1161,7 @@
       </state>
       <state key="ProjectLibrariesConfigurable.UI">
         <settings>
-          <last-edited>swingx-1.6</last-edited>
+          <last-edited>mysql-connector-java-5.1.18-bin</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>
