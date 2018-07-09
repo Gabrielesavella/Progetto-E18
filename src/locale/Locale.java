@@ -11,7 +11,7 @@ public class Locale {
     private String ID_Loc, orarioApertura, orarioChiusura, giornoChiusura;
     private int numInv;
     private GestoreLocale locale;
-    private ConnessioneDB c=new ConnessioneDB();
+    private ConnessioneDB c = new ConnessioneDB();
     private ArrayList<Tavolo> tavoliTotali;
     private ArrayList<GestoreEvento> gestoreEventiTotali;
     private ArrayList<Evento> eventiTotali;
@@ -39,7 +39,7 @@ public class Locale {
 
         ricavaLocale();
         aggiungiTavoli();
-        //aggiungiEventi(); PARTE DA CORREGGERE
+        aggiungiEventi();
 
         return locale;
     }
@@ -54,11 +54,11 @@ public class Locale {
             tavoliTotali=c.getTavolo(ID_Loc);
         }
         System.out.println(tavoliTotali.toString());
-        ricavaLocale().getTavoliLocale().addAll(tavoliTotali);
+        locale.getTavoliLocale().addAll(tavoliTotali);
     }
 
     public void aggiungiEventi(){
-        ricavaLocale().getEventi().addAll(creaListaGestoreEventi());
+        locale.getEventi().addAll(creaListaGestoreEventi());
     }
 
     public ArrayList<GestoreEvento> creaListaGestoreEventi(){

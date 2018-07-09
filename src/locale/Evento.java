@@ -15,10 +15,11 @@ public class Evento {
     private Locale location;
     private ArrayList <Invitato> invitati;
     private ArrayList <Vincolo> lista_vincoli;
-    private ArrayList<Locale> locali;
+    private Locale locale;
     private String dataEvento;
     private int numInvitati;
     GregorianCalendar dataEventoCalendario;
+    private ConnessioneDB conDB = new ConnessioneDB();
 
     private Date dataEv;
     private String nomeLocale;
@@ -38,7 +39,6 @@ public class Evento {
         this.numInvitati=numInvitati;
         this.dataEvento = dataEvento;
     }
-
 
 
     public static GregorianCalendar ricavaData(String data){
@@ -67,20 +67,33 @@ public class Evento {
     public int getNumInvitati(){return numInvitati;}
 
     public Locale prendiLocale(String nomeLoc) {
-        Locale loca=null;
-        for (Locale l : locali) {
-            if (nomeLoc == l.getID_Locale()) {
-                loca = l;
-            }
+
+        if (!conDB.checkConn()){
+
+            conDB.startConn();
+            locale = conDB.getLocale(nomeLoc);
+            conDB.closeConn();
+
+        } else {
+
+            locale = conDB.getLocale(nomeLoc);
         }
-        return loca;
+        return locale;
     }
 
     public ArrayList<Invitato> ricavaInvitati(String ID_Evento){
-        ConnessioneDB c= new ConnessioneDB();
-        c.startConn();
-        ArrayList<Invitato> invitati= c.getInvitato(ID_Evento);
-        c.closeConn();
+
+        if(!conDB.checkConn()){
+
+            conDB.startConn();
+            ArrayList<Invitato> invitati= conDB.getInvitato(ID_Evento);
+            conDB.closeConn();
+
+        } else {
+
+            ArrayList<Invitato> invitati= conDB.getInvitato(ID_Evento);
+        }
+
         return invitati;
     }
 
