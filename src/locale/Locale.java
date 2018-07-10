@@ -39,7 +39,7 @@ public class Locale {
 
         ricavaLocale();
         aggiungiTavoli();
-        aggiungiEventi();
+        //aggiungiEventi();
 
         return locale;
     }
