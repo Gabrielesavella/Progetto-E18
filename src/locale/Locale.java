@@ -53,7 +53,6 @@ public class Locale {
         else{
             tavoliTotali=c.getTavolo(ID_Loc);
         }
-        System.out.println(tavoliTotali.toString());
         ricavaLocale().getTavoliLocale().addAll(tavoliTotali);
     }
 
