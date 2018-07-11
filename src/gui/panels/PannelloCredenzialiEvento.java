@@ -1,5 +1,6 @@
 package gui.panels;
 
+import database.*;
 import gui.controller.SistemaDiPrenotazioneController;
 import gui.finestre.FinestraCreazioneEvento;
 import gui.finestre.FinestraSpecificheEvento;
@@ -61,9 +62,10 @@ public class PannelloCredenzialiEvento extends JPanel{
 
         JComboBox<String> dropDownLocali= new JComboBox<String>();
 
-        dropDownLocali.addItem("da Giulio");
-        dropDownLocali.addItem("fortezza della solitudine");
-        dropDownLocali.addItem("morte nera");
+            for(GestoreLocale l:locali)
+                dropDownLocali.addItem(l.getId_locale());
+
+
 
 
 
