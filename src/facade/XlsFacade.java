@@ -22,6 +22,7 @@ public class XlsFacade {
     private Sheet sheet;
     private String xlsGuest = "Guest.xls", xlsVincoli = "Vincoli.xls";
     private ArrayList<String> campiPreferenze;
+    private ArrayList<PreferenzaInvitato> vincoliPreferenze = new ArrayList<>();;
 
 
     public boolean generateXlsGuests(String nomeEvento){
@@ -99,31 +100,25 @@ public class XlsFacade {
                 while (cellIterator.hasNext()) {
                     Cell currentCell = (Cell) cellIterator.next();
                     if (currentCell.getCellTypeEnum() == CellType.STRING) {
-                        //System.out.print(currentCell.getStringCellValue() + "  ");
                         if(currentCell.getColumnIndex()==0){
                             name=currentCell.getStringCellValue();
                         }else if(currentCell.getColumnIndex()==1){
                             surname=currentCell.getStringCellValue();
                         }
                     } else if (currentCell.getCellTypeEnum() == CellType.NUMERIC) {
-                        //System.out.println(currentCell.getNumericCellValue() + " anni ");
                         eta=(int)currentCell.getNumericCellValue();
                     }
                     if (!cellIterator.hasNext()) {
                         fantoccio = new Invitato(name, surname, eta);
-//                        elemento = new Invitato(fantoccio.getID_Inv(),name,surname,eta);
                         invitati.add(fantoccio);
                     }
 
                 }
-                //System.out.println();
             }
         } catch (FileNotFoundException ex) {
             System.out.println(ex.getMessage());
-           // done = false;
         } catch (IOException ex) {
             System.out.println(ex.getMessage());
-            //done = false;
         }
         return invitati;
     }
@@ -137,13 +132,10 @@ public class XlsFacade {
         columns.add("VicinoTv");
         columns.add("Bambini");
         columns.add("Isolato");
-        //parte maffo
         columns.add("preferenza 1");
         columns.add("preferenza 2");
         columns.add("avversione 1");
         columns.add("avversione 2");
-
-
         try {
             FileInputStream fIPS= new FileInputStream(nomeEvento+".xls"); //Read the spreadsheet that needs to be updated
             HSSFWorkbook wb;
@@ -175,7 +167,6 @@ public class XlsFacade {
             c.setCellValue(columns.get(i-3));//
             }
 
-            //add ID_Invitato
             for (int i=1;i<=invitati.size()+1;i++){
                 row=worksheet.getRow(i);
                 if (row==null){
@@ -183,7 +174,6 @@ public class XlsFacade {
                 }
                 Cell c = row.createCell(3);
                 c.setCellType(CellType.STRING);
-
                 c.setCellValue(invitati.get(i-1).getID_Inv());
             }
 
@@ -220,13 +210,10 @@ public class XlsFacade {
 
     public boolean openfile(String nameFile) throws IOException{
         File file = new File(nameFile);
-
-
         if(!Desktop.isDesktopSupported()){
             System.out.println("Desktop is not supported");
             return false;
         }
-
         Desktop desktop = Desktop.getDesktop();
         if(file.exists())
         desktop.open(file);
@@ -235,7 +222,6 @@ public class XlsFacade {
 
     public ArrayList<SpecificaTavolo> readSpecificheTavolo(String nameEvent){
         ArrayList<SpecificaTavolo> vincoliTavoli = new ArrayList<>();
-
         int campiVincolo[] = new int[6];
         try {
             String file = nameEvent+".xls";
@@ -248,45 +234,27 @@ public class XlsFacade {
             while (iterator.hasNext()) {
                 Row currentRow = (Row) iterator.next();
                 Iterator cellIterator = currentRow.iterator();
-                //System.out.println("prendendo invitati..");
                 while (cellIterator.hasNext()) {
                     Cell currentCell = (Cell) cellIterator.next();
                     if (currentCell.getCellTypeEnum() == CellType.STRING) {
-                        if(currentCell.getColumnIndex()==3) {
-                            //System.out.println("invitato: "+currentCell.getStringCellValue());
+                        if(currentCell.getColumnIndex()==3)
                             contenuto = currentCell.getStringCellValue();
-                        }
-
                     }
                     if(currentCell.getCellTypeEnum()==CellType.NUMERIC){
-                        if( currentCell.getColumnIndex()>=4 && currentCell.getColumnIndex()<=9){
-                            //System.out.println("valore cella" + (int)currentCell.getNumericCellValue());
-
+                        if( currentCell.getColumnIndex()>=4 && currentCell.getColumnIndex()<=9)
                             campiVincolo[currentCell.getColumnIndex()-4] = (int)currentCell.getNumericCellValue();
-                        }
-                        //else if (currentCell.getCellTypeEnum() != CellType.STRING) {
-                        // System.out.println("tipo di cella: "+currentCell.getCellTypeEnum()+"colonna : "+currentCell.getColumnIndex());
-                    }
+                      }
                     if(currentCell.getCellTypeEnum()==CellType.BLANK){
-                        if( currentCell.getColumnIndex()>=4 && currentCell.getColumnIndex()<=9){
+                        if( currentCell.getColumnIndex()>=4 && currentCell.getColumnIndex()<=9)
                             campiVincolo[currentCell.getColumnIndex()-4]=0;
-                        }
                     }
-                    if (!cellIterator.hasNext()) {
+                    if (!cellIterator.hasNext())
                         vincoliTavoli.add(splitVincoliTavolo(nameEvent,contenuto,campiVincolo));
-                    }
-//                    }
                 }
             }
-        } catch (FileNotFoundException ex) {
-            System.out.println(ex.getMessage());
-        } catch (IOException ex) {
-            System.out.println(ex.getMessage());
-        }
-        try {
             readPreferenzeInvitato(nameEvent);
-        }catch(IOException ecc){
-            System.out.println(ecc.getMessage());
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
         }
         return vincoliTavoli;
     }
@@ -295,30 +263,16 @@ public class XlsFacade {
         SpecificaTavolo sp;
         int i=0;
         sp = new SpecificaTavolo(nomeEvento,soggetto,campiVincolo[i],campiVincolo[i+1],campiVincolo[i+2],campiVincolo[i+3],campiVincolo[i+4],campiVincolo[i+5]);
-        //System.out.println(sp.toString());
         ConnessioneDB connessione = new ConnessioneDB();
         connessione.inserisciVincoliTavolo(nomeEvento,soggetto,campiVincolo[i],campiVincolo[i+1],campiVincolo[i+2],campiVincolo[i+3],campiVincolo[i+4],campiVincolo[i+5]);
-        //System.out.println("Onorevole: "+sp.getTavoloOnore());
-        //System.out.println("difficoltà motorie: "+sp.getDifficoltaMotorie());
-        //System.out.println("vegetariano: "+sp.getVegetariano());
-        //System.out.println("vicinoTv: "+sp.getVicinoTV());
-        //System.out.println("bambino: "+sp.getBambini());
-        //System.out.println("tavoloIsolato: "+sp.getTavoloIsolato());
-        //System.out.println("\n");
         return sp;
 
     }
 
     public ArrayList<PreferenzaInvitato> readPreferenzeInvitato(String nameEvent) throws IOException{
-        ArrayList<PreferenzaInvitato> vincoliPreferenze = new ArrayList<>();
         campiPreferenze = new ArrayList<>();
-        PreferenzaInvitato pr = null;
-
-
         try {
-            String file = nameEvent+".xls";
-            //String contenuto= null ;
-            FileInputStream excelFile = new FileInputStream(new File(file));
+            FileInputStream excelFile = new FileInputStream(new File(nameEvent+".xls"));
             workbook = new HSSFWorkbook(excelFile);
             Sheet dataTypeSheet = workbook.getSheetAt(0);
             Iterator iterator = dataTypeSheet.iterator();
@@ -326,43 +280,23 @@ public class XlsFacade {
             while (iterator.hasNext()) {
                 Row currentRow = (Row) iterator.next();
                 Iterator cellIterator = currentRow.iterator();
-                //System.out.println("prendendo invitati..");
                 while (cellIterator.hasNext()) {
                     Cell currentCell = (Cell) cellIterator.next();
                     if (currentCell.getCellTypeEnum() == CellType.STRING) {
-                        if(currentCell.getColumnIndex()==3) {
-                            //id_invitato
+                        if(currentCell.getColumnIndex()==3)
                             campiPreferenze.add(currentCell.getStringCellValue());
-                        }
-                        if(currentCell.getColumnIndex()>=10 && currentCell.getColumnIndex()<=13) {
+                        if(currentCell.getColumnIndex()>=10 && currentCell.getColumnIndex()<=13)
                             campiPreferenze.add(currentCell.getStringCellValue());
-                            System.out.println("cella stringa"+currentCell.getStringCellValue());
-                        }
-
-                    }
-                    else {
-                        if (currentCell.getColumnIndex() >= 10 && currentCell.getColumnIndex() <= 13) {
+                    } else
+                        if (currentCell.getColumnIndex() >= 10 && currentCell.getColumnIndex() <= 13)
                             campiPreferenze.add(currentCell.getStringCellValue());
-                            System.out.println("cella bianca: " + currentCell.getStringCellValue());
-                        }
-                    }
-
-                    if (!cellIterator.hasNext()) {
-                        //splitta preferenze vincoli
-                        pr = splitPreferenze(nameEvent,campiPreferenze);
-                        vincoliPreferenze.add(pr);
-                        //campiPreferenze.clear();
-                    }
-
+                    if (!cellIterator.hasNext())
+                        vincoliPreferenze.add(splitPreferenze(nameEvent,campiPreferenze));
                 }
             }
         } catch (FileNotFoundException ex) {
             System.out.println(ex.getMessage());
-        } catch (IOException ex) {
-            System.out.println(ex.getMessage());
         }
-
-
         return vincoliPreferenze;
     }
 
@@ -371,50 +305,24 @@ public class XlsFacade {
         String preferenze = null;
         String avversione = null;
         ConnessioneDB connessione = new ConnessioneDB();
-        System.out.println("id_invitato: "+campiPreferenze.get(0));
-        System.out.println(campiPreferenze.get(1)+"  "+campiPreferenze.get(2)+"  "+campiPreferenze.get(3)+"  "+campiPreferenze.get(4));
-
-        if ((campiPreferenze.get(1)== null && campiPreferenze.get(2) !=null)){
+        //PREFERENZE
+        if ((campiPreferenze.get(1)== null && campiPreferenze.get(2) !=null))
             preferenze = campiPreferenze.get(2);
-            //System.out.println("preferenzaa campo 1: "+preferenze);
-        }
-
-        if ((campiPreferenze.get(1)!= null && campiPreferenze.get(2) ==null)){
+        if ((campiPreferenze.get(1)!= null && campiPreferenze.get(2) ==null))
             preferenze = campiPreferenze.get(1);
-            //  System.out.println("preferenza campo 2 :  "+preferenze);
-        }
-
-        if ((campiPreferenze.get(1)!= null && campiPreferenze.get(2) !=null)){
-
+        if ((campiPreferenze.get(1)!= null && campiPreferenze.get(2) !=null))
             preferenze = campiPreferenze.get(1)+" "+campiPreferenze.get(2);
-            //System.out.println("preferenze tutti e 2 i campi ");
-        }
-
         //AVVERSIONE
-
-        if ((campiPreferenze.get(3)== null && campiPreferenze.get(4) !=null)){
+        if ((campiPreferenze.get(3)== null && campiPreferenze.get(4) !=null))
             avversione = campiPreferenze.get(4);
-            //System.out.println("preferenzaa campo 1: "+preferenze);
-        }
-
-        if ((campiPreferenze.get(3)!= null && campiPreferenze.get(4) ==null)){
+        if ((campiPreferenze.get(3)!= null && campiPreferenze.get(4) ==null))
             avversione = campiPreferenze.get(3);
-            //System.out.println("preferenza campo 2 :  "+preferenze);
-        }
-
-        if ((campiPreferenze.get(3)!= null && campiPreferenze.get(4) !=null)){
-
+        if ((campiPreferenze.get(3)!= null && campiPreferenze.get(4) !=null))
             avversione = campiPreferenze.get(3)+" "+campiPreferenze.get(4);
-            //System.out.println("preferenze tutti e 2 i campi ");
-        }
         pref = new PreferenzaInvitato(nameEvent,campiPreferenze.get(0),preferenze,avversione);
         connessione.inserisciVincoloInvitati(nameEvent,campiPreferenze.get(0),preferenze,avversione);
-        System.out.println("prefereza: "+pref.toString());
         this.campiPreferenze.clear();
-
         return pref;
-
-
     }
 
 }
