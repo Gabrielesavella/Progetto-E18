@@ -1,0 +1,20 @@
+cena ceci	19	10	
+ko	19	10	
+lol	19	20	
+cena ceni	10	10	
+eventoStandard	13	23	
+cena da marco	18	20	
+cena da gesooo	26	20	
+cena da ischia	19	20	
+cena da gigi	27	20	
+cena di maffo	25	20	
+cena da irene	31	20	
+cena maffo	16	20	
+cena dori	29	20	
+cena da GabrieleSavellaCheehbellissimo	23	20	
+cena da maffo	28	20	
+cena fratima	27	20	
+cena ischia	22	20	
+Male	18	15	
+Ulteriore Prova	13	35	
+Prova	14	16	
