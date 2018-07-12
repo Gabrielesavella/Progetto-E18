@@ -97,8 +97,14 @@ public class PannelloCredenzialiEvento extends JPanel{
                         gestoreLocaleSelezionato =l;
 
                         //MODIFICA PER IL DB : aggiunto campo id locale a crea evento!
-                        if (sisPr.creaEvento(tNome.getText(),calendar,Integer.parseInt(tnInv.getText()),cliente,l.getId_locale()))
-                            System.out.println("Evento creato :)");
+                        try {
+                            if (sisPr.creaEvento(tNome.getText(),calendar,Integer.parseInt(tnInv.getText()),cliente,l.getId_locale()))
+                                System.out.println("Evento creato :)");
+                        } catch (DatabaseException e1) {
+                            e1.printStackTrace();
+                        } catch (DatabaseNullException e1) {
+                            e1.printStackTrace();
+                        }
                     }
                 }
 

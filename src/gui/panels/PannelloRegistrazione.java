@@ -1,5 +1,7 @@
 package gui.panels;
 
+import database.DatabaseException;
+import database.DatabaseNullException;
 import gui.controller.SistemaDiPrenotazioneController;
 import locale.GestoreLocale;
 import persone.Cliente;
@@ -87,7 +89,14 @@ public class PannelloRegistrazione extends JPanel {
 //                    errore.setText("");
 //                }
                 SistemaDiPrenotazioneController sisPr= new SistemaDiPrenotazioneController();
-                boolean registrazione=sisPr.signUp(tNome.getText(),tCognome.getText(),tEMail.getText(),tUsername.getText(),tPassword.getText());
+                boolean registrazione= false;
+                try {
+                    registrazione = sisPr.signUp(tNome.getText(),tCognome.getText(),tEMail.getText(),tUsername.getText(),tPassword.getText());
+                } catch (DatabaseException e1) {
+                    e1.printStackTrace();
+                } catch (DatabaseNullException e1) {
+                    e1.printStackTrace();
+                }
                 boolean psswrdCorretta=tPassword.getText().equals(tConfPassword.getText());
                 if(registrazione & psswrdCorretta){
                     clienteAdded.setText("Ho aggiunto un cliente");

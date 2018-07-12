@@ -97,6 +97,10 @@ public class Evento {
         return ge;
     }
 
+    public String getDataEvento(){
+        return dataEvento;
+
+    }
 
 
 }

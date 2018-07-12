@@ -12,7 +12,7 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 public class TesterGui {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws DatabaseNullException, DatabaseException {
 
         ConnessioneDB connessione = new ConnessioneDB();
         String chiusuraStr = new String();
