@@ -24,7 +24,6 @@ public class AbstractFacade {
         String [] colonna;
 
         BufferedReader reader = new BufferedReader(new FileReader("registrazioni.txt"));
-
         while(reader.ready()) {
             line=reader.readLine();
             colonna = line.split("\t");
