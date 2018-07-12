@@ -127,5 +127,9 @@ public class PreferenzaInvitato{
         return ges;
     }
 
+    public String getVicino(){return vicino;}
+
+    public String getLontano(){return lontano;}
+
 
 }

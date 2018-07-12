@@ -53,6 +53,8 @@ public class Cliente {
         return cognome;
     }
 
+    public String getEmail() {return email;}
+
 
 }
 

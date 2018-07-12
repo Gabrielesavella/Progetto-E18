@@ -1,6 +1,8 @@
 package gui.controller;
 
 
+import database.DatabaseException;
+import database.DatabaseNullException;
 import facade.*;
 import locale.GestoreEvento;
 import persone.Cliente;
@@ -37,7 +39,7 @@ public class SistemaDiPrenotazioneController{
     }
 
     //aggiunta connessione DB, se non c'è il cliente registrato , allora lo inserisco in registrazioni sul txt e nel db
-    public boolean signUp(String name,String surname,String email,String username,String password){
+    public boolean signUp(String name,String surname,String email,String username,String password)throws DatabaseException, DatabaseNullException{
         try {
             Cliente fetching=facade.fetchClient(username,password);
             if (fetching!=null){
@@ -72,7 +74,7 @@ public class SistemaDiPrenotazioneController{
     }
 
     //adattato al DB inserisce l'evento anche nel DB (controllare la data!)
-    public boolean creaEvento(String nomeEvento, GregorianCalendar data, int guestNum, Cliente cliente,String nomelocale){
+    public boolean creaEvento(String nomeEvento, GregorianCalendar data, int guestNum, Cliente cliente,String nomelocale)throws DatabaseException, DatabaseNullException{
         String datadb = data.get(Calendar.DAY_OF_MONTH)+"-"+data.get(Calendar.MONTH)+"-"+data.get(Calendar.YEAR);
         System.out.println(datadb);
         try {
@@ -133,7 +135,7 @@ public class SistemaDiPrenotazioneController{
         return false;
     }
 
-    public ArrayList<Invitato> loadXlsGenerality(String nomeEvento){
+    public ArrayList<Invitato> loadXlsGenerality(String nomeEvento)throws DatabaseException, DatabaseNullException{
 
         ConnessioneDB connessione = new ConnessioneDB();
         try {
@@ -151,7 +153,9 @@ public class SistemaDiPrenotazioneController{
         return listainvitatiEvento ;
     }
     //NOTA BENE: da correggere
-    public ArrayList<Invitato> writeXlsObligations(String nomeEvento){
+
+    public ArrayList<Invitato> writeXlsObligations(String nomeEvento)throws DatabaseException, DatabaseNullException{
+        ArrayList<Invitato> result = new ArrayList<Invitato>();
         if (!xlsFacade.reWriteXls(nomeEvento,loadXlsGenerality(nomeEvento))){
             return null;
         }

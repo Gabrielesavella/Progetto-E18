@@ -113,19 +113,30 @@ public class PannelloSpecificheEvento extends JPanel {
                 }
 */
 
+                try {
                     for (Invitato i : sisPr.loadXlsGenerality(gestoreEvento.getName())) {
                         gestoreEvento.addInvitati(i);
                         //connessione.inserisciDatiInvitato(gestoreEvento.getName(),i.getID_Inv(),i.getNome(),i.getCognome(),i.getEta());
 
                     }
-                    //da aggiungere gli invitati qua
+                } catch (DatabaseException e1) {
+                    e1.printStackTrace();
+                } catch (DatabaseNullException e1) {
+                    e1.printStackTrace();
+                }
+                //da aggiungere gli invitati qua
 
 
                 //    sisPr.acquisisciInvitati(invitati);
 
                 System.out.println("Acquisizione 1 invitati effettuata.");
-                        sisPr.writeXlsObligations(gestoreEvento.getName());
-
+                try {
+                    sisPr.writeXlsObligations(gestoreEvento.getName());
+                } catch (DatabaseException e1) {
+                    e1.printStackTrace();
+                } catch (DatabaseNullException e1) {
+                    e1.printStackTrace();
+                }
             }
         });
 

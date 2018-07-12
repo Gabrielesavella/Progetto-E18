@@ -129,4 +129,20 @@ public class Locale {
 
         return day;
     }
+
+    public String getOrarioApertura() {
+        return orarioApertura;
+    }
+
+    public String getOrarioChiusura() {
+        return orarioChiusura;
+    }
+
+    public String getGiornoChiusura() {
+        return giornoChiusura;
+    }
+
+    public int getNumInv () {return numInv; }
 }
+
+

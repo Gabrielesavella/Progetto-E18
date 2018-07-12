@@ -232,7 +232,7 @@ public class XlsFacade {
         return vincoliTavoli;
     }
 
-    public SpecificaTavolo splitVincoliTavolo(String nomeEvento,String soggetto,int [] campiVincolo){
+    public SpecificaTavolo splitVincoliTavolo(String nomeEvento,String soggetto,int [] campiVincolo)throws DatabaseException, DatabaseNullException{
         SpecificaTavolo sp;
         int i=0;
         sp = new SpecificaTavolo(nomeEvento,soggetto,campiVincolo[i],campiVincolo[i+1],campiVincolo[i+2],campiVincolo[i+3],campiVincolo[i+4],campiVincolo[i+5]);
@@ -241,7 +241,7 @@ public class XlsFacade {
         return sp;
     }
 
-    public ArrayList<PreferenzaInvitato> readPreferenzeInvitato(String nameEvent) throws IOException{
+    public ArrayList<PreferenzaInvitato> readPreferenzeInvitato(String nameEvent) throws IOException, DatabaseException, DatabaseNullException{
         campiPreferenze = new ArrayList<>();
         try {
             FileInputStream excelFile = new FileInputStream(new File(nameEvent+".xls"));
@@ -272,7 +272,7 @@ public class XlsFacade {
         return vincoliPreferenze;
     }
 
-    public PreferenzaInvitato splitPreferenze(String nameEvent,ArrayList<String> campiPreferenze){
+    public PreferenzaInvitato splitPreferenze(String nameEvent,ArrayList<String> campiPreferenze)throws DatabaseException, DatabaseNullException{
         PreferenzaInvitato pref = null;
         String preferenze = null;
         String avversione = null;
