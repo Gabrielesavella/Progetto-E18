@@ -124,11 +124,7 @@ public class PannelloSpecificheEvento extends JPanel {
                 //    sisPr.acquisisciInvitati(invitati);
 
                 System.out.println("Acquisizione 1 invitati effettuata.");
-                    try {
                         sisPr.writeXlsObligations(gestoreEvento.getName());
-                    }catch (IOException ecciù){
-                        System.out.println("salute!");
-                    }
 
             }
         });
