@@ -17,52 +17,25 @@ import static persone.Invitato.setID_Inv;
 
 public class XlsFacade {
     Workbook workbook;
-
+    private CreationHelper createHelper = null;
     FileOutputStream fileOut = null;
     private Sheet sheet;
-    private String xlsGuest = "Guest.xls", xlsVincoli = "Vincoli.xls";
-    private ArrayList<String> campiPreferenze;
-    private ArrayList<PreferenzaInvitato> vincoliPreferenze = new ArrayList<>();;
+    private String name,surname;
+    private int eta;
+    private Cell cell;
+    private ArrayList<String> campiPreferenze,columns;
+    private ArrayList<PreferenzaInvitato> vincoliPreferenze = new ArrayList<>();
+    private CellStyle headerCellStyle;
 
 
     public boolean generateXlsGuests(String nomeEvento){
-        workbook = new HSSFWorkbook();
-
         boolean generated = true;
-
-
-
-        CreationHelper createHelper = workbook.getCreationHelper();
-        sheet = workbook.createSheet(nomeEvento);
-        Font headerFont = workbook.createFont();
-        headerFont.setBold(true);
-        headerFont.setFontHeightInPoints((short) 14);
-        headerFont.setColor(IndexedColors.RED.getIndex());
-
-
-        CellStyle headerCellStyle = workbook.createCellStyle();
-        headerCellStyle.setFont(headerFont);
-
-
-        Row headerRow = sheet.createRow(0);
-
-        ArrayList<String> columns = new ArrayList<>();
-        //columns.add("IDentificativo");
-        columns.add("Name");
-        columns.add("Surname");
-        columns.add("eta'");
-
-        for (int count = 0; count < columns.size(); count++) {
-            Cell cell = headerRow.createCell(count);
-            cell.setCellValue(columns.get(count));
-            cell.setCellStyle(headerCellStyle);
-        }
-
+        columns= new ArrayList<>();
+        setInitialStyle(nomeEvento);
         CellStyle dateCellStyle = workbook.createCellStyle();
         dateCellStyle.setDataFormat(createHelper.createDataFormat().getFormat("dd-MM-yyyy"));
-        for (int count = 0; count < columns.size(); count++) {
+        for (int count = 0; count < columns.size()+10; count++)
             sheet.autoSizeColumn(count);
-        }
         try {
             fileOut = new FileOutputStream(nomeEvento+".xls");
             workbook.write(fileOut);
@@ -78,68 +51,70 @@ public class XlsFacade {
         return generated;
     }
 
-    public ArrayList<Invitato> readXlsGuests(String nomeEvento){
-        //boolean done = true;
+    public void setInitialStyle(String nomeEvento){
+        workbook = new HSSFWorkbook();
+        createHelper = workbook.getCreationHelper();
+        sheet = workbook.createSheet(nomeEvento);
+        Font headerFont = workbook.createFont();
+        headerFont.setBold(true);
+        headerFont.setFontHeightInPoints((short) 14);
+        headerFont.setColor(IndexedColors.GREY_50_PERCENT.getIndex());
+        headerCellStyle = workbook.createCellStyle();
+        headerCellStyle.setFont(headerFont);
+        Row headerRow = sheet.createRow(0);
+        columns.add("Nome");
+        columns.add("Cognome");
+        columns.add("Eta'");
+        for (int count = 0; count < 14; count++) {
+            cell = headerRow.createCell(count);
+            cell.setCellStyle(headerCellStyle);
+            if (count < 3)
+                cell.setCellValue(columns.get(count));
+        }
+    }
 
-        ArrayList<Invitato> invitati= new ArrayList<Invitato>(2);
+    public ArrayList<Invitato> readXlsGuests(String nomeEvento){
+        ArrayList<Invitato> invitati= new ArrayList<Invitato>();
         try {
-            String file = nomeEvento+".xls";
-            FileInputStream excelFile = new FileInputStream(new File(file));
+            FileInputStream excelFile = new FileInputStream(new File(nomeEvento+".xls"));
             workbook = new HSSFWorkbook(excelFile);
             Sheet dataTypeSheet = workbook.getSheetAt(0);
             Iterator iterator = dataTypeSheet.iterator();
             iterator.next();
-
             while (iterator.hasNext()) {
-                Invitato fantoccio=null,elemento=null;
-                String name=null,surname=null;
-                int eta=-1;
+                //Invitato fantoccio=null;
                 Row currentRow = (Row) iterator.next();
                 Iterator cellIterator = currentRow.iterator();
-
                 while (cellIterator.hasNext()) {
                     Cell currentCell = (Cell) cellIterator.next();
                     if (currentCell.getCellTypeEnum() == CellType.STRING) {
-                        if(currentCell.getColumnIndex()==0){
+                        if(currentCell.getColumnIndex()==0)
                             name=currentCell.getStringCellValue();
-                        }else if(currentCell.getColumnIndex()==1){
+                        else if(currentCell.getColumnIndex()==1)
                             surname=currentCell.getStringCellValue();
-                        }
-                    } else if (currentCell.getCellTypeEnum() == CellType.NUMERIC) {
+                    } else if (currentCell.getCellTypeEnum() == CellType.NUMERIC)
                         eta=(int)currentCell.getNumericCellValue();
-                    }
-                    if (!cellIterator.hasNext()) {
-                        fantoccio = new Invitato(name, surname, eta);
-                        invitati.add(fantoccio);
-                    }
-
+                    if (!cellIterator.hasNext())
+                        invitati.add(new Invitato(name, surname, eta));
                 }
             }
+            excelFile.close();
         } catch (FileNotFoundException ex) {
             System.out.println(ex.getMessage());
         } catch (IOException ex) {
             System.out.println(ex.getMessage());
         }
+
         return invitati;
     }
 
-    public boolean reWriteXls(String nomeEvento,ArrayList<Invitato> invitati){
+    public boolean reWriteXls(String nomeEvento,ArrayList<Invitato> invitati) {
         ArrayList <String> columns= new ArrayList<>();
-        columns.add("ID_Invitato");
-        columns.add("Onorevole");
-        columns.add("Difficoltà motorie");
-        columns.add("Vegetariano");
-        columns.add("VicinoTv");
-        columns.add("Bambini");
-        columns.add("Isolato");
-        columns.add("preferenza 1");
-        columns.add("preferenza 2");
-        columns.add("avversione 1");
-        columns.add("avversione 2");
+
         try {
             FileInputStream fIPS= new FileInputStream(nomeEvento+".xls"); //Read the spreadsheet that needs to be updated
-            HSSFWorkbook wb;
-            HSSFSheet worksheet;
+            Workbook wb;
+            Sheet worksheet;
             if(fIPS.available()>=0) {
                 wb = new HSSFWorkbook(fIPS); //If there is already data in a workbook
                 worksheet = wb.getSheetAt(0);
@@ -147,26 +122,23 @@ public class XlsFacade {
                 wb = new HSSFWorkbook();    //if the workbook was just created
                 worksheet = wb.getSheet(nomeEvento);
             }
-            Font headerFont = wb.createFont();
-            headerFont.setBold(true);
-            headerFont.setFontHeightInPoints((short) 14);
-            headerFont.setColor(IndexedColors.RED.getIndex());
-
-            CellStyle headerCellStyle = workbook.createCellStyle();
-            headerCellStyle.setFont(headerFont);
-
-
-            //Access the worksheet, so that we can update / modify it
-            //modify Attribute of columns
-            HSSFRow row = worksheet.getRow(0);  //0 = row number
-
-            for(int i=3;i<(columns.size()+3);i++){//+3
-
-            Cell c = row.createCell(i);
-            c.setCellType(CellType.STRING);
-            c.setCellValue(columns.get(i-3));//
+            columns.add("ID_Invitato");
+            columns.add("Onorevole");
+            columns.add("Difficoltà motorie");
+            columns.add("Vegetariano");
+            columns.add("VicinoTv");
+            columns.add("Bambini");
+            columns.add("Isolato");
+            columns.add("preferenza 1");
+            columns.add("preferenza 2");
+            columns.add("avversione 1");
+            columns.add("avversione 2");
+            Row row = worksheet.getRow(0);  //0 = row number
+            for(int i=3;i<(columns.size()+3);i++){
+            Cell c = row.createCell(i,CellType.STRING);
+            //c.setCellStyle(headerCellStyle);
+            c.setCellValue(columns.get(i-3));
             }
-
             for (int i=1;i<=invitati.size()+1;i++){
                 row=worksheet.getRow(i);
                 if (row==null){
@@ -188,23 +160,24 @@ public class XlsFacade {
                     c.setCellType(CellType.STRING);
                 }
             }
-
             fIPS.close(); //Close the InputStream
-            FileOutputStream output_file =new FileOutputStream(nomeEvento+".xls");//Open FileOutputStream to write updates
+            FileOutputStream output_file = new FileOutputStream(nomeEvento + ".xls");//Open FileOutputStream to write updates
+
             wb.write(output_file); //write changes
             wb.close();
             output_file.close();  //close the stream
             openfile(nomeEvento+".xls");
 
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            ConnessioneDB connection = new ConnessioneDB();
+            System.err.println("Attenzione "+", ricordati di salvare il file e chiuderlo per continuare!");
+
             return false;
         } catch (IOException e) {
-            e.printStackTrace();
+            System.err.println("Input OutpuT Exception, qualcosa è andato storto!");
             return false;
         }
         return true;
-
     }
 
 
@@ -266,7 +239,6 @@ public class XlsFacade {
         ConnessioneDB connessione = new ConnessioneDB();
         connessione.inserisciVincoliTavolo(nomeEvento,soggetto,campiVincolo[i],campiVincolo[i+1],campiVincolo[i+2],campiVincolo[i+3],campiVincolo[i+4],campiVincolo[i+5]);
         return sp;
-
     }
 
     public ArrayList<PreferenzaInvitato> readPreferenzeInvitato(String nameEvent) throws IOException{
@@ -324,6 +296,7 @@ public class XlsFacade {
         this.campiPreferenze.clear();
         return pref;
     }
+
 
 }
 
