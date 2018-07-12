@@ -41,7 +41,7 @@ public class SistemaDiPrenotazioneController{
         try {
             Cliente fetching=facade.fetchClient(username,password);
             if (fetching!=null){
-                System.out.println("found client with same username. Please try again with a different one.");
+                System.err.println("Trovato cliente con lo stesso username.Per favore riprova con un altro username.");
                 return false;
             }
             ConnessioneDB connessione = new ConnessioneDB();
@@ -138,11 +138,8 @@ public class SistemaDiPrenotazioneController{
         ConnessioneDB connessione = new ConnessioneDB();
         try {
             listainvitatiEvento = xlsFacade.readXlsGuests(nomeEvento);
-
-        int sizelist = listainvitatiEvento.size();
-        //System.out.println("numero di elementi della lista: "+sizelist);
-        txtFacade t = new txtFacade(sizelist);
-        //txtFacade t = new txtFacade(nomeEvento+"lista_invitati.txt",sizelist);
+            int sizelist = listainvitatiEvento.size();
+            txtFacade t = new txtFacade(sizelist);
             if(this.notdone)
         for (Invitato element:listainvitatiEvento) {
             t.WriteGuests(element.getID_Inv(),element.getNome(),element.getCognome(),element.getEta());
@@ -155,22 +152,15 @@ public class SistemaDiPrenotazioneController{
     }
     //NOTA BENE: da correggere
     public ArrayList<Invitato> writeXlsObligations(String nomeEvento){
-        ArrayList<Invitato> result = new ArrayList<Invitato>();
         if (!xlsFacade.reWriteXls(nomeEvento,loadXlsGenerality(nomeEvento))){
             return null;
         }
-        //facendo così lo richiami + di una volta , 3 se inserisci  il numero di invitati
-        //result = loadXlsGenerality(nomeEvento);
         this.notdone=true;
         return listainvitatiEvento;
     }
 
     public ArrayList<SpecificaTavolo> saveOnObligations(String nomeEvento){
         ArrayList<SpecificaTavolo> specificaTavolos=xlsFacade.readSpecificheTavolo(nomeEvento);
-//        if (specificaTavolos==null){
-//            System.out.println("no buono");
-//        }
-//        System.out.println("yuppi");
         return specificaTavolos;
     }
 
