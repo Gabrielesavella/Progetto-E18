@@ -21,18 +21,7 @@ public class TesterGui {
 
 
 
-        Tavolo tav1 = new Tavolo("da Giulio","tav1",4);
-        Tavolo tav2 = new Tavolo("da Giulio","tav2", 6);
-        Tavolo tav3 = new Tavolo("da Giulio","tav3",8);
 
-        connessione.inserisciTavoli("da Giulio","tav1",4);
-        connessione.inserisciTavoli("da Giulio","tav2", 6);
-        connessione.inserisciTavoli("da Giulio","tav3",8);
-
-        ArrayList<Tavolo> listaTavoli = new ArrayList <Tavolo>();
-        listaTavoli.add(tav1);
-        listaTavoli.add(tav2);
-        listaTavoli.add(tav3);
 
 
         GregorianCalendar orarioapertura = new GregorianCalendar();
@@ -55,10 +44,24 @@ public class TesterGui {
         GestoreLocale daGiulio = new GestoreLocale("da Giulio",20,orarioapertura, chiusura, giornoChiusura);
         connessione.inserisciDatiLocale("da Giulio",20,"9:00",chiusuraStr,giornoChiusuraStr);
         GestoreLocale bellaNapoli = new GestoreLocale("Bella Napoli", 30, orarioapertura, chiusura, giornoChiusura);
+
+        Tavolo tav01 = new Tavolo("da Giulio","tav01",4);
+        Tavolo tav02 = new Tavolo("da Giulio","tav02", 6);
+        Tavolo tav03 = new Tavolo("da Giulio","tav03",8);
+
+        connessione.inserisciTavoli("da Giulio","tav01",4);
+        connessione.inserisciTavoli("da Giulio","tav02", 6);
+        connessione.inserisciTavoli("da Giulio","tav03",8);
+
+        ArrayList<Tavolo> listaTavoli = new ArrayList <Tavolo>();
+        listaTavoli.add(tav01);
+        listaTavoli.add(tav02);
+        listaTavoli.add(tav03);
+
         //daGiulio.aggiungiTavoli(listaTavoli);
-        daGiulio.addTable(tav1);
-        daGiulio.addTable(tav2);
-        daGiulio.addTable(tav3);
+        daGiulio.addTable(tav01);
+        daGiulio.addTable(tav02);
+        daGiulio.addTable(tav03);
 
         bellaNapoli.aggiungiTavoli(listaTavoli);
 
