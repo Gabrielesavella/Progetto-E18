@@ -13,8 +13,9 @@ import java.util.GregorianCalendar;
 
 public class TesterGui {
     public static void main(String[] args) throws DatabaseNullException, DatabaseException {
-          ConnessioneDB connessione = new ConnessioneDB();
-            ArrayList <GestoreLocale> locali= new ArrayList<>();
+        ConnessioneDB connessione = new ConnessioneDB();
+        ArrayList <GestoreLocale> locali= new ArrayList<>();
+
         locali = connessione.getLocali();
         //parte grafica
         FinestraLogin frame= new FinestraLogin(locali);
