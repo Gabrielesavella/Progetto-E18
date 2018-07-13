@@ -42,17 +42,17 @@ public class TesterGui {
 
         chiusura.add(GregorianCalendar.DAY_OF_WEEK,2);
         GestoreLocale daGiulio = new GestoreLocale("da Giulio",20,orarioapertura, chiusura, giornoChiusura);
-        connessione.inserisciDatiLocale("da Giulio",20,"9:00",chiusuraStr,giornoChiusuraStr);
+//        connessione.inserisciDatiLocale("da Giulio",20,"9:00",chiusuraStr,giornoChiusuraStr);
         GestoreLocale bellaNapoli = new GestoreLocale("Bella Napoli", 30, orarioapertura, chiusura, giornoChiusura);
 
         Tavolo tav01 = new Tavolo("da Giulio","tav01",4);
         Tavolo tav02 = new Tavolo("da Giulio","tav02", 6);
         Tavolo tav03 = new Tavolo("da Giulio","tav03",8);
-
+/*
         connessione.inserisciTavoli("da Giulio","tav01",4);
         connessione.inserisciTavoli("da Giulio","tav02", 6);
         connessione.inserisciTavoli("da Giulio","tav03",8);
-
+*/
         ArrayList<Tavolo> listaTavoli = new ArrayList <Tavolo>();
         listaTavoli.add(tav01);
         listaTavoli.add(tav02);
