@@ -169,7 +169,6 @@ public class XlsFacade {
             openfile(nomeEvento+".xls");
 
         } catch (FileNotFoundException e) {
-            ConnessioneDB connection = new ConnessioneDB();
             System.err.println("Attenzione "+", ricordati di salvare il file e chiuderlo per continuare!");
 
             return false;

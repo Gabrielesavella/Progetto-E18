@@ -304,10 +304,10 @@ public class ConnessioneDB {// crea la connessione col database "smistamento_pos
         ResultSet rs = null;
         String table = "invitati";
 
-        if(!(getInvitatoSingolo(ID_Inv)==null)){
-            throw new DatabaseException("Invitato", ID_Inv, table);
+      //  if(!(getInvitatoSingolo(ID_Inv)==null)){
+      //      throw new DatabaseException("Invitato", ID_Inv, table);
 
-        }
+      //  }
 
         if(getEventoSingolo(ID_Evento)==null){
             throw new DatabaseNullException("Evento", ID_Evento, "eventi");
@@ -362,10 +362,10 @@ public class ConnessioneDB {// crea la connessione col database "smistamento_pos
         ResultSet rs = null;
         String table = "specifica_tavolo";
 
-        if(!(getVincoloTavoloSingolo(ID_Inv)==null)){
+       /* if(!(getVincoloTavoloSingolo(ID_Inv)==null)){
             throw new DatabaseException("Invitato", ID_Inv, table);
 
-        }
+        }*/
 
         if(getEventoSingolo(ID_Evento)==null){
             throw new DatabaseNullException("Evento", ID_Evento, "eventi");
@@ -415,7 +415,7 @@ public class ConnessioneDB {// crea la connessione col database "smistamento_pos
         ResultSet rs = null;
         String table = "preferenza_invitato";
 
-        if(!(getVincoloInvitatoSingolo(ID_Inv)==null)){
+        /*if(!(getVincoloInvitatoSingolo(ID_Inv)==null)){
             throw new DatabaseException("Invitato", ID_Inv, table);
 
         }
@@ -423,7 +423,7 @@ public class ConnessioneDB {// crea la connessione col database "smistamento_pos
         if(getEventoSingolo(ID_Evento)==null){
             throw new DatabaseNullException("Evento", ID_Evento, "eventi");
 
-        }
+        }*/
 
         if (!openConn) {
             startConn();
@@ -1333,6 +1333,60 @@ public class ConnessioneDB {// crea la connessione col database "smistamento_pos
         }
 
         closeConn();
+
+    }
+    public Cliente getIntestatarioEvento(String nomeEvento){
+        startConn();
+
+        Statement stmt = null; //creazione di uno Statement, per adesso nullo
+        ResultSet rs = null; //variabile che contiene il risultato dello Statement
+        Cliente Intestatario=null;
+
+        if (!openConn) {
+            startConn();
+        }
+
+        try {
+            stmt = conn.createStatement();
+            rs = stmt.executeQuery("SELECT clienti.* FROM eventi JOIN clienti on eventi.ID_Cliente=clienti.ID_Cliente WHERE `eventi.ID_Evento`='" + nomeEvento + "';");
+            while (rs.next()) {
+
+
+                String ID_Cl= rs.getString(1);
+                String nomeCl=rs.getString(2);
+                String cognomeCl=rs.getString(3);
+                String emailCl=rs.getString(4); //Aggiunta una colonna per il campo email
+                String pwdCl= rs.getString(5);
+
+                Intestatario= new Cliente (nomeCl, cognomeCl, ID_Cl, emailCl, pwdCl);
+
+
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                try {
+                    rs.close();
+
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (stmt != null) {
+                try {
+                    stmt.close();
+
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        closeConn();
+
+        return Intestatario;
+
 
     }
 
