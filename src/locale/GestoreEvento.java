@@ -12,7 +12,7 @@ public class GestoreEvento {
     private String nomeEvento;
 
     private GestoreLocale location = null;
-    private ArrayList <Invitato> invitati;
+    private ArrayList <Invitato> invitati,invitatidarimuovere;
     private  ArrayList <Vincolo> lista_vincoli;
     private GregorianCalendar dataEvento;
     private int numInvitati;
@@ -74,6 +74,20 @@ public class GestoreEvento {
     public void addInvitati(Invitato invitato){
         invitati.add(invitato);
     }
+
+    public void removeInvitati(Invitato invitato){
+        for (int i = 0;i<invitati.size();i++) {
+            if(invitati.get(i).getID_Inv().equals(invitato.getID_Inv())) {
+                invitati.remove(i);
+                i--;
+            }
+        }
+    }
+
+    public void rimuovitutti(){
+        invitati.removeAll(invitatidarimuovere);
+    }
+
 
 
     /*public void setInvitati(ArrayList <persone.Invitato> invitati) {

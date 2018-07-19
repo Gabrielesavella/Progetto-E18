@@ -9,11 +9,14 @@ import locale.GestoreLocale;
 import org.jdesktop.swingx.JXDatePicker;
 import persone.Cliente;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -24,13 +27,34 @@ import java.util.GregorianCalendar;
  */
 
 public class PannelloCredenzialiEvento extends JPanel{
+
+    private Image backgroundImage;
+
     public PannelloCredenzialiEvento(ArrayList<GestoreLocale> locali, Cliente cliente, FinestraCreazioneEvento frame){
+        try{
+            backgroundImage = ImageIO.read(new File("images/TRATTORIA-PARIONE-facciata-notturna-home51.jpg"));
+            backgroundImage=backgroundImage.getScaledInstance(frame.getWidth(),frame.getHeight(),Image.SCALE_DEFAULT);
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+
+
         JButton ok=new JButton("OK");
+        ok.setEnabled(false);
 
         JLabel nome= new JLabel("Nome Evento:");
         JLabel data= new JLabel("Data Evento:");
         JLabel selLoc= new JLabel("Selezione Locale:");
         JLabel nInv= new JLabel("Numero Invitati:");
+
+        nome.setOpaque(true);
+        nome.setBackground(new Color(255,255,255,127));
+        data.setOpaque(true);
+        data.setBackground(new Color(255,255,255,127));
+        selLoc.setOpaque(true);
+        selLoc.setBackground(new Color(255,255,255,127));
+        nInv.setOpaque(true);
+        nInv.setBackground(new Color(255,255,255,127));
 
         JTextField tNome= new JTextField();
         JTextField tData= new JTextField();
@@ -73,6 +97,8 @@ public class PannelloCredenzialiEvento extends JPanel{
         campi.add(dropDownLocali);
         campi.add(nInv);
         campi.add(tnInv);
+        campi.setOpaque(false);
+        ok.setOpaque(false);
 
         this.setLayout(new BorderLayout());
         add(campi);
@@ -82,14 +108,12 @@ public class PannelloCredenzialiEvento extends JPanel{
         ok.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
                 GestoreLocale gestoreLocaleSelezionato =null;
 
                 int invitati=Integer.parseInt(tnInv.getText());
-//                int annoInt= Integer.parseInt(anno.getText());
-//                int meseInt= Integer.parseInt(mese.getText());
-//                int giornoInt= Integer.parseInt(giorno.getText());
                 Date data=calendario.getDate();
-                GregorianCalendar calendar = new GregorianCalendar();//annoInt,meseInt,giornoInt
+                GregorianCalendar calendar = new GregorianCalendar();
                 calendar.setTime(data);
 
                 for (GestoreLocale l:locali) {
@@ -98,8 +122,8 @@ public class PannelloCredenzialiEvento extends JPanel{
 
                         //MODIFICA PER IL DB : aggiunto campo id locale a crea evento!
                         try {
-                            if (sisPr.creaEvento(tNome.getText(),calendar,Integer.parseInt(tnInv.getText()),cliente,l.getId_locale()))
-                                System.out.println("Evento creato :)");
+                             sisPr.creaEvento(tNome.getText(),calendar,Integer.parseInt(tnInv.getText()),cliente,l.getId_locale());
+
                         } catch (DatabaseException e1) {
                             e1.printStackTrace();
                         } catch (DatabaseNullException e1) {
@@ -115,5 +139,58 @@ public class PannelloCredenzialiEvento extends JPanel{
 
             }
         });
+        // actionListener per attivare bottone confermaCreazioneEvento
+        tNome.addActionListener(e -> {
+            try {
+                boolean registrationCompleted = !tNome.getText().equals("") && tData.getText() != null && tSelLoc.getText() != null && Integer.parseInt(tnInv.getText()) > 0;
+                if (registrationCompleted)
+                    ok.setEnabled(true);
+            }catch (NumberFormatException ex){
+                //do nothing
+            }
+        });
+        tData.addActionListener(e -> {
+            try {
+                boolean registrationCompleted = !tNome.getText().equals("") && tData.getText() != null && tSelLoc.getText() != null && Integer.parseInt(tnInv.getText()) > 0;
+                if (registrationCompleted)
+                    ok.setEnabled(true);
+            }catch (NumberFormatException ex){
+                //do nothing
+            }
+        });
+        tSelLoc.addActionListener(e -> {
+            try {
+                boolean registrationCompleted = !tNome.getText().equals("") && tData.getText() != null && tSelLoc.getText() != null && Integer.parseInt(tnInv.getText()) > 0;
+                if (registrationCompleted)
+                    ok.setEnabled(true);
+            }catch (NumberFormatException ex){
+                //do nothing
+            }
+        });
+        tnInv.addActionListener(e -> {
+            try {
+                boolean registrationCompleted = !tNome.getText().equals("") && tData.getText() != null && tSelLoc.getText() != null && Integer.parseInt(tnInv.getText()) > 0;
+                if (registrationCompleted)
+                    ok.setEnabled(true);
+            }catch (NumberFormatException ex){
+                //do nothing
+            }
+        });
+        //
     }
+
+    //parte adibita alla "pittura" della foto sullo sfondo
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        Toolkit toolkit= Toolkit.getDefaultToolkit();//Toolkit.getDefaultToolkit();
+        //Dimension dim= toolkit.;
+        Dimension dim= this.getSize();
+        int width= dim.width;
+        int height= dim.height;
+//        backgroundImage.getScaledInstance()
+        // Draw the background image.
+        g.drawImage(backgroundImage, 0, 0,width,height, this);
+
+    }
+
 }

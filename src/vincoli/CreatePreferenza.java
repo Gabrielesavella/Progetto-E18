@@ -1,12 +1,10 @@
 package vincoli;
 
 import database.ConnessioneDB;
-import locale.Evento;
-import locale.Tavolo;
+import locale.*;
 import persone.Invitato;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
 
 public class CreatePreferenza {
@@ -37,6 +35,15 @@ public class CreatePreferenza {
 
     public ArrayList<Tavolo> getTavoli() {
         return tavoli;
+    }
+
+    public ArrayList<Tavolo> getTavoliUtilizzati(){
+        ArrayList<Tavolo> utilizzati = new ArrayList<>();
+        for (Tavolo t:getTavoli()) {
+            if(t.getArraylistInvitati().size()!=0)
+                utilizzati.add(t);
+        }
+        return utilizzati;
     }
 
 
@@ -74,6 +81,11 @@ public class CreatePreferenza {
                 gpi.verificaIdoneita();
             }
         }
+    }
+
+    public void smistaRestanti(GestoreLocale myLocale,GestoreEvento ev){
+        myLocale.setTavoli(getTavoli());
+        myLocale.smistamentoTavoli(ev);
     }
 
     public ArrayList<PreferenzaInvitato> getPref() {

@@ -1,5 +1,6 @@
 package vincoli;
 
+import database.*;
 import locale.GestoreEvento;
 import locale.Tavolo;
 import persone.Invitato;
@@ -59,7 +60,7 @@ public class GestorePreferenzaInvitato implements Vincolo {
 
         if (daSistemare.size()==0 || lista_vincolati.size()==1) {
 
-            System.out.println("Nessun vincolo");}
+            }
 
         else{
 
@@ -259,12 +260,12 @@ public class GestorePreferenzaInvitato implements Vincolo {
 
     //Crea una lista di duplicati.
     public ArrayList<Invitato> creaListaDuplicati(){
-
+        ConnessioneDB connection = new ConnessioneDB();
         for (Tavolo t : tavoli){
 
             for (int k = 0; k < lista_vincolati.size(); k++){
-
-                if (t.getArraylistInvitati().contains(lista_vincolati.get(k))) {
+                //modifica gabriele savella
+                if (t.getArraylistInvitati().size()!=0) {
 
                     lista_vincolati_solo_duplicati.add(lista_vincolati.get(k));
 

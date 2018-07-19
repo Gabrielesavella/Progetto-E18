@@ -32,8 +32,6 @@ public class XlsFacade {
         boolean generated = true;
         columns= new ArrayList<>();
         setInitialStyle(nomeEvento);
-        CellStyle dateCellStyle = workbook.createCellStyle();
-        dateCellStyle.setDataFormat(createHelper.createDataFormat().getFormat("dd-MM-yyyy"));
         for (int count = 0; count < columns.size()+10; count++)
             sheet.autoSizeColumn(count);
         try {
@@ -56,20 +54,16 @@ public class XlsFacade {
         createHelper = workbook.getCreationHelper();
         sheet = workbook.createSheet(nomeEvento);
         Font headerFont = workbook.createFont();
-        headerFont.setBold(true);
-        headerFont.setFontHeightInPoints((short) 14);
-        headerFont.setColor(IndexedColors.GREY_50_PERCENT.getIndex());
-        headerCellStyle = workbook.createCellStyle();
-        headerCellStyle.setFont(headerFont);
+        headerFont.setFontHeightInPoints((short) 12);
         Row headerRow = sheet.createRow(0);
         columns.add("Nome");
         columns.add("Cognome");
         columns.add("Eta'");
-        for (int count = 0; count < 14; count++) {
+        for (int count = 0; count < columns.size()+10; count++) {
             cell = headerRow.createCell(count);
             cell.setCellStyle(headerCellStyle);
-            if (count < 3)
-                cell.setCellValue(columns.get(count));
+            if(count<3)
+            cell.setCellValue(columns.get(count));
         }
     }
 
@@ -82,7 +76,6 @@ public class XlsFacade {
             Iterator iterator = dataTypeSheet.iterator();
             iterator.next();
             while (iterator.hasNext()) {
-                //Invitato fantoccio=null;
                 Row currentRow = (Row) iterator.next();
                 Iterator cellIterator = currentRow.iterator();
                 while (cellIterator.hasNext()) {
@@ -110,7 +103,6 @@ public class XlsFacade {
 
     public boolean reWriteXls(String nomeEvento,ArrayList<Invitato> invitati) {
         ArrayList <String> columns= new ArrayList<>();
-
         try {
             FileInputStream fIPS= new FileInputStream(nomeEvento+".xls"); //Read the spreadsheet that needs to be updated
             Workbook wb;
@@ -118,8 +110,10 @@ public class XlsFacade {
             if(fIPS.available()>=0) {
                 wb = new HSSFWorkbook(fIPS); //If there is already data in a workbook
                 worksheet = wb.getSheetAt(0);
-            }else{
-                wb = new HSSFWorkbook();    //if the workbook was just created
+            }
+            else
+            {
+                wb=new HSSFWorkbook();
                 worksheet = wb.getSheet(nomeEvento);
             }
             columns.add("ID_Invitato");
@@ -134,11 +128,13 @@ public class XlsFacade {
             columns.add("avversione 1");
             columns.add("avversione 2");
             Row row = worksheet.getRow(0);  //0 = row number
+
             for(int i=3;i<(columns.size()+3);i++){
             Cell c = row.createCell(i,CellType.STRING);
-            //c.setCellStyle(headerCellStyle);
             c.setCellValue(columns.get(i-3));
             }
+            for (int count = 0; count < columns.size()+3; count++)
+                worksheet.autoSizeColumn(count);
             for (int i=1;i<=invitati.size()+1;i++){
                 row=worksheet.getRow(i);
                 if (row==null){
@@ -150,7 +146,7 @@ public class XlsFacade {
             }
 
             //add campi specificaTavolo e specificaInvitato
-            for (int i=1;i<invitati.size()+1;i++){
+            for (int i=1;i<=invitati.size();i++){
                 row=worksheet.getRow(i);
                 if (row==null){
                     break;
@@ -170,10 +166,9 @@ public class XlsFacade {
 
         } catch (FileNotFoundException e) {
             System.err.println("Attenzione "+", ricordati di salvare il file e chiuderlo per continuare!");
-
             return false;
         } catch (IOException e) {
-            System.err.println("Input OutpuT Exception, qualcosa è andato storto!");
+            System.err.println("Input Output Exception, qualcosa è andato storto!");
             return false;
         }
         return true;
@@ -183,7 +178,7 @@ public class XlsFacade {
     public boolean openfile(String nameFile) throws IOException{
         File file = new File(nameFile);
         if(!Desktop.isDesktopSupported()){
-            System.out.println("Desktop is not supported");
+            System.err.println("Desktop is not supported");
             return false;
         }
         Desktop desktop = Desktop.getDesktop();
@@ -196,9 +191,8 @@ public class XlsFacade {
         ArrayList<SpecificaTavolo> vincoliTavoli = new ArrayList<>();
         int campiVincolo[] = new int[6];
         try {
-            String file = nameEvent+".xls";
             String contenuto= null ;
-            FileInputStream excelFile = new FileInputStream(new File(file));
+            FileInputStream excelFile = new FileInputStream(new File(nameEvent+".xls"));
             workbook = new HSSFWorkbook(excelFile);
             Sheet dataTypeSheet = workbook.getSheetAt(0);
             Iterator iterator = dataTypeSheet.iterator();
@@ -211,6 +205,8 @@ public class XlsFacade {
                     if (currentCell.getCellTypeEnum() == CellType.STRING) {
                         if(currentCell.getColumnIndex()==3)
                             contenuto = currentCell.getStringCellValue();
+                        if( currentCell.getColumnIndex()>=4 && currentCell.getColumnIndex()<=9 && currentCell.getStringCellValue().equals(""))
+                            campiVincolo[currentCell.getColumnIndex()-4]=0;
                     }
                     if(currentCell.getCellTypeEnum()==CellType.NUMERIC){
                         if( currentCell.getColumnIndex()>=4 && currentCell.getColumnIndex()<=9)

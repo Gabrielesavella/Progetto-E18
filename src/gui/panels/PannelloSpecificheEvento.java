@@ -10,9 +10,11 @@ import locale.GestoreLocale;
 import persone.*;
 import vincoli.*;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.File;
 import java.io.IOException;
 import java.util.*;
 
@@ -22,13 +24,29 @@ import java.util.*;
  */
 
 public class PannelloSpecificheEvento extends JPanel {
-    public PannelloSpecificheEvento(GestoreLocale gestoreLocale, GestoreEvento gestoreEvento, FinestraSpecificheEvento frame){
-        ConnessioneDB connessione = new ConnessioneDB();
 
+    private Image backgroundImage;
+
+    public PannelloSpecificheEvento(GestoreLocale gestoreLocale, GestoreEvento gestoreEvento, FinestraSpecificheEvento frame){
+        try{
+            backgroundImage = ImageIO.read(new File("images/notebook-pen-table-97076.jpg"));
+            backgroundImage=backgroundImage.getScaledInstance(frame.getWidth(),frame.getHeight(),Image.SCALE_DEFAULT);
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+
+
+        ConnessioneDB connessione = new ConnessioneDB();
 
         // etichette specifiche
         JLabel compila= new JLabel("compila lista invitati");
         JLabel carica= new JLabel("carica lista invitati");
+
+        compila.setOpaque(true);
+        compila.setBackground(new Color(255,255,255,127));
+
+        carica.setOpaque(true);
+        carica.setBackground(new Color(255,255,255,127));
 
         //immagini
         final int WIDHT=20,HEIGHT=20;
@@ -49,10 +67,22 @@ public class PannelloSpecificheEvento extends JPanel {
         JButton bUploadOblig=new JButton("invia :)");
         bDownload.setPreferredSize(new Dimension(WIDHT,HEIGHT/2));
 
+        bUpload.setEnabled(false);
+        bUploadOblig.setEnabled(false);
+
         // campi testo
         JLabel tdownloadExcel= new JLabel("download");
         JLabel tuploadExcel= new JLabel("upload");
         JLabel tuploadOblig= new JLabel("uploadOblig");
+
+        tdownloadExcel.setOpaque(true);
+        tdownloadExcel.setBackground(new Color(255,255,255,127));
+
+        tuploadExcel.setOpaque(true);
+        tuploadExcel.setBackground(new Color(255,255,255,127));
+
+        tuploadOblig.setOpaque(true);
+        tuploadOblig.setBackground(new Color(255,255,255,127));
 
         setLayout(new GridLayout(3,2));
         add(tdownloadExcel);
@@ -67,21 +97,8 @@ public class PannelloSpecificheEvento extends JPanel {
         bDownload.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-//                PrintWriter writer = null;
-//                try {
-//                    writer = new PrintWriter("the-file-name.txt", "UTF-8");
-//                } catch (FileNotFoundException e1) {
-//                    e1.printStackTrace();
-//                } catch (UnsupportedEncodingException e1) {
-//                    e1.printStackTrace();
-//                }
-//
-//                writer.println("\t\tCod.Fiscale\tNome\tCognome\tetà");
-//                for (int i = 0; i<gestoreEvento.getNumInvitati(); i++)
-//                    writer.println(i+1+"\t\t\t\t\t\t\t\t");
-//                writer.close();
-
                 sisPr.createXlsGenerality(gestoreEvento.getName());
+                bUpload.setEnabled(true);
             }
         });
 
@@ -89,34 +106,10 @@ public class PannelloSpecificheEvento extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                ArrayList<Invitato> invitati=new ArrayList<>();
-/*
-                Scanner scanner= null;
-                try {
-                    File fin=new File("the-file-name.txt");
-                    scanner = new Scanner(new InputStreamReader(new FileInputStream(fin)));
-                } catch (FileNotFoundException e1) {
-                    e1.printStackTrace();
-                }
-                String bin=scanner.nextLine();
-                while (scanner.hasNextLine()){
-                    String[] str=new String[5];
-                    String tmp=scanner.nextLine();
-                    str=tmp.split("\t\t");
-                    if(str.length!=5){
-                        System.out.println("Invitati inferiori al numero previsto.");
-                        break;
-                    }
-                    Invitato i= new Invitato(str[1],str[2],str[3],Integer.parseInt(str[4]));
-                    gestoreEvento.addInvitato(i);
-                    invitati.add(i);
-                }
-*/
 
                 try {
                     for (Invitato i : sisPr.loadXlsGenerality(gestoreEvento.getName())) {
                         gestoreEvento.addInvitati(i);
-                        //connessione.inserisciDatiInvitato(gestoreEvento.getName(),i.getID_Inv(),i.getNome(),i.getCognome(),i.getEta());
 
                     }
                 } catch (DatabaseException e1) {
@@ -124,14 +117,10 @@ public class PannelloSpecificheEvento extends JPanel {
                 } catch (DatabaseNullException e1) {
                     e1.printStackTrace();
                 }
-                //da aggiungere gli invitati qua
 
-
-                //    sisPr.acquisisciInvitati(invitati);
-
-                System.out.println("Acquisizione 1 invitati effettuata.");
                 try {
                     sisPr.writeXlsObligations(gestoreEvento.getName());
+                    bUploadOblig.setEnabled(true);
                 } catch (DatabaseException e1) {
                     e1.printStackTrace();
                 } catch (DatabaseNullException e1) {
@@ -143,11 +132,8 @@ public class PannelloSpecificheEvento extends JPanel {
         bUploadOblig.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("Acquisizione 2 invitati effettuataAAAAAAAAAAAAAAA.");
-                //GestoreVincoliTavolo gestoreVincoliTavolo= new GestoreVincoliTavolo(gestoreLocale.getTavoliLocale(),gestoreEvento.getListaInvitati(),sisPr.saveOnObligations(gestoreEvento.getName()));
                 sisPr.saveOnObligations(gestoreEvento.getName());
                 GestoreVincoliTavolo gestoreVincoliTavolo= new GestoreVincoliTavolo(gestoreEvento.getName());
-                //gestoreEvento.setLista_vincoli(gestoreVincoliTavolo.accomodaInvitati());
                 FinestraDisposizioneTavoli fd=new FinestraDisposizioneTavoli(gestoreLocale, gestoreEvento,gestoreVincoliTavolo);
                 fd.setVisible(true);
                 frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
@@ -155,4 +141,15 @@ public class PannelloSpecificheEvento extends JPanel {
             }
         });
     }
+
+    //parte adibita alla "pittura" della foto sullo sfondo
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        Dimension dim= this.getSize();
+        int width= dim.width;
+        int height= dim.height;
+        g.drawImage(backgroundImage, 0, 0,width,height, this);
+
+    }
+
 }

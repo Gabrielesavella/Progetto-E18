@@ -22,20 +22,23 @@ public class Tavolo implements Comparable{
 
     /*
     Nel costruttore 1, il tavolo ha un numero fisso di posti .
-    Nel costruttore 2, il tavolo ha un numero di posti deciso da programma
-    ( in modo da rendere più flessibile il programma )
-    @author Salvatore Parisi
+    Nel costruttore 2 e 3, il tavolo ha un numero di posti deciso da programma
+    ( in modo da rendere più flessibile il programma ), in particolare il costruttore 2 è utilizzato con il db ,
+    mentre il costruttore 3 e il costruttore 1 sono stati utilizzati per test locali
+    @author Gabriele Savella,Salvatore Parisi
      */
+
+    //costruttore 1: uso locale (test)
     public Tavolo(String id_tavolo){
         disponibile = true;
         this.id_tavolo = id_tavolo;
         num_posti = 6;
-        AssegnamentiTavolo = new ArrayList<Invitato>(num_posti);
+        AssegnamentiTavolo = new ArrayList<>(num_posti);
         interno = true;
         postiTot=num_posti;
     }
     /*
-     * numeroposti @author Gabrielesavella
+     * costruttore 2 : utilizzo con Database
      */
     public Tavolo (String ID_Locale, String id_tavolo, int num_posti){
         this.ID_Locale=ID_Locale;
@@ -43,10 +46,10 @@ public class Tavolo implements Comparable{
         this.num_posti = num_posti;
         interno = true;
         disponibile = true;
-        AssegnamentiTavolo = new ArrayList<Invitato>(num_posti);
+        AssegnamentiTavolo = new ArrayList<>(num_posti);
         postiTot=num_posti;
     }
-    //metodo utilizzato per il tavolo
+    //costruttore 3 : uso locale (test)
     public Tavolo (String id_tavolo, int num_posti){
         this.id_tavolo = id_tavolo;
         this.num_posti = num_posti;
@@ -102,6 +105,7 @@ public class Tavolo implements Comparable{
         openAssignment();
     }
 
+    //questo metodo restituisce una stringa che mostra gli invitati per ogni tavolo
     public String showInvitati(){
         String invitatiTavolo = "";
 
@@ -114,6 +118,7 @@ public class Tavolo implements Comparable{
 
     }
 
+    //metodo get
     public final int getPostiTot(){
         return postiTot;
     }
@@ -176,7 +181,6 @@ public class Tavolo implements Comparable{
 
     /*Restituisce l'arraylist di Invitati per ogni tavolo.*/
     public ArrayList<Invitato> getArraylistInvitati(){
-
 
         return AssegnamentiTavolo;
     }

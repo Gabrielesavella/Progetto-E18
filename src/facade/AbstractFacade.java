@@ -8,30 +8,21 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
-
+/*
+   classe astratta che sarà alla base di tutti i facade
+   @AUTHOR Gabrielesavella
+    */
 public class AbstractFacade {
 
     protected ArrayList <String> field;
     private Cliente client = null;
     private GestoreEvento gestoreEvento = null;
 
-    /*
-    ATTENZIONE_ questo fetchClient va implementato nelle classi eredi
-    @AUTHOR Gabrielesavella
-     */
+   //metodo che va a recuperare un cliente
     public Cliente fetchClient(String username,String password)throws IOException{
-        String line;
-        String [] colonna;
-
-        BufferedReader reader = new BufferedReader(new FileReader("registrazioni.txt"));
-        while(reader.ready()) {
-            line=reader.readLine();
-            colonna = line.split("\t");
-            fetch(username,password,colonna);
-        }
-        return client;
+        return null;
     }
-
+    //metodo che memorizza un cliente
     public void WriteClient(String username, String password,String name, String surname, String email)throws IOException{
         field = new ArrayList<String>(5);
         field.add(username);
@@ -41,7 +32,7 @@ public class AbstractFacade {
         field.add(email);
         generate();
     }
-
+    //metodo che memorizza un invitato
     public void WriteGuests(String fiscaleCode,String nameGuest, String surnameGuest,int age) throws IOException{
         field=new ArrayList<String>(4);
         field.add(fiscaleCode);
@@ -52,7 +43,7 @@ public class AbstractFacade {
 
 
     }
-
+    //metodo che memorizza un evento
     public void WriteEvent(String nameEvent, GregorianCalendar dateEvent,int guestNumber)throws IOException{
 
         field=new ArrayList<String>(3);
@@ -70,16 +61,15 @@ public class AbstractFacade {
     public void generate()throws IOException {
         field.clear();
     }
-
+    //metodo che va a recuperare un oggetto che è stato memorizzato
     public Cliente fetch(String username,String password,String[] colonna) throws IOException{
-
         return client;
     }
-
+    //metodo che va a recuperare un evento memorizzato
     public GestoreEvento fetch(String nomeEvento, String[] colonna) throws IOException{
         return gestoreEvento;
     }
-
+    //metodo getter dei campi
     public ArrayList<String> getField() {
         return field;
     }

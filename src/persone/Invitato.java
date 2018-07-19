@@ -2,7 +2,6 @@
 
 package persone;
 
-import java.util.Random;
 
 /*@author Marco Maffoni,Gabriele Savella*/
 public class Invitato {
@@ -12,7 +11,7 @@ public class Invitato {
     private int eta;
     /*
     @parametri:
-    ID_inv è l'identificativo dell'invitato, composto dalle prime tre cifre del nome e del cognome + un numero random intero compreso tra 1 e 1000
+    ID_inv è l'identificativo dell'invitato, composto dalle prime tre cifre del nome e del cognome + l'età
     nome è il nome dell'invitato
     cognome è il cognome dell'invitato
      */
@@ -39,10 +38,6 @@ public class Invitato {
     String univoco = "";
     String n= nome.substring(0,3);
     String c= cognome.substring(0,3);
-//    Random r= new Random();
-//    int k= r.nextInt(1000);
-//    String a = Integer.toString(k);
-        //String a =
     univoco= n + c + eta;
     return univoco;
     }

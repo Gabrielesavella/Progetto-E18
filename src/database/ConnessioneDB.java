@@ -304,10 +304,6 @@ public class ConnessioneDB {// crea la connessione col database "smistamento_pos
         ResultSet rs = null;
         String table = "invitati";
 
-      //  if(!(getInvitatoSingolo(ID_Inv)==null)){
-      //      throw new DatabaseException("Invitato", ID_Inv, table);
-
-      //  }
 
         if(getEventoSingolo(ID_Evento)==null){
             throw new DatabaseNullException("Evento", ID_Evento, "eventi");
@@ -362,11 +358,6 @@ public class ConnessioneDB {// crea la connessione col database "smistamento_pos
         ResultSet rs = null;
         String table = "specifica_tavolo";
 
-       /* if(!(getVincoloTavoloSingolo(ID_Inv)==null)){
-            throw new DatabaseException("Invitato", ID_Inv, table);
-
-        }*/
-
         if(getEventoSingolo(ID_Evento)==null){
             throw new DatabaseNullException("Evento", ID_Evento, "eventi");
 
@@ -415,15 +406,6 @@ public class ConnessioneDB {// crea la connessione col database "smistamento_pos
         ResultSet rs = null;
         String table = "preferenza_invitato";
 
-        /*if(!(getVincoloInvitatoSingolo(ID_Inv)==null)){
-            throw new DatabaseException("Invitato", ID_Inv, table);
-
-        }
-
-        if(getEventoSingolo(ID_Evento)==null){
-            throw new DatabaseNullException("Evento", ID_Evento, "eventi");
-
-        }*/
 
         if (!openConn) {
             startConn();
@@ -1151,17 +1133,12 @@ public class ConnessioneDB {// crea la connessione col database "smistamento_pos
             try {
                 stmt = conn.createStatement();
                 rs = stmt.executeQuery("SELECT * FROM preferenza_invitato WHERE `ID_Evento`='" + ID_Ev + "';");
-                System.out.println(String.format("%-30s %-30s %-30s %-30s", "ID_EVENTO", "ID_INVITATO", "VICINO", "NONVICINO"));
                 while (rs.next()) {
-
-
                     ID_Ev= rs.getString(1);
                     String ID_Inv=rs.getString(2);
                     String vicino=rs.getString(3);
                     String lontano= rs.getString(4);
-
                     if(vicino!=null || lontano!=null){
-
                         p= new PreferenzaInvitato(ID_Ev, ID_Inv, vicino, lontano);
                         vincoliInv.add(p);
                     }

@@ -21,52 +21,80 @@ import database.ConnessioneDB;
  */
 
 
-public class SistemaDiPrenotazioneController{
-    private boolean loggedIn=false,notdone = true;
+public class SistemaDiPrenotazioneController {
+    private boolean loggedIn = false, notdone = true;
     private AbstractFacade facade;
     private XlsFacade xlsFacade;
-    private ConnessioneDB connessione ;
-    ArrayList<Invitato> listainvitatiEvento=null;
+    private ConnessioneDB connessione;
+    ArrayList<Invitato> listainvitatiEvento = null;
 
-    public SistemaDiPrenotazioneController(){
+    public SistemaDiPrenotazioneController() {
         connessione = new ConnessioneDB();
         try {
-            facade=new txtFacade(1);
-            xlsFacade=new XlsFacade();
+            facade = new txtFacade(1);
+            xlsFacade = new XlsFacade();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     //aggiunta connessione DB, se non c'è il cliente registrato , allora lo inserisco in registrazioni sul txt e nel db
-    public boolean signUp(String name,String surname,String email,String username,String password)throws DatabaseException, DatabaseNullException{
-        try {
-            Cliente fetching=facade.fetchClient(username,password);
-            if (fetching!=null){
-                System.err.println("Trovato cliente con lo stesso username.Per favore riprova con un altro username.");
-                return false;
+
+        public boolean signUp (String name, String surname, String email, String username, String password)throws
+        DatabaseException {
+            try {
+                if (connessione.getCliente(username) != null) {
+                    System.err.println("Trovato cliente con lo stesso username.Per favore riprova con un altro username.");
+                    return false;
+                }
+                connessione.inserisciDatiCliente(username, name, surname, email, password);
+                facade.WriteClient(username, password, name, surname, email);
+                return true;
+            } catch (IOException e) {
+//            try{
+//                Cliente fetching=facade.fetchClient(username,password);
+//                if (fetching!=null) {
+//                    System.err.println("Trovato cliente con lo stesso username.Per favore riprova con un altro username.");
+//                    return false;
+//                }
+//            }
+//            catch (IOException ex){
+//                ex.printStackTrace();
+//            }
+                e.printStackTrace();
             }
-            ConnessioneDB connessione = new ConnessioneDB();
-            connessione.inserisciDatiCliente(username,name,surname,email,password);
-            facade.WriteClient(username,password,name,surname,email);
-            return true;
-        } catch (IOException e) {
-            e.printStackTrace();
+            return false;
         }
-        return false;
-    }
 
 
-    public Cliente login(String username, String password){
-        Cliente fetching= null;
-        try {
-            fetching = facade.fetchClient(username,password);
-        } catch (IOException e) {
-            e.printStackTrace();
+
+
+    public Cliente login(String username, String password) {
+        Cliente fetching = null;
+        ArrayList<Cliente> clienti = null;
+
+        clienti = connessione.getClienti();
+        for (Cliente c : clienti) {
+            if (c.getUsername().equals(username) && c.getPsw().equals(password)) {
+                fetching = c;
+                break;
+            }
         }
-        if (fetching!=null) { loggedIn = true; }
+        if (fetching == null) {
+            try {
+                fetching = facade.fetchClient(username, password);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        if (fetching != null) {
+            loggedIn = true;
+        }
         return fetching;
     }
+
+
 
 
     public void logout(){
@@ -76,7 +104,6 @@ public class SistemaDiPrenotazioneController{
     //adattato al DB inserisce l'evento anche nel DB (controllare la data!)
     public boolean creaEvento(String nomeEvento, GregorianCalendar data, int guestNum, Cliente cliente,String nomelocale)throws DatabaseException, DatabaseNullException{
         String datadb = data.get(Calendar.DAY_OF_MONTH)+"-"+data.get(Calendar.MONTH)+"-"+data.get(Calendar.YEAR);
-        System.out.println(datadb);
         try {
             facade.WriteEvent(nomeEvento,data,guestNum);
             //ho bisogno del nome locale

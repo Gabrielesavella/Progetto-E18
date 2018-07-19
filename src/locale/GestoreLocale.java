@@ -11,10 +11,7 @@ import java.util.*;
  */
 
 
-/**
- *
- * @author salvi
- */
+
 public class GestoreLocale {
 
     static int numLoc = 0;
@@ -37,7 +34,6 @@ public class GestoreLocale {
     @author Gabrielesavella
      */
     public GestoreLocale(String id_locale, int numMaxTavoli, GregorianCalendar oraApertura, GregorianCalendar oraChiusura, GregorianCalendar giornodichiusura) {
-
         this.giornodichiusura=giornodichiusura;
         this.id_locale=id_locale;
         this.numMaxTavoli=numMaxTavoli;
@@ -55,6 +51,11 @@ public class GestoreLocale {
         }
     }
 
+    public void aggiungiEvento(GestoreEvento nuovoevento){
+        if(nuovoevento.getLocation().getId_locale().equals(id_locale))
+            eventi_locale.add(nuovoevento);
+    }
+
     public void aggiungiTavoli(ArrayList<Tavolo> tavoliTotali){
         for (Tavolo t : tavoliTotali){
             if(t.getID_Loc().equals(id_locale)){ tavoli.add(t); }
@@ -64,41 +65,33 @@ public class GestoreLocale {
 
     /*Smista tutti invitati ad un particolare evento nei tavoli. Fatto ciò, restituisce un arraylist di tutti i tavoli utilizzati*/
     public ArrayList<Tavolo> smistamentoTavoli(GestoreEvento e){
-
         rimuoviGiaPresenti(e);
-
         int count = 0;
         ArrayList<Invitato>listainvitati;
-
         for (GestoreEvento ev : eventi_locale)
             if (ev.equals(e)) {
                 listainvitati = ev.getListaInvitati();
-
+                if(listainvitati.size()!=0)
                 for (Tavolo t : tavoli) {
                     do {
                         t.addGuest(listainvitati.get(count));
                         count++;
-
                     } while (t.getDisponibile() && (count+1)<=listainvitati.size());
                     tavoliUtilizzati.add(t);
-                   /*
-                    se conto tutti gli invitati della lista esco dal ciclo del tavolo (count è incrementato di 1 perchè
-                    parte da zero
-                     */
                     if ((count) == listainvitati.size())
                         break;
-
                 }
             }
         return tavoliUtilizzati;
     }
-
     //Rimuove dagli invitati da smistare, le persone che sono già sedute al tavolo.
     public void rimuoviGiaPresenti(GestoreEvento e){
         for (Tavolo t : tavoli){
-            lista_gia_presenti.addAll(t.getArraylistInvitati());
+            for (Invitato i:t.getArraylistInvitati()) {
+                e.removeInvitati(i);
+
+            }
         }
-        e.getListaInvitati().removeAll(lista_gia_presenti);
     }
 
     /*Restituisce un arraylist di tutti gli invitati presenti in tutti i tavoli utilizzati*/
@@ -217,5 +210,13 @@ public class GestoreLocale {
 
     public String getId_locale() {
         return id_locale;
+    }
+
+    public void setTavoli(ArrayList<Tavolo> tavoli) {
+        this.tavoli = tavoli;
+    }
+
+    public ArrayList<Tavolo> getTavoliUtilizzati() {
+        return tavoliUtilizzati;
     }
 }
