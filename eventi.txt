@@ -25,3 +25,28 @@ cena fra ermafroditi	28	10
 prova costume	26	13	
 mai dire grande fratello	20	10	
 mxmxmxmxmx	26	13	
+super quark	2	10	
+cena da da da	28	10	
+quark	29	10	
+quarketto	28	10	
+cena da marco	28	10	
+cena da gabri	28	10	
+cena dal gabro	27	10	
+cena da ischia	20	10	
+cena di maffo	27	10	
+trattureggio	28	10	
+pranzo da marco	27	10	
+pranzo da gabri	28	10	
+pranzo da maffo	29	10	
+pranzo da ischia	24	10	
+cena da maffo	31	10	
+cena da cusano	28	10	
+cena da pitbull	26	10	
+cena da iron man	29	10	
+cenetta a lume di pipa	25	10	
+cenette a lume di narghi	24	10	
+cenetta a lume di illuministi	27	10	
+cena dai sarti	28	10	
+cena dei vittoriosi	28	20	
+cena di lusso	25	20	
+cena di gruppo	29	20	
