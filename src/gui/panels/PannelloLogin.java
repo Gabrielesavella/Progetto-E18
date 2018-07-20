@@ -145,7 +145,7 @@ public class PannelloLogin extends JPanel {
                     errore.setVerticalTextPosition(SwingConstants.CENTER);
                     errore.setText("<html><div style='text-align: center;'>" + "Username or password not correct"+"<br>Please fill with correct username and password values " + "</div></html>");
                     errore.setForeground(Color.GREEN);
-                    System.out.println("errore in fase login");
+                    System.err.println("errore in fase login");
                 }
             }
         });

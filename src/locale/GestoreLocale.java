@@ -73,10 +73,10 @@ public class GestoreLocale {
                 listainvitati = ev.getListaInvitati();
                 if(listainvitati.size()!=0)
                 for (Tavolo t : tavoli) {
-                    do {
+                    while (t.getDisponibile() && (count+1)<=listainvitati.size()) {
                         t.addGuest(listainvitati.get(count));
                         count++;
-                    } while (t.getDisponibile() && (count+1)<=listainvitati.size());
+                    }
                     tavoliUtilizzati.add(t);
                     if ((count) == listainvitati.size())
                         break;
