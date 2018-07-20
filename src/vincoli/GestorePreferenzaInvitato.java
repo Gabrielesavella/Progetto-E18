@@ -1,12 +1,8 @@
 package vincoli;
 
-import com.sun.org.apache.xpath.internal.SourceTree;
-import locale.GestoreEvento;
-import locale.Tavolo;
+import locale.*;
 import persone.Invitato;
-
 import java.util.ArrayList;
-import java.util.Collections;
 
 
 public class GestorePreferenzaInvitato implements Vincolo {
@@ -44,7 +40,8 @@ public class GestorePreferenzaInvitato implements Vincolo {
 
         if (daSistemare.size()==0 || lista_vincolati.size()==1) {
 
-            System.out.println("Nessun vincolo");}
+            //do nothing
+        }
 
         else{
 
