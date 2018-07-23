@@ -66,6 +66,7 @@ public class CreatePreferenza {
 
     public void smista(){
 
+
         for (GestorePreferenzaInvitato gpi : gp){
 
             if(gpi.getPreferenza()==PreferenzaInvitatoEnum.STA_VICINO_A) {
@@ -81,6 +82,7 @@ public class CreatePreferenza {
                 gpi.verificaIdoneita();
             }
         }
+
     }
 
     public void smistaRestanti(GestoreLocale myLocale,GestoreEvento ev){

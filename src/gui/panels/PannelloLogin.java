@@ -154,9 +154,10 @@ public class PannelloLogin extends JPanel {
         tUsername.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(!tUsername.getText().equals("") || tUsername.getText()!=null){//tUsername.getText().equals(null) || tUsername.getText().equals("")
+                boolean loginCompiledCorrectly=(!tUsername.getText().equals("") || tUsername.getText()!=null) && tPassword.echoCharIsSet();
+                if(loginCompiledCorrectly){//!tUsername.getText().equals("") || tUsername.getText()!=null
                     checkTextUsername=true;
-                    if(checkTextPassword)
+                    //if(checkTextPassword)
                         logIn.setEnabled(true);
                 }
                 else{ checkTextUsername=false; }
@@ -166,10 +167,11 @@ public class PannelloLogin extends JPanel {
         tPassword.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(!tPassword.echoCharIsSet()){ checkTextPassword=false; }
+                boolean loginCompiledCorrectly=(!tUsername.getText().equals("") || tUsername.getText()!=null) && tPassword.echoCharIsSet();
+                if(!loginCompiledCorrectly){ checkTextPassword=false; }//!tPassword.echoCharIsSet()
                 else{
                     checkTextPassword=true;
-                    if(checkTextUsername)
+                    //if(checkTextUsername)
                         logIn.setEnabled(true);
 
                 }

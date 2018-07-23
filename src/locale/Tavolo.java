@@ -185,7 +185,7 @@ public class Tavolo implements Comparable{
     public ArrayList<String> mostraID_Invitati() {
         ArrayList<String> stringhe=new ArrayList<>();
         for (Invitato i : AssegnamentiTavolo){
-            stringhe.add(i.getID_Inv());
+            if (!(i==null)) {stringhe.add(i.getID_Inv());}
         }
         return stringhe;
     }
