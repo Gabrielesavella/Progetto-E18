@@ -10,11 +10,9 @@ import vincoli.SpecificaTavolo;
 
 import java.awt.*;
 import java.io.*;
-import java.lang.reflect.Array;
 import java.util.*;
 
-import static persone.Invitato.setID_Inv;
-
+//questa classe si occupa di generare l'excel, prelevare i dati,elaborarli, inserirli nel database e restituirli
 public class XlsFacade {
     Workbook workbook;
     private CreationHelper createHelper = null;
@@ -27,7 +25,7 @@ public class XlsFacade {
     private ArrayList<PreferenzaInvitato> vincoliPreferenze = new ArrayList<>();
     private CellStyle headerCellStyle;
 
-
+    //genera l'excel
     public boolean generateXlsGuests(String nomeEvento){
         boolean generated = true;
         columns= new ArrayList<>();
@@ -48,7 +46,7 @@ public class XlsFacade {
         }
         return generated;
     }
-
+    //setta lo stile iniziale
     public void setInitialStyle(String nomeEvento){
         workbook = new HSSFWorkbook();
         createHelper = workbook.getCreationHelper();
@@ -63,10 +61,10 @@ public class XlsFacade {
             cell = headerRow.createCell(count);
             cell.setCellStyle(headerCellStyle);
             if(count<3)
-            cell.setCellValue(columns.get(count));
+                cell.setCellValue(columns.get(count));
         }
     }
-
+    //legge il file excel e preleva  dati
     public ArrayList<Invitato> readXlsGuests(String nomeEvento){
         ArrayList<Invitato> invitati= new ArrayList<Invitato>();
         try {
@@ -100,15 +98,15 @@ public class XlsFacade {
 
         return invitati;
     }
-
+    //riscrive il file aggiornando i campi
     public boolean reWriteXls(String nomeEvento,ArrayList<Invitato> invitati) {
         ArrayList <String> columns= new ArrayList<>();
         try {
-            FileInputStream fIPS= new FileInputStream(nomeEvento+".xls"); //Read the spreadsheet that needs to be updated
+            FileInputStream fIPS= new FileInputStream(nomeEvento+".xls");
             Workbook wb;
             Sheet worksheet;
             if(fIPS.available()>=0) {
-                wb = new HSSFWorkbook(fIPS); //If there is already data in a workbook
+                wb = new HSSFWorkbook(fIPS);
                 worksheet = wb.getSheetAt(0);
             }
             else
@@ -127,14 +125,16 @@ public class XlsFacade {
             columns.add("preferenza 2");
             columns.add("avversione 1");
             columns.add("avversione 2");
-            Row row = worksheet.getRow(0);  //0 = row number
+            Row row = worksheet.getRow(0);
 
             for(int i=3;i<(columns.size()+3);i++){
-            Cell c = row.createCell(i,CellType.STRING);
-            c.setCellValue(columns.get(i-3));
+                Cell c = row.createCell(i,CellType.STRING);
+                c.setCellValue(columns.get(i-3));
             }
+            //adatta le colonne
             for (int count = 0; count < columns.size()+3; count++)
                 worksheet.autoSizeColumn(count);
+            //crea le righe nell'excel e le implementa
             for (int i=1;i<=invitati.size()+1;i++){
                 row=worksheet.getRow(i);
                 if (row==null){
@@ -145,7 +145,7 @@ public class XlsFacade {
                 c.setCellValue(invitati.get(i-1).getID_Inv());
             }
 
-            //add campi specificaTavolo e specificaInvitato
+            //aggiunge i campi specificaTavolo e specificaInvitato
             for (int i=1;i<=invitati.size();i++){
                 row=worksheet.getRow(i);
                 if (row==null){
@@ -156,12 +156,12 @@ public class XlsFacade {
                     c.setCellType(CellType.STRING);
                 }
             }
-            fIPS.close(); //Close the InputStream
+            fIPS.close();
             FileOutputStream output_file = new FileOutputStream(nomeEvento + ".xls");//Open FileOutputStream to write updates
 
-            wb.write(output_file); //write changes
+            wb.write(output_file);
             wb.close();
-            output_file.close();  //close the stream
+            output_file.close();
             openfile(nomeEvento+".xls");
 
         } catch (FileNotFoundException e) {
@@ -183,10 +183,10 @@ public class XlsFacade {
         }
         Desktop desktop = Desktop.getDesktop();
         if(file.exists())
-        desktop.open(file);
+            desktop.open(file);
         return true;
     }
-
+    //legge nell'excel le specifiche del tavolo
     public ArrayList<SpecificaTavolo> readSpecificheTavolo(String nameEvent){
         ArrayList<SpecificaTavolo> vincoliTavoli = new ArrayList<>();
         int campiVincolo[] = new int[6];
@@ -211,7 +211,7 @@ public class XlsFacade {
                     if(currentCell.getCellTypeEnum()==CellType.NUMERIC){
                         if( currentCell.getColumnIndex()>=4 && currentCell.getColumnIndex()<=9)
                             campiVincolo[currentCell.getColumnIndex()-4] = (int)currentCell.getNumericCellValue();
-                      }
+                    }
                     if(currentCell.getCellTypeEnum()==CellType.BLANK){
                         if( currentCell.getColumnIndex()>=4 && currentCell.getColumnIndex()<=9)
                             campiVincolo[currentCell.getColumnIndex()-4]=0;
@@ -226,7 +226,7 @@ public class XlsFacade {
         }
         return vincoliTavoli;
     }
-
+    //crea l'oggetto vincolo tavolo riga per riga e aggiorna il database
     public SpecificaTavolo splitVincoliTavolo(String nomeEvento,String soggetto,int [] campiVincolo)throws DatabaseException, DatabaseNullException{
         SpecificaTavolo sp;
         int i=0;
@@ -235,7 +235,7 @@ public class XlsFacade {
         connessione.inserisciVincoliTavolo(nomeEvento,soggetto,campiVincolo[i],campiVincolo[i+1],campiVincolo[i+2],campiVincolo[i+3],campiVincolo[i+4],campiVincolo[i+5]);
         return sp;
     }
-
+    //legge le preferenze invitato e instanzia gli oggetti aggiornando il database
     public ArrayList<PreferenzaInvitato> readPreferenzeInvitato(String nameEvent) throws IOException, DatabaseException, DatabaseNullException{
         campiPreferenze = new ArrayList<>();
         try {
@@ -255,8 +255,8 @@ public class XlsFacade {
                         if(currentCell.getColumnIndex()>=10 && currentCell.getColumnIndex()<=13)
                             campiPreferenze.add(currentCell.getStringCellValue());
                     } else
-                        if (currentCell.getColumnIndex() >= 10 && currentCell.getColumnIndex() <= 13)
-                            campiPreferenze.add(currentCell.getStringCellValue());
+                    if (currentCell.getColumnIndex() >= 10 && currentCell.getColumnIndex() <= 13)
+                        campiPreferenze.add(currentCell.getStringCellValue());
                     if (!cellIterator.hasNext())
                         vincoliPreferenze.add(splitPreferenze(nameEvent,campiPreferenze));
                 }
@@ -266,7 +266,7 @@ public class XlsFacade {
         }
         return vincoliPreferenze;
     }
-
+    //crea l'oggetto preferenza aggiornando il database
     public PreferenzaInvitato splitPreferenze(String nameEvent,ArrayList<String> campiPreferenze)throws DatabaseException, DatabaseNullException{
         PreferenzaInvitato pref = null;
         String preferenze = null;
@@ -294,7 +294,3 @@ public class XlsFacade {
 
 
 }
-
-
-
-
