@@ -23,8 +23,6 @@ import java.util.ArrayList;
  */
 
 public class PannelloRegistrazione extends JPanel {
-    static Cliente lecciovich= new Cliente("lecciovich","Marco","Lecce", "marcolecce@gmail.com","prova");
-    static ArrayList<Cliente> clienti=new ArrayList<Cliente>(2);
     private Image backgroundImage;
 
     public PannelloRegistrazione(ArrayList<GestoreLocale> locali,JFrame frame){
@@ -95,9 +93,6 @@ public class PannelloRegistrazione extends JPanel {
         //pannelli
         JPanel campi=new JPanel();
         JPanel bottoni=new JPanel();
-//        int i=6;
-//        int j=2;
-//        JPanel[][] panelHolder= new JPanel[i][j];
         bottoni.setLayout(new GridLayout(2,1));
         campi.setLayout(new GridLayout(6,2));
 
@@ -113,21 +108,12 @@ public class PannelloRegistrazione extends JPanel {
         campi.add(tPassword);
         campi.add(confPassword);
         campi.add(tConfPassword);
-//        campi.add(conferma);
-//        campi.add(errore);
-//        campi.add(clienteAdded);
 
         campi.setOpaque(false);
 
-//        bottoni.add(clienteAdded);
         bottoni.add(errore);
         bottoni.add(conferma);
         bottoni.setOpaque(false);
-//        bottoni.setLayout(new GridLayout(1,3));
-//        add(new JPanel());
-//        add(conferma);
-//
-//        this.setLayout(new GridLayout(1,2));
 
         this.setOpaque(false);
         this.setLayout(new BorderLayout());
@@ -175,7 +161,6 @@ public class PannelloRegistrazione extends JPanel {
                         errore.setHorizontalTextPosition(SwingConstants.CENTER);
                         errore.setVerticalTextPosition(SwingConstants.CENTER);
                         errore.setText("<html><div style='text-align: center;'>" + "username is already used!"+"<br>Please fill with unused values the sign up form" + "</div></html>");
-                        //errore.setText();
                         errore.setForeground(Color.green);
                     }
                 }
@@ -245,18 +230,12 @@ public class PannelloRegistrazione extends JPanel {
     //parte adibita alla "pittura" della foto sullo sfondo
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        Toolkit toolkit= Toolkit.getDefaultToolkit();//Toolkit.getDefaultToolkit();
-        //Dimension dim= toolkit.;
         Dimension dim= this.getSize();
         int width= dim.width;
         int height= dim.height;
 
         g.drawImage(backgroundImage, 0, 0,width,height, this);
 
-    }
-
-    public static ArrayList<Cliente> getClienti() {
-        return clienti;
     }
 
 

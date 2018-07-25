@@ -68,19 +68,7 @@ public class PannelloCredenzialiEvento extends JPanel{
         campi.add(tNome);
         campi.add(data);
 
-        //JPanel pData= new JPanel();
-        //pData.setLayout(new GridLayout(1,5));
-
-//        JTextField giorno=new JTextField("gg");
-//        JTextField mese= new JTextField("mm");
-//        JTextField anno= new JTextField("aaaa");
-//        JLabel token= new JLabel("/");
-
         JXDatePicker calendario=new JXDatePicker();
-
-//        pData.add(giorno);
-//        pData.add(mese);
-//        pData.add(anno);
 
         campi.add(calendario);
 
@@ -88,9 +76,6 @@ public class PannelloCredenzialiEvento extends JPanel{
 
             for(GestoreLocale l:locali)
                 dropDownLocali.addItem(l.getId_locale());
-
-
-
 
 
         campi.add(selLoc);
@@ -120,7 +105,6 @@ public class PannelloCredenzialiEvento extends JPanel{
                     if(l.id_locale.equals(dropDownLocali.getSelectedItem())) {
                         gestoreLocaleSelezionato =l;
 
-                        //MODIFICA PER IL DB : aggiunto campo id locale a crea evento!
                         try {
                              sisPr.creaEvento(tNome.getText(),calendar,Integer.parseInt(tnInv.getText()),cliente,l.getId_locale());
 
@@ -182,13 +166,9 @@ public class PannelloCredenzialiEvento extends JPanel{
     //parte adibita alla "pittura" della foto sullo sfondo
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        Toolkit toolkit= Toolkit.getDefaultToolkit();//Toolkit.getDefaultToolkit();
-        //Dimension dim= toolkit.;
         Dimension dim= this.getSize();
         int width= dim.width;
         int height= dim.height;
-//        backgroundImage.getScaledInstance()
-        // Draw the background image.
         g.drawImage(backgroundImage, 0, 0,width,height, this);
 
     }

@@ -24,7 +24,7 @@ public class PannelloDisposizioneTavoli extends JPanel {
     public PannelloDisposizioneTavoli(GestoreLocale gestoreLocale, GestoreEvento gestoreEvento, GestoreVincoliTavolo gestoreVincoliTavolo,JFrame frame){
 
         try{
-            backgroundImage = ImageIO.read(new File("images/celebration-dining-drink-696214.jpg"));
+            backgroundImage = ImageIO.read(new File("images/index.jpg"));
             backgroundImage=backgroundImage.getScaledInstance(frame.getWidth(),frame.getHeight(),Image.SCALE_DEFAULT);
         }catch (IOException e){
             e.printStackTrace();
