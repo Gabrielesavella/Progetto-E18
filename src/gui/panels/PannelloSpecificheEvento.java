@@ -51,11 +51,11 @@ public class PannelloSpecificheEvento extends JPanel {
         //immagini
         final int WIDHT=20,HEIGHT=20;
 
-        ImageIcon imgI= new ImageIcon("www.jpg");
+        ImageIcon imgI= new ImageIcon("images/www.jpg");
         Image img= imgI.getImage();
         Image newImage= img.getScaledInstance(WIDHT,HEIGHT,1);
         ImageIcon newI=new ImageIcon(newImage);
-        ImageIcon imgI2= new ImageIcon("WwW1.jpg");
+        ImageIcon imgI2= new ImageIcon("images/WwW1.jpg");
         Image img2= imgI2.getImage();
         Image newImage2= img2.getScaledInstance(WIDHT,HEIGHT,1);
         ImageIcon newI2=new ImageIcon(newImage2);
