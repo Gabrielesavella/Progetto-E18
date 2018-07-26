@@ -165,7 +165,7 @@ public class JTest {
 
 
     @Test
-    public void Provatavoli1() {
+    public void Provatavoli() {
 
         Assert.assertEquals(6,e.getLocation().getNPostiTavolo("tav1"));
         Assert.assertEquals(4,e.getLocation().getNPostiTavolo("tav2"));
