@@ -13,7 +13,7 @@ import java.io.*;
 import java.util.*;
 
 //questa classe si occupa di generare l'excel, prelevare i dati,elaborarli, inserirli nel database e restituirli
-public class XlsFacade {
+public class XlsPersistence {
     Workbook workbook;
     private CreationHelper createHelper = null;
     FileOutputStream fileOut = null;
@@ -66,7 +66,7 @@ public class XlsFacade {
     }
     //legge il file excel e preleva  dati
     public ArrayList<Invitato> readXlsGuests(String nomeEvento){
-        ArrayList<Invitato> invitati= new ArrayList<Invitato>();
+        ArrayList<Invitato> invitati= new ArrayList<>();
         try {
             FileInputStream excelFile = new FileInputStream(new File(nomeEvento+".xls"));
             workbook = new HSSFWorkbook(excelFile);
@@ -91,11 +91,10 @@ public class XlsFacade {
             }
             excelFile.close();
         } catch (FileNotFoundException ex) {
-            System.out.println(ex.getMessage());
+            System.err.println(ex.getMessage());
         } catch (IOException ex) {
-            System.out.println(ex.getMessage());
+            System.err.println(ex.getMessage());
         }
-
         return invitati;
     }
     //riscrive il file aggiornando i campi
@@ -126,7 +125,6 @@ public class XlsFacade {
             columns.add("avversione 1");
             columns.add("avversione 2");
             Row row = worksheet.getRow(0);
-
             for(int i=3;i<(columns.size()+3);i++){
                 Cell c = row.createCell(i,CellType.STRING);
                 c.setCellValue(columns.get(i-3));
@@ -158,7 +156,6 @@ public class XlsFacade {
             }
             fIPS.close();
             FileOutputStream output_file = new FileOutputStream(nomeEvento + ".xls");//Open FileOutputStream to write updates
-
             wb.write(output_file);
             wb.close();
             output_file.close();
@@ -262,7 +259,7 @@ public class XlsFacade {
                 }
             }
         } catch (FileNotFoundException ex) {
-            System.out.println(ex.getMessage());
+            System.err.println(ex.getMessage());
         }
         return vincoliPreferenze;
     }

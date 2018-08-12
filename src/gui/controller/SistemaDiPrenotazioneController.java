@@ -9,7 +9,6 @@ import persone.Cliente;
 import persone.Invitato;
 import vincoli.*;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.*;
 
@@ -23,19 +22,17 @@ import database.ConnessioneDB;
 
 public class SistemaDiPrenotazioneController {
     private boolean loggedIn = false, notdone = true;
-    private AbstractFacade facade;
-    private XlsFacade xlsFacade;
-    private ConnessioneDB connessione;
+    private Facade facade;
     ArrayList<Invitato> listainvitatiEvento = null;
 
     public SistemaDiPrenotazioneController() {
-        connessione = new ConnessioneDB();
         try {
-            facade = new txtFacade(1);
-            xlsFacade = new XlsFacade();
-        } catch (IOException e) {
-            e.printStackTrace();
+            facade = new Facade();
+        }catch(IOException eccezione){
+            System.err.println(eccezione.getMessage());
         }
+
+
     }
 
     //aggiunta connessione DB, se non c'è il cliente registrato , allora lo inserisco in registrazioni sul txt e nel db
@@ -43,24 +40,14 @@ public class SistemaDiPrenotazioneController {
         public boolean signUp (String name, String surname, String email, String username, String password)throws
         DatabaseException {
             try {
-                if (connessione.getCliente(username) != null) {
+                if (facade.getCliente(username) != null) {
                     System.err.println("Trovato cliente con lo stesso username.Per favore riprova con un altro username.");
                     return false;
                 }
-                connessione.inserisciDatiCliente(username, name, surname, email, password);
+                facade.inserisciDatiCliente(username, name, surname, email, password);
                 facade.WriteClient(username, password, name, surname, email);
                 return true;
             } catch (IOException e) {
-//            try{
-//                Cliente fetching=facade.fetchClient(username,password);
-//                if (fetching!=null) {
-//                    System.err.println("Trovato cliente con lo stesso username.Per favore riprova con un altro username.");
-//                    return false;
-//                }
-//            }
-//            catch (IOException ex){
-//                ex.printStackTrace();
-//            }
                 e.printStackTrace();
             }
             return false;
@@ -73,7 +60,7 @@ public class SistemaDiPrenotazioneController {
         Cliente fetching = null;
         ArrayList<Cliente> clienti = null;
 
-        clienti = connessione.getClienti();
+        clienti = facade.getClienti();
         for (Cliente c : clienti) {
             if (c.getUsername().equals(username) && c.getPsw().equals(password)) {
                 fetching = c;
@@ -94,9 +81,6 @@ public class SistemaDiPrenotazioneController {
         return fetching;
     }
 
-
-
-
     public void logout(){
         loggedIn=false;
     }
@@ -106,21 +90,19 @@ public class SistemaDiPrenotazioneController {
         String datadb = data.get(Calendar.DAY_OF_MONTH)+"-"+data.get(Calendar.MONTH)+"-"+data.get(Calendar.YEAR);
         try {
             facade.WriteEvent(nomeEvento,data,guestNum);
-            //ho bisogno del nome locale
-            connessione.inserisciDatiEvento(cliente.getUsername(),nomeEvento,datadb,nomelocale,guestNum);
+            facade.inserisciDatiEvento(cliente.getUsername(),nomeEvento,datadb,nomelocale,guestNum);
             return true;
         } catch (IOException e) {
             e.printStackTrace();
         }
         return false;
     }
-
-
+    //MODIFICA
+  // ho fatto una modifica qua  al posto di fetch (nomeevento, colonne) sostituito fetchEvento (nomeEvento)
     public GestoreEvento getEvento(String nomeEvento){
-        String[] columns= new String[10];
         GestoreEvento gestoreEvento =null;
         try {
-            gestoreEvento =facade.fetch(nomeEvento,columns);
+            gestoreEvento =facade.fetchEvento(nomeEvento);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -143,8 +125,7 @@ public class SistemaDiPrenotazioneController {
     public ArrayList<Invitato> getInvitati(){
         ArrayList<Invitato> invitati= null;
         try {
-            txtFacade txtFacade= new txtFacade(1);
-            invitati.addAll(txtFacade.fetchAllGuests());
+            invitati.addAll(facade.fetchAllGuests());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -152,9 +133,9 @@ public class SistemaDiPrenotazioneController {
     }
 
     public boolean createXlsGenerality(String nomeEvento){
-        xlsFacade.generateXlsGuests(nomeEvento);
+        facade.generateXlsGuests(nomeEvento);
         try {
-            xlsFacade.openfile(nomeEvento+".xls");
+            facade.openfile(nomeEvento+".xls");
             return true;
         } catch (IOException e) {
             e.printStackTrace();
@@ -162,18 +143,17 @@ public class SistemaDiPrenotazioneController {
         return false;
     }
 
-    public ArrayList<Invitato> loadXlsGenerality(String nomeEvento)throws DatabaseException, DatabaseNullException{
+    public ArrayList<Invitato> loadXlsGenerality(String nomeEvento)throws DatabaseException,DatabaseNullException{
 
-        ConnessioneDB connessione = new ConnessioneDB();
         try {
-            listainvitatiEvento = xlsFacade.readXlsGuests(nomeEvento);
+            listainvitatiEvento = facade.readXlsGuests(nomeEvento);
             int sizelist = listainvitatiEvento.size();
-            txtFacade t = new txtFacade(sizelist);
+            txtPersistence t = new txtPersistence(sizelist);
             if(this.notdone)
         for (Invitato element:listainvitatiEvento) {
             t.WriteGuests(element.getID_Inv(),element.getNome(),element.getCognome(),element.getEta());
             this.notdone=false;
-            connessione.inserisciDatiInvitato(nomeEvento,element.getID_Inv(),element.getNome(),element.getCognome(),element.getEta());
+            facade.inserisciDatiInvitato(nomeEvento,element.getID_Inv(),element.getNome(),element.getCognome(),element.getEta());
         }
         }catch (IOException e){ e.printStackTrace(); }
 
@@ -181,9 +161,8 @@ public class SistemaDiPrenotazioneController {
     }
     //NOTA BENE: da correggere
 
-    public ArrayList<Invitato> writeXlsObligations(String nomeEvento)throws DatabaseException, DatabaseNullException{
-        ArrayList<Invitato> result = new ArrayList<Invitato>();
-        if (!xlsFacade.reWriteXls(nomeEvento,loadXlsGenerality(nomeEvento))){
+    public ArrayList<Invitato> writeXlsObligations(String nomeEvento)throws DatabaseException,DatabaseNullException{
+        if (!facade.reWriteXls(nomeEvento,loadXlsGenerality(nomeEvento))){
             return null;
         }
         this.notdone=true;
@@ -191,7 +170,7 @@ public class SistemaDiPrenotazioneController {
     }
 
     public ArrayList<SpecificaTavolo> saveOnObligations(String nomeEvento){
-        ArrayList<SpecificaTavolo> specificaTavolos=xlsFacade.readSpecificheTavolo(nomeEvento);
+        ArrayList<SpecificaTavolo> specificaTavolos= facade.readSpecificheTavolo(nomeEvento);
         return specificaTavolos;
     }
 
