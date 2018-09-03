@@ -95,8 +95,9 @@ public class GestoreLocale {
                         while (t.getDisponibile() && count<listainvitati.size()) {
                             t.addGuest(listainvitati.get(count));
                             count++;
+                            if ((count) == listainvitati.size())
+                                t.setDisponibile(false);
                         }
-//                        t.setDisponibile(false);
                         tavoliUtilizzati.add(t);
                         if ((count) == listainvitati.size())
                             break;

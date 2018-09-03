@@ -132,7 +132,7 @@ public class CreatePreferenza {
         sistemaAiGruppi();
         rimuoviTavoliVuoti();
         sistemaAiTavoli();
-        setTrueAllTables(tavoli);
+        //setTrueAllTables(tavoli);
         aggiungiTavoli();
         for (PreferenzaInvitato prefe : pref){
             prefe.verifica_sistemaLontani();
@@ -266,7 +266,7 @@ public class CreatePreferenza {
 
                     if (tavoli.get(tav).getDisponibile() == true && t.getArraylistInvitati().size() <= tavoli.get(tav).getNumPosti()) {
                         tavoli.get(tav).addAllGuests(t.getArraylistInvitati());
-                        tavoli.get(tav).setDisponibile(false);
+                        //tavoli.get(tav).setDisponibile(false);
                         break;
 
                     } else if ((tav + 1) == tavoli.size() && (tavoli.get(tav).getDisponibile() == false || t.getArraylistInvitati().size() > tavoli.get(tav).getNumPosti())) {
