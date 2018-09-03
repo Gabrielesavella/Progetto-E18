@@ -198,6 +198,7 @@ public class XlsPersistence {
             Iterator iterator = dataTypeSheet.iterator();
             iterator.next();
             while (iterator.hasNext()) {
+                campiVincolo=new int[]{0,0,0,0,0,0};
                 Row currentRow = (Row) iterator.next();
                 Iterator cellIterator = currentRow.iterator();
                 while (cellIterator.hasNext()) {
@@ -228,6 +229,7 @@ public class XlsPersistence {
         }
         return vincoliTavoli;
     }
+
     //crea l'oggetto vincolo tavolo riga per riga e aggiorna il database
     public SpecificaTavolo splitVincoliTavolo(String nomeEvento,String soggetto,int [] campiVincolo)throws DatabaseException, DatabaseNullException{
         SpecificaTavolo sp;

@@ -47,7 +47,6 @@ public class PannelloDisposizioneTavoli extends PaintedPanel {
         JButton ritornaHome = new JButton("Ritorna alla Home");
 
 
-
         Font fontB=new Font ("Monotype Corsiva", Font.ROMAN_BASELINE, 18);
         labelElenco.setFont(fontB);
         labelDisposizione.setFont(fontB);
