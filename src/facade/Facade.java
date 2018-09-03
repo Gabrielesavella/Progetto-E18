@@ -18,11 +18,25 @@ public class Facade {
     private txtPersistence txt;
     private XlsPersistence xls;
     private ConnessioneDB connessioneDB;
+    private static Facade istanza;
 
     public Facade() throws IOException{
             txt = new txtPersistence(1);
             xls = new XlsPersistence();
             connessioneDB = new ConnessioneDB();
+    }
+
+    public static Facade getInstance(){
+        if (istanza == null)
+        {
+            try {
+                istanza = new Facade();
+            }catch (IOException eccezione){
+                System.err.println(eccezione.getMessage());
+            }
+        }
+
+        return istanza;
     }
 
    //metodo che va a recuperare un cliente
@@ -53,6 +67,8 @@ public class Facade {
     public void WriteEvent(String nameEvent, GregorianCalendar dateEvent,int guestNumber)throws IOException{
         txt.WriteEvent(nameEvent, dateEvent, guestNumber);
     }
+
+
 
     public void setNumberofObject(int numberofObject) {
         txt.setNumberofObject(numberofObject);
@@ -98,6 +114,100 @@ public class Facade {
         connessioneDB.inserisciVincoloInvitati(ID_Evento, ID_Inv, starVicino, starLontano);
     }
 
+
+    // aggiunta Lecce
+//    public void inserisciAgenda(String ID_Locale,String data,String tavoliOccupati,String tavoliRinominati) throws DatabaseException, DatabaseNullException {
+//        String tavoliGiaPresenti=connessioneDB.getInAgenda(ID_Locale,data);
+//        String tavoliGiaRinominati=connessioneDB.getRinominatiInAgenda(ID_Locale,data);
+//        if ( tavoliGiaPresenti!=null && !tavoliGiaPresenti.equals("") ){
+//            connessioneDB.deleteDoubleKeyEntry("agenda","ID_locale",ID_Locale,"data",data);
+//            tavoliOccupati=tavoliGiaPresenti+" "+tavoliOccupati;
+//            if ( tavoliGiaRinominati!=null && !tavoliGiaRinominati.equals(""))
+//                tavoliRinominati=tavoliGiaRinominati+" "+tavoliRinominati;
+//
+//            if (tavoliOccupati.substring(tavoliOccupati.length()-1).equals(" ")){
+//                tavoliOccupati=tavoliOccupati.substring(0,tavoliOccupati.length()-1);
+//            }
+//        }
+//        connessioneDB.inserisciInAgenda(ID_Locale,data,tavoliOccupati,tavoliRinominati);
+//    }
+
+    public void inserisciAgenda(String ID_Locale,String data,String tavoliOccupati) throws DatabaseException, DatabaseNullException {
+        String tavoliGiaPresenti=connessioneDB.getInAgenda(ID_Locale,data);
+//        String tavoliGiaRinominati=connessioneDB.getRinominatiInAgenda(ID_Locale,data);
+        if ( tavoliGiaPresenti!=null && !tavoliGiaPresenti.equals("") ){
+            connessioneDB.deleteDoubleKeyEntry("agenda","ID_locale",ID_Locale,"data",data);
+            tavoliOccupati=tavoliGiaPresenti+" "+tavoliOccupati;
+
+            if (tavoliOccupati.substring(tavoliOccupati.length()-1).equals(" ")){
+                tavoliOccupati=tavoliOccupati.substring(0,tavoliOccupati.length()-1);
+            }
+        }
+        connessioneDB.inserisciInAgenda(ID_Locale,data,tavoliOccupati);//,tavoliGiaRinominati
+
+    }
+
+//    public void inserisciVincolatiAgenda(String ID_Locale,String data,String tavoliOccupati,String rinominazioniTav) throws DatabaseException, DatabaseNullException {
+//
+//        ConnessioneDB connessioneDB= new ConnessioneDB();
+//        String tavoliGiaPresenti=connessioneDB.getInAgenda(ID_Locale,data);
+//        String tavoliGiaRinominati=connessioneDB.getRinominatiInAgenda(ID_Locale,data);
+//
+//        if ( tavoliGiaPresenti!=null && !tavoliGiaPresenti.equals("") ){
+//
+//            connessioneDB.deleteDoubleKeyEntry("agenda","ID_locale",ID_Locale,"data",data);
+//            tavoliOccupati=tavoliGiaPresenti+" "+tavoliOccupati;
+//
+//            if ( tavoliGiaRinominati!=null && !tavoliGiaRinominati.equals(""))
+//                rinominazioniTav=tavoliGiaRinominati+" "+rinominazioniTav;
+//
+//            if (tavoliOccupati.substring(tavoliOccupati.length()-1).equals(" ")){
+//                tavoliOccupati=tavoliOccupati.substring(0,tavoliOccupati.length()-1);
+//            }
+//        }
+//        connessioneDB.inserisciInAgenda(ID_Locale,data,tavoliOccupati,rinominazioniTav);
+//
+//    }
+
+
+//    private void getVincolatiAgenda(String ID_Locale,String data,String tavoliOccupati,String rinominazioniTav) throws DatabaseException, DatabaseNullException {
+//        String tavoliGiaPresenti=connessioneDB.getInAgenda(ID_Locale,data);
+//        String tavoliGiaRinominati=connessioneDB.getRinominatiInAgenda(ID_Locale,data);
+//
+//        if ( tavoliGiaPresenti!=null && !tavoliGiaPresenti.equals("") ){
+//
+//            connessioneDB.deleteDoubleKeyEntry("agenda","ID_locale",ID_Locale,"data",data);
+//            tavoliOccupati=tavoliGiaPresenti+" "+tavoliOccupati;
+//
+//            if ( tavoliGiaRinominati!=null && !tavoliGiaRinominati.equals(""))
+//                rinominazioniTav=tavoliGiaRinominati+" "+rinominazioniTav;
+//
+//            if (tavoliOccupati.substring(tavoliOccupati.length()-1).equals(" ")){
+//                tavoliOccupati=tavoliOccupati.substring(0,tavoliOccupati.length()-1);
+//            }
+//        }
+//        connessioneDB.inserisciInAgenda(ID_Locale,data,tavoliOccupati,rinominazioniTav);
+//
+//    }
+
+    public void aggiornaNomeTavolo(String ID_Locale, String ID_VecchioTavolo, String ID_NuovoTavolo) throws DatabaseException, DatabaseNullException {
+        Tavolo tavVecchio= connessioneDB.getTavoloSingolo(ID_VecchioTavolo);
+        connessioneDB.deleteDoubleKeyEntry("tavoli","ID_locale",ID_Locale,"ID_Tavolo",ID_VecchioTavolo);
+        connessioneDB.inserisciTavoli(ID_Locale,ID_NuovoTavolo,tavVecchio.getPostiTot());
+    }
+
+
+
+    //metodo da richiamare nel caso l'utente voglia ricompilare i campi perchè ha immesso vincoli incongruenti
+    public void removeVincoli(String nameEvent){
+        connessioneDB.deleteEntry("preferenza_invitato","ID_Evento",nameEvent);
+        connessioneDB.deleteEntry("specifica_tavolo","ID_Evento",nameEvent);
+    }
+
+    public ArrayList<PreferenzaInvitato> getVincoloInvitato(String ID_Ev) {
+        return connessioneDB.getVincoloInvitato(ID_Ev);
+    }
+
     public Cliente getCliente(String ID_Cliente) {
        return connessioneDB.getCliente(ID_Cliente);
     }
@@ -106,11 +216,29 @@ public class Facade {
         return connessioneDB.getClienti();
     }
 
+    public Evento getEvento(String ID_Evento){
+        return connessioneDB.getEventoSingolo(ID_Evento);
+    }
+
     public ArrayList<GestoreLocale> getLocali() {
         return connessioneDB.getLocali();
     }
 
-
-
-
+    public ArrayList<Invitato> getInvitato(String ID_Ev) {
+        return connessioneDB.getInvitato(ID_Ev);
     }
+
+    public ArrayList<Tavolo> getTavoli(String ID_Locale){
+        return connessioneDB.getTavolo(ID_Locale);
+    }
+
+    public Map<GregorianCalendar, ArrayList<Tavolo>> getAgenda(String id_loc) {
+        return connessioneDB.getAgendaLocale(id_loc);
+    }
+
+    public void reinizializzaDb(String nomeEvento) {
+        removeVincoli(nomeEvento);
+        connessioneDB.deleteEntry("invitati","ID_Evento",nomeEvento);
+    }
+
+}

@@ -7,10 +7,16 @@ package vincoli;
 
 //import database.ConnessioneDB;
 import database.ConnessioneDB;
+import database.DatabaseException;
+import database.DatabaseNullException;
+import facade.Facade;
 import locale.Evento;
+import locale.GestoreLocale;
 import locale.Tavolo;
 import persone.Invitato;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 public class GestoreVincoliTavolo {
@@ -26,14 +32,15 @@ public class GestoreVincoliTavolo {
 
 
 
-    public GestoreVincoliTavolo(String ID_Ev) {
+    public GestoreVincoliTavolo(String ID_Ev, GestoreLocale gestLoc) {
         //prelevo dal DB gli Invitati, i Tavoli e i VincoliTavolo relativi all'Evento, secondo il suo identificativo ID_Ev
         c=new ConnessioneDB();
         c.startConn();
         this.vincoliTav = c.getVincoloTavolo(ID_Ev);
         this.invitati = c.getInvitato(ID_Ev);
         ev=c.getEventoSingolo(ID_Ev);
-        this.tavoli= c.getTavolo(ev.getNomeLocale());
+        this.tavoli= gestLoc.getTavoliLocale();
+                //c.getTavolo(ev.getNomeLocale());
         c.closeConn();
 
 
@@ -75,6 +82,7 @@ public class GestoreVincoliTavolo {
         //Ultimo controllo: se ci sono ancora invitati non seduti allora significa che tali vincoli non possono essere rispettati
         //L'algoritmo è stato costruito in modo che questi ultimi due casi siano poco probabili
         lastCheck();
+
 
     }
 
@@ -276,17 +284,55 @@ public class GestoreVincoliTavolo {
     public void assegnaTavoli(HashMap<String, Integer> mappa) {
         this.tavoliVincolati = new ArrayList<>();
         this.tavoliDisponibili= (ArrayList)tavoli.clone();
+        HashMap<String,String> mapIDChanges=new HashMap<>();
 
         for (Map.Entry<String, Integer> entrata : mappa.entrySet()) {
+            String newName=entrata.getKey();
+            if (newName!=null && !newName.equals("")){
+                //creo identificativo nuovo tavolo.
+                LocalDateTime now= LocalDateTime.now();
+                DateTimeFormatter dtf= DateTimeFormatter.ofPattern("HH:mm:ss");
+
+                newName+=dtf.format(now);
+
+            }
             for (Tavolo t : tavoliDisponibili) {
                 if ((!(t.getIDTavolo().equals(entrata.getKey()))) && (t.getPostiTot() >= entrata.getValue())) {
+                    mapIDChanges.put(entrata.getKey(),t.getIDTavolo());
+                    // aggiunta di metodo per cambiare nome al tavolo
+//                    try {
+//                        Facade.getInstance().aggiornaNomeTavolo(t.getID_Loc(),t.getIDTavolo(),newName);
+//                    } catch (DatabaseException e) {
+//                        e.printStackTrace();
+//                    } catch (DatabaseNullException e) {
+//                        e.printStackTrace();
+//                    }
 
-                    t.setId_tavolo(entrata.getKey());
+                    t.setId_tavolo(newName);
                     tavoliVincolati.add(t);
                     break;
                 }
             }
+            // se non funge controllo id;
             tavoliDisponibili.removeAll(tavoliVincolati);
+
+            //creo stringa tavoli da salvare in agenda e cambio nomi
+            String stringTavVinc=new String("");
+            for (int i = 0; i < tavoliVincolati.size(); i++){
+                Tavolo t= tavoliVincolati.get(i);
+                stringTavVinc+=t.getRealID_Tav()+" ";
+            }
+            stringTavVinc=stringTavVinc.substring(0,stringTavVinc.length()-1);
+
+            // aggiunta di metodo per salvare in agenda tavoli
+            try {
+                String stringData= ev.getDataEvento().replaceAll("-"," ");
+                Facade.getInstance().inserisciAgenda(tavoliDisponibili.get(0).getID_Loc(),stringData,stringTavVinc);//,stringTavRinominati
+            } catch (DatabaseException e) {
+                e.printStackTrace();
+            } catch (DatabaseNullException e) {
+                e.printStackTrace();
+            }
         }
 
     }
@@ -309,35 +355,34 @@ public class GestoreVincoliTavolo {
     public ArrayList<SpecificaTavolo> accomodaInvitati(ArrayList<SpecificaTavolo> vinc) {
         ArrayList<SpecificaTavolo> copia= (ArrayList<SpecificaTavolo>)vinc.clone();
 
-
         for (SpecificaTavolo sp : copia) {
             for (Tavolo t : tavoli) {
-                if (sp.getBambini() == 1 && t.getIDTavolo().equals("bambini") && t.getNumPosti() != 0) {
+                if (sp.getBambini() == 1 && t.getIDTavolo().contains("bambini") && t.getNumPosti() != 0) {
                     t.addGuest(prendiInvitati(sp.getID_Inv()));
                     vinc.remove(sp);
 
                 }
-                if (sp.getDifficoltaMotorie() == 1 && t.getIDTavolo().equals("difficoltaMotorie") && t.getNumPosti() != 0) {
+                if (sp.getDifficoltaMotorie() == 1 && t.getIDTavolo().contains("difficoltaMotorie") && t.getNumPosti() != 0) {
                     t.addGuest(prendiInvitati(sp.getID_Inv()));
                     vinc.remove(sp);
 
                 }
-                if (sp.getTavoloIsolato() == 1 && t.getIDTavolo().equals("tavoloIsolato") && t.getNumPosti() != 0) {
+                if (sp.getTavoloIsolato() == 1 && t.getIDTavolo().contains("tavoloIsolato") && t.getNumPosti() != 0) {
                     t.addGuest(prendiInvitati(sp.getID_Inv()));
                     vinc.remove(sp);
 
                 }
-                if (sp.getTavoloOnore() == 1 && t.getIDTavolo().equals("tavoloOnore") && t.getNumPosti() != 0) {
+                if (sp.getTavoloOnore() == 1 && t.getIDTavolo().contains("tavoloOnore") && t.getNumPosti() != 0) {
                     t.addGuest(prendiInvitati(sp.getID_Inv()));
                     vinc.remove(sp);
 
                 }
-                if (sp.getVegetariano() == 1 && t.getIDTavolo().equals("vegetariani") && t.getNumPosti() != 0) {
+                if (sp.getVegetariano() == 1 && t.getIDTavolo().contains("vegetariani") && t.getNumPosti() != 0) {
                     t.addGuest(prendiInvitati(sp.getID_Inv()));
                     vinc.remove(sp);
 
                 }
-                if (sp.getVicinoTV() == 1 && t.getIDTavolo().equals("vicinoTV") && t.getNumPosti() != 0) {
+                if (sp.getVicinoTV() == 1 && t.getIDTavolo().contains("vicinoTV") && t.getNumPosti() != 0) {
                     t.addGuest(prendiInvitati(sp.getID_Inv()));
                     vinc.remove(sp);
 
@@ -414,7 +459,7 @@ public class GestoreVincoliTavolo {
     public Tavolo trovaTavolo(String nomeTavolo){
         Tavolo tavola= null;
         for (Tavolo tav : tavoliVincolati) {
-            if (tav.getIDTavolo().equals(nomeTavolo)){
+            if (tav.getIDTavolo().contains(nomeTavolo)){
                 tavola=tav;
                 break;
             }
@@ -475,7 +520,7 @@ public class GestoreVincoliTavolo {
         return tavoliTot;
     }
 
-    public ArrayList<Tavolo> getTavoliDisponibili(){
-        return tavoliDisponibili;
-    }
+    public ArrayList<Tavolo> getTavoliDisponibili(){ return tavoliDisponibili; }
+
+    public ArrayList<Tavolo> getTavoliRinominati(){ return tavoli;}
 }

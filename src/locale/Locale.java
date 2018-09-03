@@ -1,10 +1,9 @@
 package locale;
 
 import database.ConnessioneDB;
+import facade.Facade;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
+import java.util.*;
 
 public class Locale {
 
@@ -15,7 +14,8 @@ public class Locale {
     private ArrayList<Tavolo> tavoliTotali;
     private ArrayList<GestoreEvento> gestoreEventiTotali;
     private ArrayList<Evento> eventiTotali;
-
+    //aggiunte Lecce
+    private Map<GregorianCalendar,ArrayList<Tavolo>> agenda;
 
 
     public Locale(String ID_Loc, int numInv, String orarioApertura, String orarioChiusura, String giornoChiusura){
@@ -25,13 +25,15 @@ public class Locale {
         this.orarioApertura=orarioApertura;
         this.orarioChiusura=orarioChiusura;
         this.giornoChiusura=giornoChiusura;
-
+        //aggiunte Lecce
+        this.agenda=new HashMap<>();
     }
 
     public GestoreLocale ricavaLocale() {
 
         locale= new GestoreLocale(ID_Loc, numInv, ricavaOrario(orarioApertura), ricavaOrario(orarioChiusura), ricavaGiorno(giornoChiusura));
-
+        this.agenda= Facade.getInstance().getAgenda(ID_Loc);
+        locale.setAgenda(agenda);
         return locale;
     }
 
@@ -47,13 +49,20 @@ public class Locale {
     public void aggiungiTavoli(){
         if (!c.checkConn()) {
             c.startConn();
-            tavoliTotali = c.getTavolo(ID_Loc);
+            tavoliTotali = Facade.getInstance().getTavoli(ID_Loc);
             c.closeConn();
         }
         else{
-            tavoliTotali=c.getTavolo(ID_Loc);
+            tavoliTotali=Facade.getInstance().getTavoli(ID_Loc);
         }
+        scartaTavOccupati();
         ricavaLocale().getTavoliLocale().addAll(tavoliTotali);
+    }
+
+    private void scartaTavOccupati() {
+        for(int i=0;i<tavoliTotali.size();i++){
+
+        }
     }
 
     public void aggiungiEventi(){
@@ -128,6 +137,21 @@ public class Locale {
         }
 
         return day;
+    }
+
+    //aggiunte Lecce
+    public ArrayList<Tavolo> getTavoliDisponibili(GregorianCalendar calendar){
+        //ArrayList<Tavolo> tavoliTot=tavoliTotali;
+        ArrayList<Tavolo> tavoliOccupati = agenda.get(calendar);
+        ArrayList<Tavolo> tavoliDisponibili=tavoliTotali;
+        for (Tavolo t:tavoliTotali) {
+            for (Tavolo tOcc:tavoliOccupati) {
+                String idTavolo= t.getIDTavolo();
+                String idTavoloOcc= tOcc.getIDTavolo();
+                if(idTavolo.equals(idTavoloOcc)){ tavoliDisponibili.remove(t); }
+            }
+        }
+        return tavoliDisponibili;
     }
 
     public String getOrarioApertura() {

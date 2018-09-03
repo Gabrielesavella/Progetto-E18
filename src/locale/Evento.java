@@ -44,7 +44,11 @@ public class Evento {
     public static GregorianCalendar ricavaData(String data){
 
         GregorianCalendar dataEventoCalendario = new GregorianCalendar();
-        String[] st = data.split("/");
+        String[] st= null;
+        if(data.contains("/"))
+            st = data.split("/");
+        else
+            st = data.split("-");
         if(st[0]!=null) {
             dataEventoCalendario.add(GregorianCalendar.DAY_OF_MONTH, Integer.parseInt(st[0]));
         }

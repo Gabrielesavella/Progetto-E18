@@ -6,6 +6,7 @@
 package database;
 
 import locale.*;
+import locale.Locale;
 import persone.Cliente;
 import persone.Invitato;
 import vincoli.PreferenzaInvitato;
@@ -13,7 +14,11 @@ import vincoli.SpecificaTavolo;
 
 import java.sql.*;
 
-import java.util.ArrayList;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
+
+import static java.sql.JDBCType.NULL;
 
 
 /**
@@ -71,6 +76,8 @@ public class ConnessioneDB {// crea la connessione col database "smistamento_pos
     Per ognuna di queste table c'Ã¨ un metodo:
      - inserisciDatiNomedellaTable, che inserisce nuovi valori nei campi della Table.
      - getNomeTable, che seleziona e ritorna i valori della Table, sempre secondo la chiave primaria selezionata, da inserire nel costruttore corrispettivo
+    // aggiunta Lecce
+    8) Agende (chiave:IDLocale,GregorianCalendar,Arraylist<Tavolo> tavoli)
     */
 
     //Metodo che inserisce nuovi dati nella table Cliente.
@@ -188,6 +195,11 @@ public class ConnessioneDB {// crea la connessione col database "smistamento_pos
         ResultSet rs = null;
         String table = "tavoli";
 
+//        if (ID_Tavolo.contains("Tavolo")){
+//            LocalDateTime now= LocalDateTime.now();
+//            DateTimeFormatter dtf= DateTimeFormatter.ofPattern("HH:mm:ss");
+//            ID_Tavolo+=dtf.format(now);
+//        }
         if(!(getTavoloSingolo(ID_Tavolo)==null)){
             throw new DatabaseException("Tavolo", ID_Tavolo, table);
 
@@ -414,6 +426,104 @@ public class ConnessioneDB {// crea la connessione col database "smistamento_pos
         try {
             stmt = conn.createStatement();
             String queryEntry = "INSERT INTO " + table + " (`ID_Evento`, `ID_Invitato`,`VoglioStareVicinoA`,`NonVoglioStareVicinoA`) VALUES ('" + ID_Evento + "','" + ID_Inv + "','" + starVicino + "','" + starLontano + "');";
+            stmt.executeUpdate(queryEntry);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                try {
+                    rs.close();
+
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (stmt != null) {
+                try {
+                    stmt.close();
+
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+
+        }
+        closeConn();
+
+    }
+
+    // metodo che inserisce i dati del singolo invitato nella table "Invitati"
+
+    public void inserisciInAgenda(String ID_Locale, String data, String tavoliOccupati,String tavoliRinominati) throws DatabaseException, DatabaseNullException {
+
+        startConn();
+
+        Statement stmt = null;
+        ResultSet rs = null;
+
+        //controllo su tavoli locale.
+
+        if(getLocale(ID_Locale)==null){
+            throw new DatabaseNullException("Locale", ID_Locale, "locali");
+
+        }
+
+        if (!openConn) {
+            startConn();
+        }
+        try {
+            stmt = conn.createStatement();//" + table + "
+            String queryEntry = "INSERT INTO `agenda` VALUES ('" + ID_Locale + "','" + data + "','" + tavoliOccupati +  "','" + tavoliRinominati + "');";
+            stmt.executeUpdate(queryEntry);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                try {
+                    rs.close();
+
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (stmt != null) {
+                try {
+                    stmt.close();
+
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+
+        }
+        closeConn();
+
+    }
+
+    // metodo che inserisce i dati del singolo invitato nella table "Invitati"
+
+    public void inserisciInAgenda(String ID_Locale, String data, String tavoliOccupati) throws DatabaseException, DatabaseNullException {
+
+        startConn();
+
+        Statement stmt = null;
+        ResultSet rs = null;
+
+        //controllo su tavoli locale.
+
+        if(getLocale(ID_Locale)==null){
+            throw new DatabaseNullException("Locale", ID_Locale, "locali");
+
+        }
+
+        if (!openConn) {
+            startConn();
+        }
+        try {
+            stmt = conn.createStatement();//" + table + "
+            String queryEntry = "INSERT INTO `agenda` VALUES ('" + ID_Locale + "','" + data + "','" + tavoliOccupati + "');";
             stmt.executeUpdate(queryEntry);
 
         } catch (SQLException e) {
@@ -1271,6 +1381,188 @@ public class ConnessioneDB {// crea la connessione col database "smistamento_pos
         return contatoreTavoli;
     }
 
+    public String getInAgenda(String ID_Locale,String data){
+        startConn();
+        Statement stmt = null;
+        ResultSet rs = null;
+        String tavoli= null;
+
+        if (!openConn) {
+            startConn();
+        }
+
+        if (openConn) {
+            try {
+                stmt = conn.createStatement();
+                rs = stmt.executeQuery("SELECT * FROM `agenda` WHERE `ID_Locale`='" + ID_Locale + "' AND `data`='" + data + "';");
+
+                while (rs.next()) {
+
+
+                    String ID_Loc= rs.getString(1);
+                    String date=rs.getString(2);
+                    String tavOcc=rs.getString(3);
+
+                    if(tavOcc!=null){
+                        tavoli=tavOcc;
+                    }
+                }
+
+            } catch (SQLException e) {
+                //e.printStackTrace();
+                return null;
+            } finally {
+                if (rs != null) {
+                    try {
+                        rs.close();
+
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                }
+                if (stmt != null) {
+                    try {
+                        stmt.close();
+
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+            }
+        }
+        closeConn();
+        if(tavoli!=null && tavoli.substring(tavoli.length()-1).equals(" "))
+            return tavoli.substring(tavoli.length()-1);
+        return tavoli;
+
+    }
+
+//    public String getRinominatiInAgenda(String ID_Locale,String data){
+//        startConn();
+//        Statement stmt = null;
+//        ResultSet rs = null;
+//        String tavoli= null;
+//
+//        if (!openConn) {
+//            startConn();
+//        }
+//
+//        if (openConn) {
+//            try {
+//                stmt = conn.createStatement();
+//                rs = stmt.executeQuery("SELECT * FROM `agenda` WHERE `ID_Locale`='" + ID_Locale + "' AND `data`='" + data + "';");
+//
+//                while (rs.next()) {
+//
+//
+//                    String ID_Loc= rs.getString(1);
+//                    String date=rs.getString(2);
+//                    String tavOcc=rs.getString(3);
+//                    String tavRin=rs.getString(4);
+//
+//                    if(tavRin!=null){
+//                        tavoli=tavRin;
+//                    }
+//                }
+//
+//            } catch (SQLException e) {
+//                //e.printStackTrace();
+//                return null;
+//            } finally {
+//                if (rs != null) {
+//                    try {
+//                        rs.close();
+//
+//                    } catch (SQLException e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+//                if (stmt != null) {
+//                    try {
+//                        stmt.close();
+//
+//                    } catch (SQLException e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+//
+//            }
+//        }
+//        closeConn();
+//        if(tavoli!=null && tavoli.substring(tavoli.length()-1).equals(" "))
+//            return tavoli.substring(tavoli.length()-1);
+//        return tavoli;
+//
+//    }
+
+    // ottengo una agenda di un locale da db
+    public Map<GregorianCalendar,ArrayList<Tavolo>> getAgendaLocale(String ID_Locale){
+        startConn();
+        Statement stmt = null;
+        ResultSet rs = null;
+        String tavoli= null;
+        ArrayList<Tavolo> tavoloArrayList=new ArrayList<>();
+        Map<GregorianCalendar,ArrayList<Tavolo>> agenda= new HashMap<>(3);
+
+        if (!openConn) {
+            startConn();
+        }
+
+        if (openConn) {
+            try {
+                stmt = conn.createStatement();
+                rs = stmt.executeQuery("SELECT * FROM agenda WHERE `ID_Locale`='" + ID_Locale + "';");
+
+                while (rs.next()) {
+
+
+                    String ID_Loc= rs.getString(1);
+                    String date=rs.getString(2);
+                    String tavOcc=rs.getString(3);
+
+                    Locale l=getLocale(ID_Locale);
+                    String[] campiData=date.split(" ");
+                    GregorianCalendar gregData=new GregorianCalendar(Integer.parseInt(campiData[2]),Integer.parseInt(campiData[1]),Integer.parseInt(campiData[0]));
+                    if(tavOcc!=null){
+                        for (String IDTav:tavOcc.split(" ")) {
+                            tavoloArrayList.add(getTavoloSingolo(IDTav));
+                        }
+                    }
+                    agenda.put(gregData,tavoloArrayList);
+                }
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            } finally {
+                if (rs != null) {
+                    try {
+                        rs.close();
+
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                }
+                if (stmt != null) {
+                    try {
+                        stmt.close();
+
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+            }
+        }
+        closeConn();
+
+        agenda.remove(null,null);
+        return agenda;
+
+    }
+
+
+
     //metodo che cancella i dati nella tabella "nomeTable" dove alla variabile "nomeChiave" corrisponde il valore "valoreChiave"
 
     public void deleteEntry(String nomeTable, String nomeChiave, String valoreChiave) {
@@ -1312,6 +1604,49 @@ public class ConnessioneDB {// crea la connessione col database "smistamento_pos
         closeConn();
 
     }
+
+    //aggiunta Lecce
+    public void deleteDoubleKeyEntry(String table,String firstPrimaryKeyColumn,String firstPrimaryKey,String secondPrimaryKeyColumn,String secondPrimaryKey) {
+        startConn();
+        Statement stmt = null;
+        ResultSet rs = null;
+        if (!openConn) {
+            startConn();
+
+        }
+        try {
+
+            stmt = conn.createStatement();
+            String queryEntry = "DELETE FROM `"+ table +"` WHERE `"+ firstPrimaryKeyColumn +"` ='" + firstPrimaryKey + "' AND `"+ secondPrimaryKeyColumn +"`='" + secondPrimaryKey + "';";
+            stmt.executeUpdate(queryEntry);
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                try {
+                    rs.close();
+
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (stmt != null) {
+                try {
+                    stmt.close();
+
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        closeConn();
+
+    }
+
+
     public Cliente getIntestatarioEvento(String nomeEvento){
         startConn();
 

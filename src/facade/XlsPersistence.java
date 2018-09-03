@@ -1,6 +1,9 @@
 package facade;
 
 import database.*;
+import locale.Evento;
+import locale.GestoreEvento;
+import org.apache.poi.*;
 import org.apache.poi.hssf.usermodel.*;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.ss.usermodel.Font;
@@ -24,6 +27,7 @@ public class XlsPersistence {
     private ArrayList<String> campiPreferenze,columns;
     private ArrayList<PreferenzaInvitato> vincoliPreferenze = new ArrayList<>();
     private CellStyle headerCellStyle;
+    private String stringEndReading = "X X X X X";
 
     //genera l'excel
     public boolean generateXlsGuests(String nomeEvento){
@@ -48,21 +52,29 @@ public class XlsPersistence {
     }
     //setta lo stile iniziale
     public void setInitialStyle(String nomeEvento){
+        Evento evento=Facade.getInstance().getEvento(nomeEvento);
         workbook = new HSSFWorkbook();
         createHelper = workbook.getCreationHelper();
         sheet = workbook.createSheet(nomeEvento);
         Font headerFont = workbook.createFont();
         headerFont.setFontHeightInPoints((short) 12);
         Row headerRow = sheet.createRow(0);
+        Row endRow= sheet.createRow(evento.getNumInvitati()+1);
         columns.add("Nome");
         columns.add("Cognome");
         columns.add("Eta'");
+
         for (int count = 0; count < columns.size()+10; count++) {
             cell = headerRow.createCell(count);
             cell.setCellStyle(headerCellStyle);
             if(count<3)
                 cell.setCellValue(columns.get(count));
+            cell = endRow.createCell(count);
+            cell.setCellValue(stringEndReading);
         }
+
+
+
     }
     //legge il file excel e preleva  dati
     public ArrayList<Invitato> readXlsGuests(String nomeEvento){
@@ -79,6 +91,8 @@ public class XlsPersistence {
                 while (cellIterator.hasNext()) {
                     Cell currentCell = (Cell) cellIterator.next();
                     if (currentCell.getCellTypeEnum() == CellType.STRING) {
+                        if(currentCell.getStringCellValue().equals(stringEndReading))
+                            break;
                         if(currentCell.getColumnIndex()==0)
                             name=currentCell.getStringCellValue();
                         else if(currentCell.getColumnIndex()==1)
@@ -90,8 +104,6 @@ public class XlsPersistence {
                 }
             }
             excelFile.close();
-        } catch (FileNotFoundException ex) {
-            System.err.println(ex.getMessage());
         } catch (IOException ex) {
             System.err.println(ex.getMessage());
         }
@@ -99,53 +111,34 @@ public class XlsPersistence {
     }
     //riscrive il file aggiornando i campi
     public boolean reWriteXls(String nomeEvento,ArrayList<Invitato> invitati) {
-        ArrayList <String> columns= new ArrayList<>();
         try {
             FileInputStream fIPS= new FileInputStream(nomeEvento+".xls");
-            Workbook wb;
-            Sheet worksheet;
-            if(fIPS.available()>=0) {
-                wb = new HSSFWorkbook(fIPS);
-                worksheet = wb.getSheetAt(0);
-            }
-            else
-            {
-                wb=new HSSFWorkbook();
-                worksheet = wb.getSheet(nomeEvento);
-            }
-            columns.add("ID_Invitato");
-            columns.add("Onorevole");
-            columns.add("Difficoltà motorie");
-            columns.add("Vegetariano");
-            columns.add("VicinoTv");
-            columns.add("Bambini");
-            columns.add("Isolato");
-            columns.add("preferenza 1");
-            columns.add("preferenza 2");
-            columns.add("avversione 1");
-            columns.add("avversione 2");
-            Row row = worksheet.getRow(0);
-            for(int i=3;i<(columns.size()+3);i++){
+                workbook = new HSSFWorkbook(fIPS);
+                sheet = workbook.getSheetAt(0);
+            uploadColumns();
+            Row row = sheet.getRow(0);
+            for(int i=3;i<(columns.size());i++){
                 Cell c = row.createCell(i,CellType.STRING);
-                c.setCellValue(columns.get(i-3));
+                c.setCellValue(columns.get(i));
             }
             //adatta le colonne
             for (int count = 0; count < columns.size()+3; count++)
-                worksheet.autoSizeColumn(count);
+                sheet.autoSizeColumn(count);
             //crea le righe nell'excel e le implementa
-            for (int i=1;i<=invitati.size()+1;i++){
-                row=worksheet.getRow(i);
-                if (row==null){
-                    break;
-                }
+            for (int i=1;i<=invitati.size()+1;i++){//
+                row=sheet.getRow(i);
+                if (row==null){ break; }
+
                 Cell c = row.createCell(3);
                 c.setCellType(CellType.STRING);
+                if(i==invitati.size()+1){
+                    c.setCellValue(stringEndReading);
+                    break; }
                 c.setCellValue(invitati.get(i-1).getID_Inv());
             }
-
             //aggiunge i campi specificaTavolo e specificaInvitato
             for (int i=1;i<=invitati.size();i++){
-                row=worksheet.getRow(i);
+                row=sheet.getRow(i);
                 if (row==null){
                     break;
                 }
@@ -156,19 +149,29 @@ public class XlsPersistence {
             }
             fIPS.close();
             FileOutputStream output_file = new FileOutputStream(nomeEvento + ".xls");//Open FileOutputStream to write updates
-            wb.write(output_file);
-            wb.close();
+            workbook.write(output_file);
+            workbook.close();
             output_file.close();
             openfile(nomeEvento+".xls");
-
-        } catch (FileNotFoundException e) {
-            System.err.println("Attenzione "+", ricordati di salvare il file e chiuderlo per continuare!");
-            return false;
         } catch (IOException e) {
-            System.err.println("Input Output Exception, qualcosa è andato storto!");
+            System.err.println("Attenzione "+", ricordati di salvare il file e chiuderlo per continuare!");
             return false;
         }
         return true;
+    }
+
+    private void uploadColumns() {
+        columns.add("ID_Invitato");
+        columns.add("Onorevole");
+        columns.add("Difficoltà motorie");
+        columns.add("Vegetariano");
+        columns.add("VicinoTv");
+        columns.add("Bambini");
+        columns.add("Isolato");
+        columns.add("preferenza 1");
+        columns.add("preferenza 2");
+        columns.add("avversione 1");
+        columns.add("avversione 2");
     }
 
 
@@ -204,6 +207,8 @@ public class XlsPersistence {
                             contenuto = currentCell.getStringCellValue();
                         if( currentCell.getColumnIndex()>=4 && currentCell.getColumnIndex()<=9 && currentCell.getStringCellValue().equals(""))
                             campiVincolo[currentCell.getColumnIndex()-4]=0;
+                        if(currentCell.getStringCellValue().equals(stringEndReading))
+                            break;
                     }
                     if(currentCell.getCellTypeEnum()==CellType.NUMERIC){
                         if( currentCell.getColumnIndex()>=4 && currentCell.getColumnIndex()<=9)
@@ -219,7 +224,7 @@ public class XlsPersistence {
             }
             readPreferenzeInvitato(nameEvent);
         } catch (Exception ex) {
-            System.out.println(ex.getMessage());
+            System.err.println(ex.getMessage());
         }
         return vincoliTavoli;
     }
@@ -228,8 +233,7 @@ public class XlsPersistence {
         SpecificaTavolo sp;
         int i=0;
         sp = new SpecificaTavolo(nomeEvento,soggetto,campiVincolo[i],campiVincolo[i+1],campiVincolo[i+2],campiVincolo[i+3],campiVincolo[i+4],campiVincolo[i+5]);
-        ConnessioneDB connessione = new ConnessioneDB();
-        connessione.inserisciVincoliTavolo(nomeEvento,soggetto,campiVincolo[i],campiVincolo[i+1],campiVincolo[i+2],campiVincolo[i+3],campiVincolo[i+4],campiVincolo[i+5]);
+        Facade.getInstance().inserisciVincoliTavolo(nomeEvento,soggetto,campiVincolo[i],campiVincolo[i+1],campiVincolo[i+2],campiVincolo[i+3],campiVincolo[i+4],campiVincolo[i+5]);
         return sp;
     }
     //legge le preferenze invitato e instanzia gli oggetti aggiornando il database
@@ -268,7 +272,6 @@ public class XlsPersistence {
         PreferenzaInvitato pref = null;
         String preferenze = null;
         String avversione = null;
-        ConnessioneDB connessione = new ConnessioneDB();
         //PREFERENZE
         if ((campiPreferenze.get(1)== null && campiPreferenze.get(2) !=null))
             preferenze = campiPreferenze.get(2);
@@ -284,7 +287,7 @@ public class XlsPersistence {
         if ((campiPreferenze.get(3)!= null && campiPreferenze.get(4) !=null))
             avversione = campiPreferenze.get(3)+" "+campiPreferenze.get(4);
         pref = new PreferenzaInvitato(nameEvent,campiPreferenze.get(0),preferenze,avversione);
-        connessione.inserisciVincoloInvitati(nameEvent,campiPreferenze.get(0),preferenze,avversione);
+        Facade.getInstance().inserisciVincoloInvitati(nameEvent,campiPreferenze.get(0),preferenze,avversione);
         this.campiPreferenze.clear();
         return pref;
     }

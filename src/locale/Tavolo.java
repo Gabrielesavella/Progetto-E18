@@ -14,9 +14,8 @@ public class Tavolo implements Comparable{
      * @author Gabrielesavella
      */
 
-    private int num_posti,assegnamenti = 0;
-    private boolean interno;
-    private String id_tavolo, ID_Locale;
+    private int num_posti,assegnamenti;
+    private String id_tavolo,id_tavoloReale, ID_Locale;
     private boolean disponibile;
     private ArrayList<Invitato> AssegnamentiTavolo;
     private int postiTot;
@@ -28,32 +27,32 @@ public class Tavolo implements Comparable{
     @author Salvatore Parisi
      */
     public Tavolo(String id_tavolo){
+        assegnamenti = 0;
         disponibile = true;
         this.id_tavolo = id_tavolo;
+        id_tavoloReale=id_tavolo;
         num_posti = 6;
         AssegnamentiTavolo = new ArrayList<Invitato>(num_posti);
-        interno = true;
         postiTot=num_posti;
     }
-    /*
-     * numeroposti @author Gabrielesavella
-     */
+
     public Tavolo (String ID_Locale, String id_tavolo, int num_posti){
+        assegnamenti = 0;
         this.ID_Locale=ID_Locale;
         this.id_tavolo = id_tavolo;
+        id_tavoloReale=id_tavolo;
         this.num_posti = num_posti;
-        interno = true;
         disponibile = true;
-        AssegnamentiTavolo = new ArrayList<Invitato>(num_posti);
+        AssegnamentiTavolo = new ArrayList<>(num_posti);
         postiTot=num_posti;
     }
     //metodo utilizzato per il tavolo
     public Tavolo (String id_tavolo, int num_posti){
+        assegnamenti = 0;
         this.id_tavolo = id_tavolo;
         this.num_posti = num_posti;
-        interno = true;
         disponibile = true;
-        AssegnamentiTavolo = new ArrayList<Invitato>(num_posti);
+        AssegnamentiTavolo = new ArrayList<>(num_posti);
         postiTot=num_posti;
     }
 
@@ -80,8 +79,6 @@ public class Tavolo implements Comparable{
     in questo metodo passo la lista degli invitati che può stare in un determinato tavolo
      */
     public void addAllGuests(ArrayList<Invitato> guests){
-
-
         if (disponibile && guests.size()<= num_posti) {
             AssegnamentiTavolo.addAll(guests);
             num_posti = num_posti - guests.size();
@@ -105,13 +102,18 @@ public class Tavolo implements Comparable{
 
     public String showInvitati(){
         String invitatiTavolo = "";
+        String idTav= id_tavolo;
+        if (!id_tavolo.equals(id_tavoloReale))
+            idTav+=" "+id_tavoloReale;
 
-        for (Invitato i : AssegnamentiTavolo) {
-            if (i!=null)
-                invitatiTavolo += i.getNome() + " " + i.getCognome() + "\n";
+        int k=1;
+        for (int i=0; i<AssegnamentiTavolo.size(); i++) {
+            if (AssegnamentiTavolo.get(i)!=null)
+                invitatiTavolo += " "+k+") "+AssegnamentiTavolo.get(i).getNome() + " " + AssegnamentiTavolo.get(i).getCognome() + "\n";
+                k++;
         }
 
-        return "Tavolo: " + getIDTavolo() + " Numero posti: " + getPostiTot() + "\n\n" + invitatiTavolo;
+        return "♦ Tavolo: " + idTav + "  ▬  Numero posti: " + getPostiTot() + " ♦\n\n" + invitatiTavolo;
 
     }
 
@@ -119,7 +121,7 @@ public class Tavolo implements Comparable{
         return postiTot;
     }
 
-    public int mostraInvitatiSeduti(){
+    public int contaInvitatiSeduti(){
         int seduti = 0;
         for (Invitato i : AssegnamentiTavolo){
             seduti++;
@@ -136,11 +138,6 @@ public class Tavolo implements Comparable{
         openAssignment();
     }
 
-
-
-    public boolean getInterno(){
-        return interno;
-    }
 
     public String getIDTavolo(){
         return id_tavolo;
@@ -195,7 +192,6 @@ public class Tavolo implements Comparable{
         return "Tavolo{" +
                 "num_posti=" + num_posti +
                 ", assegnamenti=" + assegnamenti +
-                ", interno=" + interno +
                 ", id_tavolo='" + id_tavolo + '\'' +
                 ", disponibile=" + disponibile +
                 ", arrPostiTavolo=" + ( AssegnamentiTavolo== null ? null : Arrays.asList(AssegnamentiTavolo)) +
@@ -220,4 +216,6 @@ public class Tavolo implements Comparable{
     public String getID_Loc() {
         return ID_Locale;
     }
+
+    public String getRealID_Tav(){ return id_tavoloReale; }
 }

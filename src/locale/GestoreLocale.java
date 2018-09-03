@@ -1,5 +1,8 @@
 package locale;
 
+import database.DatabaseException;
+import database.DatabaseNullException;
+import facade.Facade;
 import persone.*;
 
 import java.util.*;
@@ -24,6 +27,9 @@ public class GestoreLocale {
     private ArrayList<Tavolo> tavoli;
     private ArrayList<Tavolo> tavoliUtilizzati = new ArrayList<>();
     private ArrayList<Invitato> lista_gia_presenti = new ArrayList<>();
+
+    private Map<GregorianCalendar,ArrayList<Tavolo>> agenda;
+
 
     // cambiato il tipo di dato giorno chiusura da String a Gregoria calendar , molto più facile da gestire
     // aggiunta inoltre del passaggio dei tavoli tramite parametro
@@ -68,22 +74,78 @@ public class GestoreLocale {
         rimuoviGiaPresenti(e);
         int count = 0;
         ArrayList<Invitato>listainvitati;
+        GestoreEvento gEvDiLocale=null;
+        for (GestoreEvento ev : eventi_locale)
+            if (ev.equals(e)) {
+                gEvDiLocale=ev;
+            }
+        for (Tavolo t:tavoli) {
+            if(gEvDiLocale.getListaInvitati().size()==0)
+                if (t.getArraylistInvitati().size()!=0)
+//                    t.setDisponibile(false);
+//            if(!t.getDisponibile())
+                    tavoliUtilizzati.add(t);
+        }
         for (GestoreEvento ev : eventi_locale)
             if (ev.equals(e)) {
                 listainvitati = ev.getListaInvitati();
                 if(listainvitati.size()!=0)
-                for (Tavolo t : tavoli) {
-                    while (t.getDisponibile() && (count+1)<=listainvitati.size()) {
-                        t.addGuest(listainvitati.get(count));
-                        count++;
+                    for (Tavolo t : tavoli) {
+                        //il cambiamento è qua
+                        while (t.getDisponibile() && count<listainvitati.size()) {
+                            t.addGuest(listainvitati.get(count));
+                            count++;
+                        }
+//                        t.setDisponibile(false);
+                        tavoliUtilizzati.add(t);
+                        if ((count) == listainvitati.size())
+                            break;
                     }
-                    tavoliUtilizzati.add(t);
-                    if ((count) == listainvitati.size())
-                        break;
-                }
             }
+        occupaInAgenda(tavoliUtilizzati,e.getDataEvento());
         return tavoliUtilizzati;
     }
+
+
+    // aggiunta Lecce: occupiamo i tavoli che alla fine sono utilizzati per l'evento
+    private void occupaInAgenda(ArrayList<Tavolo> tavoliOcc, GregorianCalendar dataEvento) {
+        //parte adibita al salvataggio in agenda
+        ArrayList<Tavolo> tavoliOccGiorno=agenda.get(dataEvento);
+        if (tavoliOccGiorno==null)
+            agenda.put(dataEvento,tavoliOcc);
+        else{
+            tavoliOccGiorno.addAll(tavoliOcc);
+            agenda.put(dataEvento,tavoliOccGiorno);
+        }
+        //parte adibita a salvataggio in db
+        //creazione stringa tavoli
+        String stringTavoli= new String("");
+        for (int i=0;i<tavoliOcc.size();i++) {
+            Tavolo t=tavoliOcc.get(i);
+            if (i==0){//&& (tavoliOcc==null || tavoliOcc.equals(""))
+                stringTavoli+=t.getRealID_Tav();
+            }
+            else{ stringTavoli+=" "+t.getRealID_Tav(); }
+
+        }
+        //creazione stringa data
+        String stringData= new String("");
+        stringData+=String.valueOf(dataEvento.get(GregorianCalendar.DAY_OF_MONTH))+" ";
+        stringData+=String.valueOf(dataEvento.get(GregorianCalendar.MONTH))+" ";
+        stringData+=String.valueOf(dataEvento.get(GregorianCalendar.YEAR));
+        //salvo in db
+        try {
+            Facade.getInstance().inserisciAgenda(this.id_locale,stringData,stringTavoli);
+        } catch (DatabaseException e) {
+            e.printStackTrace();
+        } catch (DatabaseNullException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+
+
     //Rimuove dagli invitati da smistare, le persone che sono già sedute al tavolo.
     public void rimuoviGiaPresenti(GestoreEvento e){
         for (Tavolo t : tavoli){
@@ -219,4 +281,53 @@ public class GestoreLocale {
     public ArrayList<Tavolo> getTavoliUtilizzati() {
         return tavoliUtilizzati;
     }
+
+    public void setAgenda(Map<GregorianCalendar,ArrayList<Tavolo>> agenda){ this.agenda=agenda; }
+
+    public boolean checkDisponibilita(GregorianCalendar data, int invitati) {
+//        if ()
+        Facade.getInstance().getTavoli(this.id_locale);
+        agenda=Facade.getInstance().getAgenda(id_locale);
+        ArrayList <Tavolo> tavoliInAgenda= agenda.get(data);
+        aggiornaTavoliInData(data,tavoliInAgenda);
+        int numPostiDisponibili=0;
+        if (!(tavoliInAgenda==null || tavoliInAgenda.size()==0)){
+            for (Tavolo t:tavoliInAgenda) {
+                for (int i=0;i<tavoli.size();i++){
+                    if(tavoli.get(i).getIDTavolo().equals(t.getIDTavolo())){
+                        tavoli.remove(i);
+                        i--;
+                    }
+                }
+            }
+        }
+        for (Tavolo t:tavoli) {
+            numPostiDisponibili+=t.getPostiTot();
+        }
+        if (numPostiDisponibili<invitati)
+            return false;
+        return true;
+    }
+
+    private void aggiornaTavoliInData(GregorianCalendar data, ArrayList<Tavolo> tavoliInAgenda) {
+//        ArrayList<Tavolo> tavoliConfronto= new ArrayList<>();
+        ArrayList<Tavolo> tavoliDb=Facade.getInstance().getTavoli(id_locale);
+        if(tavoliInAgenda!=null && tavoliDb!=null && tavoliDb.size()!=0)
+            for (Tavolo t:tavoliInAgenda) {
+                if(t!=null)
+                    for (int i = 0; i < tavoliDb.size() ; i++) {
+                        if(tavoliDb.get(i).getIDTavolo().equals(t.getIDTavolo()))
+                            tavoliDb.remove(i);
+                    }
+            }
+        //        for (Tavolo tDb:tavoliDb) {
+//            for (Tavolo tVecchio:tavoli) {
+//                if (tVecchio.getIDTavolo().equals(tDb.getIDTavolo())){
+//                    tavoliConfronto.add(tVecchio);
+//                }
+//            }
+//        }
+        tavoli=tavoliDb;
+    }
+
 }

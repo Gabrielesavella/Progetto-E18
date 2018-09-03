@@ -135,7 +135,7 @@ public class PrenotazionePosti {
         // stampe per prova;
         System.out.println(bellaNapoli.stampaNomeEventi());
         try {
-            txtFacade prova = new txtFacade("primidueinvitati.txt", 2);
+            txtPersistence prova = new txtPersistence("primidueinvitati.txt", 2);
             prova.WriteGuests(a.getID_Inv(),a.getNome(),a.getCognome(),a.getEta());
             prova.WriteGuests(b.getID_Inv(),b.getNome(),b.getCognome(),b.getEta());
         }catch(IOException e1){

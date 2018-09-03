@@ -16,37 +16,26 @@ import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
 import java.io.IOException;
-import java.util.*;
 
 /**
  *
  * @author lecciovich
  */
 
-public class PannelloSpecificheEvento extends JPanel {
-
-    private Image backgroundImage;
+public class PannelloSpecificheEvento extends PaintedPanel {
 
     public PannelloSpecificheEvento(GestoreLocale gestoreLocale, GestoreEvento gestoreEvento, FinestraSpecificheEvento frame){
-        try{
-            backgroundImage = ImageIO.read(new File("images/notebook-pen-table-97076.jpg"));
-            backgroundImage=backgroundImage.getScaledInstance(frame.getWidth(),frame.getHeight(),Image.SCALE_DEFAULT);
-        }catch (IOException e){
-            e.printStackTrace();
-        }
-
-
-        ConnessioneDB connessione = new ConnessioneDB();
+        super("images/notebook-pen-table-97076.jpg",frame);
 
         // etichette specifiche
         JLabel compila= new JLabel("compila lista invitati");
         JLabel carica= new JLabel("carica lista invitati");
 
         compila.setOpaque(true);
-        compila.setBackground(new Color(255,255,255,127));
+        compila.setBackground(new Color(255,255,255,170));
 
         carica.setOpaque(true);
-        carica.setBackground(new Color(255,255,255,127));
+        carica.setBackground(new Color(255,255,255,170));
 
         //immagini
         final int WIDHT=20,HEIGHT=20;
@@ -71,18 +60,36 @@ public class PannelloSpecificheEvento extends JPanel {
         bUploadOblig.setEnabled(false);
 
         // campi testo
-        JLabel tdownloadExcel= new JLabel("download");
-        JLabel tuploadExcel= new JLabel("upload");
-        JLabel tuploadOblig= new JLabel("uploadOblig");
+        JLabel tdownloadExcel= new JLabel("Download");
+        tdownloadExcel.setHorizontalAlignment(SwingConstants.CENTER);
+        tdownloadExcel.setVerticalAlignment(SwingConstants.CENTER);
+        tdownloadExcel.setHorizontalTextPosition(SwingConstants.CENTER);
+        tdownloadExcel.setVerticalTextPosition(SwingConstants.CENTER);
+        JLabel tuploadExcel= new JLabel("Upload");
+        tuploadExcel.setHorizontalAlignment(SwingConstants.CENTER);
+        tuploadExcel.setVerticalAlignment(SwingConstants.CENTER);
+        tuploadExcel.setHorizontalTextPosition(SwingConstants.CENTER);
+        tuploadExcel.setVerticalTextPosition(SwingConstants.CENTER);
+        JLabel tuploadOblig= new JLabel("UploadOblig");
+        tuploadOblig.setHorizontalAlignment(SwingConstants.CENTER);
+        tuploadOblig.setVerticalAlignment(SwingConstants.CENTER);
+        tuploadOblig.setHorizontalTextPosition(SwingConstants.CENTER);
+        tuploadOblig.setVerticalTextPosition(SwingConstants.CENTER);
+
+        Font fontB=new Font ("Monotype Corsiva", Font.ROMAN_BASELINE, 18);
+        tdownloadExcel.setFont(fontB);
+        tuploadExcel.setFont(fontB);
+        tuploadOblig.setFont(fontB);
+
 
         tdownloadExcel.setOpaque(true);
-        tdownloadExcel.setBackground(new Color(255,255,255,127));
+        tdownloadExcel.setBackground(new Color(255,255,255,200));
 
         tuploadExcel.setOpaque(true);
-        tuploadExcel.setBackground(new Color(255,255,255,127));
+        tuploadExcel.setBackground(new Color(255,255,255,200));
 
         tuploadOblig.setOpaque(true);
-        tuploadOblig.setBackground(new Color(255,255,255,127));
+        tuploadOblig.setBackground(new Color(255,255,255,200));
 
         setLayout(new GridLayout(3,2));
         add(tdownloadExcel);
@@ -92,7 +99,7 @@ public class PannelloSpecificheEvento extends JPanel {
         add(tuploadOblig);
         add(bUploadOblig);
 
-        SistemaDiPrenotazioneController sisPr= new SistemaDiPrenotazioneController();
+        SistemaDiPrenotazione sisPr= new SistemaDiPrenotazione();
 
         bDownload.addActionListener(new ActionListener() {
             @Override
@@ -133,23 +140,13 @@ public class PannelloSpecificheEvento extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 sisPr.saveOnObligations(gestoreEvento.getName());
-                GestoreVincoliTavolo gestoreVincoliTavolo= new GestoreVincoliTavolo(gestoreEvento.getName());
-                FinestraDisposizioneTavoli fd=new FinestraDisposizioneTavoli(gestoreLocale, gestoreEvento,gestoreVincoliTavolo);
+                GestoreVincoliTavolo gestoreVincoliTavolo= new GestoreVincoliTavolo(gestoreEvento.getName(),gestoreLocale);
+                FinestraDisposizioneTavoli fd=new FinestraDisposizioneTavoli(gestoreLocale, gestoreEvento,gestoreVincoliTavolo,sisPr);
                 fd.setVisible(true);
                 frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
 
             }
         });
-    }
-
-    //parte adibita alla "pittura" della foto sullo sfondo
-    public void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        Dimension dim= this.getSize();
-        int width= dim.width;
-        int height= dim.height;
-        g.drawImage(backgroundImage, 0, 0,width,height, this);
-
     }
 
 }

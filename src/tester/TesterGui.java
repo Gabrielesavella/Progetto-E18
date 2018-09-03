@@ -1,6 +1,7 @@
 package tester;
 
 import database.*;
+import gui.controller.SistemaDiPrenotazione;
 import gui.finestre.FinestraLogin;
 import locale.GestoreLocale;
 import locale.Tavolo;
@@ -13,12 +14,9 @@ import java.util.GregorianCalendar;
 
 public class TesterGui {
     public static void main(String[] args) throws DatabaseNullException, DatabaseException {
-        ConnessioneDB connessione = new ConnessioneDB();
-        ArrayList <GestoreLocale> locali= new ArrayList<>();
 
-        locali = connessione.getLocali();
-        //parte grafica
-        FinestraLogin frame= new FinestraLogin(locali);
+        // inizializzazione parte grafica
+        FinestraLogin frame= new FinestraLogin();
         //frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setVisible(true);
     }

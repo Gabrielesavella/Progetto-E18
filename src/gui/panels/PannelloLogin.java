@@ -1,6 +1,6 @@
 package gui.panels;
 
-import gui.controller.SistemaDiPrenotazioneController;
+import gui.controller.SistemaDiPrenotazione;
 import gui.finestre.FinestraCreazioneEvento;
 import gui.finestre.FinestraLogin;
 import gui.finestre.FinestraRegistrazione;
@@ -22,22 +22,16 @@ import java.util.ArrayList;
  * @author lecciovich
  */
 
-public class PannelloLogin extends JPanel {
+public class PannelloLogin extends PaintedPanel {
 
     private Image backgroundImage;
     private boolean checkTextUsername;
     private boolean checkTextPassword;
 
-    public PannelloLogin(ArrayList<GestoreLocale> locali, FinestraLogin frame) {
-
+    public PannelloLogin(FinestraLogin frame) {
+        super("images/cake-chairs-cutlery-395134.jpg",frame);
         checkTextUsername = false;
         checkTextPassword = false;
-        try {
-            backgroundImage = ImageIO.read(new File("images/cake-chairs-cutlery-395134.jpg"));
-            backgroundImage = backgroundImage.getScaledInstance(frame.getWidth(), frame.getHeight(), Image.SCALE_DEFAULT);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
         // Nimbus LookandFeel setup
         try {
@@ -60,11 +54,22 @@ public class PannelloLogin extends JPanel {
         }
 
         //Bottoni
+        Font fontB=new Font ("Monotype Corsiva", Font.ROMAN_BASELINE, 23);
         JButton signUp = new JButton("SignUp");
         JButton logIn = new JButton("LogIn");
         //etichette per descrizione campi di testo
         JLabel username = new JLabel("Username:");
+        username.setFont(fontB);
+        username.setHorizontalAlignment(SwingConstants.CENTER);
+        username.setVerticalAlignment(SwingConstants.CENTER);
+        username.setHorizontalTextPosition(SwingConstants.CENTER);
+        username.setVerticalTextPosition(SwingConstants.CENTER);
         JLabel password = new JLabel("Password:");
+        password.setFont(fontB);
+        password.setHorizontalAlignment(SwingConstants.CENTER);
+        password.setVerticalAlignment(SwingConstants.CENTER);
+        password.setHorizontalTextPosition(SwingConstants.CENTER);
+        password.setVerticalTextPosition(SwingConstants.CENTER);
         JLabel errore = new JLabel();
         //campi di inserimento testo
         JTextField tUsername = new JTextField("");
@@ -85,7 +90,7 @@ public class PannelloLogin extends JPanel {
                 boolean isTextFieldsCentered = m >= 4 && m < 8 && n == 1;
                 panelHolder[m][n] = new JPanel();
                 if ((isTextFieldsCentered))
-                    panelHolder[m][n].setBackground(new Color(255, 255, 255, 127));
+                    panelHolder[m][n].setBackground(new Color(255, 255, 255, 190));
                 else
                     panelHolder[m][n].setOpaque(false);
 
@@ -102,11 +107,11 @@ public class PannelloLogin extends JPanel {
         panelHolder[9][1].add(logIn);
 
 
-        SistemaDiPrenotazioneController sisPr = new SistemaDiPrenotazioneController();
+        SistemaDiPrenotazione sisPr = new SistemaDiPrenotazione();
         signUp.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                FinestraRegistrazione fr = new FinestraRegistrazione(locali);
+                FinestraRegistrazione fr = new FinestraRegistrazione();//locali
                 //fr.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
                 fr.setVisible(true);
 
@@ -118,19 +123,19 @@ public class PannelloLogin extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 Cliente cliente = sisPr.login(tUsername.getText(), String.valueOf(tPassword.getPassword()));
                 if (cliente != null) {
-                    FinestraCreazioneEvento fe = new FinestraCreazioneEvento(locali, cliente);
+                    FinestraCreazioneEvento fe = new FinestraCreazioneEvento(cliente);//locali,
                     fe.setVisible(true);
                     frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
                 } else {
                     errore.setVisible(true);
                     errore.setOpaque(true);
-                    errore.setBackground(new Color(0, 0, 0, 90));
+                    errore.setBackground(Color.BLACK.darker());
                     errore.setHorizontalAlignment(SwingConstants.CENTER);
                     errore.setVerticalAlignment(SwingConstants.CENTER);
                     errore.setHorizontalTextPosition(SwingConstants.CENTER);
                     errore.setVerticalTextPosition(SwingConstants.CENTER);
                     errore.setText("<html><div style='text-align: center;'>" + "Username or password not correct" + "<br>Please fill with correct username and password values " + "</div></html>");
-                    errore.setForeground(Color.GREEN);
+                    errore.setForeground(Color.RED);
                     System.err.println("errore in fase login");
                 }
             }
@@ -163,17 +168,6 @@ public class PannelloLogin extends JPanel {
                 }
             }
         });
-
-    }
-
-    //parte adibita alla "pittura" della foto sullo sfondo
-    public void paintComponent(Graphics g) {
-        this.setBackground(new Color(255, 255, 255, 255));
-        super.paintComponent(g);
-        Dimension dim = this.getSize();
-        int width = dim.width;
-        int height = dim.height;
-        g.drawImage(backgroundImage, 0, 0, width, height, this);
 
     }
 }

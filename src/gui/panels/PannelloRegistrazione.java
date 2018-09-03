@@ -1,11 +1,8 @@
 package gui.panels;
 
 import database.DatabaseException;
-import database.DatabaseNullException;
-import gui.controller.SistemaDiPrenotazioneController;
-import javafx.stage.Screen;
+import gui.controller.SistemaDiPrenotazione;
 import locale.GestoreLocale;
-import persone.Cliente;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -22,28 +19,53 @@ import java.util.ArrayList;
  * @author lecciovich
  */
 
-public class PannelloRegistrazione extends JPanel {
-    private Image backgroundImage;
+public class PannelloRegistrazione extends PaintedPanel {
 
-    public PannelloRegistrazione(ArrayList<GestoreLocale> locali,JFrame frame){
-
-        try{
-            backgroundImage = ImageIO.read(new File("images/alcohol-banquet-beverage-306046.jpg"));
-            backgroundImage=backgroundImage.getScaledInstance(frame.getWidth(),frame.getHeight(),Image.SCALE_DEFAULT);
-        }catch (IOException e){
-            e.printStackTrace();
-        }
+    public PannelloRegistrazione(JFrame frame){//ArrayList<GestoreLocale> locali,
+        super("images/alcohol-banquet-beverage-306046.jpg",frame);
 
         //bottone conferma
-        JButton conferma = new JButton("Registrati");
+        Font fontB=new Font ("Monotype Corsiva", Font.ROMAN_BASELINE, 21);
+        JButton conferma = new JButton(" Registrati");
+        conferma.setFont(fontB);
 
         //etichette per descrizione campi di testo
         JLabel eMail = new JLabel("E-Mail:");
+        eMail.setFont(fontB);
+        eMail.setHorizontalAlignment(SwingConstants.CENTER);
+        eMail.setVerticalAlignment(SwingConstants.CENTER);
+        eMail.setHorizontalTextPosition(SwingConstants.CENTER);
+        eMail.setVerticalTextPosition(SwingConstants.CENTER);
         JLabel nome = new JLabel("Nome:");
+        nome.setFont(fontB);
+        nome.setHorizontalAlignment(SwingConstants.CENTER);
+        nome.setVerticalAlignment(SwingConstants.CENTER);
+        nome.setHorizontalTextPosition(SwingConstants.CENTER);
+        nome.setVerticalTextPosition(SwingConstants.CENTER);
         JLabel cognome = new JLabel("Cognome:");
+        cognome.setFont(fontB);
+        cognome.setHorizontalAlignment(SwingConstants.CENTER);
+        cognome.setVerticalAlignment(SwingConstants.CENTER);
+        cognome.setHorizontalTextPosition(SwingConstants.CENTER);
+        cognome.setVerticalTextPosition(SwingConstants.CENTER);
         JLabel username = new JLabel("Username:");
+        username.setFont(fontB);
+        username.setHorizontalAlignment(SwingConstants.CENTER);
+        username.setVerticalAlignment(SwingConstants.CENTER);
+        username.setHorizontalTextPosition(SwingConstants.CENTER);
+        username.setVerticalTextPosition(SwingConstants.CENTER);
         JLabel password = new JLabel("Password:");
+        password.setFont(fontB);
+        password.setHorizontalAlignment(SwingConstants.CENTER);
+        password.setVerticalAlignment(SwingConstants.CENTER);
+        password.setHorizontalTextPosition(SwingConstants.CENTER);
+        password.setVerticalTextPosition(SwingConstants.CENTER);
         JLabel confPassword = new JLabel("Conferma Password:");
+        confPassword.setFont(fontB);
+        confPassword.setHorizontalAlignment(SwingConstants.CENTER);
+        confPassword.setVerticalAlignment(SwingConstants.CENTER);
+        confPassword.setHorizontalTextPosition(SwingConstants.CENTER);
+        confPassword.setVerticalTextPosition(SwingConstants.CENTER);
         JLabel errore = new JLabel();
 
         //campi di inserimento testo
@@ -54,7 +76,7 @@ public class PannelloRegistrazione extends JPanel {
         JTextField tPassword = new JPasswordField("");
         JTextField tConfPassword=new JPasswordField("");
 
-        JTextField clienteAdded= new JTextField("qui nuovi clienti");
+        JTextField clienteAdded= new JTextField(" qui nuovi clienti ");
         clienteAdded.setVisible(false);
 
         errore.setVisible(false);
@@ -63,29 +85,29 @@ public class PannelloRegistrazione extends JPanel {
 
         //modified label aligment and background color and conferma is not enabled at start
         nome.setOpaque(true);
-        nome.setBackground(new Color(255,255,2,90));
-        nome.setHorizontalAlignment(SwingConstants.RIGHT);
+        nome.setBackground(new Color(255,255,255,200));
+        //nome.setHorizontalAlignment(SwingConstants.RIGHT);
         nome.setPreferredSize(new Dimension(nome.getWidth()/4,nome.getHeight()));
 
         cognome.setOpaque(true);
-        cognome.setBackground(new Color(255,255,2,90));
-        cognome.setHorizontalAlignment(SwingConstants.RIGHT);
+        cognome.setBackground(new Color(255,255,255,200));
+        //cognome.setHorizontalAlignment(SwingConstants.RIGHT);
 
         eMail.setOpaque(true);
-        eMail.setBackground(new Color(255,255,2,90));
-        eMail.setHorizontalAlignment(SwingConstants.RIGHT);
+        eMail.setBackground(new Color(255,255,255,200));
+        //eMail.setHorizontalAlignment(SwingConstants.RIGHT);
 
         username.setOpaque(true);
-        username.setBackground(new Color(255,255,2,90));
-        username.setHorizontalAlignment(SwingConstants.RIGHT);
+        username.setBackground(new Color(255,255,255,200));
+        //username.setHorizontalAlignment(SwingConstants.RIGHT);
 
         password.setOpaque(true);
-        password.setBackground(new Color(255,255,2,90));
-        password.setHorizontalAlignment(SwingConstants.RIGHT);
+        password.setBackground(new Color(255,255,255,200));
+        //password.setHorizontalAlignment(SwingConstants.RIGHT);
 
         confPassword.setOpaque(true);
-        confPassword.setBackground(new Color(255,255,2,90));
-        confPassword.setHorizontalAlignment(SwingConstants.RIGHT);
+        confPassword.setBackground(new Color(255,255,255,200));
+        //confPassword.setHorizontalAlignment(SwingConstants.RIGHT);
 
         conferma.setEnabled(false);
 
@@ -93,7 +115,7 @@ public class PannelloRegistrazione extends JPanel {
         //pannelli
         JPanel campi=new JPanel();
         JPanel bottoni=new JPanel();
-        bottoni.setLayout(new GridLayout(2,1));
+        bottoni.setLayout(new GridLayout(0,1));
         campi.setLayout(new GridLayout(6,2));
 
         campi.add(nome);
@@ -111,7 +133,6 @@ public class PannelloRegistrazione extends JPanel {
 
         campi.setOpaque(false);
 
-        bottoni.add(errore);
         bottoni.add(conferma);
         bottoni.setOpaque(false);
 
@@ -129,7 +150,7 @@ public class PannelloRegistrazione extends JPanel {
                 if(registrationCompleted)
                     conferma.setEnabled(true);
 
-                SistemaDiPrenotazioneController sisPr= new SistemaDiPrenotazioneController();
+                SistemaDiPrenotazione sisPr= new SistemaDiPrenotazione();
                 boolean registrazione= false;
                 try {
                     registrazione = sisPr.signUp(tNome.getText(),tCognome.getText(),tEMail.getText(),tUsername.getText(),tPassword.getText());
@@ -142,9 +163,12 @@ public class PannelloRegistrazione extends JPanel {
                 }
                 else {
                     if (!psswrdCorretta) {
+                        if (bottoni.getComponent(0).equals(errore))
+                            bottoni.remove(errore);
+                        bottoni.add(errore,0);
                         errore.setVisible(true);
                         errore.setOpaque(true);
-                        errore.setBackground(new Color(0,0,255,70));
+                        errore.setBackground(new Color(0,0,0,70));
                         errore.setHorizontalAlignment(SwingConstants.CENTER);
                         errore.setVerticalAlignment(SwingConstants.CENTER);
                         errore.setHorizontalTextPosition(SwingConstants.CENTER);
@@ -153,6 +177,9 @@ public class PannelloRegistrazione extends JPanel {
                         errore.setForeground(Color.RED);
                     }
                     else {
+                        if (bottoni.getComponent(0).equals(errore))
+                            bottoni.remove(errore);
+                        bottoni.add(errore,0);
                         errore.setVisible(true);
                         errore.setOpaque(true);
                         errore.setBackground(new Color(0,0,0,70));
@@ -161,7 +188,7 @@ public class PannelloRegistrazione extends JPanel {
                         errore.setHorizontalTextPosition(SwingConstants.CENTER);
                         errore.setVerticalTextPosition(SwingConstants.CENTER);
                         errore.setText("<html><div style='text-align: center;'>" + "username is already used!"+"<br>Please fill with unused values the sign up form" + "</div></html>");
-                        errore.setForeground(Color.green);
+                        errore.setForeground(Color.RED);
                     }
                 }
             }
@@ -226,17 +253,5 @@ public class PannelloRegistrazione extends JPanel {
 
 
     }
-
-    //parte adibita alla "pittura" della foto sullo sfondo
-    public void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        Dimension dim= this.getSize();
-        int width= dim.width;
-        int height= dim.height;
-
-        g.drawImage(backgroundImage, 0, 0,width,height, this);
-
-    }
-
 
 }

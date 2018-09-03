@@ -14,9 +14,10 @@ import java.util.ArrayList;
  */
 
 public class FinestraCreazioneEvento extends JFrame {
-    public FinestraCreazioneEvento(ArrayList<GestoreLocale> locali, Cliente cliente){
+    public FinestraCreazioneEvento(Cliente cliente){//ArrayList<GestoreLocale> locali,
         setSize(500,500);
-        PannelloCredenzialiEvento pc=new PannelloCredenzialiEvento(locali,cliente,this);
+        setLocation(425,25);
+        PannelloCredenzialiEvento pc=new PannelloCredenzialiEvento(cliente,this);//locali,
         Container c=getContentPane();
         c.add(pc);
 

@@ -76,10 +76,12 @@ public class GestoreEvento {
     }
 
     public void removeInvitati(Invitato invitato){
-        for (int i = 0;i<invitati.size();i++) {
-            if(invitati.get(i).getID_Inv().equals(invitato.getID_Inv())) {
-                invitati.remove(i);
-                i--;
+        if (invitato!=null && invitati!=null && invitati.size()!=0){
+            for (int i = 0;i<invitati.size();i++) {
+                if(invitati.get(i)!=null && invitati.get(i).getID_Inv()!=null && invitati.get(i).getID_Inv().equals(invitato.getID_Inv())) {
+                    invitati.remove(i);
+                    i--;
+                }
             }
         }
     }
@@ -94,7 +96,7 @@ public class GestoreEvento {
         this.invitati = invitati;
     }*/
 
-    public int getNumInvitati(){return numInvitati;}
+    public int getNumInvitati(){return invitati.size();}
 
     public GregorianCalendar getDataEvento(){
         return dataEvento;
