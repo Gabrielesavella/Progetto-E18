@@ -18,6 +18,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -139,10 +140,15 @@ public class PannelloCredenzialiEvento extends PaintedPanel{
                 GregorianCalendar calendar = new GregorianCalendar();
                 calendar.setTime(data);
 
+                SimpleDateFormat format=new SimpleDateFormat("dd/MM/yyyy");
+                format.setCalendar(calendar);
+                String stringData= format.format(calendar.getTime());
+
+
                 for (GestoreLocale l:locali) {
                     if(l.id_locale.equals(dropDownLocali.getSelectedItem())) {
                         gestoreLocaleSelezionato = l;
-                        if (gestoreLocaleSelezionato.checkDisponibilita(calendar, invitati)) {
+                        if (gestoreLocaleSelezionato.checkDisponibilita(stringData, invitati)) {
 
                             try {
                                 if (sisPr.creaEvento(tNome.getText(), calendar, Integer.parseInt(tnInv.getText()), cliente, l.getId_locale())) {

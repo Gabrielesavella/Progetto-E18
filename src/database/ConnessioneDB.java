@@ -5,6 +5,7 @@
  */
 package database;
 
+import javafx.scene.input.DataFormat;
 import locale.*;
 import locale.Locale;
 import persone.Cliente;
@@ -14,9 +15,12 @@ import vincoli.SpecificaTavolo;
 
 import java.sql.*;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
+import java.util.Date;
 
 import static java.sql.JDBCType.NULL;
 
@@ -1497,13 +1501,13 @@ public class ConnessioneDB {// crea la connessione col database "smistamento_pos
 //    }
 
     // ottengo una agenda di un locale da db
-    public Map<GregorianCalendar,ArrayList<Tavolo>> getAgendaLocale(String ID_Locale){
+    public Map<String,ArrayList<Tavolo>> getAgendaLocale(String ID_Locale){
         startConn();
         Statement stmt = null;
         ResultSet rs = null;
         String tavoli= null;
         ArrayList<Tavolo> tavoloArrayList=new ArrayList<>();
-        Map<GregorianCalendar,ArrayList<Tavolo>> agenda= new HashMap<>(3);
+        Map<String,ArrayList<Tavolo>> agenda= new HashMap<>(3);
 
         if (!openConn) {
             startConn();
@@ -1515,21 +1519,31 @@ public class ConnessioneDB {// crea la connessione col database "smistamento_pos
                 rs = stmt.executeQuery("SELECT * FROM agenda WHERE `ID_Locale`='" + ID_Locale + "';");
 
                 while (rs.next()) {
-
+//                    ArrayList<Tavolo> tavoliDaAgenda = new ArrayList<>();
 
                     String ID_Loc= rs.getString(1);
                     String date=rs.getString(2);
                     String tavOcc=rs.getString(3);
 
                     Locale l=getLocale(ID_Locale);
-                    String[] campiData=date.split(" ");
-                    GregorianCalendar gregData=new GregorianCalendar(Integer.parseInt(campiData[2]),Integer.parseInt(campiData[1]),Integer.parseInt(campiData[0]));
+//                    String[] campiData=date.split(" ");
+                    GregorianCalendar gregData=new GregorianCalendar();//Integer.parseInt(campiData[2]),Integer.parseInt(campiData[1]),Integer.parseInt(campiData[0])
+//                    gregData.set(GregorianCalendar.YEAR,Integer.parseInt(campiData[2]));
+//                    gregData.set(GregorianCalendar.MONTH,Integer.parseInt(campiData[1]));
+//                    int day=Integer.parseInt(campiData[0]);
+//                    gregData.set(GregorianCalendar.DAY_OF_MONTH,day);
+
+//                    SimpleDateFormat dateFormat= new SimpleDateFormat("dd/MM/yyyy");
+//                    Date date1= dateFormat.parse(date);
+//                    gregData.setTime(date1);
+
                     if(tavOcc!=null){
                         for (String IDTav:tavOcc.split(" ")) {
                             tavoloArrayList.add(getTavoloSingolo(IDTav));
                         }
                     }
-                    agenda.put(gregData,tavoloArrayList);
+                    agenda.put(date,(ArrayList<Tavolo>) tavoloArrayList.clone());
+                    tavoloArrayList.clear();
                 }
 
             } catch (SQLException e) {

@@ -4,6 +4,7 @@ package locale;
 import persone.Invitato;
 import vincoli.Vincolo;
 
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 
@@ -15,6 +16,7 @@ public class GestoreEvento {
     private ArrayList <Invitato> invitati,invitatidarimuovere;
     private  ArrayList <Vincolo> lista_vincoli;
     private GregorianCalendar dataEvento;
+    private String stringData;
     private int numInvitati;
 
 
@@ -58,6 +60,15 @@ public class GestoreEvento {
         invitati = new ArrayList();
         this.invitati.addAll(invitati);
         location.getEventi().add(this);
+        this.stringData=null;
+    }
+
+    private String createStringData() {
+        SimpleDateFormat format= new SimpleDateFormat("dd/MM/yyyy");
+        format.setCalendar(dataEvento);
+        String dataFormatted=format.format(dataEvento.getTime());
+
+        return dataFormatted;
     }
 
 
@@ -114,6 +125,10 @@ public class GestoreEvento {
 
         }
     }
+
+    public String getStringData(){
+        stringData=createStringData();
+        return stringData; }
 
     public void setDataEvento(GregorianCalendar dataEvento) {
         this.dataEvento = dataEvento;

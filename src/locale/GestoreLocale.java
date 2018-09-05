@@ -5,6 +5,7 @@ import database.DatabaseNullException;
 import facade.Facade;
 import persone.*;
 
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 /*
@@ -28,7 +29,7 @@ public class GestoreLocale {
     private ArrayList<Tavolo> tavoliUtilizzati = new ArrayList<>();
     private ArrayList<Invitato> lista_gia_presenti = new ArrayList<>();
 
-    private Map<GregorianCalendar,ArrayList<Tavolo>> agenda;
+    private Map<String,ArrayList<Tavolo>> agenda;
 
 
     // cambiato il tipo di dato giorno chiusura da String a Gregoria calendar , molto più facile da gestire
@@ -103,13 +104,13 @@ public class GestoreLocale {
                             break;
                     }
             }
-        occupaInAgenda(tavoliUtilizzati,e.getDataEvento());
+        occupaInAgenda(tavoliUtilizzati,e.getStringData());
         return tavoliUtilizzati;
     }
 
 
     // aggiunta Lecce: occupiamo i tavoli che alla fine sono utilizzati per l'evento
-    private void occupaInAgenda(ArrayList<Tavolo> tavoliOcc, GregorianCalendar dataEvento) {
+    private void occupaInAgenda(ArrayList<Tavolo> tavoliOcc, String dataEvento) {
         //parte adibita al salvataggio in agenda
         ArrayList<Tavolo> tavoliOccGiorno=agenda.get(dataEvento);
         if (tavoliOccGiorno==null)
@@ -130,13 +131,17 @@ public class GestoreLocale {
 
         }
         //creazione stringa data
-        String stringData= new String("");
-        stringData+=String.valueOf(dataEvento.get(GregorianCalendar.DAY_OF_MONTH))+" ";
-        stringData+=String.valueOf(dataEvento.get(GregorianCalendar.MONTH))+" ";
-        stringData+=String.valueOf(dataEvento.get(GregorianCalendar.YEAR));
+//        stringData+=String.valueOf(dataEvento.get(GregorianCalendar.DAY_OF_MONTH))+" ";
+//        stringData+=String.valueOf(dataEvento.get(GregorianCalendar.MONTH))+" ";
+//        stringData+=String.valueOf(dataEvento.get(GregorianCalendar.YEAR));
+
+//        String stringData= new String("");
+//        SimpleDateFormat format= new SimpleDateFormat("dd/MM/yyyy");
+//        format.setCalendar(dataEvento);
+//        stringData=format.format(dataEvento.getTime());
         //salvo in db
         try {
-            Facade.getInstance().inserisciAgenda(this.id_locale,stringData,stringTavoli);
+            Facade.getInstance().inserisciAgenda(this.id_locale,dataEvento,stringTavoli);
         } catch (DatabaseException e) {
             e.printStackTrace();
         } catch (DatabaseNullException e) {
@@ -283,15 +288,26 @@ public class GestoreLocale {
         return tavoliUtilizzati;
     }
 
-    public void setAgenda(Map<GregorianCalendar,ArrayList<Tavolo>> agenda){ this.agenda=agenda; }
+    public void setAgenda(Map<String,ArrayList<Tavolo>> agenda){ this.agenda=agenda; }
 
-    public boolean checkDisponibilita(GregorianCalendar data, int invitati) {
-//        if ()
-        Facade.getInstance().getTavoli(this.id_locale);
+    public boolean checkDisponibilita(String data, int invitati) {
+        tavoli=Facade.getInstance().getTavoli(this.id_locale);
         agenda=Facade.getInstance().getAgenda(id_locale);
         ArrayList <Tavolo> tavoliInAgenda= agenda.get(data);
-        aggiornaTavoliInData(data,tavoliInAgenda);
+        aggiornaTavoliInData(tavoliInAgenda);
         int numPostiDisponibili=0;
+        //copia incolla di aggiorna tavoli
+        for (Tavolo t:tavoli) {
+            numPostiDisponibili+=t.getPostiTot();
+        }
+        if (numPostiDisponibili<invitati)
+            return false;
+        return true;
+    }
+
+    private void aggiornaTavoliInData(ArrayList<Tavolo> tavoliInAgenda) {
+//        ArrayList<Tavolo> tavoliConfronto= new ArrayList<>();
+
         if (!(tavoliInAgenda==null || tavoliInAgenda.size()==0)){
             for (Tavolo t:tavoliInAgenda) {
                 for (int i=0;i<tavoli.size();i++){
@@ -302,25 +318,19 @@ public class GestoreLocale {
                 }
             }
         }
-        for (Tavolo t:tavoli) {
-            numPostiDisponibili+=t.getPostiTot();
-        }
-        if (numPostiDisponibili<invitati)
-            return false;
-        return true;
-    }
 
-    private void aggiornaTavoliInData(GregorianCalendar data, ArrayList<Tavolo> tavoliInAgenda) {
-//        ArrayList<Tavolo> tavoliConfronto= new ArrayList<>();
-        ArrayList<Tavolo> tavoliDb=Facade.getInstance().getTavoli(id_locale);
-        if(tavoliInAgenda!=null && tavoliDb!=null && tavoliDb.size()!=0)
-            for (Tavolo t:tavoliInAgenda) {
-                if(t!=null)
-                    for (int i = 0; i < tavoliDb.size() ; i++) {
-                        if(tavoliDb.get(i).getIDTavolo().equals(t.getIDTavolo()))
-                            tavoliDb.remove(i);
-                    }
-            }
+//        ArrayList<Tavolo> tavoliDb=Facade.getInstance().getTavoli(id_locale);
+//        if(tavoliInAgenda!=null && tavoliDb!=null && tavoliDb.size()!=0)
+//            for (Tavolo t:tavoliInAgenda) {
+//                if(t!=null)
+//                    for (int i = 0; i < tavoliDb.size() ; i++) {
+//                        if(tavoliDb.get(i).getIDTavolo().equals(t.getIDTavolo())) {
+//                            tavoliDb.remove(i);
+//                            break;
+//                        }
+//                    }
+//            }
+
         //        for (Tavolo tDb:tavoliDb) {
 //            for (Tavolo tVecchio:tavoli) {
 //                if (tVecchio.getIDTavolo().equals(tDb.getIDTavolo())){
@@ -328,7 +338,7 @@ public class GestoreLocale {
 //                }
 //            }
 //        }
-        tavoli=tavoliDb;
+//        tavoli=tavoliDb;
     }
 
 }

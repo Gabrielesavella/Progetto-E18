@@ -1,11 +1,14 @@
 package locale;
 
 import database.ConnessioneDB;
+import facade.Facade;
 import locale.Locale;
 import persone.Invitato;
 import sun.util.calendar.Gregorian;
 import vincoli.Vincolo;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 
@@ -15,7 +18,7 @@ public class Evento {
     private Locale location;
     private ArrayList <Invitato> invitati;
     private ArrayList <Vincolo> lista_vincoli;
-    private ArrayList<Locale> locali;
+    private ArrayList<GestoreLocale> locali;
     private String dataEvento;
     private int numInvitati;
     GregorianCalendar dataEventoCalendario;
@@ -37,6 +40,7 @@ public class Evento {
         this.nomeLocale=nomeLocale;
         this.numInvitati=numInvitati;
         this.dataEvento = dataEvento;
+        this.dataEventoCalendario=ricavaData(dataEvento);
     }
 
 
@@ -59,6 +63,16 @@ public class Evento {
             dataEventoCalendario.add(GregorianCalendar.YEAR, Integer.parseInt(st[2]));
         }
 
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        Date date = null;
+        try {
+            date = format.parse(data);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        dataEventoCalendario.setTime(date);
+
+
         return dataEventoCalendario;
     }
 
@@ -70,10 +84,11 @@ public class Evento {
 
     public int getNumInvitati(){return numInvitati;}
 
-    public Locale prendiLocale(String nomeLoc) {
-        Locale loca=null;
-        for (Locale l : locali) {
-            if (nomeLoc == l.getID_Locale()) {
+    public GestoreLocale prendiLocale(String nomeLoc) {//Locale
+        GestoreLocale loca=null;
+        locali= Facade.getInstance().getLocali();
+        for (GestoreLocale l : locali) {
+            if (nomeLoc == l.getId_locale()) {
                 loca = l;
             }
         }
@@ -93,18 +108,16 @@ public class Evento {
         GestoreEvento ge;
         GestoreLocale gl;
         this.dataEventoCalendario=ricavaData(dataEvento);
-        this.location= prendiLocale(nomeLocale);
-        gl = location.gestisciLocale();
+//        this.location= prendiLocale(nomeLocale);
+        gl = prendiLocale(nomeLocale);
         ge = new GestoreEvento(nomeEvento, dataEventoCalendario, gl, numInvitati);
         ge.getListaInvitati().addAll(ricavaInvitati(nomeEvento));
 
         return ge;
     }
 
-    public String getDataEvento(){
-        return dataEvento;
+    public String getDataEvento(){ return dataEvento; }
 
-    }
-
+    public GregorianCalendar getDataEventoCalendario(){ return dataEventoCalendario; }
 
 }

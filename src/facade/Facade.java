@@ -2,6 +2,7 @@ package facade;
 
 import database.*;
 import locale.*;
+import locale.Locale;
 import persone.*;
 import vincoli.*;
 
@@ -232,7 +233,7 @@ public class Facade {
         return connessioneDB.getTavolo(ID_Locale);
     }
 
-    public Map<GregorianCalendar, ArrayList<Tavolo>> getAgenda(String id_loc) {
+    public Map<String, ArrayList<Tavolo>> getAgenda(String id_loc) {
         return connessioneDB.getAgendaLocale(id_loc);
     }
 

@@ -15,7 +15,8 @@ public class Locale {
     private ArrayList<GestoreEvento> gestoreEventiTotali;
     private ArrayList<Evento> eventiTotali;
     //aggiunte Lecce
-    private Map<GregorianCalendar,ArrayList<Tavolo>> agenda;
+    private Map<String,ArrayList<Tavolo>> agenda;
+    private boolean agendaCharged;
 
 
     public Locale(String ID_Loc, int numInv, String orarioApertura, String orarioChiusura, String giornoChiusura){
@@ -27,13 +28,18 @@ public class Locale {
         this.giornoChiusura=giornoChiusura;
         //aggiunte Lecce
         this.agenda=new HashMap<>();
+        agendaCharged=false;
+//        agenda= Facade.getInstance().getAgenda(ID_Loc); // a mio parere era il meglio manda in loop infinito l'app
     }
 
     public GestoreLocale ricavaLocale() {
 
-        locale= new GestoreLocale(ID_Loc, numInv, ricavaOrario(orarioApertura), ricavaOrario(orarioChiusura), ricavaGiorno(giornoChiusura));
-        this.agenda= Facade.getInstance().getAgenda(ID_Loc);
-        locale.setAgenda(agenda);
+        if(!agendaCharged){
+            locale= new GestoreLocale(ID_Loc, numInv, ricavaOrario(orarioApertura), ricavaOrario(orarioChiusura), ricavaGiorno(giornoChiusura));
+            this.agenda= Facade.getInstance().getAgenda(ID_Loc);
+            locale.setAgenda(this.agenda);
+            agendaCharged=true;
+        }
         return locale;
     }
 
@@ -140,7 +146,7 @@ public class Locale {
     }
 
     //aggiunte Lecce
-    public ArrayList<Tavolo> getTavoliDisponibili(GregorianCalendar calendar){
+    public ArrayList<Tavolo> getTavoliDisponibili(String calendar){
         //ArrayList<Tavolo> tavoliTot=tavoliTotali;
         ArrayList<Tavolo> tavoliOccupati = agenda.get(calendar);
         ArrayList<Tavolo> tavoliDisponibili=tavoliTotali;

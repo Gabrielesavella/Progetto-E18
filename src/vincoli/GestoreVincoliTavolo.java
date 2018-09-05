@@ -11,10 +11,12 @@ import database.DatabaseException;
 import database.DatabaseNullException;
 import facade.Facade;
 import locale.Evento;
+import locale.GestoreEvento;
 import locale.GestoreLocale;
 import locale.Tavolo;
 import persone.Invitato;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -29,6 +31,7 @@ public class GestoreVincoliTavolo {
     private ArrayList<Tavolo> tavoliDisponibili;
     private ConnessioneDB c;
     private Evento ev;
+    private GestoreEvento gestEv;
 
 
 
@@ -39,6 +42,7 @@ public class GestoreVincoliTavolo {
         this.vincoliTav = c.getVincoloTavolo(ID_Ev);
         this.invitati = c.getInvitato(ID_Ev);
         ev=c.getEventoSingolo(ID_Ev);
+        gestEv=ev.gestisciEvento();
         this.tavoli= gestLoc.getTavoliLocale();
                 //c.getTavolo(ev.getNomeLocale());
         c.closeConn();
@@ -326,7 +330,11 @@ public class GestoreVincoliTavolo {
 
             // aggiunta di metodo per salvare in agenda tavoli
             try {
-                String stringData= ev.getDataEvento().replaceAll("-"," ");
+                GregorianCalendar calEv=gestEv.getDataEvento();
+                SimpleDateFormat sdt=new SimpleDateFormat("dd/MM/yyyy");
+                sdt.setCalendar(calEv);
+                String stringData=sdt.format(calEv.getTime());
+                //                String stringData= ev.getDataEvento().replaceAll("-"," ");
                 Facade.getInstance().inserisciAgenda(tavoliDisponibili.get(0).getID_Loc(),stringData,stringTavVinc);//,stringTavRinominati
             } catch (DatabaseException e) {
                 e.printStackTrace();

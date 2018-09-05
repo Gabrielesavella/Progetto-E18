@@ -80,7 +80,9 @@ public class SistemaDiPrenotazione {
 
     //adattato al DB inserisce l'evento anche nel DB (controllare la data!)
     public boolean creaEvento(String nomeEvento, GregorianCalendar data, int guestNum, Cliente cliente,String nomelocale)throws DatabaseException, DatabaseNullException{
-        String datadb = data.get(Calendar.DAY_OF_MONTH)+"-"+data.get(Calendar.MONTH)+"-"+data.get(Calendar.YEAR);
+        String datadb = data.get(Calendar.DAY_OF_MONTH)+"/"+(data.get(Calendar.MONTH)+1)+"/"+data.get(Calendar.YEAR);
+        if(data.get(Calendar.MONTH)<9)
+            datadb= data.get(Calendar.DAY_OF_MONTH)+"/0"+(data.get(Calendar.MONTH)+1)+"/"+data.get(Calendar.YEAR);
         if(Facade.getInstance().getEvento(nomeEvento)!=null)
             return false;
         try {
