@@ -132,8 +132,11 @@ public class CreatePreferenza {
         sistemaAiGruppi();
         rimuoviTavoliVuoti();
         sistemaAiTavoli();
-        //setTrueAllTables(tavoli);
+        setTrueAllTables(tavoli);
+        Collections.sort(tavoli);
         aggiungiTavoli();
+
+        generaListeVincolatiLontani();
         for (PreferenzaInvitato prefe : pref){
             prefe.verifica_sistemaLontani();
         }
@@ -150,7 +153,7 @@ public class CreatePreferenza {
 
                 for (int k=0; k<insiemi.get(i).getArraylistInvitati().size(); k++){
 
-                    if(t.mostraID_Invitati().contains(insiemi.get(i).getArraylistInvitati().get(k).getID_Inv())){
+                    if(t.getArraylistInvitati().size()!=0 && t.mostraID_Invitati().contains(insiemi.get(i).getArraylistInvitati().get(k).getID_Inv())){
 
                         if(insiemi.get(i).getArraylistInvitati().size()>1) {
                             preferenze_non_rispettate.add("Gli invitati " + insiemi.get(i).mostraID_Invitati() + " non possono essere sistemati vicini. "+insiemi.get(i).getArraylistInvitati().get(k).getID_Inv()+" è già vincolato ad un tavolo.\n");
@@ -266,7 +269,7 @@ public class CreatePreferenza {
 
                     if (tavoli.get(tav).getDisponibile() == true && t.getArraylistInvitati().size() <= tavoli.get(tav).getNumPosti()) {
                         tavoli.get(tav).addAllGuests(t.getArraylistInvitati());
-                        //tavoli.get(tav).setDisponibile(false);
+                        tavoli.get(tav).setDisponibile(false);
                         break;
 
                     } else if ((tav + 1) == tavoli.size() && (tavoli.get(tav).getDisponibile() == false || t.getArraylistInvitati().size() > tavoli.get(tav).getNumPosti())) {
@@ -286,6 +289,28 @@ public class CreatePreferenza {
     public void setTrueAllTables(ArrayList<Tavolo> tavo){
         for (Tavolo t: tavo){
             t.setDisponibile(true);
+        }
+    }
+
+    public void generaListeVincolatiLontani(){
+        for (PreferenzaInvitato p : pref){
+            for (PreferenzaInvitato pre : pref) {
+                if (pre.getLista_lontani().size()>1 && pre.mostraID_Inv(pre.getLista_lontani()).contains(p.getLista_lontani().get(0).getID_Inv())){
+                    p.getTutti_vincolati_lontani_a_ID().addAll(pre.getLista_lontani());
+                }
+
+                if (p.getLista_lontani().size()>1){
+                    if (pre.getLista_lontani().size()>1 && pre.mostraID_Inv(pre.getLista_lontani()).contains(p.getLista_lontani().get(1).getID_Inv())){
+                        p.getTutti_vincolati_lontani_a_primo().addAll(pre.getLista_lontani());
+                    }
+                }
+
+                if (p.getLista_lontani().size()>2){
+                    if (pre.getLista_lontani().size()>1 && pre.mostraID_Inv(pre.getLista_lontani()).contains(p.getLista_lontani().get(2).getID_Inv())){
+                        p.getTutti_vincolati_lontani_a_secondo().addAll(pre.getLista_lontani());
+                    }
+                }
+            }
         }
     }
 

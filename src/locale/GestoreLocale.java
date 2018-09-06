@@ -81,28 +81,44 @@ public class GestoreLocale {
                 gEvDiLocale=ev;
             }
         for (Tavolo t:tavoli) {
-            if(gEvDiLocale.getListaInvitati().size()==0)
+//            if(gEvDiLocale.getListaInvitati().size()==0)
                 if (t.getArraylistInvitati().size()!=0)
 //                    t.setDisponibile(false);
-//            if(!t.getDisponibile())
+////            if(!t.getDisponibile())
                     tavoliUtilizzati.add(t);
         }
         for (GestoreEvento ev : eventi_locale)
             if (ev.equals(e)) {
                 listainvitati = ev.getListaInvitati();
-                if(listainvitati.size()!=0)
+                if(listainvitati.size()!=0) {
                     for (Tavolo t : tavoli) {
                         //il cambiamento è qua
-                        while (t.getDisponibile() && count<listainvitati.size()) {
+                        while (t.getDisponibile() && count < listainvitati.size()) {
                             t.addGuest(listainvitati.get(count));
                             count++;
                             if ((count) == listainvitati.size())
                                 t.setDisponibile(false);
                         }
-                        tavoliUtilizzati.add(t);
+                        if (!tavoliUtilizzati.contains(t))
+                            tavoliUtilizzati.add(t);
                         if ((count) == listainvitati.size())
                             break;
                     }
+                }
+//                else {
+//                    for (Tavolo t:tavoli) {
+//                        boolean isPresent= false;
+//                        if (t.getArraylistInvitati().size()!=0)
+//                            for (Tavolo tUsed:tavoliUtilizzati) {
+//                                if (!tUsed.getRealID_Tav().equals(t.getRealID_Tav())){
+//                                    isPresent=true;
+//                                    break;
+//                                }
+//                            }
+//                            if (!isPresent)
+//                                tavoliUtilizzati.add(t);
+//                    }
+//                }
             }
         occupaInAgenda(tavoliUtilizzati,e.getStringData());
         return tavoliUtilizzati;
