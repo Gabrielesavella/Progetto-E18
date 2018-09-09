@@ -329,18 +329,18 @@ public class GestoreVincoliTavolo {
             stringTavVinc=stringTavVinc.substring(0,stringTavVinc.length()-1);
 
             // aggiunta di metodo per salvare in agenda tavoli
-            try {
-                GregorianCalendar calEv=gestEv.getDataEvento();
-                SimpleDateFormat sdt=new SimpleDateFormat("dd/MM/yyyy");
-                sdt.setCalendar(calEv);
-                String stringData=sdt.format(calEv.getTime());
-                //                String stringData= ev.getDataEvento().replaceAll("-"," ");
-                Facade.getInstance().inserisciAgenda(tavoliDisponibili.get(0).getID_Loc(),stringData,stringTavVinc);//,stringTavRinominati
-            } catch (DatabaseException e) {
-                e.printStackTrace();
-            } catch (DatabaseNullException e) {
-                e.printStackTrace();
-            }
+//            try {
+//                GregorianCalendar calEv=gestEv.getDataEvento();
+//                SimpleDateFormat sdt=new SimpleDateFormat("dd/MM/yyyy");
+//                sdt.setCalendar(calEv);
+//                String stringData=sdt.format(calEv.getTime());
+//                //                String stringData= ev.getDataEvento().replaceAll("-"," ");
+////                Facade.getInstance().inserisciAgenda(tavoliDisponibili.get(0).getID_Loc(),stringData,stringTavVinc);//,stringTavRinominati
+//            } catch (DatabaseException e) {
+//                e.printStackTrace();
+//            } catch (DatabaseNullException e) {
+//                e.printStackTrace();
+//            }
         }
 
     }

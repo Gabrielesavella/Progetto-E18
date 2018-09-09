@@ -8,8 +8,8 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import persone.Invitato;
-import vincoli.GestorePreferenzaInvitato;
-import vincoli.PreferenzaInvitatoEnum;
+//import vincoli.GestorePreferenzaInvitato;
+//import vincoli.PreferenzaInvitatoEnum;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -108,22 +108,22 @@ public class JTest {
         e.addInvitati(y);
 
 
-        ArrayList<Invitato> listaVincolati  = new ArrayList<Invitato>();
-        listaVincolati.add(b);
-        listaVincolati.add(c);
-        GestorePreferenzaInvitato provaVincolo = new GestorePreferenzaInvitato(a,listaVincolati,Tavoli,PreferenzaInvitatoEnum.STA_VICINO_A);
-        provaVincolo.verificaIdoneita();
-
-        ArrayList<Invitato> listaVincolati2  = new ArrayList<Invitato>();
-        listaVincolati2.add(d);
-        GestorePreferenzaInvitato provaVincolo2 = new GestorePreferenzaInvitato(f,listaVincolati2,Tavoli,PreferenzaInvitatoEnum.NON_STA_VICINO_A);
-        provaVincolo2.verificaIdoneita();
-
-        ArrayList<Invitato> listaVincolati3  = new ArrayList<Invitato>();
-        listaVincolati3.add(d);
-        listaVincolati3.add(f);
-        GestorePreferenzaInvitato provaVincolo3 = new GestorePreferenzaInvitato(g,listaVincolati3,Tavoli,PreferenzaInvitatoEnum.NON_STA_VICINO_A);
-        provaVincolo3.verificaIdoneita();
+//        ArrayList<Invitato> listaVincolati  = new ArrayList<Invitato>();
+//        listaVincolati.add(b);
+//        listaVincolati.add(c);
+//        GestorePreferenzaInvitato provaVincolo = new GestorePreferenzaInvitato(a,listaVincolati,Tavoli,PreferenzaInvitatoEnum.STA_VICINO_A);
+//        provaVincolo.verificaIdoneita();
+//
+//        ArrayList<Invitato> listaVincolati2  = new ArrayList<Invitato>();
+//        listaVincolati2.add(d);
+//        GestorePreferenzaInvitato provaVincolo2 = new GestorePreferenzaInvitato(f,listaVincolati2,Tavoli,PreferenzaInvitatoEnum.NON_STA_VICINO_A);
+//        provaVincolo2.verificaIdoneita();
+//
+//        ArrayList<Invitato> listaVincolati3  = new ArrayList<Invitato>();
+//        listaVincolati3.add(d);
+//        listaVincolati3.add(f);
+//        GestorePreferenzaInvitato provaVincolo3 = new GestorePreferenzaInvitato(g,listaVincolati3,Tavoli,PreferenzaInvitatoEnum.NON_STA_VICINO_A);
+//        provaVincolo3.verificaIdoneita();
 
 
         /*ArrayList<Invitato> listaVincolati2  = new ArrayList<Invitato>();
