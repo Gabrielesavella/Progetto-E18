@@ -2,7 +2,6 @@ package facade;
 
 import database.*;
 import locale.*;
-import locale.Locale;
 import persone.*;
 import vincoli.*;
 
@@ -69,8 +68,6 @@ public class Facade {
         txt.WriteEvent(nameEvent, dateEvent, guestNumber);
     }
 
-
-
     public void setNumberofObject(int numberofObject) {
         txt.setNumberofObject(numberofObject);
     }
@@ -114,28 +111,8 @@ public class Facade {
     public void inserisciVincoloInvitati(String ID_Evento, String ID_Inv, String starVicino, String starLontano) throws DatabaseException, DatabaseNullException {
         connessioneDB.inserisciVincoloInvitati(ID_Evento, ID_Inv, starVicino, starLontano);
     }
-
-
-    // aggiunta Lecce
-//    public void inserisciAgenda(String ID_Locale,String data,String tavoliOccupati,String tavoliRinominati) throws DatabaseException, DatabaseNullException {
-//        String tavoliGiaPresenti=connessioneDB.getInAgenda(ID_Locale,data);
-//        String tavoliGiaRinominati=connessioneDB.getRinominatiInAgenda(ID_Locale,data);
-//        if ( tavoliGiaPresenti!=null && !tavoliGiaPresenti.equals("") ){
-//            connessioneDB.deleteDoubleKeyEntry("agenda","ID_locale",ID_Locale,"data",data);
-//            tavoliOccupati=tavoliGiaPresenti+" "+tavoliOccupati;
-//            if ( tavoliGiaRinominati!=null && !tavoliGiaRinominati.equals(""))
-//                tavoliRinominati=tavoliGiaRinominati+" "+tavoliRinominati;
-//
-//            if (tavoliOccupati.substring(tavoliOccupati.length()-1).equals(" ")){
-//                tavoliOccupati=tavoliOccupati.substring(0,tavoliOccupati.length()-1);
-//            }
-//        }
-//        connessioneDB.inserisciInAgenda(ID_Locale,data,tavoliOccupati,tavoliRinominati);
-//    }
-
     public void inserisciAgenda(String ID_Locale,String data,String tavoliOccupati) throws DatabaseException, DatabaseNullException {
         String tavoliGiaPresenti=connessioneDB.getInAgenda(ID_Locale,data);
-//        String tavoliGiaRinominati=connessioneDB.getRinominatiInAgenda(ID_Locale,data);
         if ( tavoliGiaPresenti!=null && !tavoliGiaPresenti.equals("") ){
             connessioneDB.deleteDoubleKeyEntry("agenda","ID_locale",ID_Locale,"data",data);
             tavoliOccupati=tavoliGiaPresenti+" "+tavoliOccupati;
@@ -147,50 +124,6 @@ public class Facade {
         connessioneDB.inserisciInAgenda(ID_Locale,data,tavoliOccupati);//,tavoliGiaRinominati
 
     }
-
-//    public void inserisciVincolatiAgenda(String ID_Locale,String data,String tavoliOccupati,String rinominazioniTav) throws DatabaseException, DatabaseNullException {
-//
-//        ConnessioneDB connessioneDB= new ConnessioneDB();
-//        String tavoliGiaPresenti=connessioneDB.getInAgenda(ID_Locale,data);
-//        String tavoliGiaRinominati=connessioneDB.getRinominatiInAgenda(ID_Locale,data);
-//
-//        if ( tavoliGiaPresenti!=null && !tavoliGiaPresenti.equals("") ){
-//
-//            connessioneDB.deleteDoubleKeyEntry("agenda","ID_locale",ID_Locale,"data",data);
-//            tavoliOccupati=tavoliGiaPresenti+" "+tavoliOccupati;
-//
-//            if ( tavoliGiaRinominati!=null && !tavoliGiaRinominati.equals(""))
-//                rinominazioniTav=tavoliGiaRinominati+" "+rinominazioniTav;
-//
-//            if (tavoliOccupati.substring(tavoliOccupati.length()-1).equals(" ")){
-//                tavoliOccupati=tavoliOccupati.substring(0,tavoliOccupati.length()-1);
-//            }
-//        }
-//        connessioneDB.inserisciInAgenda(ID_Locale,data,tavoliOccupati,rinominazioniTav);
-//
-//    }
-
-
-//    private void getVincolatiAgenda(String ID_Locale,String data,String tavoliOccupati,String rinominazioniTav) throws DatabaseException, DatabaseNullException {
-//        String tavoliGiaPresenti=connessioneDB.getInAgenda(ID_Locale,data);
-//        String tavoliGiaRinominati=connessioneDB.getRinominatiInAgenda(ID_Locale,data);
-//
-//        if ( tavoliGiaPresenti!=null && !tavoliGiaPresenti.equals("") ){
-//
-//            connessioneDB.deleteDoubleKeyEntry("agenda","ID_locale",ID_Locale,"data",data);
-//            tavoliOccupati=tavoliGiaPresenti+" "+tavoliOccupati;
-//
-//            if ( tavoliGiaRinominati!=null && !tavoliGiaRinominati.equals(""))
-//                rinominazioniTav=tavoliGiaRinominati+" "+rinominazioniTav;
-//
-//            if (tavoliOccupati.substring(tavoliOccupati.length()-1).equals(" ")){
-//                tavoliOccupati=tavoliOccupati.substring(0,tavoliOccupati.length()-1);
-//            }
-//        }
-//        connessioneDB.inserisciInAgenda(ID_Locale,data,tavoliOccupati,rinominazioniTav);
-//
-//    }
-
     public void aggiornaNomeTavolo(String ID_Locale, String ID_VecchioTavolo, String ID_NuovoTavolo) throws DatabaseException, DatabaseNullException {
         Tavolo tavVecchio= connessioneDB.getTavoloSingolo(ID_VecchioTavolo);
         connessioneDB.deleteDoubleKeyEntry("tavoli","ID_locale",ID_Locale,"ID_Tavolo",ID_VecchioTavolo);
