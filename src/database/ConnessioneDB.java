@@ -660,9 +660,9 @@ public class ConnessioneDB {// crea la connessione col database "smistamento_pos
 
     //metodo che ritorna il signolo Locale
 
-    public Locale getLocale(String ID_Locale) {
-        Locale l=null;
-        ArrayList <Locale> locali= new ArrayList<>();
+    public GestoreLocale getLocale(String ID_Locale) {
+        GestoreLocale l=null;
+        ArrayList <GestoreLocale> locali= new ArrayList<>();
 
         startConn();
         Statement stmt = null; //creazione di uno Statement, per adesso nullo
@@ -683,7 +683,7 @@ public class ConnessioneDB {// crea la connessione col database "smistamento_pos
                 String oraChiusura= rs.getString(4);
                 String giornoChiusura= rs.getString(5);
 
-                l= new Locale(ID_Locale, numMaxtavoli, oraApertura, oraChiusura, giornoChiusura);
+                l= new GestoreLocale(ID_Locale, numMaxtavoli, oraApertura, oraChiusura, giornoChiusura);
                 locali.add(l);
             }
 
@@ -715,7 +715,7 @@ public class ConnessioneDB {// crea la connessione col database "smistamento_pos
     //Metodo che ritorna un'ArrayList di GestoreLocale
 
     public ArrayList<GestoreLocale> getLocali() {
-        Locale l=null;
+        GestoreLocale l=null;
         ArrayList <GestoreLocale> locali= new ArrayList<>();
 
         startConn();
@@ -736,9 +736,9 @@ public class ConnessioneDB {// crea la connessione col database "smistamento_pos
                 String oraChiusura= rs.getString(4);
                 String giornoChiusura= rs.getString(5);
 
-                l= new Locale(ID_Locale, numMaxtavoli, oraApertura, oraChiusura, giornoChiusura);
+                l= new GestoreLocale(ID_Locale, numMaxtavoli, oraApertura, oraChiusura, giornoChiusura);
 
-                locali.add( l.gestisciLocale());
+                locali.add(l);
             }
 
         } catch (SQLException e) {
@@ -1453,7 +1453,7 @@ public class ConnessioneDB {// crea la connessione col database "smistamento_pos
                     String date=rs.getString(2);
                     String tavOcc=rs.getString(3);
 
-                    Locale l=getLocale(ID_Locale);
+                    //GestoreLocale l=getLocale(ID_Locale);
                     GregorianCalendar gregData=new GregorianCalendar();//Integer.parseInt(campiData[2]),Integer.parseInt(campiData[1]),Integer.parseInt(campiData[0])
 
                     if(tavOcc!=null){

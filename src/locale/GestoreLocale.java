@@ -17,37 +17,44 @@ import java.util.*;
 
 public class GestoreLocale {
 
-    static int numLoc = 0;
     public ArrayList<Evento> eventi_locale;
     public String id_locale;
     private int numMaxTavoli;
     private int numMaxPosti;
     private GregorianCalendar oraApertura, oraChiusura, giornodichiusura;
-    Calendar calendar;
     private ArrayList<Tavolo> tavoli;
     private ArrayList<Tavolo> tavoliUtilizzati = new ArrayList<>();
-    private ArrayList<Invitato> lista_gia_presenti = new ArrayList<>();
-
     private Map<String,ArrayList<Tavolo>> agenda;
+    private boolean agendaCharged;
 
 
-    // cambiato il tipo di dato giorno chiusura da String a Gregoria calendar , molto più facile da gestire
-    // aggiunta inoltre del passaggio dei tavoli tramite parametro
 
-    /*
-    aggiunta di un costruttore GestoreLocale in più in cui si passa solo il numero massimo di tavoli che vieni istanziato
-    nel locale, novità: tutti i locali hanno come giorno di chiusura il lunedì di default
-    @author Gabrielesavella
-     */
+
     public GestoreLocale(String id_locale, int numMaxTavoli, GregorianCalendar oraApertura, GregorianCalendar oraChiusura, GregorianCalendar giornodichiusura) {
         this.giornodichiusura=giornodichiusura;
         this.id_locale=id_locale;
         this.numMaxTavoli=numMaxTavoli;
-        this.tavoli = new ArrayList<Tavolo>();
+        this.tavoli = Facade.getInstance().getTavoli(id_locale);
         this.oraApertura=oraApertura;
         this.oraChiusura=oraChiusura;
         eventi_locale = new ArrayList<>();
+        //this.agenda = new HashMap<>();
     }
+    //per il db
+    public GestoreLocale(String ID_Loc, int numMaxTavoli, String orarioApertura, String orarioChiusura, String giornoChiusura){
+
+        this.id_locale=ID_Loc;
+        this.numMaxTavoli=numMaxTavoli;
+        this.oraApertura=ricavaOrario(orarioApertura);
+        this.oraChiusura=ricavaOrario(orarioChiusura);
+        this.giornodichiusura=ricavaGiorno(giornoChiusura);
+        this.tavoli = Facade.getInstance().getTavoli(id_locale);
+        eventi_locale = new ArrayList<>();
+        this.agenda=new HashMap<>();
+        this.agenda=Facade.getInstance().getAgenda(ID_Loc);
+        agendaCharged=false;
+    }
+
 
     public void aggiungiEventi(ArrayList<Evento> eventiLoc){
         for (Evento e : eventiLoc){
@@ -294,7 +301,6 @@ public class GestoreLocale {
     }
 
     private void aggiornaTavoliInData(ArrayList<Tavolo> tavoliInAgenda) {
-//        ArrayList<Tavolo> tavoliConfronto= new ArrayList<>();
 
         if (!(tavoliInAgenda==null || tavoliInAgenda.size()==0)){
             for (Tavolo t:tavoliInAgenda) {
@@ -307,26 +313,48 @@ public class GestoreLocale {
             }
         }
 
-//        ArrayList<Tavolo> tavoliDb=Facade.getInstance().getTavoli(id_locale);
-//        if(tavoliInAgenda!=null && tavoliDb!=null && tavoliDb.size()!=0)
-//            for (Tavolo t:tavoliInAgenda) {
-//                if(t!=null)
-//                    for (int i = 0; i < tavoliDb.size() ; i++) {
-//                        if(tavoliDb.get(i).getIDTavolo().equals(t.getIDTavolo())) {
-//                            tavoliDb.remove(i);
-//                            break;
-//                        }
-//                    }
-//            }
+    }
 
-        //        for (Tavolo tDb:tavoliDb) {
-//            for (Tavolo tVecchio:tavoli) {
-//                if (tVecchio.getIDTavolo().equals(tDb.getIDTavolo())){
-//                    tavoliConfronto.add(tVecchio);
-//                }
-//            }
-//        }
-//        tavoli=tavoliDb;
+    public GregorianCalendar ricavaOrario(String orario){
+
+        GregorianCalendar time = new GregorianCalendar();
+
+        String[] st = orario.split(":");
+
+        if (!(st[0]==null)){
+            time.add(GregorianCalendar.HOUR, Integer.parseInt(st[0]));
+        }
+
+        if(!(st[1]==null)){
+            time.add(GregorianCalendar.MINUTE, Integer.parseInt(st[1]));
+        }
+
+        return time;
+    }
+
+    public GregorianCalendar ricavaGiorno(String giorno) {
+
+        GregorianCalendar day = new GregorianCalendar();
+
+        switch (giorno){
+
+            case "Lunedì":
+                day.add(GregorianCalendar.MONDAY, Calendar.WEEK_OF_YEAR);
+            case "Martedì":
+                day.add(GregorianCalendar.TUESDAY, Calendar.WEEK_OF_YEAR);
+            case "Mercoledì":
+                day.add(GregorianCalendar.WEDNESDAY, Calendar.WEEK_OF_YEAR);
+            case "Giovedì":
+                day.add(GregorianCalendar.THURSDAY, Calendar.WEEK_OF_YEAR);
+            case "Venerdì":
+                day.add(GregorianCalendar.FRIDAY, Calendar.WEEK_OF_YEAR);
+            case "Sabato":
+                day.add(GregorianCalendar.SATURDAY, Calendar.WEEK_OF_YEAR);
+            case "Domenica":
+                day.add(GregorianCalendar.SUNDAY, Calendar.WEEK_OF_YEAR);
+        }
+
+        return day;
     }
 
 }
