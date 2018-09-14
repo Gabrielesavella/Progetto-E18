@@ -12,7 +12,7 @@ import java.util.ArrayList;
  *
  * @author Salvatore Parisi
  */
-public class SpecificaTavolo implements Vincolo {
+public class SpecificaTavolo  {
 
     private String ID_Evento, ID_Inv;
     int tavoloOnore, difficoltaMotorie, vegetariano, vicinoTV, bambini, tavoloIsolato;

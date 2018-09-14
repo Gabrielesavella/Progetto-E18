@@ -47,9 +47,9 @@ public class TesterLocale {
         daMimmo.aggiungiTavoli(listaTavoli);
         bellaNapoli.aggiungiTavoli(listaTavoli);
 
-        GestoreEvento e = new GestoreEvento("Matrimonio", orarioEvento,  bellaNapoli, 40);
+        Evento e = new Evento("Matrimonio", orarioEvento,  bellaNapoli, 40);
 
-        GestoreEvento k = new GestoreEvento("Battesimo", orarioEvento, bellaNapoli, 50);
+        Evento k = new Evento("Battesimo", orarioEvento, bellaNapoli, 50);
 
 
         System.out.println(bellaNapoli.stampaNomeEventi());

@@ -4,13 +4,12 @@ import locale.*;
 import locale.GestoreLocale;
 import org.junit.*;
 import persone.*;
-import vincoli.*;
 
 import java.util.*;
 
 
 public class PrenotazionePostiTest {
-    private GestoreEvento e;
+    private Evento e;
     private ArrayList<Tavolo> Tavoli = new ArrayList<Tavolo>();
 
     @Before
@@ -47,7 +46,7 @@ public class PrenotazionePostiTest {
         // GestoreLocale daMimmo = new GestoreLocale("da Giulio",20,listaTavoli,orarioapertura, chiusura);
         GestoreLocale bellaNapoli = new GestoreLocale("bellaNapoli", 30, orarioapertura, chiusura, giornoChiusura);
         bellaNapoli.aggiungiTavoli(Tavoli);
-        e = new GestoreEvento("Matrimonio", orarioEvento,  bellaNapoli, 50);
+        e = new Evento("Matrimonio", orarioEvento,  bellaNapoli, 50);
         bellaNapoli.getEventi().add(e);
     }
     @Before

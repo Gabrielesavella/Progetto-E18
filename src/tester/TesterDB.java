@@ -7,15 +7,12 @@ package tester;
 import database.ConnessioneDB;
 import database.DatabaseException;
 import database.DatabaseNullException;
-import locale.Evento;
-import locale.Locale;
-import locale.Tavolo;
+import locale.*;
 import persone.Cliente;
 import persone.Invitato;
 import vincoli.PreferenzaInvitato;
 import vincoli.SpecificaTavolo;
 
-import java.sql.Date;
 import java.util.Scanner;
 
 

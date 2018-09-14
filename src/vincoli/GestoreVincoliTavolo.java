@@ -7,16 +7,10 @@ package vincoli;
 
 //import database.ConnessioneDB;
 import database.ConnessioneDB;
-import database.DatabaseException;
-import database.DatabaseNullException;
-import facade.Facade;
+import locale.*;
 import locale.Evento;
-import locale.GestoreEvento;
-import locale.GestoreLocale;
-import locale.Tavolo;
 import persone.Invitato;
 
-import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -31,7 +25,7 @@ public class GestoreVincoliTavolo {
     private ArrayList<Tavolo> tavoliDisponibili;
     private ConnessioneDB c;
     private Evento ev;
-    private GestoreEvento gestEv;
+    private Evento gestEv;
 
 
 
@@ -42,7 +36,6 @@ public class GestoreVincoliTavolo {
         this.vincoliTav = c.getVincoloTavolo(ID_Ev);
         this.invitati = c.getInvitato(ID_Ev);
         ev=c.getEventoSingolo(ID_Ev);
-        gestEv=ev.gestisciEvento();
         this.tavoli= gestLoc.getTavoliLocale();
         c.closeConn();
 

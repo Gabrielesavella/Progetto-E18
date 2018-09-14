@@ -10,12 +10,9 @@ import locale.GestoreLocale;
 import persone.*;
 import vincoli.*;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.io.File;
-import java.io.IOException;
 
 /**
  *
@@ -24,7 +21,7 @@ import java.io.IOException;
 
 public class PannelloSpecificheEvento extends PaintedPanel {
 
-    public PannelloSpecificheEvento(GestoreLocale gestoreLocale, GestoreEvento gestoreEvento, FinestraSpecificheEvento frame){
+    public PannelloSpecificheEvento(GestoreLocale gestoreLocale, Evento gestoreEvento, FinestraSpecificheEvento frame){
         super("images/notebook-pen-table-97076.jpg",frame);
 
         // etichette specifiche

@@ -1,6 +1,5 @@
 package vincoli;
 
-import database.ConnessioneDB;
 import facade.*;
 import locale.*;
 import persone.Invitato;
@@ -138,6 +137,7 @@ public class CreatePreferenza {
 
         generaListeVincolatiLontani();
         for (PreferenzaInvitato prefe : pref){
+            prefe.getTavoli().addAll(tavoliVincolati);
             prefe.verifica_sistemaLontani();
         }
         tavoliTot.addAll(tavoli);
@@ -326,7 +326,7 @@ public class CreatePreferenza {
         return tavol;
     }
 
-    public void smistaRestanti(GestoreLocale myLocale,GestoreEvento ev){
+    public void smistaRestanti(GestoreLocale myLocale, Evento ev){
         myLocale.setTavoli(sortaTavoli());
         myLocale.smistamentoTavoli(ev);
     }

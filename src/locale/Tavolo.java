@@ -20,21 +20,7 @@ public class Tavolo implements Comparable{
     private ArrayList<Invitato> AssegnamentiTavolo;
     private int postiTot;
 
-    /*
-    Nel costruttore 1, il tavolo ha un numero fisso di posti .
-    Nel costruttore 2, il tavolo ha un numero di posti deciso da programma
-    ( in modo da rendere più flessibile il programma )
-    @author Salvatore Parisi
-     */
-    public Tavolo(String id_tavolo){
-        assegnamenti = 0;
-        disponibile = true;
-        this.id_tavolo = id_tavolo;
-        id_tavoloReale=id_tavolo;
-        num_posti = 6;
-        AssegnamentiTavolo = new ArrayList<Invitato>(num_posti);
-        postiTot=num_posti;
-    }
+
 
     public Tavolo (String ID_Locale, String id_tavolo, int num_posti){
         assegnamenti = 0;

@@ -1,21 +1,17 @@
 package gui.panels;
 
 import gui.controller.SistemaDiPrenotazione;
-import gui.finestre.FinestraDisposizioneTavoli;
 import gui.finestre.FinestraLogin;
 import gui.finestre.FinestraSpecificheEvento;
 import locale.*;
 import persone.*;
 import vincoli.*;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 
 
@@ -27,7 +23,7 @@ import java.util.ArrayList;
 public class PannelloDisposizioneTavoli extends PaintedPanel {
 
 
-    public PannelloDisposizioneTavoli(GestoreLocale gestoreLocale, GestoreEvento gestoreEvento, GestoreVincoliTavolo gestoreVincoliTavolo, JFrame frame, SistemaDiPrenotazione sisPr){
+    public PannelloDisposizioneTavoli(GestoreLocale gestoreLocale, Evento gestoreEvento, GestoreVincoliTavolo gestoreVincoliTavolo, JFrame frame, SistemaDiPrenotazione sisPr){
         super("images/celebration-dining-drink-696214.jpg",frame);
 
         JScrollPane  pAllGuests;
@@ -133,9 +129,6 @@ public class PannelloDisposizioneTavoli extends PaintedPanel {
             stampaDisposizione.append(t.showInvitati()+"\n");
         }
 
-//        for (String spTav:createPreferenza.getPreferenze_non_rispettate()) {
-//            stampaVincoliNnRisp.append(spTav+"\n\n");
-//        }
 
         for (String pref:createPreferenza.getPreferenze_non_rispettate()) {
             stampaVincoliNnRisp.append(pref+"\n\n");
@@ -145,7 +138,8 @@ public class PannelloDisposizioneTavoli extends PaintedPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 frame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-                sisPr.reinizializzaDb(gestoreEvento.getName());
+                sisPr.reinizializzaDb(gestoreEvento);
+                gestoreEvento.clear();
                 FinestraSpecificheEvento fs= new FinestraSpecificheEvento(gestoreLocale, gestoreEvento);//fetchEvento
                 fs.setVisible(true);
                 frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
