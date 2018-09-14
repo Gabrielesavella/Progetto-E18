@@ -61,15 +61,10 @@ public class Locale {
         else{
             tavoliTotali=Facade.getInstance().getTavoli(ID_Loc);
         }
-        scartaTavOccupati();
         ricavaLocale().getTavoliLocale().addAll(tavoliTotali);
     }
 
-    private void scartaTavOccupati() {
-        for(int i=0;i<tavoliTotali.size();i++){
 
-        }
-    }
 
     public void aggiungiEventi(){
         ricavaLocale().getEventi().addAll(creaListaGestoreEventi());
