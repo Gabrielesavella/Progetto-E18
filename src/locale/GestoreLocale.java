@@ -28,7 +28,7 @@ public class GestoreLocale {
     private GestoreLocale locale;
     private ConnessioneDB c=new ConnessioneDB();
     private ArrayList<Tavolo> tavoliTotali;
-    private ArrayList<GestoreEvento> gestoreEventiTotali;
+    private ArrayList<Evento> gestoreEventiTotali;
     private ArrayList<Evento> eventiTotali;
 
     //aggiunte Lecce
@@ -37,7 +37,7 @@ public class GestoreLocale {
     //
 
     static int numLoc = 0;
-    public ArrayList<GestoreEvento> eventi_locale;
+    public ArrayList<Evento> eventi_locale;
     public String id_locale;
     private int numMaxTavoli;
     private int numMaxPosti;
@@ -63,9 +63,9 @@ public class GestoreLocale {
         this.giornodichiusura=giornodichiusura;
         this.oraApertura=oraApertura;
         this.oraChiusura=oraChiusura;
-        this.orarioApertura=orarioApertura;
-        this.orarioChiusura=orarioChiusura;
-        this.giornoChiusura=giornoChiusura;
+        this.orarioApertura=getStringDate(oraApertura);
+        this.orarioChiusura=getStringDate(oraChiusura);
+        this.giornoChiusura=getStringDate(giornodichiusura);
         eventi_locale = new ArrayList<>();
     }
 
@@ -104,15 +104,15 @@ public class GestoreLocale {
         return stringData;
     }
 
-    public void aggiungiEventi(ArrayList<GestoreEvento> eventiLoc){
-        for (GestoreEvento e : eventiLoc){
+    public void aggiungiEventi(ArrayList<Evento> eventiLoc){
+        for (Evento e : eventiLoc){
             if(e.getLocation().getId_locale().equals(id_locale)){
                 eventi_locale.add(e);
             }
         }
     }
 
-    public void aggiungiEvento(GestoreEvento nuovoevento){
+    public void aggiungiEvento(Evento nuovoevento){
         if(nuovoevento.getLocation().getId_locale().equals(id_locale))
             eventi_locale.add(nuovoevento);
     }
@@ -125,12 +125,12 @@ public class GestoreLocale {
     }
 
     /*Smista tutti invitati ad un particolare evento nei tavoli. Fatto ciò, restituisce un arraylist di tutti i tavoli utilizzati*/
-    public ArrayList<Tavolo> smistamentoTavoli(GestoreEvento e){
+    public ArrayList<Tavolo> smistamentoTavoli(Evento e){
         rimuoviGiaPresenti(e);
         int count = 0;
         ArrayList<Invitato>listainvitati;
-        GestoreEvento gEvDiLocale=null;
-        for (GestoreEvento ev : eventi_locale)
+        Evento gEvDiLocale=null;
+        for (Evento ev : eventi_locale)
             if (ev.equals(e)) {
                 gEvDiLocale=ev;
             }
@@ -138,7 +138,7 @@ public class GestoreLocale {
                 if (t.getArraylistInvitati().size()!=0)
                     tavoliUtilizzati.add(t);
         }
-        for (GestoreEvento ev : eventi_locale)
+        for (Evento ev : eventi_locale)
             if (ev.equals(e)) {
                 listainvitati = ev.getListaInvitati();
                 if(listainvitati.size()!=0) {
@@ -197,7 +197,7 @@ public class GestoreLocale {
 
 
     //Rimuove dagli invitati da smistare, le persone che sono già sedute al tavolo.
-    public void rimuoviGiaPresenti(GestoreEvento e){
+    public void rimuoviGiaPresenti(Evento e){
         for (Tavolo t : tavoli){
             for (Invitato i:t.getArraylistInvitati()) {
                 e.removeInvitati(i);
@@ -262,11 +262,11 @@ public class GestoreLocale {
 
     }
 
-    public ArrayList<GestoreEvento> getEventi(){ return eventi_locale; }
+    public ArrayList<Evento> getEventi(){ return eventi_locale; }
 
     public String stampaNomeEventi(){
         String a="";
-        for (GestoreEvento e : eventi_locale){
+        for (Evento e : eventi_locale){
             a += e.getName() + "\n";
         }
         return a;
@@ -399,7 +399,7 @@ public class GestoreLocale {
         ricavaLocale().getEventi().addAll(creaListaGestoreEventi());
     }
 
-    public ArrayList<GestoreEvento> creaListaGestoreEventi(){
+    public ArrayList<Evento> creaListaGestoreEventi(){
 
         if(!c.checkConn()) {
 
@@ -412,9 +412,9 @@ public class GestoreLocale {
             eventiTotali = c.getEvento(ID_Loc);
         }
 
-        ArrayList<GestoreEvento> ge= new ArrayList<>();
+        ArrayList<Evento> ge= new ArrayList<>();
         for (Evento e: eventiTotali){
-            ge.add(e.gestisciEvento());
+            ge.add(e);//.gestisciEvento()
         }
 
         return ge;

@@ -67,7 +67,7 @@ public class TesterDB {
 
         System.out.println("\n Inserire l'ID_Locale relativo al locale che si vuole cercare");
         String loc= (sc.next());
-        Locale l=connetto.getLocale (loc);
+        GestoreLocale l=connetto.getLocale (loc);
         System.out.println("\n Numero di posti: " + l.getNumInv() + "  Numero di tavoli: " + connetto.getNumeroTavoli(loc) + "  Giorno di Chiusura: " + l.getGiornoChiusura() + "  Orario di Apertura: " + l.getOrarioApertura() + "  Orario di Chiusura': " + l.getOrarioChiusura());
 
         System.out.println("\n Inserire l'ID_Tavolo relativo al tavolo che si vuole cercare");

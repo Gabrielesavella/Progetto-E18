@@ -302,14 +302,6 @@ public class GestoreVincoliTavolo {
                 }
             }
             tavoliDisponibili.removeAll(tavoliVincolati);
-//
-//            //creo stringa tavoli da salvare in agenda e cambio nomi
-//            String stringTavVinc=new String("");
-//            for (int i = 0; i < tavoliVincolati.size(); i++){
-//                Tavolo t= tavoliVincolati.get(i);
-//                stringTavVinc+=t.getRealID_Tav()+" ";
-//            }
-//            stringTavVinc=stringTavVinc.substring(0,stringTavVinc.length()-1);
 
         }
 
