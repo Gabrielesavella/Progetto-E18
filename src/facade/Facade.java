@@ -178,4 +178,8 @@ public class Facade {
         connessioneDB.deleteEntry("invitati","ID_Evento",evento.getName());
     }
 
+    public void deleteEvento(String nameEvent){
+        connessioneDB.deleteEntry("eventi","ID_Evento",nameEvent);
+    }
+
 }
