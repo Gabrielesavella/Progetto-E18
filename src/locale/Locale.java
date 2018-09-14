@@ -12,7 +12,7 @@ public class Locale {
     private GestoreLocale locale;
     private ConnessioneDB c=new ConnessioneDB();
     private ArrayList<Tavolo> tavoliTotali;
-    private ArrayList<GestoreEvento> gestoreEventiTotali;
+    private ArrayList<Evento> gestoreEventiTotali;
     private ArrayList<Evento> eventiTotali;
     //aggiunte Lecce
     private Map<String,ArrayList<Tavolo>> agenda;
@@ -35,7 +35,7 @@ public class Locale {
     public GestoreLocale ricavaLocale() {
 
         if(!agendaCharged){
-            locale= new GestoreLocale(ID_Loc, numInv, ricavaOrario(orarioApertura), ricavaOrario(orarioChiusura), ricavaGiorno(giornoChiusura));
+            locale = new GestoreLocale(ID_Loc, numInv, ricavaOrario(orarioApertura), ricavaOrario(orarioChiusura), ricavaGiorno(giornoChiusura));
             this.agenda= Facade.getInstance().getAgenda(ID_Loc);
             locale.setAgenda(this.agenda);
             agendaCharged=true;
@@ -75,7 +75,7 @@ public class Locale {
         ricavaLocale().getEventi().addAll(creaListaGestoreEventi());
     }
 
-    public ArrayList<GestoreEvento> creaListaGestoreEventi(){
+    public ArrayList<Evento> creaListaGestoreEventi(){
 
         if(!c.checkConn()) {
 
@@ -88,12 +88,8 @@ public class Locale {
             eventiTotali = c.getEvento(ID_Loc);
         }
 
-        ArrayList<GestoreEvento> ge= new ArrayList<>();
-        for (Evento e: eventiTotali){
-            ge.add(e.gestisciEvento());
-        }
 
-        return ge;
+        return eventiTotali;
     }
 
 

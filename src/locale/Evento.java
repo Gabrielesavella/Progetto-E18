@@ -1,50 +1,49 @@
+
 package locale;
 
-import database.ConnessioneDB;
-import facade.Facade;
-import locale.Locale;
+import facade.*;
 import persone.Invitato;
-import sun.util.calendar.Gregorian;
-import vincoli.Vincolo;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.text.*;
 import java.util.*;
 
 
 public class Evento {
 
     private String nomeEvento;
-    private Locale location;
+
+    private GestoreLocale location = null;
     private ArrayList <Invitato> invitati;
-    private ArrayList <Vincolo> lista_vincoli;
-    private ArrayList<GestoreLocale> locali;
-    private String dataEvento;
+    private GregorianCalendar dataEvento;
+    private String stringData;
     private int numInvitati;
-    GregorianCalendar dataEventoCalendario;
-
-    private Date dataEv;
-    private String nomeLocale;
 
 
 
-    /*nell'uml manca la data dell'evento ( l'aggiungo al costruttore )]*/
 
 
+    public Evento(String nomeEvento, GregorianCalendar dataEvento, GestoreLocale location, int numInvitati){
+
+        /*Crea un Evento caratterizzato da un nome, una data e un GestoreLocale.*/
+
+
+        this.nomeEvento = nomeEvento;
+        this.location = location;
+        this.dataEvento = dataEvento;
+        this.invitati = new ArrayList(numInvitati);
+        this.numInvitati=numInvitati;
+
+    }
     public Evento(String nomeEvento, String dataEvento, String nomeLocale, int numInvitati){
 
         /*Crea un Evento caratterizzato da un nome, una data e un Locale. Al suo interno verranno successivamente inseriti
         una lista di Invitati e di Vincoli*/
 
         this.nomeEvento = nomeEvento;
-        this.nomeLocale=nomeLocale;
+        this.location = prendiLocale(nomeLocale);
         this.numInvitati=numInvitati;
-        this.dataEvento = dataEvento;
-        this.dataEventoCalendario=ricavaData(dataEvento);
+        this.dataEvento=ricavaData(dataEvento);
     }
-
-
-
     public static GregorianCalendar ricavaData(String data){
 
         GregorianCalendar dataEventoCalendario = new GregorianCalendar();
@@ -75,18 +74,9 @@ public class Evento {
 
         return dataEventoCalendario;
     }
-
-    public String getName(){return nomeEvento;}
-
-    public String getNomeLocale(){return nomeLocale;}
-
-    public Locale getLocation(){ return location;}
-
-    public int getNumInvitati(){return numInvitati;}
-
     public GestoreLocale prendiLocale(String nomeLoc) {//Locale
         GestoreLocale loca=null;
-        locali= Facade.getInstance().getLocali();
+        ArrayList<GestoreLocale> locali= Facade.getInstance().getLocali();
         for (GestoreLocale l : locali) {
             if (nomeLoc == l.getId_locale()) {
                 loca = l;
@@ -95,29 +85,75 @@ public class Evento {
         return loca;
     }
 
+    public String getName(){return nomeEvento;}
+
+
+
+
+    private String createStringData() {
+        SimpleDateFormat format= new SimpleDateFormat("dd/MM/yyyy");
+        format.setCalendar(dataEvento);
+        String dataFormatted=format.format(dataEvento.getTime());
+
+        return dataFormatted;
+    }
+
+
+    public GestoreLocale getLocation(){ return location;}
+
+
+    public void addInvitati(Invitato invitato){
+        invitati.add(invitato);
+    }
+
+    public void removeInvitati(Invitato invitato){
+        if (invitato!=null && invitati!=null && invitati.size()!=0){
+            for (int i = 0;i<invitati.size();i++) {
+                if(invitati.get(i)!=null && invitati.get(i).getID_Inv()!=null && invitati.get(i).getID_Inv().equals(invitato.getID_Inv())) {
+                    invitati.remove(i);
+                    i--;
+                }
+            }
+        }
+    }
+
+
+
+
+
+    public int getNumInvitati(){return numInvitati;}
+
+    public GregorianCalendar getDataEvento(){
+        return dataEvento;
+    }
+
+
+    public ArrayList<Invitato> getListaInvitati(){return invitati;}
+
+    public void showListaInvitati(){
+        for (Invitato singleGuest:invitati) {
+            System.out.println(singleGuest.toString());
+
+        }
+    }
+
+    public String getStringData(){
+        stringData=createStringData();
+        return stringData; }
+
+    public void setDataEvento(GregorianCalendar dataEvento) {
+        this.dataEvento = dataEvento;
+    }
     public ArrayList<Invitato> ricavaInvitati(String ID_Evento){
-        ConnessioneDB c= new ConnessioneDB();
-        c.startConn();
-        ArrayList<Invitato> invitati= c.getInvitato(ID_Evento);
-        c.closeConn();
+
+        ArrayList<Invitato> invitati= Facade.getInstance().getInvitato(ID_Evento);
         return invitati;
     }
-
-    public GestoreEvento gestisciEvento(){
-
-        GestoreEvento ge;
-        GestoreLocale gl;
-        this.dataEventoCalendario=ricavaData(dataEvento);
-//        this.location= prendiLocale(nomeLocale);
-        gl = prendiLocale(nomeLocale);
-        ge = new GestoreEvento(nomeEvento, dataEventoCalendario, gl, numInvitati);
-        ge.getListaInvitati().addAll(ricavaInvitati(nomeEvento));
-
-        return ge;
+    public String getNomeLocale(){
+        return location.getId_locale();
     }
 
-    public String getDataEvento(){ return dataEvento; }
-
-    public GregorianCalendar getDataEventoCalendario(){ return dataEventoCalendario; }
-
+    public void clear(){
+        this.invitati.clear();
+    }
 }

@@ -1,23 +1,19 @@
 package gui.panels;
 
 import database.*;
-import facade.Facade;
 import gui.controller.SistemaDiPrenotazione;
 import gui.finestre.FinestraCreazioneEvento;
 import gui.finestre.FinestraSpecificheEvento;
-import locale.GestoreEvento;
+import locale.Evento;
 import locale.GestoreLocale;
 import org.jdesktop.swingx.JXDatePicker;
 import persone.Cliente;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
-import java.io.File;
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -152,7 +148,7 @@ public class PannelloCredenzialiEvento extends PaintedPanel{
 
                             try {
                                 if (sisPr.creaEvento(tNome.getText(), calendar, Integer.parseInt(tnInv.getText()), cliente, l.getId_locale())) {
-                                    GestoreEvento gestoreEvento = new GestoreEvento(tNome.getText(), calendar, gestoreLocaleSelezionato, invitati);
+                                    Evento gestoreEvento = new Evento(tNome.getText(), calendar, gestoreLocaleSelezionato, invitati);
                                     FinestraSpecificheEvento fs = new FinestraSpecificheEvento(gestoreLocaleSelezionato, gestoreEvento);//fetchEvento
                                     fs.setVisible(true);
                                     frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));

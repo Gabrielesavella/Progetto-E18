@@ -13,14 +13,6 @@ public class Cliente {
 
     }
 
-    public Cliente(String nome, String cognome) {
-        this.nome = nome;
-        this.cognome = cognome;
-    }
-
-
-
-
     public void setUsername(String username) {
         this.username = username;
     }

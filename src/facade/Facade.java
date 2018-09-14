@@ -48,7 +48,7 @@ public class Facade {
         return txt.fetchAllGuests();
     }
 
-    public GestoreEvento fetchEvento(String nomeEvento) throws IOException {
+    public Evento fetchEvento(String nomeEvento) throws IOException {
         return txt.fetchEvento(nomeEvento);
     }
 
@@ -64,8 +64,8 @@ public class Facade {
         txt.WriteGuests(fiscaleCode, nameGuest, surnameGuest, age);
     }
     //metodo che memorizza un evento
-    public void WriteEvent(String nameEvent, GregorianCalendar dateEvent,int guestNumber)throws IOException{
-        txt.WriteEvent(nameEvent, dateEvent, guestNumber);
+    public void WriteEvent(String nameEvent, GregorianCalendar dateEvent,String nomeLocale,int guestNumber)throws IOException{
+        txt.WriteEvent(nameEvent, dateEvent,nomeLocale, guestNumber);
     }
 
     public void setNumberofObject(int numberofObject) {
@@ -133,9 +133,12 @@ public class Facade {
 
 
     //metodo da richiamare nel caso l'utente voglia ricompilare i campi perchè ha immesso vincoli incongruenti
-    public void removeVincoli(String nameEvent){
-        connessioneDB.deleteEntry("preferenza_invitato","ID_Evento",nameEvent);
-        connessioneDB.deleteEntry("specifica_tavolo","ID_Evento",nameEvent);
+    public void removeVincoli(Evento evento){
+        connessioneDB.deleteEntry("preferenza_invitato","ID_Evento",evento.getName());
+        connessioneDB.deleteEntry("specifica_tavolo","ID_Evento",evento.getName());
+        System.err.println("controllo data:");
+        System.out.println(evento.getStringData());
+        connessioneDB.deleteDoubleKeyEntry("agenda","ID_locale",evento.getNomeLocale(),"data",evento.getStringData());
     }
 
     public ArrayList<PreferenzaInvitato> getVincoloInvitato(String ID_Ev) {
@@ -170,9 +173,9 @@ public class Facade {
         return connessioneDB.getAgendaLocale(id_loc);
     }
 
-    public void reinizializzaDb(String nomeEvento) {
-        removeVincoli(nomeEvento);
-        connessioneDB.deleteEntry("invitati","ID_Evento",nomeEvento);
+    public void reinizializzaDb(Evento evento) {
+        removeVincoli(evento);
+        connessioneDB.deleteEntry("invitati","ID_Evento",evento.getName());
     }
 
 }

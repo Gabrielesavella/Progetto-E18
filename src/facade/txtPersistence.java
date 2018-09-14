@@ -62,13 +62,14 @@ public class txtPersistence {
     //scrive un evento su txt
 
 
-    public void WriteEvent(String nameEvent, GregorianCalendar dateEvent, int guestNumber) throws IOException {
+    public void WriteEvent(String nameEvent, GregorianCalendar dateEvent,String nomeLocale, int guestNumber) throws IOException {
         txtFileW = new FileWriter(pathEvents, true);
         boolean exist = check(pathEvents, nameEvent);
         if (!exist) {
             bufferWriter = new BufferedWriter(txtFileW);
             field.add(nameEvent);
             field.add(Integer.toString(dateEvent.get(5))+"/"+(Integer.toString(dateEvent.get(2)))+"/"+Integer.toString(dateEvent.get(1)));
+            field.add(nomeLocale);
             field.add(Integer.toString(guestNumber));
             generate();
         }
@@ -123,10 +124,10 @@ public class txtPersistence {
 
     //fetchEvento: legge riga per riga e spezza le righe nei campi che vengono passati al metodo fetch
 
-    public GestoreEvento fetchEvento(String nomeEvento) throws IOException {
+    public Evento fetchEvento(String nomeEvento) throws IOException {
         String line;
         String[] colonna;
-        GestoreEvento gestoreEvento= null;
+        Evento gestoreEvento= null;
         FileWriter writing = new FileWriter(pathEvents, true);
         writing.close();
         BufferedReader reader = new BufferedReader(new FileReader(pathEvents));
@@ -140,12 +141,12 @@ public class txtPersistence {
 
     //questo metodo crea il relativo oggetto da restituire ( se corrisponde a quello voluto)
 
-    public GestoreEvento fetch(String nomeEvento, String[] colonna) throws IOException {
-        GestoreEvento gestoreEvento= null;
+    public Evento fetch(String nomeEvento, String[] colonna) throws IOException {
+        Evento gestoreEvento= null;
         if (colonna[0].equals(nomeEvento)) {
-            GregorianCalendar orarioapertura = new GregorianCalendar();
-            orarioapertura.add(GregorianCalendar.HOUR, Integer.parseInt(colonna[1]));
-            gestoreEvento = new GestoreEvento(colonna[0], orarioapertura, Integer.parseInt(colonna[2]));
+           // GregorianCalendar orarioapertura = new GregorianCalendar();
+           // orarioapertura.add(GregorianCalendar.HOUR, Integer.parseInt(colonna[1]));
+            gestoreEvento = new Evento(colonna[0], colonna[1],colonna[2],Integer.parseInt(colonna[3]));
             return gestoreEvento;
 
         } else return gestoreEvento;
@@ -199,7 +200,7 @@ public class txtPersistence {
         } else return invitato;
     }
 
-    //controllo che l'oggetto (un oggetto tra cui invitato,GestoreEvento,Cliente..) non sia già memorizzato nel file
+    //controllo che l'oggetto (un oggetto tra cui invitato,Evento,Cliente..) non sia già memorizzato nel file
 
     public boolean check(String path, String key) throws IOException {
         boolean esito = false;

@@ -2,8 +2,6 @@ package facade;
 
 import database.*;
 import locale.Evento;
-import locale.GestoreEvento;
-import org.apache.poi.*;
 import org.apache.poi.hssf.usermodel.*;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.ss.usermodel.Font;

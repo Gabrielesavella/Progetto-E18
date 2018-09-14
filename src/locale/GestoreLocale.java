@@ -5,7 +5,6 @@ import database.DatabaseNullException;
 import facade.Facade;
 import persone.*;
 
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 /*
@@ -19,7 +18,7 @@ import java.util.*;
 public class GestoreLocale {
 
     static int numLoc = 0;
-    public ArrayList<GestoreEvento> eventi_locale;
+    public ArrayList<Evento> eventi_locale;
     public String id_locale;
     private int numMaxTavoli;
     private int numMaxPosti;
@@ -50,15 +49,15 @@ public class GestoreLocale {
         eventi_locale = new ArrayList<>();
     }
 
-    public void aggiungiEventi(ArrayList<GestoreEvento> eventiLoc){
-        for (GestoreEvento e : eventiLoc){
+    public void aggiungiEventi(ArrayList<Evento> eventiLoc){
+        for (Evento e : eventiLoc){
             if(e.getLocation().getId_locale().equals(id_locale)){
                 eventi_locale.add(e);
             }
         }
     }
 
-    public void aggiungiEvento(GestoreEvento nuovoevento){
+    public void aggiungiEvento(Evento nuovoevento){
         if(nuovoevento.getLocation().getId_locale().equals(id_locale))
             eventi_locale.add(nuovoevento);
     }
@@ -71,23 +70,20 @@ public class GestoreLocale {
     }
 
     /*Smista tutti invitati ad un particolare evento nei tavoli. Fatto ciò, restituisce un arraylist di tutti i tavoli utilizzati*/
-    public ArrayList<Tavolo> smistamentoTavoli(GestoreEvento e){
+    public ArrayList<Tavolo> smistamentoTavoli(Evento e){
         rimuoviGiaPresenti(e);
         int count = 0;
         ArrayList<Invitato>listainvitati;
-        GestoreEvento gEvDiLocale=null;
-        for (GestoreEvento ev : eventi_locale)
+        Evento gEvDiLocale=null;
+        for (Evento ev : eventi_locale)
             if (ev.equals(e)) {
                 gEvDiLocale=ev;
             }
         for (Tavolo t:tavoli) {
-//            if(gEvDiLocale.getListaInvitati().size()==0)
                 if (t.getArraylistInvitati().size()!=0)
-//                    t.setDisponibile(false);
-////            if(!t.getDisponibile())
                     tavoliUtilizzati.add(t);
         }
-        for (GestoreEvento ev : eventi_locale)
+        for (Evento ev : eventi_locale)
             if (ev.equals(e)) {
                 listainvitati = ev.getListaInvitati();
                 if(listainvitati.size()!=0) {
@@ -105,20 +101,6 @@ public class GestoreLocale {
                             break;
                     }
                 }
-//                else {
-//                    for (Tavolo t:tavoli) {
-//                        boolean isPresent= false;
-//                        if (t.getArraylistInvitati().size()!=0)
-//                            for (Tavolo tUsed:tavoliUtilizzati) {
-//                                if (!tUsed.getRealID_Tav().equals(t.getRealID_Tav())){
-//                                    isPresent=true;
-//                                    break;
-//                                }
-//                            }
-//                            if (!isPresent)
-//                                tavoliUtilizzati.add(t);
-//                    }
-//                }
             }
         occupaInAgenda(tavoliUtilizzati,e.getStringData());
         return tavoliUtilizzati;
@@ -146,16 +128,6 @@ public class GestoreLocale {
             else{ stringTavoli+=" "+t.getRealID_Tav(); }
 
         }
-        //creazione stringa data
-//        stringData+=String.valueOf(dataEvento.get(GregorianCalendar.DAY_OF_MONTH))+" ";
-//        stringData+=String.valueOf(dataEvento.get(GregorianCalendar.MONTH))+" ";
-//        stringData+=String.valueOf(dataEvento.get(GregorianCalendar.YEAR));
-
-//        String stringData= new String("");
-//        SimpleDateFormat format= new SimpleDateFormat("dd/MM/yyyy");
-//        format.setCalendar(dataEvento);
-//        stringData=format.format(dataEvento.getTime());
-        //salvo in db
         try {
             Facade.getInstance().inserisciAgenda(this.id_locale,dataEvento,stringTavoli);
         } catch (DatabaseException e) {
@@ -169,7 +141,7 @@ public class GestoreLocale {
 
 
     //Rimuove dagli invitati da smistare, le persone che sono già sedute al tavolo.
-    public void rimuoviGiaPresenti(GestoreEvento e){
+    public void rimuoviGiaPresenti(Evento e){
         for (Tavolo t : tavoli){
             for (Invitato i:t.getArraylistInvitati()) {
                 e.removeInvitati(i);
@@ -234,11 +206,11 @@ public class GestoreLocale {
 
     }
 
-    public ArrayList<GestoreEvento> getEventi(){ return eventi_locale; }
+    public ArrayList<Evento> getEventi(){ return eventi_locale; }
 
     public String stampaNomeEventi(){
         String a="";
-        for (GestoreEvento e : eventi_locale){
+        for (Evento e : eventi_locale){
             a += e.getName() + "\n";
         }
         return a;

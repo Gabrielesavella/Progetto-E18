@@ -3,7 +3,6 @@ package tester;
 import locale.*;
 import locale.GestoreLocale;
 import persone.*;
-import vincoli.*;
 
 import java.util.*;
 
@@ -55,8 +54,8 @@ public class PrenotazionePosti {
         bellaNapoli.aggiungiTavoli(listaTavoli);
 
         //eventi;
-        GestoreEvento e = new GestoreEvento("Matrimonio", orarioEvento,  bellaNapoli, 22);
-        GestoreEvento k = new GestoreEvento("Battesimo", orarioEvento, bellaNapoli, 20);
+        Evento e = new Evento("Matrimonio", orarioEvento,  bellaNapoli, 22);
+        Evento k = new Evento("Battesimo", orarioEvento, bellaNapoli, 20);
 
         //invitati;
 

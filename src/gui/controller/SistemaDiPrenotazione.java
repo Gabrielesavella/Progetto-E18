@@ -4,15 +4,13 @@ package gui.controller;
 import database.DatabaseException;
 import database.DatabaseNullException;
 import facade.*;
-import locale.GestoreEvento;
+import locale.Evento;
 import persone.Cliente;
 import persone.Invitato;
 import vincoli.*;
 
 import java.io.IOException;
 import java.util.*;
-
-import database.ConnessioneDB;
 
 /**
  *
@@ -86,7 +84,7 @@ public class SistemaDiPrenotazione {
         if(Facade.getInstance().getEvento(nomeEvento)!=null)
             return false;
         try {
-            Facade.getInstance().WriteEvent(nomeEvento,data,guestNum);
+            Facade.getInstance().WriteEvent(nomeEvento,data,nomelocale,guestNum);
             Facade.getInstance().inserisciDatiEvento(cliente.getUsername(),nomeEvento,datadb,nomelocale,guestNum);
             return true;
         } catch (IOException e) {
@@ -96,8 +94,8 @@ public class SistemaDiPrenotazione {
     }
 
 
-    public GestoreEvento getEvento(String nomeEvento){
-        GestoreEvento gestoreEvento =null;
+    public Evento getEvento(String nomeEvento){
+        Evento gestoreEvento =null;
         try {
             gestoreEvento =Facade.getInstance().fetchEvento(nomeEvento);
         } catch (IOException e) {
@@ -171,8 +169,8 @@ public class SistemaDiPrenotazione {
     }
 
     //reinizializza database
-    public void reinizializzaDb(String nomeEvento){
-        Facade.getInstance().reinizializzaDb(nomeEvento);
+    public void reinizializzaDb(Evento gestoreEvento){
+        Facade.getInstance().reinizializzaDb(gestoreEvento);
     }
 
 
