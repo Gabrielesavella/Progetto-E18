@@ -24,7 +24,6 @@ import java.util.ArrayList;
 
 public class PannelloLogin extends PaintedPanel {
 
-    private Image backgroundImage;
     private boolean checkTextUsername;
     private boolean checkTextPassword;
 

@@ -33,7 +33,7 @@ public class PannelloCredenzialiEvento extends PaintedPanel{
     ArrayList <GestoreLocale> locali;
 
     public PannelloCredenzialiEvento(Cliente cliente, FinestraCreazioneEvento frame){
-        super("images/TRATTORIA-PARIONE-facciata-notturna-home51.jpg",frame);//ArrayList<GestoreLocale> locali,
+        super("images/TRATTORIA-PARIONE-facciata-notturna-home51.jpg",frame);
 
         JButton ok=new JButton("OK");
         ok.setEnabled(false);

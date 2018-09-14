@@ -21,7 +21,7 @@ import java.util.ArrayList;
 
 public class PannelloRegistrazione extends PaintedPanel {
 
-    public PannelloRegistrazione(JFrame frame){//ArrayList<GestoreLocale> locali,
+    public PannelloRegistrazione(JFrame frame){
         super("images/alcohol-banquet-beverage-306046.jpg",frame);
 
         //bottone conferma

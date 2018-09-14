@@ -1,12 +1,17 @@
 package locale;
 
+import database.ConnessioneDB;
 import database.DatabaseException;
 import database.DatabaseNullException;
 import facade.Facade;
 import persone.*;
 
+import javax.xml.crypto.Data;
 import java.text.SimpleDateFormat;
+import java.time.DayOfWeek;
+import java.time.format.TextStyle;
 import java.util.*;
+import java.util.Locale;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -17,6 +22,19 @@ import java.util.*;
 
 
 public class GestoreLocale {
+
+    private String ID_Loc, orarioApertura, orarioChiusura, giornoChiusura;
+    private int numInv;
+    private GestoreLocale locale;
+    private ConnessioneDB c=new ConnessioneDB();
+    private ArrayList<Tavolo> tavoliTotali;
+    private ArrayList<GestoreEvento> gestoreEventiTotali;
+    private ArrayList<Evento> eventiTotali;
+
+    //aggiunte Lecce
+    private Map<String,ArrayList<Tavolo>> agenda;
+    private boolean agendaCharged;
+    //
 
     static int numLoc = 0;
     public ArrayList<GestoreEvento> eventi_locale;
@@ -29,8 +47,6 @@ public class GestoreLocale {
     private ArrayList<Tavolo> tavoliUtilizzati = new ArrayList<>();
     private ArrayList<Invitato> lista_gia_presenti = new ArrayList<>();
 
-    private Map<String,ArrayList<Tavolo>> agenda;
-
 
     // cambiato il tipo di dato giorno chiusura da String a Gregoria calendar , molto più facile da gestire
     // aggiunta inoltre del passaggio dei tavoli tramite parametro
@@ -41,13 +57,51 @@ public class GestoreLocale {
     @author Gabrielesavella
      */
     public GestoreLocale(String id_locale, int numMaxTavoli, GregorianCalendar oraApertura, GregorianCalendar oraChiusura, GregorianCalendar giornodichiusura) {
-        this.giornodichiusura=giornodichiusura;
         this.id_locale=id_locale;
         this.numMaxTavoli=numMaxTavoli;
         this.tavoli = new ArrayList<Tavolo>();
+        this.giornodichiusura=giornodichiusura;
         this.oraApertura=oraApertura;
         this.oraChiusura=oraChiusura;
+        this.orarioApertura=orarioApertura;
+        this.orarioChiusura=orarioChiusura;
+        this.giornoChiusura=giornoChiusura;
         eventi_locale = new ArrayList<>();
+    }
+
+    public GestoreLocale(String ID_Loc, int numInv, String orarioApertura, String orarioChiusura, String giornoChiusura){
+
+        this.ID_Loc=ID_Loc;
+        this.numInv=numInv;
+        this.orarioApertura=orarioApertura;
+        this.orarioChiusura=orarioChiusura;
+        this.giornoChiusura=giornoChiusura;
+        this.oraApertura=ricavaOrario(orarioApertura);
+        this.oraChiusura=ricavaOrario(orarioChiusura);
+        this.giornodichiusura=ricavaGiorno(giornoChiusura);
+        //aggiunte Lecce
+        this.agenda=new HashMap<>();
+        agendaCharged=false;
+    }
+
+    public String getStringDate(GregorianCalendar tempo){
+        String stringData=null;
+        if (tempo.get(GregorianCalendar.HOUR)==oraApertura.get(GregorianCalendar.HOUR)){
+            SimpleDateFormat format=new SimpleDateFormat("HH");
+            stringData=format.format(tempo.getTime());
+        }
+        if (tempo.get(GregorianCalendar.HOUR)==oraChiusura.get(GregorianCalendar.HOUR)){
+            SimpleDateFormat format=new SimpleDateFormat("HH");
+            stringData=format.format(tempo.getTime());
+        }
+        if (tempo.get(GregorianCalendar.DAY_OF_WEEK)==giornodichiusura.get(GregorianCalendar.DAY_OF_WEEK)){
+            for (DayOfWeek day:DayOfWeek.values()) {
+                if(day.getValue()==tempo.get(GregorianCalendar.DAY_OF_WEEK))
+                    stringData=day.getDisplayName(TextStyle.SHORT, Locale.ITALIAN);
+            }
+        }
+
+        return stringData;
     }
 
     public void aggiungiEventi(ArrayList<GestoreEvento> eventiLoc){
@@ -81,10 +135,7 @@ public class GestoreLocale {
                 gEvDiLocale=ev;
             }
         for (Tavolo t:tavoli) {
-//            if(gEvDiLocale.getListaInvitati().size()==0)
                 if (t.getArraylistInvitati().size()!=0)
-//                    t.setDisponibile(false);
-////            if(!t.getDisponibile())
                     tavoliUtilizzati.add(t);
         }
         for (GestoreEvento ev : eventi_locale)
@@ -105,20 +156,6 @@ public class GestoreLocale {
                             break;
                     }
                 }
-//                else {
-//                    for (Tavolo t:tavoli) {
-//                        boolean isPresent= false;
-//                        if (t.getArraylistInvitati().size()!=0)
-//                            for (Tavolo tUsed:tavoliUtilizzati) {
-//                                if (!tUsed.getRealID_Tav().equals(t.getRealID_Tav())){
-//                                    isPresent=true;
-//                                    break;
-//                                }
-//                            }
-//                            if (!isPresent)
-//                                tavoliUtilizzati.add(t);
-//                    }
-//                }
             }
         occupaInAgenda(tavoliUtilizzati,e.getStringData());
         return tavoliUtilizzati;
@@ -136,25 +173,16 @@ public class GestoreLocale {
             agenda.put(dataEvento,tavoliOccGiorno);
         }
         //parte adibita a salvataggio in db
-        //creazione stringa tavoli
+        //creo stringa tavoli
         String stringTavoli= new String("");
         for (int i=0;i<tavoliOcc.size();i++) {
             Tavolo t=tavoliOcc.get(i);
-            if (i==0){//&& (tavoliOcc==null || tavoliOcc.equals(""))
+            if (i==0){
                 stringTavoli+=t.getRealID_Tav();
             }
             else{ stringTavoli+=" "+t.getRealID_Tav(); }
 
         }
-        //creazione stringa data
-//        stringData+=String.valueOf(dataEvento.get(GregorianCalendar.DAY_OF_MONTH))+" ";
-//        stringData+=String.valueOf(dataEvento.get(GregorianCalendar.MONTH))+" ";
-//        stringData+=String.valueOf(dataEvento.get(GregorianCalendar.YEAR));
-
-//        String stringData= new String("");
-//        SimpleDateFormat format= new SimpleDateFormat("dd/MM/yyyy");
-//        format.setCalendar(dataEvento);
-//        stringData=format.format(dataEvento.getTime());
         //salvo in db
         try {
             Facade.getInstance().inserisciAgenda(this.id_locale,dataEvento,stringTavoli);
@@ -278,10 +306,10 @@ public class GestoreLocale {
         return tableGuests;
     }
 
-
     public ArrayList<Tavolo> getTavoliLocale() {
         return tavoli;
     }
+
     public int getNPostiTavolo(String idTavolo) {
         int numposti = 0;
 
@@ -322,7 +350,6 @@ public class GestoreLocale {
     }
 
     private void aggiornaTavoliInData(ArrayList<Tavolo> tavoliInAgenda) {
-//        ArrayList<Tavolo> tavoliConfronto= new ArrayList<>();
 
         if (!(tavoliInAgenda==null || tavoliInAgenda.size()==0)){
             for (Tavolo t:tavoliInAgenda) {
@@ -334,27 +361,142 @@ public class GestoreLocale {
                 }
             }
         }
-
-//        ArrayList<Tavolo> tavoliDb=Facade.getInstance().getTavoli(id_locale);
-//        if(tavoliInAgenda!=null && tavoliDb!=null && tavoliDb.size()!=0)
-//            for (Tavolo t:tavoliInAgenda) {
-//                if(t!=null)
-//                    for (int i = 0; i < tavoliDb.size() ; i++) {
-//                        if(tavoliDb.get(i).getIDTavolo().equals(t.getIDTavolo())) {
-//                            tavoliDb.remove(i);
-//                            break;
-//                        }
-//                    }
-//            }
-
-        //        for (Tavolo tDb:tavoliDb) {
-//            for (Tavolo tVecchio:tavoli) {
-//                if (tVecchio.getIDTavolo().equals(tDb.getIDTavolo())){
-//                    tavoliConfronto.add(tVecchio);
-//                }
-//            }
-//        }
-//        tavoli=tavoliDb;
     }
+
+    public GestoreLocale ricavaLocale() {
+
+        if(!agendaCharged){
+            locale= new GestoreLocale(ID_Loc, numInv, ricavaOrario(orarioApertura), ricavaOrario(orarioChiusura), ricavaGiorno(giornoChiusura));
+            this.agenda= Facade.getInstance().getAgenda(ID_Loc);
+            locale.setAgenda(this.agenda);
+            agendaCharged=true;
+        }
+        return locale;
+    }
+
+    public GestoreLocale gestisciLocale() {
+
+        ricavaLocale();
+        aggiungiTavoli();
+
+        return locale;
+    }
+
+    public void aggiungiTavoli(){
+        if (!c.checkConn()) {
+            c.startConn();
+            tavoliTotali = Facade.getInstance().getTavoli(ID_Loc);
+            c.closeConn();
+        }
+        else{
+            tavoliTotali=Facade.getInstance().getTavoli(ID_Loc);
+        }
+        ricavaLocale().getTavoliLocale().addAll(tavoliTotali);
+    }
+
+
+    public void aggiungiEventi(){
+        ricavaLocale().getEventi().addAll(creaListaGestoreEventi());
+    }
+
+    public ArrayList<GestoreEvento> creaListaGestoreEventi(){
+
+        if(!c.checkConn()) {
+
+            c.startConn();
+            eventiTotali = c.getEvento(ID_Loc);
+            c.closeConn();
+        }
+        else
+        {
+            eventiTotali = c.getEvento(ID_Loc);
+        }
+
+        ArrayList<GestoreEvento> ge= new ArrayList<>();
+        for (Evento e: eventiTotali){
+            ge.add(e.gestisciEvento());
+        }
+
+        return ge;
+    }
+
+
+    public String getID_Locale() {
+        return ID_Loc;
+    }
+
+    //Per ricavare l'orario dalla stringa
+    public GregorianCalendar ricavaOrario(String orario){
+
+        GregorianCalendar time = new GregorianCalendar();
+
+        String[] st = orario.split(":");
+
+        if (!(st[0]==null)){
+            time.add(GregorianCalendar.HOUR, Integer.parseInt(st[0]));
+        }
+
+        if(!(st[1]==null)){
+            time.add(GregorianCalendar.MINUTE, Integer.parseInt(st[1]));
+        }
+
+        return time;
+    }
+
+    //Per ricavare il giorno dalla stringa
+    public GregorianCalendar ricavaGiorno(String giorno) {
+
+        GregorianCalendar day = new GregorianCalendar();
+
+        switch (giorno){
+
+            case "Lunedì":
+                day.add(GregorianCalendar.MONDAY, Calendar.WEEK_OF_YEAR);
+            case "Martedì":
+                day.add(GregorianCalendar.TUESDAY, Calendar.WEEK_OF_YEAR);
+            case "Mercoledì":
+                day.add(GregorianCalendar.WEDNESDAY, Calendar.WEEK_OF_YEAR);
+            case "Giovedì":
+                day.add(GregorianCalendar.THURSDAY, Calendar.WEEK_OF_YEAR);
+            case "Venerdì":
+                day.add(GregorianCalendar.FRIDAY, Calendar.WEEK_OF_YEAR);
+            case "Sabato":
+                day.add(GregorianCalendar.SATURDAY, Calendar.WEEK_OF_YEAR);
+            case "Domenica":
+                day.add(GregorianCalendar.SUNDAY, Calendar.WEEK_OF_YEAR);
+        }
+
+        return day;
+    }
+
+    //aggiunte Lecce
+    public ArrayList<Tavolo> getTavoliDisponibili(String calendar){
+        //ArrayList<Tavolo> tavoliTot=tavoliTotali;
+        ArrayList<Tavolo> tavoliOccupati = agenda.get(calendar);
+        ArrayList<Tavolo> tavoliDisponibili=tavoliTotali;
+        for (Tavolo t:tavoliTotali) {
+            for (Tavolo tOcc:tavoliOccupati) {
+                String idTavolo= t.getIDTavolo();
+                String idTavoloOcc= tOcc.getIDTavolo();
+                if(idTavolo.equals(idTavoloOcc)){ tavoliDisponibili.remove(t); }
+            }
+        }
+        return tavoliDisponibili;
+    }
+
+    public String getOrarioApertura() {
+        return orarioApertura;
+    }
+
+    public String getOrarioChiusura() {
+        return orarioChiusura;
+    }
+
+    public String getGiornoChiusura() {
+        return giornoChiusura;
+    }
+
+    public int getNumInv () {return numInv; }
+
 
 }

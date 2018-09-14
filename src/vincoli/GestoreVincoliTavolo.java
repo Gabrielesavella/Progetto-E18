@@ -44,7 +44,6 @@ public class GestoreVincoliTavolo {
         ev=c.getEventoSingolo(ID_Ev);
         gestEv=ev.gestisciEvento();
         this.tavoli= gestLoc.getTavoliLocale();
-                //c.getTavolo(ev.getNomeLocale());
         c.closeConn();
 
 
@@ -303,21 +302,12 @@ public class GestoreVincoliTavolo {
             for (Tavolo t : tavoliDisponibili) {
                 if ((!(t.getIDTavolo().equals(entrata.getKey()))) && (t.getPostiTot() >= entrata.getValue())) {
                     mapIDChanges.put(entrata.getKey(),t.getIDTavolo());
-                    // aggiunta di metodo per cambiare nome al tavolo
-//                    try {
-//                        Facade.getInstance().aggiornaNomeTavolo(t.getID_Loc(),t.getIDTavolo(),newName);
-//                    } catch (DatabaseException e) {
-//                        e.printStackTrace();
-//                    } catch (DatabaseNullException e) {
-//                        e.printStackTrace();
-//                    }
 
                     t.setId_tavolo(newName);
                     tavoliVincolati.add(t);
                     break;
                 }
             }
-            // se non funge controllo id;
             tavoliDisponibili.removeAll(tavoliVincolati);
 
             //creo stringa tavoli da salvare in agenda e cambio nomi
@@ -328,19 +318,6 @@ public class GestoreVincoliTavolo {
             }
             stringTavVinc=stringTavVinc.substring(0,stringTavVinc.length()-1);
 
-            // aggiunta di metodo per salvare in agenda tavoli
-//            try {
-//                GregorianCalendar calEv=gestEv.getDataEvento();
-//                SimpleDateFormat sdt=new SimpleDateFormat("dd/MM/yyyy");
-//                sdt.setCalendar(calEv);
-//                String stringData=sdt.format(calEv.getTime());
-//                //                String stringData= ev.getDataEvento().replaceAll("-"," ");
-////                Facade.getInstance().inserisciAgenda(tavoliDisponibili.get(0).getID_Loc(),stringData,stringTavVinc);//,stringTavRinominati
-//            } catch (DatabaseException e) {
-//                e.printStackTrace();
-//            } catch (DatabaseNullException e) {
-//                e.printStackTrace();
-//            }
         }
 
     }

@@ -29,7 +29,6 @@ public class Locale {
         //aggiunte Lecce
         this.agenda=new HashMap<>();
         agendaCharged=false;
-//        agenda= Facade.getInstance().getAgenda(ID_Loc); // a mio parere era il meglio manda in loop infinito l'app
     }
 
     public GestoreLocale ricavaLocale() {
@@ -47,7 +46,6 @@ public class Locale {
 
         ricavaLocale();
         aggiungiTavoli();
-        //aggiungiEventi(); PARTE DA CORREGGERE
 
         return locale;
     }
@@ -61,15 +59,9 @@ public class Locale {
         else{
             tavoliTotali=Facade.getInstance().getTavoli(ID_Loc);
         }
-        scartaTavOccupati();
         ricavaLocale().getTavoliLocale().addAll(tavoliTotali);
     }
 
-    private void scartaTavOccupati() {
-        for(int i=0;i<tavoliTotali.size();i++){
-
-        }
-    }
 
     public void aggiungiEventi(){
         ricavaLocale().getEventi().addAll(creaListaGestoreEventi());
