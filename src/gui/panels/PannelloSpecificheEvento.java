@@ -6,7 +6,7 @@ import database.*;
 import gui.controller.*;
 import gui.finestre.*;
 import locale.*;
-import locale.GestoreLocale;
+import locale.Locale;
 import persone.*;
 import vincoli.*;
 
@@ -21,7 +21,7 @@ import java.awt.event.*;
 
 public class PannelloSpecificheEvento extends PaintedPanel {
 
-    public PannelloSpecificheEvento(GestoreLocale gestoreLocale, Evento gestoreEvento, FinestraSpecificheEvento frame){
+    public PannelloSpecificheEvento(Locale locale, Evento gestoreEvento, FinestraSpecificheEvento frame){
         super("images/notebook-pen-table-97076.jpg",frame);
 
         // etichette specifiche
@@ -137,8 +137,8 @@ public class PannelloSpecificheEvento extends PaintedPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 sisPr.saveOnObligations(gestoreEvento.getName());
-                GestoreVincoliTavolo gestoreVincoliTavolo= new GestoreVincoliTavolo(gestoreEvento.getName(),gestoreLocale);
-                FinestraDisposizioneTavoli fd=new FinestraDisposizioneTavoli(gestoreLocale, gestoreEvento,gestoreVincoliTavolo,sisPr);
+                GestoreVincoliTavolo gestoreVincoliTavolo= new GestoreVincoliTavolo(gestoreEvento.getName(), locale);
+                FinestraDisposizioneTavoli fd=new FinestraDisposizioneTavoli(locale, gestoreEvento,gestoreVincoliTavolo,sisPr);
                 fd.setVisible(true);
                 frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
 

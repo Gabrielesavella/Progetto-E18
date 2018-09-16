@@ -1,11 +1,9 @@
 package gui.finestre;
 
 import gui.panels.PannelloRegistrazione;
-import locale.GestoreLocale;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
 
 /**
  *
@@ -13,7 +11,7 @@ import java.util.ArrayList;
  */
 
 public class FinestraRegistrazione extends JFrame {
-    public FinestraRegistrazione(){//ArrayList<GestoreLocale> locali
+    public FinestraRegistrazione(){//ArrayList<Locale> locali
         setSize(800,700);
         setLocation(300,25);
         PannelloRegistrazione p= new PannelloRegistrazione(this);//locali,

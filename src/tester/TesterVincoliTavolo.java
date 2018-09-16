@@ -1,7 +1,6 @@
 package tester;
 
 import locale.*;
-import locale.Locale;
 import persone.*;
 import vincoli.*;
 

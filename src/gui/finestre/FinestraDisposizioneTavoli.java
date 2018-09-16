@@ -2,8 +2,8 @@ package gui.finestre;
 
 import gui.controller.SistemaDiPrenotazione;
 import gui.panels.PannelloDisposizioneTavoli;
-import locale.Evento;
-import locale.GestoreLocale;
+import locale.*;
+import locale.Locale;
 import vincoli.*;
 
 import javax.swing.*;
@@ -15,10 +15,10 @@ import java.awt.*;
  */
 
 public class FinestraDisposizioneTavoli extends JFrame {
-    public FinestraDisposizioneTavoli(GestoreLocale gestoreLocale, Evento gestoreEvento, GestoreVincoliTavolo gestoreVincoliTavolo, SistemaDiPrenotazione sisPr){
+    public FinestraDisposizioneTavoli(Locale locale, Evento gestoreEvento, GestoreVincoliTavolo gestoreVincoliTavolo, SistemaDiPrenotazione sisPr){
         setSize(800,700);
         setLocation(300,25);
-        PannelloDisposizioneTavoli pd=new PannelloDisposizioneTavoli(gestoreLocale, gestoreEvento,gestoreVincoliTavolo,this,sisPr);
+        PannelloDisposizioneTavoli pd=new PannelloDisposizioneTavoli(locale, gestoreEvento,gestoreVincoliTavolo,this,sisPr);
         Container c=getContentPane();
         c.add(pd);
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);

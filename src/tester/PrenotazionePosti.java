@@ -1,7 +1,7 @@
 package tester;
 
 import locale.*;
-import locale.GestoreLocale;
+import locale.Locale;
 import persone.*;
 
 import java.util.*;
@@ -49,8 +49,8 @@ public class PrenotazionePosti {
          */
         //
         chiusura.add(GregorianCalendar.DAY_OF_WEEK,2);
-        // GestoreLocale daMimmo = new GestoreLocale("da Giulio",20,listaTavoli,orarioapertura, chiusura);
-        GestoreLocale bellaNapoli = new GestoreLocale("bellaNapoli", 30, orarioapertura, chiusura, giornoChiusura);
+        // Locale daMimmo = new Locale("da Giulio",20,listaTavoli,orarioapertura, chiusura);
+        Locale bellaNapoli = new Locale("bellaNapoli", 30, orarioapertura, chiusura, giornoChiusura);
         bellaNapoli.aggiungiTavoli(listaTavoli);
 
         //eventi;

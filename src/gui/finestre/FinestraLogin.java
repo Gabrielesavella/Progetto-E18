@@ -1,11 +1,9 @@
 package gui.finestre;
 
 import gui.panels.PannelloLogin;
-import locale.GestoreLocale;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
 
 /**
  *

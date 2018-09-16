@@ -4,8 +4,8 @@ import database.*;
 import gui.controller.SistemaDiPrenotazione;
 import gui.finestre.FinestraCreazioneEvento;
 import gui.finestre.FinestraSpecificheEvento;
-import locale.Evento;
-import locale.GestoreLocale;
+import locale.*;
+import locale.Locale;
 import org.jdesktop.swingx.JXDatePicker;
 import persone.Cliente;
 
@@ -26,10 +26,10 @@ import java.util.GregorianCalendar;
 
 public class PannelloCredenzialiEvento extends PaintedPanel{
 
-    ArrayList <GestoreLocale> locali;
+    ArrayList <Locale> locali;
 
     public PannelloCredenzialiEvento(Cliente cliente, FinestraCreazioneEvento frame){
-        super("images/TRATTORIA-PARIONE-facciata-notturna-home51.jpg",frame);//ArrayList<GestoreLocale> locali,
+        super("images/TRATTORIA-PARIONE-facciata-notturna-home51.jpg",frame);//ArrayList<Locale> locali,
 
         JButton ok=new JButton("OK");
         ok.setEnabled(false);
@@ -108,7 +108,7 @@ public class PannelloCredenzialiEvento extends PaintedPanel{
         ConnessioneDB connessione = new ConnessioneDB();
         locali = connessione.getLocali();
 
-        for(GestoreLocale l:locali)
+        for(Locale l:locali)
                 dropDownLocali.addItem(l.getId_locale());
 
 
@@ -129,7 +129,7 @@ public class PannelloCredenzialiEvento extends PaintedPanel{
             public void actionPerformed(ActionEvent e) {
 
 
-                GestoreLocale gestoreLocaleSelezionato =null;
+                Locale localeSelezionato =null;
 
                 int invitati=Integer.parseInt(tnInv.getText());
                 Date data=calendario.getDate();
@@ -141,15 +141,15 @@ public class PannelloCredenzialiEvento extends PaintedPanel{
                 String stringData= format.format(calendar.getTime());
 
 
-                for (GestoreLocale l:locali) {
+                for (Locale l:locali) {
                     if(l.id_locale.equals(dropDownLocali.getSelectedItem())) {
-                        gestoreLocaleSelezionato = l;
-                        if (gestoreLocaleSelezionato.checkDisponibilita(stringData, invitati)) {
+                        localeSelezionato = l;
+                        if (localeSelezionato.checkDisponibilita(stringData, invitati)) {
 
                             try {
                                 if (sisPr.creaEvento(tNome.getText(), calendar, Integer.parseInt(tnInv.getText()), cliente, l.getId_locale())) {
-                                    Evento gestoreEvento = new Evento(tNome.getText(), calendar, gestoreLocaleSelezionato, invitati);
-                                    FinestraSpecificheEvento fs = new FinestraSpecificheEvento(gestoreLocaleSelezionato, gestoreEvento);//fetchEvento
+                                    Evento gestoreEvento = new Evento(tNome.getText(), calendar, localeSelezionato, invitati);
+                                    FinestraSpecificheEvento fs = new FinestraSpecificheEvento(localeSelezionato, gestoreEvento);//fetchEvento
                                     fs.setVisible(true);
                                     frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
                                 } else {

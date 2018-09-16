@@ -12,7 +12,7 @@ public class Evento {
 
     private String nomeEvento;
 
-    private GestoreLocale location = null;
+    private Locale location = null;
     private ArrayList <Invitato> invitati;
     private GregorianCalendar dataEvento;
     private String stringData;
@@ -22,9 +22,9 @@ public class Evento {
 
 
 
-    public Evento(String nomeEvento, GregorianCalendar dataEvento, GestoreLocale location, int numInvitati){
+    public Evento(String nomeEvento, GregorianCalendar dataEvento, Locale location, int numInvitati){
 
-        /*Crea un Evento caratterizzato da un nome, una data e un GestoreLocale.*/
+        /*Crea un Evento caratterizzato da un nome, una data e un Locale.*/
 
 
         this.nomeEvento = nomeEvento;
@@ -74,10 +74,10 @@ public class Evento {
 
         return dataEventoCalendario;
     }
-    public GestoreLocale prendiLocale(String nomeLoc) {//Locale
-        GestoreLocale loca=null;
-        ArrayList<GestoreLocale> locali= Facade.getInstance().getLocali();
-        for (GestoreLocale l : locali) {
+    public Locale prendiLocale(String nomeLoc) {//Locale
+        Locale loca=null;
+        ArrayList<Locale> locali= Facade.getInstance().getLocali();
+        for (Locale l : locali) {
             if (nomeLoc == l.getId_locale()) {
                 loca = l;
             }
@@ -99,7 +99,7 @@ public class Evento {
     }
 
 
-    public GestoreLocale getLocation(){ return location;}
+    public Locale getLocation(){ return location;}
 
 
     public void addInvitati(Invitato invitato){

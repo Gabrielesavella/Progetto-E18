@@ -1,12 +1,10 @@
 package gui.finestre;
 
 import gui.panels.PannelloCredenzialiEvento;
-import locale.GestoreLocale;
 import persone.Cliente;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
 
 /**
  *
@@ -14,7 +12,7 @@ import java.util.ArrayList;
  */
 
 public class FinestraCreazioneEvento extends JFrame {
-    public FinestraCreazioneEvento(Cliente cliente){//ArrayList<GestoreLocale> locali,
+    public FinestraCreazioneEvento(Cliente cliente){//ArrayList<Locale> locali,
         setSize(500,500);
         setLocation(425,25);
         PannelloCredenzialiEvento pc=new PannelloCredenzialiEvento(cliente,this);//locali,

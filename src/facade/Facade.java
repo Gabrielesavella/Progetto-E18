@@ -2,6 +2,7 @@ package facade;
 
 import database.*;
 import locale.*;
+import locale.Locale;
 import persone.*;
 import vincoli.*;
 
@@ -157,7 +158,7 @@ public class Facade {
         return connessioneDB.getEventoSingolo(ID_Evento);
     }
 
-    public ArrayList<GestoreLocale> getLocali() {
+    public ArrayList<Locale> getLocali() {
         return connessioneDB.getLocali();
     }
 

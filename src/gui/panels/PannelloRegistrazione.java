@@ -2,17 +2,12 @@ package gui.panels;
 
 import database.DatabaseException;
 import gui.controller.SistemaDiPrenotazione;
-import locale.GestoreLocale;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
 
 /**
  *
@@ -21,7 +16,7 @@ import java.util.ArrayList;
 
 public class PannelloRegistrazione extends PaintedPanel {
 
-    public PannelloRegistrazione(JFrame frame){//ArrayList<GestoreLocale> locali,
+    public PannelloRegistrazione(JFrame frame){//ArrayList<Locale> locali,
         super("images/alcohol-banquet-beverage-306046.jpg",frame);
 
         //bottone conferma
