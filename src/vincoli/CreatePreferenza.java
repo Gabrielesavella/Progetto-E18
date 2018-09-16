@@ -326,7 +326,7 @@ public class CreatePreferenza {
         return tavol;
     }
 
-    public void smistaRestanti(GestoreLocale myLocale, Evento ev){
+    public void smistaRestanti(Locale myLocale, Evento ev){
         myLocale.setTavoli(sortaTavoli());
         myLocale.smistamentoTavoli(ev);
     }

@@ -1,116 +1,54 @@
 package locale;
 
-import database.ConnessioneDB;
-import database.DatabaseException;
-import database.DatabaseNullException;
-import facade.Facade;
+import database.*;
+import facade.*;
 import persone.*;
 
-import javax.xml.crypto.Data;
-import java.text.SimpleDateFormat;
-import java.time.DayOfWeek;
-import java.time.format.TextStyle;
 import java.util.*;
-import java.util.Locale;
-
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
 
 
-public class GestoreLocale {
 
-    private String ID_Loc, orarioApertura, orarioChiusura, giornoChiusura;
-    private int numInv;
-    private GestoreLocale locale;
-    private ConnessioneDB c=new ConnessioneDB();
-    private ArrayList<Tavolo> tavoliTotali;
-    private ArrayList<Evento> gestoreEventiTotali;
-    private ArrayList<Evento> eventiTotali;
+public class Locale {
 
-    //aggiunte Lecce
-    private Map<String,ArrayList<Tavolo>> agenda;
-    private boolean agendaCharged;
-    //
-
-    static int numLoc = 0;
     public ArrayList<Evento> eventi_locale;
     public String id_locale;
     private int numMaxTavoli;
     private int numMaxPosti;
     private GregorianCalendar oraApertura, oraChiusura, giornodichiusura;
-    Calendar calendar;
     private ArrayList<Tavolo> tavoli;
     private ArrayList<Tavolo> tavoliUtilizzati = new ArrayList<>();
-    private ArrayList<Invitato> lista_gia_presenti = new ArrayList<>();
+    private Map<String,ArrayList<Tavolo>> agenda;
+    private boolean agendaCharged;
 
 
-    // cambiato il tipo di dato giorno chiusura da String a Gregoria calendar , molto più facile da gestire
-    // aggiunta inoltre del passaggio dei tavoli tramite parametro
 
-    /*
-    aggiunta di un costruttore GestoreLocale in più in cui si passa solo il numero massimo di tavoli che vieni istanziato
-    nel locale, novità: tutti i locali hanno come giorno di chiusura il lunedì di default
-    @author Gabrielesavella
-     */
-    public GestoreLocale(String id_locale, int numMaxTavoli, GregorianCalendar oraApertura, GregorianCalendar oraChiusura, GregorianCalendar giornodichiusura) {
+
+    public Locale(String id_locale, int numMaxTavoli, GregorianCalendar oraApertura, GregorianCalendar oraChiusura, GregorianCalendar giornodichiusura) {
+        this.giornodichiusura=giornodichiusura;
         this.id_locale=id_locale;
         this.numMaxTavoli=numMaxTavoli;
-        this.tavoli = new ArrayList<Tavolo>();
-        this.giornodichiusura=giornodichiusura;
+        this.tavoli = Facade.getInstance().getTavoli(id_locale);
         this.oraApertura=oraApertura;
         this.oraChiusura=oraChiusura;
-        this.orarioApertura=getStringDate(oraApertura);
-        this.orarioChiusura=getStringDate(oraChiusura);
-        this.giornoChiusura=getStringDate(giornodichiusura);
         eventi_locale = new ArrayList<>();
+        //this.agenda = new HashMap<>();
     }
+    //per il db
+    public Locale(String ID_Loc, int numMaxTavoli, String orarioApertura, String orarioChiusura, String giornoChiusura){
 
-    public GestoreLocale(String ID_Loc, int numInv, String orarioApertura, String orarioChiusura, String giornoChiusura){
-
-        this.ID_Loc=ID_Loc;
-        this.numInv=numInv;
-        this.orarioApertura=orarioApertura;
-        this.orarioChiusura=orarioChiusura;
-        this.giornoChiusura=giornoChiusura;
+        this.id_locale=ID_Loc;
+        this.numMaxTavoli=numMaxTavoli;
         this.oraApertura=ricavaOrario(orarioApertura);
         this.oraChiusura=ricavaOrario(orarioChiusura);
         this.giornodichiusura=ricavaGiorno(giornoChiusura);
-        //aggiunte Lecce
+        this.tavoli = Facade.getInstance().getTavoli(id_locale);
+        eventi_locale = new ArrayList<>();
         this.agenda=new HashMap<>();
+        this.agenda=Facade.getInstance().getAgenda(ID_Loc);
         agendaCharged=false;
     }
 
-    public String getStringDate(GregorianCalendar tempo){
-        String stringData=null;
-        if (tempo.get(GregorianCalendar.HOUR)==oraApertura.get(GregorianCalendar.HOUR)){
-            SimpleDateFormat format=new SimpleDateFormat("HH");
-            stringData=format.format(tempo.getTime());
-        }
-        if (tempo.get(GregorianCalendar.HOUR)==oraChiusura.get(GregorianCalendar.HOUR)){
-            SimpleDateFormat format=new SimpleDateFormat("HH");
-            stringData=format.format(tempo.getTime());
-        }
-        if (tempo.get(GregorianCalendar.DAY_OF_WEEK)==giornodichiusura.get(GregorianCalendar.DAY_OF_WEEK)){
-            for (DayOfWeek day:DayOfWeek.values()) {
-                if(day.getValue()==tempo.get(GregorianCalendar.DAY_OF_WEEK))
-                    stringData=day.getDisplayName(TextStyle.SHORT, Locale.ITALIAN);
-            }
-        }
-
-        return stringData;
-    }
-
-    public void aggiungiEventi(ArrayList<Evento> eventiLoc){
-        for (Evento e : eventiLoc){
-            if(e.getLocation().getId_locale().equals(id_locale)){
-                eventi_locale.add(e);
-            }
-        }
-    }
 
     public void aggiungiEvento(Evento nuovoevento){
         if(nuovoevento.getLocation().getId_locale().equals(id_locale))
@@ -173,17 +111,16 @@ public class GestoreLocale {
             agenda.put(dataEvento,tavoliOccGiorno);
         }
         //parte adibita a salvataggio in db
-        //creo stringa tavoli
+        //creazione stringa tavoli
         String stringTavoli= new String("");
         for (int i=0;i<tavoliOcc.size();i++) {
             Tavolo t=tavoliOcc.get(i);
-            if (i==0){
+            if (i==0){//&& (tavoliOcc==null || tavoliOcc.equals(""))
                 stringTavoli+=t.getRealID_Tav();
             }
             else{ stringTavoli+=" "+t.getRealID_Tav(); }
 
         }
-        //salvo in db
         try {
             Facade.getInstance().inserisciAgenda(this.id_locale,dataEvento,stringTavoli);
         } catch (DatabaseException e) {
@@ -306,10 +243,10 @@ public class GestoreLocale {
         return tableGuests;
     }
 
+
     public ArrayList<Tavolo> getTavoliLocale() {
         return tavoli;
     }
-
     public int getNPostiTavolo(String idTavolo) {
         int numposti = 0;
 
@@ -361,71 +298,9 @@ public class GestoreLocale {
                 }
             }
         }
+
     }
 
-    public GestoreLocale ricavaLocale() {
-
-        if(!agendaCharged){
-            locale= new GestoreLocale(ID_Loc, numInv, ricavaOrario(orarioApertura), ricavaOrario(orarioChiusura), ricavaGiorno(giornoChiusura));
-            this.agenda= Facade.getInstance().getAgenda(ID_Loc);
-            locale.setAgenda(this.agenda);
-            agendaCharged=true;
-        }
-        return locale;
-    }
-
-    public GestoreLocale gestisciLocale() {
-
-        ricavaLocale();
-        aggiungiTavoli();
-
-        return locale;
-    }
-
-    public void aggiungiTavoli(){
-        if (!c.checkConn()) {
-            c.startConn();
-            tavoliTotali = Facade.getInstance().getTavoli(ID_Loc);
-            c.closeConn();
-        }
-        else{
-            tavoliTotali=Facade.getInstance().getTavoli(ID_Loc);
-        }
-        ricavaLocale().getTavoliLocale().addAll(tavoliTotali);
-    }
-
-
-    public void aggiungiEventi(){
-        ricavaLocale().getEventi().addAll(creaListaGestoreEventi());
-    }
-
-    public ArrayList<Evento> creaListaGestoreEventi(){
-
-        if(!c.checkConn()) {
-
-            c.startConn();
-            eventiTotali = c.getEvento(ID_Loc);
-            c.closeConn();
-        }
-        else
-        {
-            eventiTotali = c.getEvento(ID_Loc);
-        }
-
-        ArrayList<Evento> ge= new ArrayList<>();
-        for (Evento e: eventiTotali){
-            ge.add(e);//.gestisciEvento()
-        }
-
-        return ge;
-    }
-
-
-    public String getID_Locale() {
-        return ID_Loc;
-    }
-
-    //Per ricavare l'orario dalla stringa
     public GregorianCalendar ricavaOrario(String orario){
 
         GregorianCalendar time = new GregorianCalendar();
@@ -443,7 +318,6 @@ public class GestoreLocale {
         return time;
     }
 
-    //Per ricavare il giorno dalla stringa
     public GregorianCalendar ricavaGiorno(String giorno) {
 
         GregorianCalendar day = new GregorianCalendar();
@@ -468,35 +342,5 @@ public class GestoreLocale {
 
         return day;
     }
-
-    //aggiunte Lecce
-    public ArrayList<Tavolo> getTavoliDisponibili(String calendar){
-        //ArrayList<Tavolo> tavoliTot=tavoliTotali;
-        ArrayList<Tavolo> tavoliOccupati = agenda.get(calendar);
-        ArrayList<Tavolo> tavoliDisponibili=tavoliTotali;
-        for (Tavolo t:tavoliTotali) {
-            for (Tavolo tOcc:tavoliOccupati) {
-                String idTavolo= t.getIDTavolo();
-                String idTavoloOcc= tOcc.getIDTavolo();
-                if(idTavolo.equals(idTavoloOcc)){ tavoliDisponibili.remove(t); }
-            }
-        }
-        return tavoliDisponibili;
-    }
-
-    public String getOrarioApertura() {
-        return orarioApertura;
-    }
-
-    public String getOrarioChiusura() {
-        return orarioChiusura;
-    }
-
-    public String getGiornoChiusura() {
-        return giornoChiusura;
-    }
-
-    public int getNumInv () {return numInv; }
-
 
 }

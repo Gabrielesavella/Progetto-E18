@@ -1,7 +1,7 @@
 package tester;
 
 import locale.*;
-import locale.GestoreLocale;
+import locale.Locale;
 
 import java.util.*;
 
@@ -42,8 +42,8 @@ public class TesterLocale {
          */
         //
         //chiusura.add(GregorianCalendar.DAY_OF_WEEK,2);
-        GestoreLocale daMimmo = new GestoreLocale("da Giulio",20,orarioapertura, chiusura, giornoChiusura);
-        GestoreLocale bellaNapoli = new GestoreLocale("Bella Napoli", 30, orarioapertura, chiusura, giornoChiusura);
+        Locale daMimmo = new Locale("da Giulio",20,orarioapertura, chiusura, giornoChiusura);
+        Locale bellaNapoli = new Locale("Bella Napoli", 30, orarioapertura, chiusura, giornoChiusura);
         daMimmo.aggiungiTavoli(listaTavoli);
         bellaNapoli.aggiungiTavoli(listaTavoli);
 
@@ -52,7 +52,6 @@ public class TesterLocale {
         Evento k = new Evento("Battesimo", orarioEvento, bellaNapoli, 50);
 
 
-        System.out.println(bellaNapoli.stampaNomeEventi());
     }
     
 }

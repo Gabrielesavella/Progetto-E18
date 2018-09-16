@@ -9,12 +9,7 @@ public class Invitato {
     private String ID_Inv;
     private String nome,cognome;
     private int eta;
-    /*
-    @parametri:
-    ID_inv è l'identificativo dell'invitato, composto dalle prime tre cifre del nome e del cognome + l'età
-    nome è il nome dell'invitato
-    cognome è il cognome dell'invitato
-     */
+
 
     public Invitato (String nome,String cognome,int eta){
         this(Invitato.setID_Inv(nome, cognome,eta), nome, cognome, eta);

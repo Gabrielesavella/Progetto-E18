@@ -50,8 +50,8 @@ public class JTest {
         chiusura.add(GregorianCalendar.DAY_OF_WEEK,2);
         GregorianCalendar giornoChiusura= new GregorianCalendar();
         giornoChiusura.add(GregorianCalendar.DAY_OF_WEEK, Calendar.MONDAY);
-        // GestoreLocale daMimmo = new GestoreLocale("da Giulio",20,listaTavoli,orarioapertura, chiusura);
-        GestoreLocale bellaNapoli = new GestoreLocale("bellaNapoli", 30, orarioapertura, chiusura, giornoChiusura);
+        // Locale daMimmo = new Locale("da Giulio",20,listaTavoli,orarioapertura, chiusura);
+        Locale bellaNapoli = new Locale("bellaNapoli", 30, orarioapertura, chiusura, giornoChiusura);
         bellaNapoli.aggiungiTavoli(Tavoli);
         e = new Evento("Matrimonio", orarioEvento,  bellaNapoli, 50);
         bellaNapoli.getEventi().add(e);

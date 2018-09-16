@@ -1,16 +1,7 @@
 package tester;
 
 import database.*;
-import gui.controller.SistemaDiPrenotazione;
 import gui.finestre.FinestraLogin;
-import locale.GestoreLocale;
-import locale.Tavolo;
-import sun.util.calendar.*;
-
-import javax.swing.*;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
 
 public class TesterGui {
     public static void main(String[] args) throws DatabaseNullException, DatabaseException {

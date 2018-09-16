@@ -13,10 +13,10 @@ import java.awt.*;
  */
 
 public class FinestraSpecificheEvento extends JFrame{
-    public FinestraSpecificheEvento(GestoreLocale gestoreLocale, Evento gestoreEvento){
+    public FinestraSpecificheEvento(Locale locale, Evento gestoreEvento){
         setSize(200,200);
         setLocation(600,200);
-        PannelloSpecificheEvento ps=new PannelloSpecificheEvento(gestoreLocale, gestoreEvento,this);
+        PannelloSpecificheEvento ps=new PannelloSpecificheEvento(locale, gestoreEvento,this);
         Container c=getContentPane();
         c.add(ps);
     }

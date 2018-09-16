@@ -23,7 +23,7 @@ import java.util.ArrayList;
 public class PannelloDisposizioneTavoli extends PaintedPanel {
 
 
-    public PannelloDisposizioneTavoli(GestoreLocale gestoreLocale, Evento gestoreEvento, GestoreVincoliTavolo gestoreVincoliTavolo, JFrame frame, SistemaDiPrenotazione sisPr){
+    public PannelloDisposizioneTavoli(Locale locale, Evento gestoreEvento, GestoreVincoliTavolo gestoreVincoliTavolo, JFrame frame, SistemaDiPrenotazione sisPr){
         super("images/celebration-dining-drink-696214.jpg",frame);
 
         JScrollPane  pAllGuests;
@@ -112,14 +112,14 @@ public class PannelloDisposizioneTavoli extends PaintedPanel {
         }
         stampaDisposizione.append("\nDisposizione:\n\n");
         stampaDisposizione.setBackground(new Color(255, 235, 205));
-        gestoreLocale.aggiungiEvento(gestoreEvento);
+        locale.aggiungiEvento(gestoreEvento);
         ArrayList<Tavolo> tavoliTot= gestoreVincoliTavolo.getTavoliTotali();
         ArrayList<Tavolo> tavoliDisp = new ArrayList<>();
         ArrayList<Tavolo> tavoliVinc = gestoreVincoliTavolo.getTavoliVincolati();
         tavoliDisp = gestoreVincoliTavolo.getTavoliDisponibili();
         CreatePreferenza createPreferenza= new CreatePreferenza(gestoreEvento.getName(),tavoliTot);
         createPreferenza.smista();
-        createPreferenza.smistaRestanti(gestoreLocale,gestoreEvento);
+        createPreferenza.smistaRestanti(locale,gestoreEvento);
 
         for (Tavolo ta : tavoliVinc){
             stampaDisposizione.append(ta.showInvitati()+"\n");
@@ -139,8 +139,7 @@ public class PannelloDisposizioneTavoli extends PaintedPanel {
             public void actionPerformed(ActionEvent e) {
                 frame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
                 sisPr.reinizializzaDb(gestoreEvento);
-                gestoreEvento.clear();
-                FinestraSpecificheEvento fs= new FinestraSpecificheEvento(gestoreLocale, gestoreEvento);//fetchEvento
+                FinestraSpecificheEvento fs= new FinestraSpecificheEvento(locale, gestoreEvento);//fetchEvento
                 fs.setVisible(true);
                 frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
                 frame.dispose();

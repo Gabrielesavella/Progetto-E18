@@ -9,6 +9,7 @@ package vincoli;
 import database.ConnessioneDB;
 import locale.*;
 import locale.Evento;
+import locale.Locale;
 import persone.Invitato;
 
 import java.time.LocalDateTime;
@@ -29,7 +30,7 @@ public class GestoreVincoliTavolo {
 
 
 
-    public GestoreVincoliTavolo(String ID_Ev, GestoreLocale gestLoc) {
+    public GestoreVincoliTavolo(String ID_Ev, Locale gestLoc) {
         //prelevo dal DB gli Invitati, i Tavoli e i VincoliTavolo relativi all'Evento, secondo il suo identificativo ID_Ev
         c=new ConnessioneDB();
         c.startConn();
