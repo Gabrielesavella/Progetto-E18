@@ -120,58 +120,30 @@ public class CreatePreferenza {
             insiemi.get(i).getArraylistInvitati().addAll(pref.get(i).getLista_vicini());
             insiemiLontananza.get(i).getArraylistInvitati().addAll(pref.get(i).getLista_lontani());
         }
-        deleteNulls(insiemi);
-        deleteNulls(insiemiLontananza);
         aggiornaInsiemi();
-        deleteNulls(insiemi);
-        deleteNulls(insiemiLontananza);
         for (int k=0; k<insiemi.size(); k++){
             if (insiemi.get(k).getArraylistInvitati().size()<=1){
                 insiemi.remove(k);
                 k--;
             }
         }
-        deleteNulls(insiemi);
-        deleteNulls(insiemiLontananza);
         ottieniTavoliDisponibili();
         Collections.sort(tavoli);
         sistemaAiGruppi();
-        deleteNulls(insiemi);
-        deleteNulls(insiemiLontananza);
         rimuoviTavoliVuoti();
         sistemaAiTavoli();
-        deleteNulls(insiemi);
-        deleteNulls(insiemiLontananza);
-        deleteNulls(tavoli);
         setTrueAllTables(tavoli);
         Collections.sort(tavoli);
         aggiungiTavoli();
 
         generaListeVincolatiLontani();
-        deleteNulls(insiemi);
-        deleteNulls(insiemiLontananza);
-        deleteNulls(tavoli);
-        deleteNulls(tavoliVincolati);
         for (PreferenzaInvitato prefe : pref){
-            prefe.getTavoli().addAll(tavoliVincolati);
             prefe.verifica_sistemaLontani();
         }
         tavoliTot.addAll(tavoli);
         tavoliTot.addAll(tavoliVincolati);
         controllaIncongruenze();
     }
-
-    public void deleteNulls(ArrayList<Tavolo> tables) {
-        for (Tavolo t: tables){
-            for (int i=0; i<t.getArraylistInvitati().size(); i++){
-                if (t.getArraylistInvitati().get(i)==null || t.getArraylistInvitati().get(i).getID_Inv()==null){
-                    t.getArraylistInvitati().remove(i);
-                    i--;
-                }
-            }
-        }
-    }
-
 
     public void aggiornaInsiemi(){
 
@@ -216,14 +188,16 @@ public class CreatePreferenza {
             }
         }
 
-        for (Tavolo t : insiemi) {
+        for (int k = 0; k < lista.size(); k++) {
+
+            for (Tavolo t : insiemi) {
 
             boolean bool=false;
+
             if (!(t.getArraylistInvitati()==null)){
 
-                for (Invitato i : t.getArraylistInvitati()){
 
-                    for (int k = 0; k < lista.size(); k++) {
+                for (Invitato i : t.getArraylistInvitati()){
 
                         if (lista.get(k).getID_Inv().equals(i.getID_Inv())){
 
@@ -233,7 +207,7 @@ public class CreatePreferenza {
                             break;
                         }
                     }
-                    if(bool==true){break;}
+
                 }
             }
         }
@@ -295,14 +269,14 @@ public class CreatePreferenza {
 
                 for (int tav = 0; tav < tavoli.size(); tav++) {
 
-                    if (tavoli.get(tav).getDisponibile() == true && t.getArraylistInvitati().size() <= tavoli.get(tav).getPostiTot()) {
+                    if (tavoli.get(tav).getDisponibile() == true && t.getArraylistInvitati().size() <= tavoli.get(tav).getNumPosti()) {
                         tavoli.get(tav).addAllGuests(t.getArraylistInvitati());
                         tavoli.get(tav).setDisponibile(false);
                         break;
 
                     } else if ((tav + 1) == tavoli.size() && (tavoli.get(tav).getDisponibile() == false || t.getArraylistInvitati().size() > tavoli.get(tav).getNumPosti())) {
                         System.out.println("Non è possibile sistemare gli invitati:\n" + t.mostraID_Invitati() + "\nai tavoli, poichè non sono sufficientemente grandi.\n\n");
-                        preferenze_non_rispettate.add("Non è possibile sistemare gli invitati:\n" + t.mostraID_Invitati() + "\n  poichè non ci sono tavoli sufficientemente grandi da contenerli.\n\n");
+                        preferenze_non_rispettate.add("Non è possibile sistemare gli invitati:\n" + t.mostraID_Invitati() + "\nsecondo vicinanza, poichè non ci sono tavoli sufficientemente grandi da contenerli.\n\n");
                     }
 
                 }

@@ -163,9 +163,8 @@ public class JTest {
     }
 
 
-
     @Test
-    public void Provatavoli() {
+    public void ProvaTavoli() {
 
         Assert.assertEquals(6,e.getLocation().getNPostiTavolo("tav1"));
         Assert.assertEquals(4,e.getLocation().getNPostiTavolo("tav2"));
@@ -174,26 +173,6 @@ public class JTest {
         Assert.assertEquals(6,e.getLocation().getNPostiTavolo("tav5"));
         Assert.assertEquals(7,e.getLocation().getNPostiTavolo("tav6"));
 
-    }
-
-    @Test
-    public void ProvaTavoliPieni(){
-        e.getLocation().smistamentoTavoli(e);
-
-        Assert.assertEquals(6, Tavoli.get(0).getArraylistInvitati().size());
-        Assert.assertEquals(4, Tavoli.get(1).getArraylistInvitati().size());
-        Assert.assertEquals(8, Tavoli.get(2).getArraylistInvitati().size());
-        Assert.assertEquals(1, Tavoli.get(3).getArraylistInvitati().size());
-        Assert.assertEquals(0, Tavoli.get(4).getArraylistInvitati().size());
-        Assert.assertEquals(0, Tavoli.get(5).getArraylistInvitati().size());
-
-    }
-
-    @Test
-    public void ProvaPreferenzaVicini(){
-        Assert.assertEquals(4, Tavoli.get(0).getArraylistInvitati().size());
-        Assert.assertEquals(1, Tavoli.get(1).getArraylistInvitati().size());
-        Assert.assertEquals(1, Tavoli.get(2).getArraylistInvitati().size());
     }
 
     @Test
