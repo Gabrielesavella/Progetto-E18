@@ -36,10 +36,10 @@ public class PannelloDisposizioneTavoli extends PaintedPanel {
         JLabel  labelElenco = new JLabel(" Elenco invitati all'evento ''"+gestoreEvento.getName()+"'' ");
         JTextArea stampaElenco = new JTextArea(10,20);
         JLabel  labelDisposizione = new JLabel(" Elenco invitati disposti per tavoli ");
-        JTextArea stampaDisposizione = new JTextArea(10,25);
+        JTextArea stampaDisposizione = new JTextArea(10,35);
         JLabel labelVincoliNnRisp= new JLabel(" Vincoli Non rispettati:");
-        JTextArea stampaVincoliNnRisp = new JTextArea(10,25);
-        JButton reinizializzaDb = new JButton("Reinserisci invitati e vincoli");
+        JTextArea stampaVincoliNnRisp = new JTextArea(10,35);
+        //JButton reinizializzaDb = new JButton("Reinserisci invitati e vincoli");
         JButton ritornaHome = new JButton("Ritorna alla Home");
 
 
@@ -61,14 +61,19 @@ public class PannelloDisposizioneTavoli extends PaintedPanel {
 
 
         stampaDisposizione.setLineWrap(true);
+        stampaDisposizione.setWrapStyleWord(true);
         stampaDisposizione.setEditable(false);
         stampaDisposizione.setAutoscrolls(true);
+        stampaElenco.setLineWrap(true);
+        stampaElenco.setWrapStyleWord(true);
         stampaElenco.setEditable(false);
         stampaElenco.setAutoscrolls(true);
         stampaElenco.setBackground(new Color(255,235,205));
         stampaVincoliNnRisp.setLineWrap(true);
+        stampaVincoliNnRisp.setWrapStyleWord(true);
         stampaVincoliNnRisp.setEditable(false);
         stampaVincoliNnRisp.setAutoscrolls(true);
+        stampaVincoliNnRisp.setBackground(new Color(255,235,205));
 
 
         pAllGuests = new JScrollPane(stampaElenco);
@@ -80,7 +85,7 @@ public class PannelloDisposizioneTavoli extends PaintedPanel {
         pTablesGuests.setBackground(new Color(255,235,205));
         pTablesGuests.setOpaque(false);
         pTablesGuests.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-        pTablesGuests.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        pTablesGuests.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
         pVincNnRisp = new JScrollPane(stampaVincoliNnRisp);
         pVincNnRisp.setBackground(new Color(255,235,205));
         pVincNnRisp.setOpaque(false);
@@ -93,7 +98,7 @@ public class PannelloDisposizioneTavoli extends PaintedPanel {
         pAllAndLabel.add(labelElenco);
         pAllAndLabel.add(pAllGuests);
         pAllAndLabel.setOpaque(false);
-        pButtons.add(reinizializzaDb);
+        //pButtons.add(reinizializzaDb);
         pButtons.add(ritornaHome);
         pButtons.setOpaque(false);
         pVincAndLabel.add(labelVincoliNnRisp);
@@ -134,7 +139,7 @@ public class PannelloDisposizioneTavoli extends PaintedPanel {
             stampaVincoliNnRisp.append(pref+"\n\n");
         }
 
-        reinizializzaDb.addActionListener(new ActionListener() {
+        /*reinizializzaDb.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 frame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
@@ -144,7 +149,7 @@ public class PannelloDisposizioneTavoli extends PaintedPanel {
                 frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
                 frame.dispose();
             }
-        });
+        });*/
 
         ritornaHome.addActionListener(new ActionListener() {
             @Override

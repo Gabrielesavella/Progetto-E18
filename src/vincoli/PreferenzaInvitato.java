@@ -1,13 +1,16 @@
 package vincoli;
 
-import locale.*;
+import database.ConnessioneDB;
+import locale.Evento;
+import locale.Tavolo;
 import persone.Invitato;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class PreferenzaInvitato{
 
-
+    private ConnessioneDB c = new ConnessioneDB();
     private ArrayList<Invitato> invitati;
     private String ID_Ev, ID_Inv,vicino, lontano;
     private ArrayList<Invitato> lista_vincolati_vicini = new ArrayList<>();

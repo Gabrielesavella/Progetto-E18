@@ -142,6 +142,12 @@ public class Facade {
         connessioneDB.deleteDoubleKeyEntry("agenda","ID_locale",evento.getNomeLocale(),"data",evento.getStringData());
     }
 
+    public void removeVincoliOnly(Evento evento){
+        connessioneDB.deleteEntry("preferenza_invitato","ID_Evento",evento.getName());
+        connessioneDB.deleteEntry("specifica_tavolo","ID_Evento",evento.getName());
+        connessioneDB.deleteEntry("invitati","ID_Evento",evento.getName());
+    }
+
     public ArrayList<PreferenzaInvitato> getVincoloInvitato(String ID_Ev) {
         return connessioneDB.getVincoloInvitato(ID_Ev);
     }
@@ -157,6 +163,8 @@ public class Facade {
     public Evento getEvento(String ID_Evento){
         return connessioneDB.getEventoSingolo(ID_Evento);
     }
+
+    public Locale getLocale(String ID_Locale){ return connessioneDB.getLocale(ID_Locale); }
 
     public ArrayList<Locale> getLocali() {
         return connessioneDB.getLocali();

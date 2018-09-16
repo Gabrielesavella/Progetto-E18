@@ -1,5 +1,6 @@
 package vincoli;
 
+import database.ConnessioneDB;
 import facade.*;
 import locale.*;
 import persone.Invitato;
@@ -119,23 +120,38 @@ public class CreatePreferenza {
             insiemi.get(i).getArraylistInvitati().addAll(pref.get(i).getLista_vicini());
             insiemiLontananza.get(i).getArraylistInvitati().addAll(pref.get(i).getLista_lontani());
         }
+        deleteNulls(insiemi);
+        deleteNulls(insiemiLontananza);
         aggiornaInsiemi();
+        deleteNulls(insiemi);
+        deleteNulls(insiemiLontananza);
         for (int k=0; k<insiemi.size(); k++){
             if (insiemi.get(k).getArraylistInvitati().size()<=1){
                 insiemi.remove(k);
                 k--;
             }
         }
+        deleteNulls(insiemi);
+        deleteNulls(insiemiLontananza);
         ottieniTavoliDisponibili();
         Collections.sort(tavoli);
         sistemaAiGruppi();
+        deleteNulls(insiemi);
+        deleteNulls(insiemiLontananza);
         rimuoviTavoliVuoti();
         sistemaAiTavoli();
+        deleteNulls(insiemi);
+        deleteNulls(insiemiLontananza);
+        deleteNulls(tavoli);
         setTrueAllTables(tavoli);
         Collections.sort(tavoli);
         aggiungiTavoli();
 
         generaListeVincolatiLontani();
+        deleteNulls(insiemi);
+        deleteNulls(insiemiLontananza);
+        deleteNulls(tavoli);
+        deleteNulls(tavoliVincolati);
         for (PreferenzaInvitato prefe : pref){
             prefe.getTavoli().addAll(tavoliVincolati);
             prefe.verifica_sistemaLontani();
@@ -144,6 +160,18 @@ public class CreatePreferenza {
         tavoliTot.addAll(tavoliVincolati);
         controllaIncongruenze();
     }
+
+    public void deleteNulls(ArrayList<Tavolo> tables) {
+        for (Tavolo t: tables){
+            for (int i=0; i<t.getArraylistInvitati().size(); i++){
+                if (t.getArraylistInvitati().get(i)==null || t.getArraylistInvitati().get(i).getID_Inv()==null){
+                    t.getArraylistInvitati().remove(i);
+                    i--;
+                }
+            }
+        }
+    }
+
 
     public void aggiornaInsiemi(){
 
@@ -267,7 +295,7 @@ public class CreatePreferenza {
 
                 for (int tav = 0; tav < tavoli.size(); tav++) {
 
-                    if (tavoli.get(tav).getDisponibile() == true && t.getArraylistInvitati().size() <= tavoli.get(tav).getNumPosti()) {
+                    if (tavoli.get(tav).getDisponibile() == true && t.getArraylistInvitati().size() <= tavoli.get(tav).getPostiTot()) {
                         tavoli.get(tav).addAllGuests(t.getArraylistInvitati());
                         tavoli.get(tav).setDisponibile(false);
                         break;
@@ -326,7 +354,7 @@ public class CreatePreferenza {
         return tavol;
     }
 
-    public void smistaRestanti(Locale myLocale, Evento ev){
+    public void smistaRestanti(Locale myLocale,Evento ev){
         myLocale.setTavoli(sortaTavoli());
         myLocale.smistamentoTavoli(ev);
     }
