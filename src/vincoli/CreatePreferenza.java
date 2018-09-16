@@ -138,6 +138,7 @@ public class CreatePreferenza {
 
         generaListeVincolatiLontani();
         for (PreferenzaInvitato prefe : pref){
+            prefe.getTavoli().addAll(tavoliVincolati);
             prefe.verifica_sistemaLontani();
         }
         tavoliTot.addAll(tavoli);
