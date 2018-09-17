@@ -139,6 +139,10 @@ public class PannelloDisposizioneTavoli extends PaintedPanel {
             stampaVincoliNnRisp.append(pref+"\n\n");
         }
 
+        for (SpecificaTavolo sp : gestoreVincoliTavolo.getVincoliNonRispettabili()){
+            stampaVincoliNnRisp.append("L'invitato "+sp.getID_Inv()+" non può essere vincolato a nessun tavolo, poichè è un invitato singolo.\n\n");
+        }
+
         /*reinizializzaDb.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
