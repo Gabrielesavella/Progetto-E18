@@ -52,7 +52,7 @@ public class PreferenzaInvitato{
 
         if (daSistemare.size()==0 || lista_lontani.size()==1) {
 
-            System.out.println("Non è stato trovato nessun vincolo di lontananza per la persona " + ID_Inv + "\n");
+            //System.out.println("Non è stato trovato nessun vincolo di lontananza per la persona " + ID_Inv + "\n");
         }
 
         else {
