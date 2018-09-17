@@ -21,7 +21,7 @@ import java.awt.event.*;
 
 public class PannelloSpecificheEvento extends PaintedPanel {
 
-    public PannelloSpecificheEvento(Locale locale, Evento gestoreEvento, FinestraSpecificheEvento frame){
+    public PannelloSpecificheEvento(Locale locale, Evento gestoreEvento, SistemaDiPrenotazione sisPr, FinestraSpecificheEvento frame){
         super("images/notebook-pen-table-97076.jpg",frame);
 
         // etichette specifiche
@@ -96,7 +96,7 @@ public class PannelloSpecificheEvento extends PaintedPanel {
         add(tuploadOblig);
         add(bUploadOblig);
 
-        SistemaDiPrenotazione sisPr= new SistemaDiPrenotazione();
+//        SistemaDiPrenotazione sisPr= new SistemaDiPrenotazione();
 
         bDownload.addActionListener(new ActionListener() {
             @Override

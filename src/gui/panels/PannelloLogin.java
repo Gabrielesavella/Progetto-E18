@@ -105,7 +105,7 @@ public class PannelloLogin extends PaintedPanel {
         signUp.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                FinestraRegistrazione fr = new FinestraRegistrazione();//locali
+                FinestraRegistrazione fr = new FinestraRegistrazione(sisPr);//locali
                 //fr.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
                 fr.setVisible(true);
 
@@ -117,7 +117,7 @@ public class PannelloLogin extends PaintedPanel {
             public void actionPerformed(ActionEvent e) {
                 Cliente cliente = sisPr.login(tUsername.getText(), String.valueOf(tPassword.getPassword()));
                 if (cliente != null) {
-                    FinestraCreazioneEvento fe = new FinestraCreazioneEvento(cliente);//locali,
+                    FinestraCreazioneEvento fe = new FinestraCreazioneEvento(cliente,sisPr);
                     fe.setVisible(true);
                     frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
                 } else {

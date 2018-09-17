@@ -28,7 +28,7 @@ public class PannelloCredenzialiEvento extends PaintedPanel{
 
     ArrayList <Locale> locali;
 
-    public PannelloCredenzialiEvento(Cliente cliente, FinestraCreazioneEvento frame){
+    public PannelloCredenzialiEvento(Cliente cliente, SistemaDiPrenotazione sisPr, FinestraCreazioneEvento frame){
         super("images/TRATTORIA-PARIONE-facciata-notturna-home51.jpg",frame);//ArrayList<Locale> locali,
 
         JButton ok=new JButton("OK");
@@ -123,7 +123,7 @@ public class PannelloCredenzialiEvento extends PaintedPanel{
         add(campi);
         add(conferme,BorderLayout.SOUTH);
 
-        SistemaDiPrenotazione sisPr = new SistemaDiPrenotazione();
+        //SistemaDiPrenotazione sisPr = new SistemaDiPrenotazione();
         ok.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -149,7 +149,7 @@ public class PannelloCredenzialiEvento extends PaintedPanel{
                             try {
                                 if (sisPr.creaEvento(tNome.getText(), calendar, Integer.parseInt(tnInv.getText()), cliente, l.getId_locale())) {
                                     Evento gestoreEvento = new Evento(tNome.getText(), calendar, localeSelezionato, invitati);
-                                    FinestraSpecificheEvento fs = new FinestraSpecificheEvento(localeSelezionato, gestoreEvento);//fetchEvento
+                                    FinestraSpecificheEvento fs = new FinestraSpecificheEvento(localeSelezionato, gestoreEvento,sisPr);
                                     fs.setVisible(true);
                                     frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
                                 } else {

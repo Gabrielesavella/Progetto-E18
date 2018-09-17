@@ -16,7 +16,7 @@ import java.awt.event.WindowEvent;
 
 public class PannelloRegistrazione extends PaintedPanel {
 
-    public PannelloRegistrazione(JFrame frame){//ArrayList<Locale> locali,
+    public PannelloRegistrazione(SistemaDiPrenotazione sisPr, JFrame frame){
         super("images/alcohol-banquet-beverage-306046.jpg",frame);
 
         //bottone conferma
@@ -145,7 +145,7 @@ public class PannelloRegistrazione extends PaintedPanel {
                 if(registrationCompleted)
                     conferma.setEnabled(true);
 
-                SistemaDiPrenotazione sisPr= new SistemaDiPrenotazione();
+//                SistemaDiPrenotazione sisPr= new SistemaDiPrenotazione();
                 boolean registrazione= false;
                 try {
                     registrazione = sisPr.signUp(tNome.getText(),tCognome.getText(),tEMail.getText(),tUsername.getText(),tPassword.getText());
