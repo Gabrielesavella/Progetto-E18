@@ -191,4 +191,11 @@ public class Facade {
         connessioneDB.deleteEntry("eventi","ID_Evento",nameEvent);
     }
 
+    public ArrayList<SpecificaTavolo> getVincoloTavolo(String ID_Ev){
+       return  connessioneDB.getVincoloTavolo(ID_Ev);
+    }
+
+    public Evento getEventoSingolo(String ID_Evento){
+        return connessioneDB.getEventoSingolo(ID_Evento);
+    }
 }

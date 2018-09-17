@@ -5,8 +5,8 @@ package vincoli;
  * @author Salvatore Parisi
  */
 
-//import database.ConnessioneDB;
 import database.ConnessioneDB;
+import facade.*;
 import locale.*;
 import locale.Evento;
 import locale.Locale;
@@ -24,21 +24,17 @@ public class GestoreVincoliTavolo {
     private ArrayList<SpecificaTavolo> nessunaSpecifica, unicaSpecifica, piuSpecifiche, vincoliTav, vincoliNonRispettabili;
     private ArrayList<Invitato> invitati;
     private ArrayList<Tavolo> tavoliDisponibili;
-    private ConnessioneDB c;
     private Evento ev;
-    private Evento gestEv;
 
 
 
     public GestoreVincoliTavolo(String ID_Ev, Locale gestLoc) {
         //prelevo dal DB gli Invitati, i Tavoli e i VincoliTavolo relativi all'Evento, secondo il suo identificativo ID_Ev
-        c=new ConnessioneDB();
-        c.startConn();
-        this.vincoliTav = c.getVincoloTavolo(ID_Ev);
-        this.invitati = c.getInvitato(ID_Ev);
-        ev=c.getEventoSingolo(ID_Ev);
+
+        this.vincoliTav = Facade.getInstance().getVincoloTavolo(ID_Ev);
+        this.invitati = Facade.getInstance().getInvitato(ID_Ev);
+        ev=Facade.getInstance().getEventoSingolo(ID_Ev);
         this.tavoli= gestLoc.getTavoliLocale();
-        c.closeConn();
 
 
 
@@ -109,25 +105,6 @@ public class GestoreVincoliTavolo {
 
         //elaboro prima gli invitati con un solo vincolo
         accomodaInvitati(vincoliTav);
-
-
-        //ordino gli invitati con piÃ¹ di un vincolo per numero di vincoli ad invitato (dal minore al maggiore) e i tavoli per numero di
-        //posti liberi in ordine inverso (dal maggiore al minore): cosÃ¬ l'invitato con meno numero di vincoli (piÃ¹ difficile da piazzare
-        // rispetto a chi ne ha di piÃ¹) si vedrÃ  assegnato al tavolo con piÃ¹ posti da riempire
-//        ordinaVincoli(gesticiVincoliPlurimi(), true);
-//        Collections.sort(tavoli, Collections.reverseOrder());
-//
-//        //sistemo gli invitati con piÃ¹ di una specifica
-//        ArrayList<SpecificaTavolo> ancoraSpecifiche= accomodaInvitati(this.piuSpecifiche);
-//
-//        //Se ci sono ancora altri invitati vincolati non sistemati nei tavoli unisco i tavoli vincolati con altri tavoli dell'ArrayList tavoli
-//        //in modo da aumentare il numero di posti per tavolo e far sedere tutti gli invitati
-//        controllaInvitati();
-//        accomodaInvitati(ancoraSpecifiche);
-//
-//        //Ultimo controllo: se ci sono ancora invitati non seduti allora significa che tali vincoli non possono essere rispettati
-//        //L'algoritmo Ã¨ stato costruito in modo che questi ultimi due casi siano poco probabili
-//        lastCheck();
 
     }
 
@@ -296,13 +273,21 @@ public class GestoreVincoliTavolo {
             for (Tavolo t : tavoliDisponibili) {
                 if ((!(t.getIDTavolo().equals(entrata.getKey()))) && (t.getPostiTot() >= entrata.getValue())) {
                     mapIDChanges.put(entrata.getKey(),t.getIDTavolo());
-
                     t.setId_tavolo(newName);
                     tavoliVincolati.add(t);
                     break;
                 }
             }
+            // se non funge controllo id;
             tavoliDisponibili.removeAll(tavoliVincolati);
+
+            //creo stringa tavoli da salvare in agenda e cambio nomi
+            String stringTavVinc=new String("");
+            for (int i = 0; i < tavoliVincolati.size(); i++){
+                Tavolo t= tavoliVincolati.get(i);
+                stringTavVinc+=t.getRealID_Tav()+" ";
+            }
+            stringTavVinc=stringTavVinc.substring(0,stringTavVinc.length()-1);
 
         }
 
