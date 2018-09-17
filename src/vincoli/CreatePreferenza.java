@@ -1,5 +1,6 @@
 package vincoli;
 
+import database.ConnessioneDB;
 import facade.*;
 import locale.*;
 import persone.Invitato;
@@ -188,14 +189,16 @@ public class CreatePreferenza {
             }
         }
 
-        for (Tavolo t : insiemi) {
+        for (int k = 0; k < lista.size(); k++) {
+
+            for (Tavolo t : insiemi) {
 
             boolean bool=false;
+
             if (!(t.getArraylistInvitati()==null)){
 
-                for (Invitato i : t.getArraylistInvitati()){
 
-                    for (int k = 0; k < lista.size(); k++) {
+                for (Invitato i : t.getArraylistInvitati()){
 
                         if (lista.get(k).getID_Inv().equals(i.getID_Inv())){
 
@@ -205,7 +208,7 @@ public class CreatePreferenza {
                             break;
                         }
                     }
-                    if(bool==true){break;}
+
                 }
             }
         }
@@ -274,7 +277,7 @@ public class CreatePreferenza {
 
                     } else if ((tav + 1) == tavoli.size() && (tavoli.get(tav).getDisponibile() == false || t.getArraylistInvitati().size() > tavoli.get(tav).getNumPosti())) {
                         System.out.println("Non è possibile sistemare gli invitati:\n" + t.mostraID_Invitati() + "\nai tavoli, poichè non sono sufficientemente grandi.\n\n");
-                        preferenze_non_rispettate.add("Non è possibile sistemare gli invitati:\n" + t.mostraID_Invitati() + "\n  poichè non ci sono tavoli sufficientemente grandi da contenerli.\n\n");
+                        preferenze_non_rispettate.add("Non è possibile sistemare gli invitati:\n" + t.mostraID_Invitati() + "\nsecondo vicinanza, poichè non ci sono tavoli sufficientemente grandi da contenerli.\n\n");
                     }
 
                 }
@@ -326,7 +329,7 @@ public class CreatePreferenza {
         return tavol;
     }
 
-    public void smistaRestanti(Locale myLocale, Evento ev){
+    public void smistaRestanti(Locale myLocale,Evento ev){
         myLocale.setTavoli(sortaTavoli());
         myLocale.smistamentoTavoli(ev);
     }

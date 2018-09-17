@@ -1,12 +1,18 @@
 package tester;
 
 import database.ConnessioneDB;
+import database.DatabaseException;
+import database.DatabaseNullException;
+import facade.Facade;
 import locale.*;
 import locale.Evento;
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import persone.Invitato;
+import vincoli.CreatePreferenza;
+import vincoli.GestoreVincoliTavolo;
 //import vincoli.GestorePreferenzaInvitato;
 //import vincoli.PreferenzaInvitatoEnum;
 
@@ -18,6 +24,55 @@ public class JTest {
     private Evento e;
     private ArrayList<Tavolo> Tavoli = new ArrayList<Tavolo>();
     ConnessioneDB connetto = new ConnessioneDB();
+    Locale locale=null;
+    ArrayList<Tavolo> tavoli_finali;
+
+    @Before
+    public void testVincoli(){
+
+        try {
+            Facade.getInstance().inserisciDatiEvento("BruWay39","TesterJUnit", "13/02/2018", "Fortezza della Solitudine", 5);
+
+            Facade.getInstance().inserisciDatiInvitato("TesterJUnit", "marmaf23", "marco", "maffoni", 23);
+            Facade.getInstance().inserisciDatiInvitato("TesterJUnit", "marlec23", "marco", "lecce", 23);
+            Facade.getInstance().inserisciDatiInvitato("TesterJUnit", "gabsav24", "gabriele", "savella", 24);
+            Facade.getInstance().inserisciDatiInvitato("TesterJUnit", "salpar31", "salvatore", "parisi", 31);
+            Facade.getInstance().inserisciDatiInvitato("TesterJUnit", "feddor23", "federico", "dorigo", 23);
+
+            Facade.getInstance().inserisciVincoliTavolo("TesterJUnit", "marmaf23", 0, 0, 0, 0, 0, 0);
+            Facade.getInstance().inserisciVincoliTavolo("TesterJUnit", "marlec23", 0, 0, 0, 0, 0, 0);
+            Facade.getInstance().inserisciVincoliTavolo("TesterJUnit", "gabsav24", 0, 0, 0, 0, 0, 0);
+            Facade.getInstance().inserisciVincoliTavolo("TesterJUnit", "salpar31", 0, 0, 0, 0, 0, 0);
+            Facade.getInstance().inserisciVincoliTavolo("TesterJUnit", "feddor23", 0, 0, 0, 0, 0, 0);
+
+            Facade.getInstance().inserisciVincoloInvitati("TesterJUnit", "marmaf23", "marlec23", "gabsav24");
+            Facade.getInstance().inserisciVincoloInvitati("TesterJUnit", "marlec23", " ", " ");
+            Facade.getInstance().inserisciVincoloInvitati("TesterJUnit", "gabsav24", " ", " ");
+            Facade.getInstance().inserisciVincoloInvitati("TesterJUnit", "salpar31", " ", " ");
+            Facade.getInstance().inserisciVincoloInvitati("TesterJUnit", "feddor23", "salpar31", "gabsav24");
+
+            locale = Facade.getInstance().getLocale("Fortezza della Solitudine");
+            locale.getTavoliLocale().addAll(Facade.getInstance().getTavoli("Fortezza della Solitudine"));
+
+        } catch (DatabaseException e1) {
+            e1.printStackTrace();
+        } catch (DatabaseNullException e1) {
+            e1.printStackTrace();
+        }
+
+        //mostra tavoli e invitati vincolati
+        GestoreVincoliTavolo gestoreTavolo = new GestoreVincoliTavolo("TesterJUnit", locale);
+
+        ArrayList<Tavolo> tavoli = gestoreTavolo.getTavoliTotali();
+
+        //mostra tavoli e invitati non vincolati
+        CreatePreferenza create = new CreatePreferenza("TesterJUnit", tavoli);
+
+        create.smista();
+
+        tavoli_finali = create.getTavoliUtilizzati();
+
+    }
 
     @Before
     public  void  creazionetavoli(){
@@ -105,66 +160,11 @@ public class JTest {
         e.addInvitati(w);
         e.addInvitati(j);
         e.addInvitati(y);
-
-
-//        ArrayList<Invitato> listaVincolati  = new ArrayList<Invitato>();
-//        listaVincolati.add(b);
-//        listaVincolati.add(c);
-//        GestorePreferenzaInvitato provaVincolo = new GestorePreferenzaInvitato(a,listaVincolati,Tavoli,PreferenzaInvitatoEnum.STA_VICINO_A);
-//        provaVincolo.verificaIdoneita();
-//
-//        ArrayList<Invitato> listaVincolati2  = new ArrayList<Invitato>();
-//        listaVincolati2.add(d);
-//        GestorePreferenzaInvitato provaVincolo2 = new GestorePreferenzaInvitato(f,listaVincolati2,Tavoli,PreferenzaInvitatoEnum.NON_STA_VICINO_A);
-//        provaVincolo2.verificaIdoneita();
-//
-//        ArrayList<Invitato> listaVincolati3  = new ArrayList<Invitato>();
-//        listaVincolati3.add(d);
-//        listaVincolati3.add(f);
-//        GestorePreferenzaInvitato provaVincolo3 = new GestorePreferenzaInvitato(g,listaVincolati3,Tavoli,PreferenzaInvitatoEnum.NON_STA_VICINO_A);
-//        provaVincolo3.verificaIdoneita();
-
-
-        /*ArrayList<Invitato> listaVincolati2  = new ArrayList<Invitato>();
-        ArrayList<Invitato> listaVincolati3  = new ArrayList<Invitato>();
-        ArrayList<Invitato> listaVincolati4  = new ArrayList<Invitato>();
-
-
-        listaVincolati.add(d);
-        listaVincolati.add(f);
-        listaVincolati.add(p);
-        listaVincolati.add(q);
-
-        listaVincolati2.add(g);
-
-        listaVincolati3.add(h);
-        listaVincolati3.add(l);
-        listaVincolati3.add(m);
-        listaVincolati3.add(n);*/
-
-
-        /*listaVincolati4.add(h);
-        listaVincolati4.add(l);
-        listaVincolati4.add(z);
-        listaVincolati4.add(r);
-        listaVincolati4.add(s);
-        listaVincolati4.add(u);
-        listaVincolati4.add(v);*/
-
-        //GestorePreferenzaInvitato provaVincolo = new GestorePreferenzaInvitato(a,listaVincolati,e,PreferenzaInvitatoEnum.STA_VICINO_A);
-        //GestorePreferenzaInvitato provaVincolo2 = new GestorePreferenzaInvitato(b,listaVincolati2,e,PreferenzaInvitatoEnum.STA_VICINO_A);
-        //GestorePreferenzaInvitato provaVincolo3 = new GestorePreferenzaInvitato(i,listaVincolati3,e,PreferenzaInvitatoEnum.NON_STA_VICINO_A);
-        //GestorePreferenzaInvitato provaVincolo4 = new GestorePreferenzaInvitato(o,listaVincolati4,e,PreferenzaInvitatoEnum.NON_STA_VICINO_A);
-        //System.out.println(e.getName());
-        //System.out.println( e.getLocation().smistamentoTavoli(e));
-
-
     }
 
 
-
     @Test
-    public void Provatavoli() {
+    public void ProvaTavoli() {
 
         Assert.assertEquals(6,e.getLocation().getNPostiTavolo("tav1"));
         Assert.assertEquals(4,e.getLocation().getNPostiTavolo("tav2"));
@@ -176,26 +176,6 @@ public class JTest {
     }
 
     @Test
-    public void ProvaTavoliPieni(){
-        e.getLocation().smistamentoTavoli(e);
-
-        Assert.assertEquals(6, Tavoli.get(0).getArraylistInvitati().size());
-        Assert.assertEquals(4, Tavoli.get(1).getArraylistInvitati().size());
-        Assert.assertEquals(8, Tavoli.get(2).getArraylistInvitati().size());
-        Assert.assertEquals(1, Tavoli.get(3).getArraylistInvitati().size());
-        Assert.assertEquals(0, Tavoli.get(4).getArraylistInvitati().size());
-        Assert.assertEquals(0, Tavoli.get(5).getArraylistInvitati().size());
-
-    }
-
-    @Test
-    public void ProvaPreferenzaVicini(){
-        Assert.assertEquals(4, Tavoli.get(0).getArraylistInvitati().size());
-        Assert.assertEquals(1, Tavoli.get(1).getArraylistInvitati().size());
-        Assert.assertEquals(1, Tavoli.get(2).getArraylistInvitati().size());
-    }
-
-    @Test
     public void ProvaDB(){
         connetto.startConn();
         Assert.assertEquals(true,connetto.checkConn());
@@ -203,5 +183,17 @@ public class JTest {
         Assert.assertEquals(false,connetto.checkConn());
     }
 
+    @Test
+    public void ProvaVincoli(){
+        Assert.assertEquals(2, tavoli_finali.get(0).getArraylistInvitati().size());
+        Assert.assertEquals(2, tavoli_finali.get(1).getArraylistInvitati().size());
+        Assert.assertEquals(1, tavoli_finali.get(2).getArraylistInvitati().size());
+    }
+
+    @After
+    public void deleteDatabase(){
+        Facade.getInstance().removeVincoliOnly(Facade.getInstance().getEvento("TesterJUnit"));
+        Facade.getInstance().deleteEvento("TesterJUnit");
+    }
 
 }
